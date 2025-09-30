@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Snowfall from '@/components/Snowfall';
 import Header from '@/components/Header';
-import DecorativeElements from '@/components/DecorativeElements';
 import HeroSection from '@/components/HeroSection';
 import ProductCatalog, { Product } from '@/components/ProductCatalog';
 import AboutSection from '@/components/AboutSection';
@@ -74,7 +73,6 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-green-50 to-yellow-50 relative overflow-hidden">
       <Snowfall />
-      <DecorativeElements />
       <Header />
       <HeroSection 
         countdown={countdown} 
