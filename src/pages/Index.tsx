@@ -74,17 +74,13 @@ export default function Index() {
                 NEW YEAR GIFTS STORE
               </h1>
             </div>
-            <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center gap-6">
               <a href="#home" className="text-foreground hover:text-primary transition-colors font-medium">Главная</a>
               <a href="#catalog" className="text-foreground hover:text-primary transition-colors font-medium">Ассортимент</a>
               <a href="#about" className="text-foreground hover:text-primary transition-colors font-medium">О нас</a>
               <a href="#reviews" className="text-foreground hover:text-primary transition-colors font-medium">Отзывы</a>
               <a href="#contacts" className="text-foreground hover:text-primary transition-colors font-medium">Контакты</a>
             </div>
-            <Button className="bg-gradient-to-r from-primary to-red-700 hover:opacity-90 transition-opacity">
-              <Icon name="ShoppingCart" size={20} className="mr-2" />
-              Корзина
-            </Button>
           </div>
         </nav>
       </header>
@@ -268,12 +264,8 @@ export default function Index() {
                         <Badge variant="outline" className="mb-2 border-primary text-primary font-semibold">{product.category}</Badge>
                         <h3 className="font-bold text-lg mb-2 line-clamp-2">{product.name}</h3>
                         <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{product.description}</p>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-center">
                           <span className="text-2xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent">{product.price} ₽</span>
-                          <Button size="sm" className="bg-gradient-to-r from-primary to-red-700 hover:shadow-lg hover:scale-105 transition-all">
-                            <Icon name="ShoppingCart" size={16} className="mr-1" />
-                            Купить
-                          </Button>
                         </div>
                       </div>
                     </CardContent>
