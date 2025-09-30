@@ -75,8 +75,29 @@ export default function Index() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-green-50 to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-green-50 to-yellow-50 relative overflow-hidden">
       <Snowfall />
+      
+      {/* Праздничные декорации */}
+      <div className="fixed inset-0 pointer-events-none z-10">
+        {/* Ёлочки по углам */}
+        <div className="absolute top-20 left-4 text-6xl animate-bounce" style={{animationDuration: '3s'}}>🎄</div>
+        <div className="absolute top-20 right-4 text-6xl animate-bounce" style={{animationDuration: '3.5s'}}>🎄</div>
+        <div className="absolute bottom-20 left-8 text-5xl animate-bounce" style={{animationDuration: '4s'}}>🎄</div>
+        <div className="absolute bottom-20 right-8 text-5xl animate-bounce" style={{animationDuration: '3.2s'}}>🎄</div>
+        
+        {/* Игрушки */}
+        <div className="absolute top-40 left-16 text-4xl animate-spin" style={{animationDuration: '8s'}}>🎁</div>
+        <div className="absolute top-60 right-20 text-4xl animate-spin" style={{animationDuration: '10s'}}>🎀</div>
+        <div className="absolute top-96 left-24 text-3xl animate-pulse" style={{animationDuration: '2s'}}>⛄</div>
+        <div className="absolute top-[500px] right-12 text-3xl animate-pulse" style={{animationDuration: '2.5s'}}>🔔</div>
+        <div className="absolute bottom-40 left-32 text-4xl animate-bounce" style={{animationDuration: '3.8s'}}>🎅</div>
+        <div className="absolute bottom-32 right-24 text-4xl animate-bounce" style={{animationDuration: '4.2s'}}>⭐</div>
+        
+        {/* Праздничные ленты */}
+        <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-r from-red-500 via-green-500 to-red-500 opacity-20"></div>
+        <div className="absolute top-8 left-0 w-full h-4 bg-gradient-to-r from-yellow-400 via-red-400 to-green-400 opacity-30"></div>
+      </div>
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary/20 shadow-lg">
         <div className="bg-gradient-to-r from-primary to-red-700 text-white py-2">
           <div className="container mx-auto px-4 flex items-center justify-between text-sm">
@@ -496,27 +517,33 @@ export default function Index() {
 
           <Card>
             <CardContent className="p-6">
-              <h3 className="text-2xl font-bold mb-6">Карта магазинов</h3>
-              <div className="relative bg-muted rounded-lg h-[400px] overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100">
-                  <svg className="w-full h-full" viewBox="0 0 400 400">
-                    <circle cx="200" cy="180" r="8" fill="#dc2626" className="animate-pulse" />
-                    <text x="200" y="195" textAnchor="middle" className="text-xs font-bold" fill="#dc2626">Москва (Центр)</text>
-                    
-                    <circle cx="180" cy="140" r="8" fill="#dc2626" className="animate-pulse" />
-                    <text x="180" y="130" textAnchor="middle" className="text-xs font-bold" fill="#dc2626">Авиапарк</text>
-                    
-                    <circle cx="220" cy="100" r="8" fill="#dc2626" className="animate-pulse" />
-                    <text x="220" y="90" textAnchor="middle" className="text-xs font-bold" fill="#dc2626">СПб</text>
-                    
-                    <circle cx="280" cy="200" r="8" fill="#dc2626" className="animate-pulse" />
-                    <text x="280" y="215" textAnchor="middle" className="text-xs font-bold" fill="#dc2626">Казань</text>
-                  </svg>
+              <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <Icon name="Map" size={28} className="text-primary" />
+                Главный офис на карте
+              </h3>
+              <div className="relative bg-muted rounded-lg h-[400px] overflow-hidden border-2 border-primary/20">
+                <iframe 
+                  src="https://yandex.ru/map-widget/v1/?um=constructor%3A64c0a8f8c8c3e8e9a8c3e8e9a8c3e8e9&amp;source=constructor" 
+                  width="100%" 
+                  height="400" 
+                  frameBorder="0"
+                  className="rounded-lg"
+                  title="Карта главного офиса"
+                ></iframe>
+              </div>
+              <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                <div className="flex items-start gap-3">
+                  <Icon name="MapPin" size={24} className="text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Главный офис</h4>
+                    <p className="text-muted-foreground mb-1">г. Москва, ул. Тверская, д. 12, офис 301</p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2">
+                      <Icon name="Clock" size={16} />
+                      Пн-Пт: 9:00-20:00, Сб-Вс: 10:00-18:00
+                    </p>
+                  </div>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground mt-4 text-center">
-                📍 Нажмите на точку на карте, чтобы узнать подробности о магазине
-              </p>
             </CardContent>
           </Card>
         </div>
