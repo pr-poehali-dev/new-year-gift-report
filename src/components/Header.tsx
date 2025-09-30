@@ -12,8 +12,9 @@ export default function Header() {
               <span className="font-semibold">+7 (912) 345-67-89</span>
             </a>
             <div className="flex items-center gap-3">
-              <a href="https://wa.me/79123456789" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+              <a href="https://wa.me/79123456789" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity flex items-center gap-1">
                 <Icon name="MessageCircle" size={18} />
+                <span className="font-semibold">WhatsApp</span>
               </a>
               <a href="https://t.me/chebpodarki" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
                 <Icon name="Send" size={18} />
