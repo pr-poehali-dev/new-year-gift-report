@@ -10,9 +10,11 @@ interface Countdown {
 
 interface HeroSectionProps {
   countdown: Countdown;
+  onOpenCatalog: () => void;
+  onOpenComposition: () => void;
 }
 
-export default function HeroSection({ countdown }: HeroSectionProps) {
+export default function HeroSection({ countdown, onOpenCatalog, onOpenComposition }: HeroSectionProps) {
   return (
     <section id="home" className="relative overflow-hidden">
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-red-200/30">
@@ -36,18 +38,20 @@ export default function HeroSection({ countdown }: HeroSectionProps) {
             🎄 Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков 🎁
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <a href="/catalog.pdf" download="Каталог_Чеб_Подарки.pdf">
-              <button className="bg-gradient-to-r from-primary to-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2">
-                <Icon name="Download" size={24} />
-                Скачать каталог
-              </button>
-            </a>
-            <a href="/composition.pdf" download="Состав_подарков.pdf">
-              <button className="bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2">
-                <Icon name="FileText" size={24} />
-                Состав подарков
-              </button>
-            </a>
+            <button 
+              onClick={onOpenCatalog}
+              className="bg-gradient-to-r from-primary to-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2"
+            >
+              <Icon name="BookOpen" size={24} />
+              Каталог подарков
+            </button>
+            <button 
+              onClick={onOpenComposition}
+              className="bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2"
+            >
+              <Icon name="FileText" size={24} />
+              Состав подарков
+            </button>
           </div>
         </div>
 

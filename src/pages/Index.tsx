@@ -9,6 +9,7 @@ import CallbackForm from '@/components/CallbackForm';
 import ReviewsSection from '@/components/ReviewsSection';
 import ContactsSection from '@/components/ContactsSection';
 import Footer from '@/components/Footer';
+import CatalogModal from '@/components/CatalogModal';
 
 const categories = ['Все', 'Для детей', 'Для женщин', 'Для мужчин', 'Для дома', 'Сладости'];
 
@@ -29,6 +30,8 @@ export default function Index() {
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [catalogModalOpen, setCatalogModalOpen] = useState(false);
+  const [compositionModalOpen, setCompositionModalOpen] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,7 +76,11 @@ export default function Index() {
       <Snowfall />
       <DecorativeElements />
       <Header />
-      <HeroSection countdown={countdown} />
+      <HeroSection 
+        countdown={countdown} 
+        onOpenCatalog={() => setCatalogModalOpen(true)}
+        onOpenComposition={() => setCompositionModalOpen(true)}
+      />
       <ProductCatalog
         products={products}
         categories={categories}
@@ -93,6 +100,17 @@ export default function Index() {
       <ReviewsSection />
       <ContactsSection />
       <Footer />
+      
+      <CatalogModal 
+        open={catalogModalOpen} 
+        onOpenChange={setCatalogModalOpen}
+        type="catalog"
+      />
+      <CatalogModal 
+        open={compositionModalOpen} 
+        onOpenChange={setCompositionModalOpen}
+        type="composition"
+      />
     </div>
   );
 }
