@@ -37,38 +37,41 @@ export default function HeroSection({ countdown }: HeroSectionProps) {
           </p>
         </div>
 
-        <div className="relative bg-gradient-to-br from-primary via-red-600 to-red-700 rounded-3xl p-10 text-white shadow-2xl mb-16 animate-scale-in overflow-hidden">
+        <div className="relative bg-gradient-to-br from-primary via-red-600 to-red-700 rounded-3xl p-12 text-white shadow-2xl mb-16 animate-scale-in overflow-hidden border-4 border-yellow-400">
           <div className="absolute inset-0 opacity-10">
             <img src="/img/1ece02ee-45aa-45eb-80d5-19b4d7d75a4a.jpg" alt="gifts" className="w-full h-full object-cover" />
           </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-transparent to-yellow-400/10 animate-pulse"></div>
           <div className="relative z-10 text-center">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <Icon name="Clock" size={40} className="animate-pulse" />
-              <h3 className="text-3xl md:text-4xl font-black">⏰ До Нового Года осталось</h3>
-              <Icon name="Clock" size={40} className="animate-pulse" />
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <Icon name="Clock" size={48} className="animate-pulse text-yellow-300" />
+              <h3 className="text-4xl md:text-5xl font-black drop-shadow-2xl">⏰ До Нового Года осталось</h3>
+              <Icon name="Clock" size={48} className="animate-pulse text-yellow-300" />
             </div>
-            <div className="flex justify-center gap-4 md:gap-8 flex-wrap">
-              <div className="bg-white/20 backdrop-blur rounded-2xl p-6 min-w-[120px] hover:scale-110 transition-transform">
-                <div className="text-6xl md:text-7xl font-black mb-2">{countdown.days}</div>
-                <div className="text-base md:text-lg uppercase tracking-wide font-bold">дней</div>
+            <div className="flex justify-center gap-4 md:gap-8 flex-wrap mb-8">
+              <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 min-w-[140px] hover:scale-110 transition-all shadow-2xl border-2 border-yellow-300/50">
+                <div className="text-7xl md:text-8xl font-black mb-2 text-yellow-300 drop-shadow-lg">{countdown.days}</div>
+                <div className="text-lg md:text-xl uppercase tracking-wide font-bold">дней</div>
               </div>
-              <div className="hidden md:flex items-center text-6xl font-black">:</div>
-              <div className="bg-white/20 backdrop-blur rounded-2xl p-6 min-w-[120px] hover:scale-110 transition-transform">
-                <div className="text-6xl md:text-7xl font-black mb-2">{countdown.hours}</div>
-                <div className="text-base md:text-lg uppercase tracking-wide font-bold">часов</div>
+              <div className="hidden md:flex items-center text-7xl font-black text-yellow-300">:</div>
+              <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 min-w-[140px] hover:scale-110 transition-all shadow-2xl border-2 border-yellow-300/50">
+                <div className="text-7xl md:text-8xl font-black mb-2 text-yellow-300 drop-shadow-lg">{countdown.hours}</div>
+                <div className="text-lg md:text-xl uppercase tracking-wide font-bold">часов</div>
               </div>
-              <div className="hidden md:flex items-center text-6xl font-black">:</div>
-              <div className="bg-white/20 backdrop-blur rounded-2xl p-6 min-w-[120px] hover:scale-110 transition-transform">
-                <div className="text-6xl md:text-7xl font-black mb-2">{countdown.minutes}</div>
-                <div className="text-base md:text-lg uppercase tracking-wide font-bold">минут</div>
+              <div className="hidden md:flex items-center text-7xl font-black text-yellow-300">:</div>
+              <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 min-w-[140px] hover:scale-110 transition-all shadow-2xl border-2 border-yellow-300/50">
+                <div className="text-7xl md:text-8xl font-black mb-2 text-yellow-300 drop-shadow-lg">{countdown.minutes}</div>
+                <div className="text-lg md:text-xl uppercase tracking-wide font-bold">минут</div>
               </div>
-              <div className="hidden md:flex items-center text-6xl font-black">:</div>
-              <div className="bg-white/20 backdrop-blur rounded-2xl p-6 min-w-[120px] hover:scale-110 transition-transform">
-                <div className="text-6xl md:text-7xl font-black mb-2">{countdown.seconds}</div>
-                <div className="text-base md:text-lg uppercase tracking-wide font-bold">секунд</div>
+              <div className="hidden md:flex items-center text-7xl font-black text-yellow-300">:</div>
+              <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 min-w-[140px] hover:scale-110 transition-all shadow-2xl border-2 border-yellow-300/50">
+                <div className="text-7xl md:text-8xl font-black mb-2 text-yellow-300 drop-shadow-lg">{countdown.seconds}</div>
+                <div className="text-lg md:text-xl uppercase tracking-wide font-bold">секунд</div>
               </div>
             </div>
-            <p className="text-xl md:text-2xl font-bold mt-8 animate-pulse">🎅 Успейте оформить заказ и получите подарочную упаковку БЕСПЛАТНО! 🎁</p>
+            <div className="bg-yellow-400 text-red-700 rounded-2xl p-6 shadow-2xl">
+              <p className="text-2xl md:text-3xl font-black animate-pulse">🎅 Успейте оформить заказ и получите подарочную упаковку БЕСПЛАТНО! 🎁</p>
+            </div>
           </div>
         </div>
 
