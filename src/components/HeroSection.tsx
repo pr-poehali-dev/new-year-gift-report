@@ -27,12 +27,22 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
       
       <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-16 relative z-10">
         <div className="text-center mb-8 sm:mb-12 animate-fade-in">
-          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6">
-            <Icon name="Sparkles" size={32} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
-            <h2 className="text-3xl sm:text-5xl md:text-7xl font-black bg-gradient-to-r from-primary via-secondary to-red-700 bg-clip-text text-transparent drop-shadow-lg">
-              Волшебные подарки к Новому Году
-            </h2>
-            <Icon name="Sparkles" size={32} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
+          <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 mb-4 sm:mb-6">
+            <div className="relative group">
+              <div className="absolute inset-0 blur-xl opacity-50 animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-green-500 rounded-full"></div>
+              <img 
+                src="https://cdn.poehali.dev/files/e469c81e-5680-4741-876b-b550a4c2579c.png" 
+                alt="ЧеБ подарки" 
+                className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-300 animate-float"
+              />
+            </div>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Icon name="Sparkles" size={32} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
+              <h2 className="text-3xl sm:text-5xl md:text-7xl font-black bg-gradient-to-r from-primary via-secondary to-red-700 bg-clip-text text-transparent drop-shadow-lg">
+                Волшебные подарки к Новому Году
+              </h2>
+              <Icon name="Sparkles" size={32} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
+            </div>
           </div>
           <p className="text-base sm:text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
             🎄 Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков 🎁

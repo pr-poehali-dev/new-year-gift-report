@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import Snowfall from '@/components/Snowfall';
 import Header from '@/components/Header';
-import AnimatedLogo from '@/components/AnimatedLogo';
 import HeroSection from '@/components/HeroSection';
 import ProductCatalog, { Product } from '@/components/ProductCatalog';
 import AboutSection from '@/components/AboutSection';
@@ -75,7 +74,6 @@ export default function Index() {
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-green-50 to-yellow-50 relative overflow-hidden">
       <Snowfall />
       <Header />
-      <AnimatedLogo />
       <HeroSection 
         countdown={countdown} 
         onOpenCatalog={() => setCatalogModalOpen(true)}
