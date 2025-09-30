@@ -63,9 +63,9 @@ export default function Index() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-green-50">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-green-50 to-yellow-50">
       <Snowfall />
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-green-200 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary/20 shadow-lg">
         <div className="bg-gradient-to-r from-primary to-red-700 text-white py-2">
           <div className="container mx-auto px-4 flex items-center justify-between text-sm">
             <div className="flex items-center gap-6">
@@ -113,11 +113,11 @@ export default function Index() {
       </header>
 
       <section id="home" className="relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-red-200/30">
           <img 
             src="/img/fb9dad36-b0a4-4017-8c17-a92a8ae860ba.jpg" 
             alt="Christmas background"
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover opacity-30 mix-blend-overlay"
           />
         </div>
         
@@ -171,40 +171,40 @@ export default function Index() {
           </div>
 
           <div className="grid md:grid-cols-4 gap-6 mb-16">
-            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20">
+            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-gradient-to-br from-white via-yellow-50 to-white">
               <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Icon name="Gift" size={48} className="text-white" />
                 </div>
                 <h3 className="font-black text-xl mb-2">🎁 Более 1000 подарков</h3>
-                <p className="text-sm text-muted-foreground font-medium">Огромный выбор для всей семьи</p>
+                <p className="text-sm text-foreground font-medium">Огромный выбор для всей семьи</p>
               </CardContent>
             </Card>
-            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20">
+            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-gradient-to-br from-white via-green-50 to-white">
               <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Icon name="Truck" size={48} className="text-white" />
                 </div>
                 <h3 className="font-black text-xl mb-2">🚚 Быстрая доставка</h3>
-                <p className="text-sm text-muted-foreground font-medium">До 31 декабря гарантированно</p>
+                <p className="text-sm text-foreground font-medium">До 31 декабря гарантированно</p>
               </CardContent>
             </Card>
-            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20">
+            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-gradient-to-br from-white via-red-50 to-white">
               <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Icon name="Package" size={48} className="text-white" />
                 </div>
                 <h3 className="font-black text-xl mb-2">📦 Подарочная упаковка</h3>
-                <p className="text-sm text-muted-foreground font-medium">Красиво упакуем бесплатно</p>
+                <p className="text-sm text-foreground font-medium">Красиво упакуем бесплатно</p>
               </CardContent>
             </Card>
-            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20">
+            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-gradient-to-br from-white via-yellow-50 to-white">
               <CardContent className="p-8 text-center">
-                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Icon name="Shield" size={48} className="text-white" />
                 </div>
                 <h3 className="font-black text-xl mb-2">✨ Гарантия качества</h3>
-                <p className="text-sm text-muted-foreground font-medium">Только проверенные бренды</p>
+                <p className="text-sm text-foreground font-medium">Только проверенные бренды</p>
               </CardContent>
             </Card>
           </div>
@@ -212,7 +212,7 @@ export default function Index() {
       </section>
 
       <section id="catalog" className="container mx-auto px-4 py-16">
-        <div className="bg-gradient-to-br from-primary/5 via-secondary/5 to-red-50 rounded-3xl p-8 shadow-xl">
+        <div className="bg-gradient-to-br from-red-100 via-yellow-50 to-green-100 rounded-3xl p-8 shadow-2xl border-2 border-primary/20">
           <h2 className="text-5xl font-black text-center mb-4 flex items-center justify-center gap-3">
             <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
             <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-transparent">Наш Ассортимент</span>
@@ -222,7 +222,7 @@ export default function Index() {
 
           <div className="grid lg:grid-cols-4 gap-8">
             <aside className="lg:col-span-1">
-              <Card className="sticky top-24 shadow-lg border-2 border-primary/10">
+              <Card className="sticky top-24 shadow-2xl border-2 border-primary/20 bg-gradient-to-br from-white to-yellow-50">
                 <CardContent className="p-6">
                   <h3 className="font-black text-xl mb-4 flex items-center gap-2">
                     <Icon name="Filter" size={24} className="text-primary" />
@@ -263,7 +263,7 @@ export default function Index() {
             <div className="lg:col-span-3">
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredProducts.map(product => (
-                  <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+                  <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-primary/20 hover:border-primary/50 bg-gradient-to-br from-white to-red-50">
                     <CardContent className="p-0">
                       <div className="relative overflow-hidden rounded-t-lg bg-muted h-48">
                         <img 
@@ -296,7 +296,7 @@ export default function Index() {
 
       <section id="about" className="container mx-auto px-4 py-16">
         <div className="max-w-5xl mx-auto">
-          <Card className="bg-gradient-to-br from-white via-green-50 to-red-50 border-2 border-primary/20 shadow-2xl">
+          <Card className="bg-gradient-to-br from-red-100 via-yellow-50 to-green-100 border-2 border-primary/30 shadow-2xl">
             <CardContent className="p-12">
               <div className="text-center mb-8">
                 <h2 className="text-5xl font-black mb-6 flex items-center justify-center gap-3">
@@ -337,7 +337,7 @@ export default function Index() {
       </section>
 
       <section id="reviews" className="container mx-auto px-4 py-16">
-        <div className="bg-gradient-to-br from-secondary/10 via-yellow-50 to-white rounded-3xl p-8 shadow-xl">
+        <div className="bg-gradient-to-br from-yellow-100 via-green-50 to-red-100 rounded-3xl p-8 shadow-2xl border-2 border-primary/20">
           <h2 className="text-5xl font-black text-center mb-4 flex items-center justify-center gap-3">
             <Icon name="MessageCircle" size={48} className="text-primary" />
             <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-transparent">Отзывы наших клиентов</span>
