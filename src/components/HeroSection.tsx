@@ -32,9 +32,23 @@ export default function HeroSection({ countdown }: HeroSectionProps) {
             </h2>
             <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
           </div>
-          <p className="text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto mb-8">
             🎄 Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков 🎁
           </p>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
+            <a href="/catalog.pdf" download="Каталог_Чеб_Подарки.pdf">
+              <button className="bg-gradient-to-r from-primary to-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2">
+                <Icon name="Download" size={24} />
+                Скачать каталог
+              </button>
+            </a>
+            <a href="/composition.pdf" download="Состав_подарков.pdf">
+              <button className="bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2">
+                <Icon name="FileText" size={24} />
+                Состав подарков
+              </button>
+            </a>
+          </div>
         </div>
 
         <div className="relative bg-gradient-to-br from-primary via-red-600 to-red-700 rounded-3xl p-12 text-white shadow-2xl mb-16 animate-scale-in overflow-hidden border-4 border-yellow-400">
