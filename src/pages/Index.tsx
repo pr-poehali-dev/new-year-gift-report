@@ -85,10 +85,12 @@ export default function Index() {
                 </a>
               </div>
             </div>
-            <Button size="sm" variant="secondary" className="font-semibold">
-              <Icon name="Download" size={16} className="mr-2" />
-              Скачать каталог
-            </Button>
+            <a href="/catalog.pdf" download="Каталог_Чеб_Подарки.pdf">
+              <Button size="sm" variant="secondary" className="font-semibold">
+                <Icon name="Download" size={16} className="mr-2" />
+                Скачать каталог
+              </Button>
+            </a>
           </div>
         </div>
         <nav className="container mx-auto px-4 py-4">
