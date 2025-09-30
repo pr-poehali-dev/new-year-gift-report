@@ -33,8 +33,15 @@ export default function Header() {
       </div>
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Icon name="Gift" size={32} className="text-primary" />
+          <div className="flex items-center gap-3">
+            <div className="relative w-12 h-12 animate-bounce" style={{animationDuration: '2s'}}>
+              <img 
+                src="https://cdn.poehali.dev/files/14d570ca-89a2-4c95-b32a-9cde0aff7ba9.png" 
+                alt="Чеб Подарки"
+                className="w-full h-full object-contain animate-pulse"
+                style={{animationDuration: '3s'}}
+              />
+            </div>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Чеб Подарки
             </h1>
