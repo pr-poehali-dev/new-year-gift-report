@@ -87,75 +87,112 @@ export default function Index() {
         </nav>
       </header>
 
-      <section id="home" className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12 animate-fade-in">
-          <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent">
-            Волшебные подарки к Новому Году
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков
-          </p>
+      <section id="home" className="relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/img/fb9dad36-b0a4-4017-8c17-a92a8ae860ba.jpg" 
+            alt="Christmas background"
+            className="w-full h-full object-cover opacity-20"
+          />
         </div>
-
-        <div className="bg-gradient-to-r from-primary to-red-700 rounded-2xl p-8 text-white shadow-2xl mb-16 animate-scale-in">
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Icon name="Clock" size={32} />
-              <h3 className="text-2xl font-bold">До Нового Года осталось</h3>
+        
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          <div className="text-center mb-12 animate-fade-in">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
+              <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-primary via-secondary to-red-700 bg-clip-text text-transparent drop-shadow-lg">
+                Волшебные подарки к Новому Году
+              </h2>
+              <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
             </div>
-            <div className="flex justify-center gap-6 flex-wrap">
-              <div className="text-center">
-                <div className="text-5xl font-black mb-2">{countdown.days}</div>
-                <div className="text-sm uppercase tracking-wide">дней</div>
-              </div>
-              <div className="text-5xl font-black">:</div>
-              <div className="text-center">
-                <div className="text-5xl font-black mb-2">{countdown.hours}</div>
-                <div className="text-sm uppercase tracking-wide">часов</div>
-              </div>
-              <div className="text-5xl font-black">:</div>
-              <div className="text-center">
-                <div className="text-5xl font-black mb-2">{countdown.minutes}</div>
-                <div className="text-sm uppercase tracking-wide">минут</div>
-              </div>
-              <div className="text-5xl font-black">:</div>
-              <div className="text-center">
-                <div className="text-5xl font-black mb-2">{countdown.seconds}</div>
-                <div className="text-sm uppercase tracking-wide">секунд</div>
-              </div>
+            <p className="text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto mb-8">
+              🎄 Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков 🎁
+            </p>
+            <div className="flex justify-center gap-4">
+              <Button size="lg" className="bg-gradient-to-r from-secondary to-yellow-500 hover:opacity-90 text-lg px-8 py-6 shadow-xl">
+                <Icon name="Gift" size={24} className="mr-2" />
+                Выбрать подарок
+              </Button>
+              <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-2 border-primary hover:bg-primary/10">
+                <Icon name="Sparkles" size={24} className="mr-2" />
+                Акции
+              </Button>
             </div>
           </div>
-        </div>
 
-        <div className="grid md:grid-cols-4 gap-6 mb-16">
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              <Icon name="Gift" size={48} className="mx-auto mb-4 text-primary" />
-              <h3 className="font-bold text-lg mb-2">Более 1000 подарков</h3>
-              <p className="text-sm text-muted-foreground">Огромный выбор для всей семьи</p>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              <Icon name="Truck" size={48} className="mx-auto mb-4 text-primary" />
-              <h3 className="font-bold text-lg mb-2">Быстрая доставка</h3>
-              <p className="text-sm text-muted-foreground">До 31 декабря гарантированно</p>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              <Icon name="Package" size={48} className="mx-auto mb-4 text-primary" />
-              <h3 className="font-bold text-lg mb-2">Подарочная упаковка</h3>
-              <p className="text-sm text-muted-foreground">Красиво упакуем бесплатно</p>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-6 text-center">
-              <Icon name="Shield" size={48} className="mx-auto mb-4 text-primary" />
-              <h3 className="font-bold text-lg mb-2">Гарантия качества</h3>
-              <p className="text-sm text-muted-foreground">Только проверенные бренды</p>
-            </CardContent>
-          </Card>
+          <div className="relative bg-gradient-to-br from-primary via-red-600 to-red-700 rounded-3xl p-10 text-white shadow-2xl mb-16 animate-scale-in overflow-hidden">
+            <div className="absolute inset-0 opacity-10">
+              <img src="/img/1ece02ee-45aa-45eb-80d5-19b4d7d75a4a.jpg" alt="gifts" className="w-full h-full object-cover" />
+            </div>
+            <div className="relative z-10 text-center">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <Icon name="Clock" size={40} className="animate-pulse" />
+                <h3 className="text-3xl md:text-4xl font-black">⏰ До Нового Года осталось</h3>
+                <Icon name="Clock" size={40} className="animate-pulse" />
+              </div>
+              <div className="flex justify-center gap-4 md:gap-8 flex-wrap">
+                <div className="bg-white/20 backdrop-blur rounded-2xl p-6 min-w-[120px] hover:scale-110 transition-transform">
+                  <div className="text-6xl md:text-7xl font-black mb-2">{countdown.days}</div>
+                  <div className="text-base md:text-lg uppercase tracking-wide font-bold">дней</div>
+                </div>
+                <div className="hidden md:flex items-center text-6xl font-black">:</div>
+                <div className="bg-white/20 backdrop-blur rounded-2xl p-6 min-w-[120px] hover:scale-110 transition-transform">
+                  <div className="text-6xl md:text-7xl font-black mb-2">{countdown.hours}</div>
+                  <div className="text-base md:text-lg uppercase tracking-wide font-bold">часов</div>
+                </div>
+                <div className="hidden md:flex items-center text-6xl font-black">:</div>
+                <div className="bg-white/20 backdrop-blur rounded-2xl p-6 min-w-[120px] hover:scale-110 transition-transform">
+                  <div className="text-6xl md:text-7xl font-black mb-2">{countdown.minutes}</div>
+                  <div className="text-base md:text-lg uppercase tracking-wide font-bold">минут</div>
+                </div>
+                <div className="hidden md:flex items-center text-6xl font-black">:</div>
+                <div className="bg-white/20 backdrop-blur rounded-2xl p-6 min-w-[120px] hover:scale-110 transition-transform">
+                  <div className="text-6xl md:text-7xl font-black mb-2">{countdown.seconds}</div>
+                  <div className="text-base md:text-lg uppercase tracking-wide font-bold">секунд</div>
+                </div>
+              </div>
+              <p className="text-xl md:text-2xl font-bold mt-8 animate-pulse">🎅 Успейте оформить заказ и получите подарочную упаковку БЕСПЛАТНО! 🎁</p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6 mb-16">
+            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                  <Icon name="Gift" size={48} className="text-white" />
+                </div>
+                <h3 className="font-black text-xl mb-2">🎁 Более 1000 подарков</h3>
+                <p className="text-sm text-muted-foreground font-medium">Огромный выбор для всей семьи</p>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                  <Icon name="Truck" size={48} className="text-white" />
+                </div>
+                <h3 className="font-black text-xl mb-2">🚚 Быстрая доставка</h3>
+                <p className="text-sm text-muted-foreground font-medium">До 31 декабря гарантированно</p>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                  <Icon name="Package" size={48} className="text-white" />
+                </div>
+                <h3 className="font-black text-xl mb-2">📦 Подарочная упаковка</h3>
+                <p className="text-sm text-muted-foreground font-medium">Красиво упакуем бесплатно</p>
+              </CardContent>
+            </Card>
+            <Card className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20">
+              <CardContent className="p-8 text-center">
+                <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                  <Icon name="Shield" size={48} className="text-white" />
+                </div>
+                <h3 className="font-black text-xl mb-2">✨ Гарантия качества</h3>
+                <p className="text-sm text-muted-foreground font-medium">Только проверенные бренды</p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -290,22 +327,111 @@ export default function Index() {
       </section>
 
       <section id="contacts" className="container mx-auto px-4 py-16">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-4xl font-black mb-6">Контакты</h2>
-          <div className="space-y-4 text-lg">
-            <div className="flex items-center justify-center gap-3">
-              <Icon name="Phone" size={24} className="text-primary" />
-              <span>+7 (495) 123-45-67</span>
-            </div>
-            <div className="flex items-center justify-center gap-3">
-              <Icon name="Mail" size={24} className="text-primary" />
-              <span>info@newyeargifts.ru</span>
-            </div>
-            <div className="flex items-center justify-center gap-3">
-              <Icon name="MapPin" size={24} className="text-primary" />
-              <span>Москва, ул. Новогодняя, д. 25</span>
-            </div>
-          </div>
+        <h2 className="text-4xl font-black text-center mb-12">Наши магазины</h2>
+        
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <Icon name="MapPin" size={28} className="text-primary" />
+                Адреса магазинов
+              </h3>
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center text-white font-bold flex-shrink-0">1</div>
+                  <div>
+                    <h4 className="font-bold text-lg">Москва (Центр)</h4>
+                    <p className="text-muted-foreground">ул. Тверская, д. 12</p>
+                    <p className="text-sm text-muted-foreground">Пн-Вс: 10:00-22:00</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center text-white font-bold flex-shrink-0">2</div>
+                  <div>
+                    <h4 className="font-bold text-lg">Москва (ТЦ Авиапарк)</h4>
+                    <p className="text-muted-foreground">Ходынский бульвар, д. 4</p>
+                    <p className="text-sm text-muted-foreground">Пн-Вс: 10:00-23:00</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center text-white font-bold flex-shrink-0">3</div>
+                  <div>
+                    <h4 className="font-bold text-lg">Санкт-Петербург</h4>
+                    <p className="text-muted-foreground">Невский проспект, д. 28</p>
+                    <p className="text-sm text-muted-foreground">Пн-Вс: 10:00-22:00</p>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="bg-primary rounded-full w-10 h-10 flex items-center justify-center text-white font-bold flex-shrink-0">4</div>
+                  <div>
+                    <h4 className="font-bold text-lg">Казань</h4>
+                    <p className="text-muted-foreground">ул. Баумана, д. 15</p>
+                    <p className="text-sm text-muted-foreground">Пн-Вс: 10:00-21:00</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="text-2xl font-bold mb-6">Карта магазинов</h3>
+              <div className="relative bg-muted rounded-lg h-[400px] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-blue-100">
+                  <svg className="w-full h-full" viewBox="0 0 400 400">
+                    <circle cx="200" cy="180" r="8" fill="#dc2626" className="animate-pulse" />
+                    <text x="200" y="195" textAnchor="middle" className="text-xs font-bold" fill="#dc2626">Москва (Центр)</text>
+                    
+                    <circle cx="180" cy="140" r="8" fill="#dc2626" className="animate-pulse" />
+                    <text x="180" y="130" textAnchor="middle" className="text-xs font-bold" fill="#dc2626">Авиапарк</text>
+                    
+                    <circle cx="220" cy="100" r="8" fill="#dc2626" className="animate-pulse" />
+                    <text x="220" y="90" textAnchor="middle" className="text-xs font-bold" fill="#dc2626">СПб</text>
+                    
+                    <circle cx="280" cy="200" r="8" fill="#dc2626" className="animate-pulse" />
+                    <text x="280" y="215" textAnchor="middle" className="text-xs font-bold" fill="#dc2626">Казань</text>
+                  </svg>
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground mt-4 text-center">
+                📍 Нажмите на точку на карте, чтобы узнать подробности о магазине
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <Card>
+            <CardContent className="p-8">
+              <h3 className="text-2xl font-bold mb-6 text-center">Свяжитесь с нами</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                    <Icon name="Phone" size={32} className="text-white" />
+                  </div>
+                  <h4 className="font-bold mb-2">Телефон</h4>
+                  <p className="text-muted-foreground">+7 (495) 123-45-67</p>
+                  <p className="text-sm text-muted-foreground">Ежедневно 9:00-21:00</p>
+                </div>
+                <div className="text-center">
+                  <div className="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                    <Icon name="Mail" size={32} className="text-white" />
+                  </div>
+                  <h4 className="font-bold mb-2">Email</h4>
+                  <p className="text-muted-foreground">info@newyeargifts.ru</p>
+                  <p className="text-sm text-muted-foreground">Ответим в течение 1 часа</p>
+                </div>
+                <div className="text-center">
+                  <div className="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                    <Icon name="MessageCircle" size={32} className="text-white" />
+                  </div>
+                  <h4 className="font-bold mb-2">WhatsApp</h4>
+                  <p className="text-muted-foreground">+7 (495) 123-45-67</p>
+                  <p className="text-sm text-muted-foreground">Быстрая связь онлайн</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
