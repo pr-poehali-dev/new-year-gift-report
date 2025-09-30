@@ -42,6 +42,7 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
                 src="https://cdn.poehali.dev/files/3012f648-9edf-403c-b88e-86c8eff8d90a.png" 
                 alt="ЧеБ подарки" 
                 className="relative w-full h-full object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-300 animate-float"
+                style={{ mixBlendMode: 'multiply' }}
               />
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
