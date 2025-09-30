@@ -26,25 +26,11 @@ export default function HeroSection({ countdown }: HeroSectionProps) {
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="text-center mb-12 animate-fade-in">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="relative w-16 h-16 animate-bounce" style={{animationDuration: '2s'}}>
-              <img 
-                src="https://cdn.poehali.dev/files/14d570ca-89a2-4c95-b32a-9cde0aff7ba9.png" 
-                alt="Чеб Подарки"
-                className="w-full h-full object-contain animate-pulse"
-                style={{animationDuration: '3s'}}
-              />
-            </div>
+            <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
             <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-primary via-secondary to-red-700 bg-clip-text text-transparent drop-shadow-lg">
               Волшебные подарки к Новому Году
             </h2>
-            <div className="relative w-16 h-16 animate-bounce" style={{animationDuration: '2s'}}>
-              <img 
-                src="https://cdn.poehali.dev/files/14d570ca-89a2-4c95-b32a-9cde0aff7ba9.png" 
-                alt="Чеб Подарки"
-                className="w-full h-full object-contain animate-pulse"
-                style={{animationDuration: '3s'}}
-              />
-            </div>
+            <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
           </div>
           <p className="text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto">
             🎄 Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков 🎁
