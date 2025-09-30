@@ -69,9 +69,6 @@ export default function HeroSection({ countdown }: HeroSectionProps) {
                 <div className="text-lg md:text-xl uppercase tracking-wide font-bold">секунд</div>
               </div>
             </div>
-            <div className="bg-yellow-400 text-red-700 rounded-2xl p-6 shadow-2xl">
-              <p className="text-2xl md:text-3xl font-black animate-pulse">🎅 Успейте оформить заказ и получите подарочную упаковку БЕСПЛАТНО! 🎁</p>
-            </div>
           </div>
         </div>
 
