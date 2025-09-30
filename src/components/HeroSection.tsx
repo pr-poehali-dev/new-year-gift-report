@@ -25,66 +25,66 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
         />
       </div>
       
-      <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="text-center mb-12 animate-fade-in">
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
-            <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-primary via-secondary to-red-700 bg-clip-text text-transparent drop-shadow-lg">
+      <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-16 relative z-10">
+        <div className="text-center mb-8 sm:mb-12 animate-fade-in">
+          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-4 sm:mb-6">
+            <Icon name="Sparkles" size={32} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
+            <h2 className="text-3xl sm:text-5xl md:text-7xl font-black bg-gradient-to-r from-primary via-secondary to-red-700 bg-clip-text text-transparent drop-shadow-lg">
               Волшебные подарки к Новому Году
             </h2>
-            <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
+            <Icon name="Sparkles" size={32} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
           </div>
-          <p className="text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-base sm:text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
             🎄 Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков 🎁
           </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 flex-wrap px-2">
             <button 
               onClick={onOpenCatalog}
-              className="bg-gradient-to-r from-primary to-red-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2"
+              className="bg-gradient-to-r from-primary to-red-700 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2"
             >
-              <Icon name="BookOpen" size={24} />
-              Каталог подарков
+              <Icon name="BookOpen" size={20} className="sm:w-6 sm:h-6" />
+              <span className="whitespace-nowrap">Каталог подарков</span>
             </button>
             <button 
               onClick={onOpenComposition}
-              className="bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2"
+              className="bg-gradient-to-r from-green-600 to-green-700 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-lg shadow-2xl hover:scale-105 transition-transform flex items-center gap-2"
             >
-              <Icon name="FileText" size={24} />
-              Состав подарков
+              <Icon name="FileText" size={20} className="sm:w-6 sm:h-6" />
+              <span className="whitespace-nowrap">Состав подарков</span>
             </button>
           </div>
         </div>
 
-        <div className="relative bg-gradient-to-br from-primary via-red-600 to-red-700 rounded-3xl p-12 text-white shadow-2xl mb-16 animate-scale-in overflow-hidden border-4 border-yellow-400">
+        <div className="relative bg-gradient-to-br from-primary via-red-600 to-red-700 rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-12 text-white shadow-2xl mb-8 sm:mb-16 animate-scale-in overflow-hidden border-2 sm:border-4 border-yellow-400">
           <div className="absolute inset-0 opacity-10">
             <img src="/img/1ece02ee-45aa-45eb-80d5-19b4d7d75a4a.jpg" alt="gifts" className="w-full h-full object-cover" />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-transparent to-yellow-400/10 animate-pulse"></div>
           <div className="relative z-10 text-center">
-            <div className="flex items-center justify-center gap-3 mb-8">
-              <Icon name="Clock" size={48} className="animate-pulse text-yellow-300" />
-              <h3 className="text-4xl md:text-5xl font-black drop-shadow-2xl">⏰ До Нового Года осталось</h3>
-              <Icon name="Clock" size={48} className="animate-pulse text-yellow-300" />
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-8">
+              <Icon name="Clock" size={32} className="animate-pulse text-yellow-300 sm:w-12 sm:h-12" />
+              <h3 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black drop-shadow-2xl">⏰ До Нового Года осталось</h3>
+              <Icon name="Clock" size={32} className="animate-pulse text-yellow-300 sm:w-12 sm:h-12" />
             </div>
-            <div className="flex justify-center gap-4 md:gap-8 flex-wrap mb-8">
-              <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 min-w-[140px] hover:scale-110 transition-all shadow-2xl border-2 border-yellow-300/50">
-                <div className="text-7xl md:text-8xl font-black mb-2 text-yellow-300 drop-shadow-lg">{countdown.days}</div>
-                <div className="text-lg md:text-xl uppercase tracking-wide font-bold">дней</div>
+            <div className="grid grid-cols-2 sm:flex sm:justify-center gap-2 sm:gap-4 md:gap-8 mb-4 sm:mb-8">
+              <div className="bg-white/30 backdrop-blur-lg rounded-xl sm:rounded-2xl p-3 sm:p-6 md:p-8 min-w-[100px] sm:min-w-[140px] hover:scale-110 transition-all shadow-2xl border border-yellow-300/50 sm:border-2">
+                <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-1 sm:mb-2 text-yellow-300 drop-shadow-lg">{countdown.days}</div>
+                <div className="text-xs sm:text-base md:text-lg lg:text-xl uppercase tracking-wide font-bold">дней</div>
               </div>
-              <div className="hidden md:flex items-center text-7xl font-black text-yellow-300">:</div>
-              <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 min-w-[140px] hover:scale-110 transition-all shadow-2xl border-2 border-yellow-300/50">
-                <div className="text-7xl md:text-8xl font-black mb-2 text-yellow-300 drop-shadow-lg">{countdown.hours}</div>
-                <div className="text-lg md:text-xl uppercase tracking-wide font-bold">часов</div>
+              <div className="hidden sm:flex items-center text-4xl md:text-7xl font-black text-yellow-300">:</div>
+              <div className="bg-white/30 backdrop-blur-lg rounded-xl sm:rounded-2xl p-3 sm:p-6 md:p-8 min-w-[100px] sm:min-w-[140px] hover:scale-110 transition-all shadow-2xl border border-yellow-300/50 sm:border-2">
+                <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-1 sm:mb-2 text-yellow-300 drop-shadow-lg">{countdown.hours}</div>
+                <div className="text-xs sm:text-base md:text-lg lg:text-xl uppercase tracking-wide font-bold">часов</div>
               </div>
-              <div className="hidden md:flex items-center text-7xl font-black text-yellow-300">:</div>
-              <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 min-w-[140px] hover:scale-110 transition-all shadow-2xl border-2 border-yellow-300/50">
-                <div className="text-7xl md:text-8xl font-black mb-2 text-yellow-300 drop-shadow-lg">{countdown.minutes}</div>
-                <div className="text-lg md:text-xl uppercase tracking-wide font-bold">минут</div>
+              <div className="hidden sm:flex items-center text-4xl md:text-7xl font-black text-yellow-300">:</div>
+              <div className="bg-white/30 backdrop-blur-lg rounded-xl sm:rounded-2xl p-3 sm:p-6 md:p-8 min-w-[100px] sm:min-w-[140px] hover:scale-110 transition-all shadow-2xl border border-yellow-300/50 sm:border-2">
+                <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-1 sm:mb-2 text-yellow-300 drop-shadow-lg">{countdown.minutes}</div>
+                <div className="text-xs sm:text-base md:text-lg lg:text-xl uppercase tracking-wide font-bold">минут</div>
               </div>
-              <div className="hidden md:flex items-center text-7xl font-black text-yellow-300">:</div>
-              <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 min-w-[140px] hover:scale-110 transition-all shadow-2xl border-2 border-yellow-300/50">
-                <div className="text-7xl md:text-8xl font-black mb-2 text-yellow-300 drop-shadow-lg">{countdown.seconds}</div>
-                <div className="text-lg md:text-xl uppercase tracking-wide font-bold">секунд</div>
+              <div className="hidden sm:flex items-center text-4xl md:text-7xl font-black text-yellow-300">:</div>
+              <div className="bg-white/30 backdrop-blur-lg rounded-xl sm:rounded-2xl p-3 sm:p-6 md:p-8 min-w-[100px] sm:min-w-[140px] hover:scale-110 transition-all shadow-2xl border border-yellow-300/50 sm:border-2">
+                <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-1 sm:mb-2 text-yellow-300 drop-shadow-lg">{countdown.seconds}</div>
+                <div className="text-xs sm:text-base md:text-lg lg:text-xl uppercase tracking-wide font-bold">секунд</div>
               </div>
             </div>
           </div>
