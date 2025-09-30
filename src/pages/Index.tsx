@@ -66,6 +66,31 @@ export default function Index() {
     <div className="min-h-screen bg-gradient-to-b from-white to-green-50">
       <Snowfall />
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-green-200 shadow-sm">
+        <div className="bg-gradient-to-r from-primary to-red-700 text-white py-2">
+          <div className="container mx-auto px-4 flex items-center justify-between text-sm">
+            <div className="flex items-center gap-6">
+              <a href="tel:+79123456789" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                <Icon name="Phone" size={16} />
+                <span className="font-semibold">+7 (912) 345-67-89</span>
+              </a>
+              <div className="flex items-center gap-3">
+                <a href="https://wa.me/79123456789" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                  <Icon name="MessageCircle" size={18} />
+                </a>
+                <a href="https://t.me/chebpodarki" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                  <Icon name="Send" size={18} />
+                </a>
+                <a href="https://vk.com/chebpodarki" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                  <Icon name="Share2" size={18} />
+                </a>
+              </div>
+            </div>
+            <Button size="sm" variant="secondary" className="font-semibold">
+              <Icon name="Download" size={16} className="mr-2" />
+              Скачать каталог
+            </Button>
+          </div>
+        </div>
         <nav className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -103,19 +128,9 @@ export default function Index() {
               </h2>
               <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
             </div>
-            <p className="text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto mb-8">
+            <p className="text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto">
               🎄 Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков 🎁
             </p>
-            <div className="flex justify-center gap-4">
-              <Button size="lg" className="bg-gradient-to-r from-secondary to-yellow-500 hover:opacity-90 text-lg px-8 py-6 shadow-xl">
-                <Icon name="Gift" size={24} className="mr-2" />
-                Выбрать подарок
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-2 border-primary hover:bg-primary/10">
-                <Icon name="Sparkles" size={24} className="mr-2" />
-                Акции
-              </Button>
-            </div>
           </div>
 
           <div className="relative bg-gradient-to-br from-primary via-red-600 to-red-700 rounded-3xl p-10 text-white shadow-2xl mb-16 animate-scale-in overflow-hidden">
