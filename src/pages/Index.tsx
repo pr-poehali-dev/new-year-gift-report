@@ -71,7 +71,7 @@ export default function Index() {
             <div className="flex items-center gap-2">
               <Icon name="Gift" size={32} className="text-primary" />
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                NEW YEAR GIFTS STORE
+                Чеб Подарки
               </h1>
             </div>
             <div className="flex items-center gap-6">
@@ -289,7 +289,7 @@ export default function Index() {
                 </h2>
                 <div className="max-w-3xl mx-auto">
                   <p className="text-xl font-semibold text-foreground mb-4">
-                    ✨ NEW YEAR GIFTS STORE — это семейный бизнес, который уже 15 лет помогает создавать новогоднее настроение.
+                    ✨ Чеб Подарки — это семейный бизнес, который уже 15 лет помогает создавать новогоднее настроение.
                   </p>
                   <p className="text-lg text-muted-foreground">
                     Мы тщательно отбираем каждый товар, чтобы ваши подарки приносили искреннюю радость близким и друзьям. 
@@ -468,7 +468,7 @@ export default function Index() {
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Icon name="Gift" size={32} />
-            <span className="text-2xl font-bold">NEW YEAR GIFTS STORE</span>
+            <span className="text-2xl font-bold">Чеб Подарки</span>
           </div>
           <p className="text-white/80">© 2025 Все права защищены. Дарим радость с 2010 года!</p>
         </div>
