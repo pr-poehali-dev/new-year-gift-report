@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
 import Icon from '@/components/ui/icon';
+import Snowfall from '@/components/Snowfall';
 
 interface Product {
   id: number;
@@ -63,6 +64,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-green-50">
+      <Snowfall />
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-green-200 shadow-sm">
         <nav className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
@@ -196,133 +198,168 @@ export default function Index() {
         </div>
       </section>
 
-      <section id="catalog" className="container mx-auto px-4 py-16 bg-white/50 rounded-3xl">
-        <h2 className="text-4xl font-black text-center mb-12 flex items-center justify-center gap-3">
-          <Icon name="Sparkles" size={36} className="text-secondary" />
-          Наш Ассортимент
-          <Icon name="Sparkles" size={36} className="text-secondary" />
-        </h2>
+      <section id="catalog" className="container mx-auto px-4 py-16">
+        <div className="bg-gradient-to-br from-primary/5 via-secondary/5 to-red-50 rounded-3xl p-8 shadow-xl">
+          <h2 className="text-5xl font-black text-center mb-4 flex items-center justify-center gap-3">
+            <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
+            <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-transparent">Наш Ассортимент</span>
+            <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
+          </h2>
+          <p className="text-center text-xl text-muted-foreground mb-8">🎁 Более 1000 уникальных подарков для ваших близких 🎁</p>
 
-        <div className="grid lg:grid-cols-4 gap-8">
-          <aside className="lg:col-span-1">
-            <Card className="sticky top-24">
-              <CardContent className="p-6">
-                <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                  <Icon name="Filter" size={20} />
-                  Фильтры
-                </h3>
+          <div className="grid lg:grid-cols-4 gap-8">
+            <aside className="lg:col-span-1">
+              <Card className="sticky top-24 shadow-lg border-2 border-primary/10">
+                <CardContent className="p-6">
+                  <h3 className="font-black text-xl mb-4 flex items-center gap-2">
+                    <Icon name="Filter" size={24} className="text-primary" />
+                    Фильтры
+                  </h3>
 
-                <div className="mb-6">
-                  <h4 className="font-semibold mb-3">Категории</h4>
-                  <div className="space-y-2">
-                    {categories.map(category => (
-                      <Button
-                        key={category}
-                        variant={selectedCategory === category ? "default" : "outline"}
-                        className="w-full justify-start"
-                        onClick={() => setSelectedCategory(category)}
-                      >
-                        {category}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold mb-3">Цена: {priceRange[0]} - {priceRange[1]} ₽</h4>
-                  <Slider
-                    min={0}
-                    max={15000}
-                    step={100}
-                    value={priceRange}
-                    onValueChange={setPriceRange}
-                    className="mb-4"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </aside>
-
-          <div className="lg:col-span-3">
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map(product => (
-                <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                  <CardContent className="p-0">
-                    <div className="relative overflow-hidden rounded-t-lg bg-muted h-48">
-                      <img 
-                        src={product.image} 
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                      <Badge className="absolute top-3 right-3 bg-secondary text-secondary-foreground">
-                        <Icon name="Star" size={14} className="mr-1" />
-                        {product.rating}
-                      </Badge>
-                    </div>
-                    <div className="p-4">
-                      <Badge variant="outline" className="mb-2">{product.category}</Badge>
-                      <h3 className="font-bold text-lg mb-2 line-clamp-2">{product.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{product.description}</p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-2xl font-black text-primary">{product.price} ₽</span>
-                        <Button size="sm" className="bg-gradient-to-r from-primary to-red-700">
-                          <Icon name="ShoppingCart" size={16} className="mr-1" />
-                          Купить
+                  <div className="mb-6">
+                    <h4 className="font-bold mb-3 text-lg">📂 Категории</h4>
+                    <div className="space-y-2">
+                      {categories.map(category => (
+                        <Button
+                          key={category}
+                          variant={selectedCategory === category ? "default" : "outline"}
+                          className={`w-full justify-start font-semibold ${selectedCategory === category ? 'bg-gradient-to-r from-primary to-red-600' : ''}`}
+                          onClick={() => setSelectedCategory(category)}
+                        >
+                          {category}
                         </Button>
-                      </div>
+                      ))}
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
+                  </div>
+
+                  <div>
+                    <h4 className="font-bold mb-3 text-lg">💰 Цена: {priceRange[0]} - {priceRange[1]} ₽</h4>
+                    <Slider
+                      min={0}
+                      max={15000}
+                      step={100}
+                      value={priceRange}
+                      onValueChange={setPriceRange}
+                      className="mb-4"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </aside>
+
+            <div className="lg:col-span-3">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredProducts.map(product => (
+                  <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-transparent hover:border-primary/30">
+                    <CardContent className="p-0">
+                      <div className="relative overflow-hidden rounded-t-lg bg-muted h-48">
+                        <img 
+                          src={product.image} 
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                        <Badge className="absolute top-3 right-3 bg-gradient-to-r from-secondary to-yellow-400 text-secondary-foreground shadow-lg font-bold">
+                          <Icon name="Star" size={14} className="mr-1" />
+                          {product.rating}
+                        </Badge>
+                        <div className="absolute top-3 left-3 bg-primary text-white px-3 py-1 rounded-full text-xs font-bold">ХИТ 🔥</div>
+                      </div>
+                      <div className="p-4">
+                        <Badge variant="outline" className="mb-2 border-primary text-primary font-semibold">{product.category}</Badge>
+                        <h3 className="font-bold text-lg mb-2 line-clamp-2">{product.name}</h3>
+                        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">{product.description}</p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-2xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent">{product.price} ₽</span>
+                          <Button size="sm" className="bg-gradient-to-r from-primary to-red-700 hover:shadow-lg hover:scale-105 transition-all">
+                            <Icon name="ShoppingCart" size={16} className="mr-1" />
+                            Купить
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       <section id="about" className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-black mb-6">О нас</h2>
-          <p className="text-lg text-muted-foreground mb-6">
-            NEW YEAR GIFTS STORE — это семейный бизнес, который уже 15 лет помогает создавать новогоднее настроение. 
-            Мы тщательно отбираем каждый товар, чтобы ваши подарки приносили искреннюю радость.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
-            <div>
-              <div className="text-4xl font-black text-primary mb-2">15+</div>
-              <div className="text-sm text-muted-foreground">лет на рынке</div>
-            </div>
-            <div>
-              <div className="text-4xl font-black text-primary mb-2">50k+</div>
-              <div className="text-sm text-muted-foreground">счастливых клиентов</div>
-            </div>
-            <div>
-              <div className="text-4xl font-black text-primary mb-2">1000+</div>
-              <div className="text-sm text-muted-foreground">товаров в каталоге</div>
-            </div>
-          </div>
+        <div className="max-w-5xl mx-auto">
+          <Card className="bg-gradient-to-br from-white via-green-50 to-red-50 border-2 border-primary/20 shadow-2xl">
+            <CardContent className="p-12">
+              <div className="text-center mb-8">
+                <h2 className="text-5xl font-black mb-6 flex items-center justify-center gap-3">
+                  <Icon name="Heart" size={48} className="text-primary" />
+                  <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-transparent">О нас</span>
+                  <Icon name="Heart" size={48} className="text-primary" />
+                </h2>
+                <div className="max-w-3xl mx-auto">
+                  <p className="text-xl font-semibold text-foreground mb-4">
+                    ✨ NEW YEAR GIFTS STORE — это семейный бизнес, который уже 15 лет помогает создавать новогоднее настроение.
+                  </p>
+                  <p className="text-lg text-muted-foreground">
+                    Мы тщательно отбираем каждый товар, чтобы ваши подарки приносили искреннюю радость близким и друзьям. 
+                    Каждый подарок упакован с любовью! 🎁
+                  </p>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8 mt-12">
+                <div className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="text-6xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent mb-3">15+</div>
+                  <div className="text-base font-bold text-foreground">🎄 лет на рынке</div>
+                  <p className="text-sm text-muted-foreground mt-2">С 2010 года дарим радость</p>
+                </div>
+                <div className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="text-6xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent mb-3">50k+</div>
+                  <div className="text-base font-bold text-foreground">😊 счастливых клиентов</div>
+                  <p className="text-sm text-muted-foreground mt-2">Спасибо за доверие!</p>
+                </div>
+                <div className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="text-6xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent mb-3">1000+</div>
+                  <div className="text-base font-bold text-foreground">🎁 товаров в каталоге</div>
+                  <p className="text-sm text-muted-foreground mt-2">Подарки на любой вкус</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <section id="reviews" className="container mx-auto px-4 py-16 bg-white/50 rounded-3xl">
-        <h2 className="text-4xl font-black text-center mb-12">Отзывы наших клиентов</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { name: 'Анна М.', text: 'Заказывала набор ёлочных игрушек — пришли идеально упакованными! Очень довольна качеством.', rating: 5 },
-            { name: 'Дмитрий К.', text: 'Отличный магазин! Быстрая доставка, подарки понравились всей семье. Буду заказывать ещё!', rating: 5 },
-            { name: 'Елена В.', text: 'Шоколад просто божественный! Коллеги были в восторге. Спасибо за качество и сервис!', rating: 5 },
-          ].map((review, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-1 mb-3">
-                  {Array.from({ length: review.rating }).map((_, i) => (
-                    <Icon key={i} name="Star" size={16} className="text-secondary fill-secondary" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-4">"{review.text}"</p>
-                <p className="font-bold">{review.name}</p>
-              </CardContent>
-            </Card>
-          ))}
+      <section id="reviews" className="container mx-auto px-4 py-16">
+        <div className="bg-gradient-to-br from-secondary/10 via-yellow-50 to-white rounded-3xl p-8 shadow-xl">
+          <h2 className="text-5xl font-black text-center mb-4 flex items-center justify-center gap-3">
+            <Icon name="MessageCircle" size={48} className="text-primary" />
+            <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-transparent">Отзывы наших клиентов</span>
+            <Icon name="MessageCircle" size={48} className="text-primary" />
+          </h2>
+          <p className="text-center text-xl text-muted-foreground mb-12">⭐ Более 10,000 довольных покупателей ⭐</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { name: 'Анна М.', text: 'Заказывала набор ёлочных игрушек — пришли идеально упакованными! Очень довольна качеством.', rating: 5, avatar: '👩' },
+              { name: 'Дмитрий К.', text: 'Отличный магазин! Быстрая доставка, подарки понравились всей семье. Буду заказывать ещё!', rating: 5, avatar: '👨' },
+              { name: 'Елена В.', text: 'Шоколад просто божественный! Коллеги были в восторге. Спасибо за качество и сервис!', rating: 5, avatar: '👩‍💼' },
+            ].map((review, index) => (
+              <Card key={index} className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-white">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-1 mb-4">
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <Icon key={i} name="Star" size={20} className="text-secondary fill-secondary" />
+                    ))}
+                  </div>
+                  <p className="text-foreground mb-4 font-medium italic">"{review.text}"</p>
+                  <div className="flex items-center gap-3 mt-4 pt-4 border-t">
+                    <div className="text-4xl">{review.avatar}</div>
+                    <div>
+                      <p className="font-black text-lg">{review.name}</p>
+                      <p className="text-sm text-muted-foreground">Проверенный покупатель</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
