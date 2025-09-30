@@ -31,18 +31,10 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
             <div className="relative group w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80">
               <div className="absolute inset-0 blur-xl opacity-50 animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-green-500 rounded-full"></div>
               
-              <div className="absolute top-[10%] left-[15%] text-yellow-400 text-2xl sm:text-3xl md:text-4xl animate-star-1 drop-shadow-lg">⭐</div>
-              <div className="absolute top-[15%] right-[20%] text-yellow-300 text-xl sm:text-2xl md:text-3xl animate-star-2 drop-shadow-lg">✨</div>
-              <div className="absolute bottom-[25%] left-[20%] text-yellow-400 text-xl sm:text-2xl md:text-3xl animate-star-3 drop-shadow-lg">⭐</div>
-              <div className="absolute bottom-[30%] right-[15%] text-yellow-300 text-2xl sm:text-3xl md:text-4xl animate-star-4 drop-shadow-lg">✨</div>
-              <div className="absolute top-[30%] left-[25%] text-yellow-400 text-lg sm:text-xl md:text-2xl animate-star-5 drop-shadow-lg">⭐</div>
-              <div className="absolute bottom-[40%] right-[25%] text-yellow-300 text-lg sm:text-xl md:text-2xl animate-star-6 drop-shadow-lg">✨</div>
-              
               <img 
-                src="https://cdn.poehali.dev/files/3012f648-9edf-403c-b88e-86c8eff8d90a.png" 
+                src="https://static.tildacdn.com/tild3934-3361-4465-b763-396463353837/-.gif" 
                 alt="ЧеБ подарки" 
-                className="relative w-full h-full object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-300 animate-float"
-                style={{ mixBlendMode: 'multiply' }}
+                className="relative w-full h-full object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
