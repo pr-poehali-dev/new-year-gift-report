@@ -9,7 +9,7 @@ export default function Footer() {
             <img 
               src="https://cdn.poehali.dev/files/14d570ca-89a2-4c95-b32a-9cde0aff7ba9.png" 
               alt="Чеб Подарки"
-              className="w-full h-full object-contain animate-pulse"
+              className="w-full h-full object-contain animate-pulse brightness-0 invert"
               style={{animationDuration: '3s'}}
             />
           </div>
