@@ -9,6 +9,7 @@ import ReviewsSection from '@/components/ReviewsSection';
 import ContactsSection from '@/components/ContactsSection';
 import Footer from '@/components/Footer';
 import CatalogModal from '@/components/CatalogModal';
+import ScrollToTop from '@/components/ScrollToTop';
 
 const categories = ['Все', 'Для детей', 'Для женщин', 'Для мужчин', 'Для дома', 'Сладости'];
 
@@ -109,6 +110,7 @@ export default function Index() {
         onOpenChange={setCompositionModalOpen}
         type="composition"
       />
+      <ScrollToTop />
     </div>
   );
 }

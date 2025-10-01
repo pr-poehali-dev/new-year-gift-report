@@ -10,7 +10,7 @@ export default function AboutSection() {
             <div className="text-center mb-8">
               <h2 className="text-5xl font-black mb-6 flex items-center justify-center gap-3">
                 <Icon name="Heart" size={48} className="text-primary" />
-                <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-red-600">О нас</span>
+                <span className="text-red-600">О нас</span>
                 <Icon name="Heart" size={48} className="text-primary" />
               </h2>
               <div className="max-w-3xl mx-auto">

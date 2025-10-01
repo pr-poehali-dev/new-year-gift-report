@@ -39,7 +39,7 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
             </div>
             <div className="flex items-center gap-2 sm:gap-4">
               <Icon name="Sparkles" size={32} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
-              <h2 className="text-3xl sm:text-5xl md:text-7xl font-black bg-gradient-to-r from-primary via-secondary to-red-700 bg-clip-text drop-shadow-lg text-red-600" style={{ fontFamily: 'Merriweather, serif' }}>
+              <h2 className="text-3xl sm:text-5xl md:text-7xl font-black drop-shadow-lg text-red-600" style={{ fontFamily: 'Merriweather, serif' }}>
                 Волшебные подарки к Новому Году
               </h2>
               <Icon name="Sparkles" size={32} className="text-secondary animate-pulse sm:w-12 sm:h-12" />

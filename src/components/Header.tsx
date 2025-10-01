@@ -45,7 +45,7 @@ export default function Header() {
                 style={{animationDuration: '3s'}}
               />
             </div>
-            <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h1 className="text-lg sm:text-2xl font-bold text-red-600">
               Чеб Подарки
             </h1>
           </div>
