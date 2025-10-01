@@ -37,7 +37,7 @@ export default function ProductCatalog({
       <div className="bg-gradient-to-br from-red-100 via-yellow-50 to-green-100 rounded-3xl p-8 shadow-2xl border-2 border-primary/20">
         <h2 className="text-5xl font-black text-center mb-4 flex items-center justify-center gap-3">
           <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
-          <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-transparent">Наш Ассортимент</span>
+          <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-red-600">Наш Ассортимент</span>
           <Icon name="Sparkles" size={48} className="text-secondary animate-pulse" />
         </h2>
         <p className="text-center text-xl text-muted-foreground mb-8">🎁 Более 1000 уникальных подарков для ваших близких 🎁</p>

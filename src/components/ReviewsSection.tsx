@@ -20,7 +20,7 @@ export default function ReviewsSection() {
       <div className="bg-gradient-to-br from-yellow-100 via-green-50 to-red-100 rounded-3xl p-8 shadow-2xl border-2 border-primary/20">
         <h2 className="text-5xl font-black text-center mb-4 flex items-center justify-center gap-3">
           <Icon name="MessageCircle" size={48} className="text-primary" />
-          <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-transparent">Отзывы наших клиентов</span>
+          <span className="bg-gradient-to-r from-primary via-secondary to-red-600 bg-clip-text text-red-600">Отзывы наших клиентов</span>
           <Icon name="MessageCircle" size={48} className="text-primary" />
         </h2>
         <p className="text-center text-xl text-muted-foreground mb-12">⭐ Более 10,000 довольных покупателей ⭐</p>

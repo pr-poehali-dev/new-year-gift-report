@@ -4,15 +4,12 @@ import Icon from '@/components/ui/icon';
 export default function ContactsSection() {
   return (
     <section id="contacts" className="container mx-auto px-4 py-16">
-      <h2 className="text-4xl font-black text-center mb-12">Наши магазины</h2>
+      <h2 className="text-4xl font-black text-center mb-12">Новогодние подарки «ЧЕБподарки»</h2>
       
       <div className="grid lg:grid-cols-2 gap-8 mb-8">
         <Card>
           <CardContent className="p-4 sm:p-6">
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2">
-              <Icon name="MapPin" size={24} className="text-primary sm:w-7 sm:h-7" />
-              Адреса магазинов
-            </h3>
+            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2">Главный офис</h3>
             <div className="space-y-4 sm:space-y-6">
               <div className="flex gap-3 sm:gap-4">
                 <div className="bg-primary rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-white font-bold flex-shrink-0 text-sm sm:text-base">1</div>
