@@ -17,8 +17,8 @@ export default function Snowfall() {
       flakes.push({
         id: i,
         left: Math.random() * 100,
-        animationDuration: Math.random() * 3 + 5,
-        size: Math.random() * 3 + 2,
+        animationDuration: Math.random() * 4 + 8,
+        size: Math.random() * 4 + 3,
         delay: Math.random() * 5,
       });
     }
