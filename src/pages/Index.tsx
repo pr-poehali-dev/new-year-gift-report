@@ -10,6 +10,7 @@ import ContactsSection from '@/components/ContactsSection';
 import Footer from '@/components/Footer';
 import CatalogModal from '@/components/CatalogModal';
 import ScrollToTop from '@/components/ScrollToTop';
+import CornerDecorations from '@/components/CornerDecorations';
 
 const categories = ['Все', 'Для детей', 'Для женщин', 'Для мужчин', 'Для дома', 'Сладости'];
 
@@ -74,6 +75,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-green-50 to-yellow-50 relative overflow-hidden">
       <Snowfall />
+      <CornerDecorations />
       <Header />
       <HeroSection 
         countdown={countdown} 
