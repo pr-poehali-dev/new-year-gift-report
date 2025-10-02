@@ -193,6 +193,8 @@ export default function AllReviews() {
             Старые
           </Button>
 
+          <div className="w-px h-6 bg-border mx-1" />
+
           <a href="/reviews">
             <Button size="sm" variant="default" className="text-sm px-6">
               <Icon name="Plus" size={16} className="mr-1" />
