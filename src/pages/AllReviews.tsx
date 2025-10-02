@@ -140,16 +140,18 @@ export default function AllReviews() {
         <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-2 mb-4 text-sm">
           <div className="flex gap-2 items-center flex-wrap justify-center">
             <div className="relative" ref={filterRef}>
-              <Button
-                variant="outline"
-                onClick={() => setIsFilterOpen(!isFilterOpen)}
-                size="sm"
-                className="flex items-center gap-1"
-              >
-                <Icon name="Filter" size={14} />
-                {selectedRating ? `${selectedRating} ⭐` : 'Все отзывы'}
-                <Icon name={isFilterOpen ? "ChevronUp" : "ChevronDown"} size={14} />
-              </Button>
+              <div className="border rounded-md p-0.5">
+                <Button
+                  variant="ghost"
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  size="sm"
+                  className="flex items-center gap-1 h-8"
+                >
+                  <Icon name="Filter" size={14} />
+                  {selectedRating ? `${selectedRating} ⭐` : 'Все отзывы'}
+                  <Icon name={isFilterOpen ? "ChevronUp" : "ChevronDown"} size={14} />
+                </Button>
+              </div>
               
               {isFilterOpen && (
                 <div className="absolute top-full mt-2 left-0 bg-white border rounded-lg shadow-lg p-2 z-10 min-w-[150px]">
