@@ -140,59 +140,63 @@ export default function AllReviews() {
         <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-2 mb-4 text-sm">
           <div className="flex gap-2 items-center flex-wrap justify-center">
             <div className="relative" ref={filterRef}>
-            <Button
-              variant="outline"
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-              size="sm"
-              className="flex items-center gap-1"
-            >
-              <Icon name="Filter" size={14} />
-              {selectedRating ? `${selectedRating} ⭐` : 'Все отзывы'}
-              <Icon name={isFilterOpen ? "ChevronUp" : "ChevronDown"} size={14} />
-            </Button>
-            
-            {isFilterOpen && (
-              <div className="absolute top-full mt-2 left-0 bg-white border rounded-lg shadow-lg p-2 z-10 min-w-[150px]">
-                <Button
-                  variant={selectedRating === null ? 'default' : 'ghost'}
-                  onClick={() => { handleRatingChange(null); setIsFilterOpen(false); }}
-                  size="sm"
-                  className="w-full justify-start mb-1"
-                >
-                  Все ({allReviews.length})
-                </Button>
-                {[5, 4, 3, 2, 1].map(rating => (
+              <Button
+                variant="outline"
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                size="sm"
+                className="flex items-center gap-1"
+              >
+                <Icon name="Filter" size={14} />
+                {selectedRating ? `${selectedRating} ⭐` : 'Все отзывы'}
+                <Icon name={isFilterOpen ? "ChevronUp" : "ChevronDown"} size={14} />
+              </Button>
+              
+              {isFilterOpen && (
+                <div className="absolute top-full mt-2 left-0 bg-white border rounded-lg shadow-lg p-2 z-10 min-w-[150px]">
                   <Button
-                    key={rating}
-                    variant={selectedRating === rating ? 'default' : 'ghost'}
-                    onClick={() => { handleRatingChange(rating); setIsFilterOpen(false); }}
+                    variant={selectedRating === null ? 'default' : 'ghost'}
+                    onClick={() => { handleRatingChange(null); setIsFilterOpen(false); }}
                     size="sm"
-                    className="w-full justify-start flex items-center gap-1 mb-1"
+                    className="w-full justify-start mb-1"
                   >
-                    {rating} <Icon name="Star" size={14} className="text-secondary fill-secondary" />
-                    ({allReviews.filter(r => r.rating === rating).length})
+                    Все ({allReviews.length})
                   </Button>
-                ))}
-              </div>
-            )}
-          </div>
+                  {[5, 4, 3, 2, 1].map(rating => (
+                    <Button
+                      key={rating}
+                      variant={selectedRating === rating ? 'default' : 'ghost'}
+                      onClick={() => { handleRatingChange(rating); setIsFilterOpen(false); }}
+                      size="sm"
+                      className="w-full justify-start flex items-center gap-1 mb-1"
+                    >
+                      {rating} <Icon name="Star" size={14} className="text-secondary fill-secondary" />
+                      ({allReviews.filter(r => r.rating === rating).length})
+                    </Button>
+                  ))}
+                </div>
+              )}
+            </div>
 
-            <Button
-              variant={sortOrder === 'newest' ? 'default' : 'outline'}
-              onClick={() => handleSortChange('newest')}
-              size="sm"
-            >
-              <Icon name="ArrowDown" size={14} className="mr-1" />
-              Новые
-            </Button>
-            <Button
-              variant={sortOrder === 'oldest' ? 'default' : 'outline'}
-              onClick={() => handleSortChange('oldest')}
-              size="sm"
-            >
-              <Icon name="ArrowUp" size={14} className="mr-1" />
-              Старые
-            </Button>
+            <div className="flex gap-1 border rounded-md p-0.5">
+              <Button
+                variant={sortOrder === 'newest' ? 'default' : 'ghost'}
+                onClick={() => handleSortChange('newest')}
+                size="sm"
+                className="h-8"
+              >
+                <Icon name="ArrowDown" size={14} className="mr-1" />
+                Новые
+              </Button>
+              <Button
+                variant={sortOrder === 'oldest' ? 'default' : 'ghost'}
+                onClick={() => handleSortChange('oldest')}
+                size="sm"
+                className="h-8"
+              >
+                <Icon name="ArrowUp" size={14} className="mr-1" />
+                Старые
+              </Button>
+            </div>
           </div>
 
           <div className="hidden sm:block w-px h-6 bg-border mx-1" />
