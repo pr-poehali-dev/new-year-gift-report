@@ -63,10 +63,10 @@ export default function Header() {
           </div>
           <div className="hidden lg:flex items-center gap-6">
             <a href="/" className="text-foreground hover:text-primary transition-colors font-medium">Главная</a>
-            <a href="/#catalog" className="text-foreground hover:text-primary transition-colors font-medium">Ассортимент</a>
+            <a href="/#catalog" onClick={(e) => handleAnchorClick(e, 'catalog')} className="text-foreground hover:text-primary transition-colors font-medium">Ассортимент</a>
             <a href="/about" className="text-foreground hover:text-primary transition-colors font-medium">О нас</a>
             <a href="/#reviews" onClick={(e) => handleAnchorClick(e, 'reviews')} className="text-foreground hover:text-primary transition-colors font-medium">Отзывы</a>
-            <a href="/#contacts" className="text-foreground hover:text-primary transition-colors font-medium">Контакты</a>
+            <a href="/#contacts" onClick={(e) => handleAnchorClick(e, 'contacts')} className="text-foreground hover:text-primary transition-colors font-medium">Контакты</a>
             <a href="/callback">
               <Button className="ml-4">
                 <Icon name="Phone" size={16} className="mr-2" />
