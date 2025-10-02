@@ -1,19 +1,36 @@
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-
-const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-  const isOnHomePage = window.location.pathname === '/';
-  
-  if (isOnHomePage) {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-};
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Header() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, [location]);
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    
+    if (location.pathname === '/') {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(`/#${id}`);
+    }
+  };
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary/20 shadow-lg">
       <div className="bg-gradient-to-r from-red-700 via-primary to-red-700 text-white py-2">
