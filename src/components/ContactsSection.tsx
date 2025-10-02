@@ -92,32 +92,38 @@ export default function ContactsSection() {
       </div>
 
       <Card>
-        <CardContent className="p-6">
-          <h3 className="text-xl font-bold mb-4 text-center">Свяжитесь с нами</h3>
-          <div className="grid md:grid-cols-3 gap-4">
-            <a href="tel:+74951234567" className="flex flex-col items-center p-4 rounded-lg hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/20">
-              <div className="bg-primary rounded-full w-14 h-14 flex items-center justify-center mb-2">
-                <Icon name="Phone" size={28} className="text-white" />
+        <CardContent className="p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-center">Свяжитесь с нами</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <a href="tel:+74951234567" className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 p-3 sm:p-4 rounded-lg hover:bg-primary/5 transition-colors border border-primary/10 hover:border-primary/20">
+              <div className="bg-primary rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center sm:mb-2 flex-shrink-0">
+                <Icon name="Phone" size={24} className="text-white sm:w-7 sm:h-7" />
               </div>
-              <h4 className="font-bold mb-1">Телефон</h4>
-              <p className="text-muted-foreground text-sm">+7 (495) 123-45-67</p>
-              <p className="text-xs text-muted-foreground">Ежедневно 9:00-21:00</p>
+              <div className="flex-1 sm:text-center">
+                <h4 className="font-bold mb-0.5 sm:mb-1">Телефон</h4>
+                <p className="text-muted-foreground text-sm">+7 (495) 123-45-67</p>
+                <p className="text-xs text-muted-foreground hidden sm:block">Ежедневно 9:00-21:00</p>
+              </div>
             </a>
-            <a href="mailto:info@newyeargifts.ru" className="flex flex-col items-center p-4 rounded-lg hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/20">
-              <div className="bg-primary rounded-full w-14 h-14 flex items-center justify-center mb-2">
-                <Icon name="Mail" size={28} className="text-white" />
+            <a href="mailto:info@newyeargifts.ru" className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 p-3 sm:p-4 rounded-lg hover:bg-primary/5 transition-colors border border-primary/10 hover:border-primary/20">
+              <div className="bg-primary rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center sm:mb-2 flex-shrink-0">
+                <Icon name="Mail" size={24} className="text-white sm:w-7 sm:h-7" />
               </div>
-              <h4 className="font-bold mb-1">Email</h4>
-              <p className="text-muted-foreground text-sm">info@newyeargifts.ru</p>
-              <p className="text-xs text-muted-foreground">Ответим в течение 1 часа</p>
+              <div className="flex-1 sm:text-center">
+                <h4 className="font-bold mb-0.5 sm:mb-1">Email</h4>
+                <p className="text-muted-foreground text-sm break-all">info@newyeargifts.ru</p>
+                <p className="text-xs text-muted-foreground hidden sm:block">Ответим в течение 1 часа</p>
+              </div>
             </a>
-            <a href="https://wa.me/74951234567" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center p-4 rounded-lg hover:bg-primary/5 transition-colors border border-transparent hover:border-primary/20">
-              <div className="bg-primary rounded-full w-14 h-14 flex items-center justify-center mb-2">
-                <Icon name="MessageCircle" size={28} className="text-white" />
+            <a href="https://wa.me/74951234567" target="_blank" rel="noopener noreferrer" className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 p-3 sm:p-4 rounded-lg hover:bg-primary/5 transition-colors border border-primary/10 hover:border-primary/20">
+              <div className="bg-primary rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center sm:mb-2 flex-shrink-0">
+                <Icon name="MessageCircle" size={24} className="text-white sm:w-7 sm:h-7" />
               </div>
-              <h4 className="font-bold mb-1">WhatsApp</h4>
-              <p className="text-muted-foreground text-sm">+7 (495) 123-45-67</p>
-              <p className="text-xs text-muted-foreground">Быстрая связь онлайн</p>
+              <div className="flex-1 sm:text-center">
+                <h4 className="font-bold mb-0.5 sm:mb-1">WhatsApp</h4>
+                <p className="text-muted-foreground text-sm">+7 (495) 123-45-67</p>
+                <p className="text-xs text-muted-foreground hidden sm:block">Быстрая связь онлайн</p>
+              </div>
             </a>
           </div>
         </CardContent>
