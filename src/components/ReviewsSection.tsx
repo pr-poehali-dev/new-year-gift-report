@@ -1,4 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
 interface Review {
@@ -23,7 +24,15 @@ export default function ReviewsSection() {
           <span className="text-red-600">Отзывы наших клиентов</span>
           <Icon name="MessageCircle" size={48} className="text-primary" />
         </h2>
-        <p className="text-center text-xl text-muted-foreground mb-12">⭐ Более 10,000 довольных покупателей ⭐</p>
+        <p className="text-center text-xl text-muted-foreground mb-8">⭐ Более 10,000 довольных покупателей ⭐</p>
+        <div className="flex justify-center mb-12">
+          <a href="/reviews">
+            <Button size="lg" className="text-lg px-8 py-6">
+              <Icon name="Plus" size={20} className="mr-2" />
+              Добавить отзыв
+            </Button>
+          </a>
+        </div>
         <div className="grid md:grid-cols-3 gap-6">
           {reviews.map((review, index) => (
             <Card key={index} className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-white">
