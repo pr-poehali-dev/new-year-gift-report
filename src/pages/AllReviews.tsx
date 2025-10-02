@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Snowfall from '@/components/Snowfall';
@@ -32,6 +32,23 @@ export default function AllReviews() {
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [visibleCount, setVisibleCount] = useState(6);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    };
+
+    if (isFilterOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isFilterOpen]);
 
   const handleRatingChange = (rating: number | null) => {
     setSelectedRating(rating);
@@ -129,7 +146,7 @@ export default function AllReviews() {
         </div>
 
         <div className="flex justify-center gap-2 mb-4 flex-wrap text-sm">
-          <div className="relative">
+          <div className="relative" ref={filterRef}>
             <Button
               variant="outline"
               onClick={() => setIsFilterOpen(!isFilterOpen)}
