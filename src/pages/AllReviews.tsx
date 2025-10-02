@@ -30,6 +30,17 @@ const allReviews: Review[] = [
 export default function AllReviews() {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  const handleRatingChange = (rating: number | null) => {
+    setSelectedRating(rating);
+    setVisibleCount(6);
+  };
+
+  const handleSortChange = (order: 'newest' | 'oldest') => {
+    setSortOrder(order);
+    setVisibleCount(6);
+  };
 
   const parseDate = (dateStr: string) => {
     const months: { [key: string]: number } = {
@@ -61,6 +72,13 @@ export default function AllReviews() {
     const percentage = (count / allReviews.length) * 100;
     return { rating, count, percentage };
   });
+
+  const visibleReviews = sortedReviews.slice(0, visibleCount);
+  const hasMore = visibleCount < sortedReviews.length;
+
+  const loadMore = () => {
+    setVisibleCount(prev => Math.min(prev + 6, sortedReviews.length));
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
@@ -112,7 +130,7 @@ export default function AllReviews() {
         <div className="flex justify-center gap-2 mb-3 flex-wrap text-sm">
           <Button
             variant={selectedRating === null ? 'default' : 'outline'}
-            onClick={() => setSelectedRating(null)}
+            onClick={() => handleRatingChange(null)}
             size="sm"
           >
             Все ({allReviews.length})
@@ -121,7 +139,7 @@ export default function AllReviews() {
             <Button
               key={rating}
               variant={selectedRating === rating ? 'default' : 'outline'}
-              onClick={() => setSelectedRating(rating)}
+              onClick={() => handleRatingChange(rating)}
               size="sm"
               className="flex items-center gap-1"
             >
@@ -134,7 +152,7 @@ export default function AllReviews() {
         <div className="flex justify-center gap-2 mb-4">
           <Button
             variant={sortOrder === 'newest' ? 'default' : 'outline'}
-            onClick={() => setSortOrder('newest')}
+            onClick={() => handleSortChange('newest')}
             size="sm"
           >
             <Icon name="ArrowDown" size={14} className="mr-1" />
@@ -142,7 +160,7 @@ export default function AllReviews() {
           </Button>
           <Button
             variant={sortOrder === 'oldest' ? 'default' : 'outline'}
-            onClick={() => setSortOrder('oldest')}
+            onClick={() => handleSortChange('oldest')}
             size="sm"
           >
             <Icon name="ArrowUp" size={14} className="mr-1" />
@@ -152,12 +170,12 @@ export default function AllReviews() {
 
         <div className="text-center mb-4">
           <p className="text-sm text-muted-foreground">
-            Показано: <span className="text-primary font-semibold">{sortedReviews.length}</span> из {allReviews.length}
+            Показано: <span className="text-primary font-semibold">{visibleReviews.length}</span> из {sortedReviews.length}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {sortedReviews.map((review, index) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          {visibleReviews.map((review, index) => (
             <Card key={index} className="hover:shadow-lg transition-all border border-secondary/20 bg-white">
               <CardContent className="p-4">
                 <div className="flex items-center gap-0.5 mb-2">
@@ -177,6 +195,15 @@ export default function AllReviews() {
             </Card>
           ))}
         </div>
+
+        {hasMore && (
+          <div className="text-center">
+            <Button onClick={loadMore} size="lg" variant="outline" className="px-8">
+              <Icon name="ChevronDown" size={20} className="mr-2" />
+              Показать ещё
+            </Button>
+          </div>
+        )}
       </div>
       <Footer />
     </div>
