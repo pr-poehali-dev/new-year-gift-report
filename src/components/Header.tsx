@@ -56,9 +56,9 @@ export default function Header() {
             <a href="/#reviews" className="text-foreground hover:text-primary transition-colors font-medium">Отзывы</a>
             <a href="/#contacts" className="text-foreground hover:text-primary transition-colors font-medium">Контакты</a>
           </div>
-          <a href="#contacts" className="lg:hidden">
+          <a href="/callback" className="lg:hidden">
             <Button size="sm" className="text-xs px-3 py-2">
-              Контакты
+              Заказать звонок
             </Button>
           </a>
         </div>
