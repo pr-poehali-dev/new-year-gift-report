@@ -66,38 +66,34 @@ export default function AllReviews() {
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
       <Snowfall />
       <Header />
-      <div className="container mx-auto px-4 pt-32 pb-20">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-black mb-4 flex items-center justify-center gap-3">
-            <Icon name="MessageCircle" size={48} className="text-primary" />
-            <span className="text-red-600">Все отзывы</span>
-            <Icon name="MessageCircle" size={48} className="text-primary" />
-          </h1>
-          <p className="text-xl text-muted-foreground mb-6">⭐ Более 10,000 довольных покупателей ⭐</p>
+      <div className="container mx-auto px-4 pt-24 pb-16">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-black mb-2 text-red-600">Все отзывы</h1>
+          <p className="text-base text-muted-foreground mb-4">⭐ Более 10,000 довольных покупателей</p>
           
-          <Card className="max-w-3xl mx-auto mb-8 border-2 border-primary/20 bg-white shadow-xl">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-center gap-8 mb-6">
+          <Card className="max-w-2xl mx-auto mb-4 border border-primary/20 bg-white">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between gap-4">
                 <div className="text-center">
-                  <div className="text-6xl font-black text-primary mb-2">{averageRating.toFixed(1)}</div>
-                  <div className="flex items-center gap-1 justify-center mb-2">
+                  <div className="text-4xl font-black text-primary">{averageRating.toFixed(1)}</div>
+                  <div className="flex items-center gap-0.5 justify-center my-1">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Icon key={i} name="Star" size={24} className={i < Math.round(averageRating) ? 'text-secondary fill-secondary' : 'text-gray-300'} />
+                      <Icon key={i} name="Star" size={16} className={i < Math.round(averageRating) ? 'text-secondary fill-secondary' : 'text-gray-300'} />
                     ))}
                   </div>
-                  <p className="text-sm text-muted-foreground">Общий рейтинг: {ratingPercentage.toFixed(0)}%</p>
+                  <p className="text-xs text-muted-foreground">{ratingPercentage.toFixed(0)}%</p>
                 </div>
-                <div className="flex-1 max-w-md">
+                <div className="flex-1">
                   {ratingDistribution.map(({ rating, count, percentage }) => (
-                    <div key={rating} className="flex items-center gap-3 mb-2">
-                      <span className="text-sm font-semibold w-12">{rating} <Icon name="Star" size={12} className="inline text-secondary fill-secondary" /></span>
-                      <div className="flex-1 bg-gray-200 rounded-full h-3 overflow-hidden">
+                    <div key={rating} className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-semibold w-8">{rating} ⭐</span>
+                      <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
                         <div 
                           className="bg-secondary h-full rounded-full transition-all" 
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
-                      <span className="text-sm text-muted-foreground w-16">{percentage.toFixed(0)}% ({count})</span>
+                      <span className="text-xs text-muted-foreground w-12">{count}</span>
                     </div>
                   ))}
                 </div>
@@ -106,18 +102,18 @@ export default function AllReviews() {
           </Card>
 
           <a href="/reviews">
-            <Button size="lg" className="text-lg px-8 py-6">
-              <Icon name="Plus" size={20} className="mr-2" />
-              Добавить свой отзыв
+            <Button size="sm" className="text-sm px-6">
+              <Icon name="Plus" size={16} className="mr-1" />
+              Добавить отзыв
             </Button>
           </a>
         </div>
 
-        <div className="flex justify-center gap-3 mb-4 flex-wrap">
+        <div className="flex justify-center gap-2 mb-3 flex-wrap text-sm">
           <Button
             variant={selectedRating === null ? 'default' : 'outline'}
             onClick={() => setSelectedRating(null)}
-            className="text-base"
+            size="sm"
           >
             Все ({allReviews.length})
           </Button>
@@ -126,55 +122,55 @@ export default function AllReviews() {
               key={rating}
               variant={selectedRating === rating ? 'default' : 'outline'}
               onClick={() => setSelectedRating(rating)}
-              className="text-base flex items-center gap-1"
+              size="sm"
+              className="flex items-center gap-1"
             >
-              {rating} <Icon name="Star" size={16} className="text-secondary fill-secondary" />
+              {rating} <Icon name="Star" size={14} className="text-secondary fill-secondary" />
               ({allReviews.filter(r => r.rating === rating).length})
             </Button>
           ))}
         </div>
 
-        <div className="flex justify-center gap-3 mb-6">
+        <div className="flex justify-center gap-2 mb-4">
           <Button
             variant={sortOrder === 'newest' ? 'default' : 'outline'}
             onClick={() => setSortOrder('newest')}
-            className="text-base"
+            size="sm"
           >
-            <Icon name="ArrowDown" size={16} className="mr-1" />
-            Сначала новые
+            <Icon name="ArrowDown" size={14} className="mr-1" />
+            Новые
           </Button>
           <Button
             variant={sortOrder === 'oldest' ? 'default' : 'outline'}
             onClick={() => setSortOrder('oldest')}
-            className="text-base"
+            size="sm"
           >
-            <Icon name="ArrowUp" size={16} className="mr-1" />
-            Сначала старые
+            <Icon name="ArrowUp" size={14} className="mr-1" />
+            Старые
           </Button>
         </div>
 
-        <div className="text-center mb-6">
-          <p className="text-lg font-semibold text-muted-foreground">
-            Показано отзывов: <span className="text-primary text-xl">{sortedReviews.length}</span> из {allReviews.length}
+        <div className="text-center mb-4">
+          <p className="text-sm text-muted-foreground">
+            Показано: <span className="text-primary font-semibold">{sortedReviews.length}</span> из {allReviews.length}
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {sortedReviews.map((review, index) => (
-            <Card key={index} className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-white">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-1 mb-4">
+            <Card key={index} className="hover:shadow-lg transition-all border border-secondary/20 bg-white">
+              <CardContent className="p-4">
+                <div className="flex items-center gap-0.5 mb-2">
                   {Array.from({ length: review.rating }).map((_, i) => (
-                    <Icon key={i} name="Star" size={20} className="text-secondary fill-secondary" />
+                    <Icon key={i} name="Star" size={16} className="text-secondary fill-secondary" />
                   ))}
                 </div>
-                <p className="text-foreground mb-4 font-medium italic">"{review.text}"</p>
-                <div className="flex items-center gap-3 mt-4 pt-4 border-t">
-                  <div className="text-4xl">{review.avatar}</div>
+                <p className="text-sm text-foreground mb-3 italic">"{review.text}"</p>
+                <div className="flex items-center gap-2 pt-2 border-t">
+                  <div className="text-2xl">{review.avatar}</div>
                   <div className="flex-1">
-                    <p className="font-black text-lg">{review.name}</p>
-                    <p className="text-sm text-muted-foreground">Проверенный покупатель</p>
-                    <p className="text-xs text-muted-foreground mt-1">{review.date}</p>
+                    <p className="font-bold text-sm">{review.name}</p>
+                    <p className="text-xs text-muted-foreground">{review.date}</p>
                   </div>
                 </div>
               </CardContent>
