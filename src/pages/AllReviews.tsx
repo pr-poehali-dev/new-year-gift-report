@@ -94,7 +94,7 @@ export default function AllReviews() {
           ))}
         </div>
 
-        <div className="flex justify-center gap-3 mb-8">
+        <div className="flex justify-center gap-3 mb-6">
           <Button
             variant={sortOrder === 'newest' ? 'default' : 'outline'}
             onClick={() => setSortOrder('newest')}
@@ -111,6 +111,12 @@ export default function AllReviews() {
             <Icon name="ArrowUp" size={16} className="mr-1" />
             Сначала старые
           </Button>
+        </div>
+
+        <div className="text-center mb-6">
+          <p className="text-lg font-semibold text-muted-foreground">
+            Показано отзывов: <span className="text-primary text-xl">{sortedReviews.length}</span> из {allReviews.length}
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
