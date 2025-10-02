@@ -4,7 +4,7 @@ import Icon from '@/components/ui/icon';
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary/20 shadow-lg">
-      <div className="bg-gradient-to-r from-green-700 via-primary to-red-700 text-white py-2">
+      <div className="bg-gradient-to-r from-red-700 via-primary to-red-700 text-white py-2">
         <div className="container mx-auto px-2 sm:px-4 flex items-center justify-between text-xs sm:text-sm">
           <div className="flex items-center gap-2 sm:gap-6">
             <a href="tel:+79123456789" className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
