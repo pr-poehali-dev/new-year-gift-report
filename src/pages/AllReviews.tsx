@@ -31,6 +31,7 @@ export default function AllReviews() {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [visibleCount, setVisibleCount] = useState(6);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleRatingChange = (rating: number | null) => {
     setSelectedRating(rating);
@@ -128,26 +129,44 @@ export default function AllReviews() {
         </div>
 
         <div className="flex justify-center gap-2 mb-4 flex-wrap text-sm">
-          <Button
-            variant={selectedRating === null ? 'default' : 'outline'}
-            onClick={() => handleRatingChange(null)}
-            size="sm"
-          >
-            Все ({allReviews.length})
-          </Button>
-          {[5, 4, 3, 2, 1].map(rating => (
+          <div className="relative">
             <Button
-              key={rating}
-              variant={selectedRating === rating ? 'default' : 'outline'}
-              onClick={() => handleRatingChange(rating)}
+              variant="outline"
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
               size="sm"
               className="flex items-center gap-1"
             >
-              {rating} <Icon name="Star" size={14} className="text-secondary fill-secondary" />
-              ({allReviews.filter(r => r.rating === rating).length})
+              <Icon name="Filter" size={14} />
+              {selectedRating ? `${selectedRating} ⭐` : 'Все отзывы'}
+              <Icon name={isFilterOpen ? "ChevronUp" : "ChevronDown"} size={14} />
             </Button>
-          ))}
-          <div className="w-px h-6 bg-border mx-1" />
+            
+            {isFilterOpen && (
+              <div className="absolute top-full mt-2 left-0 bg-white border rounded-lg shadow-lg p-2 z-10 min-w-[150px]">
+                <Button
+                  variant={selectedRating === null ? 'default' : 'ghost'}
+                  onClick={() => { handleRatingChange(null); setIsFilterOpen(false); }}
+                  size="sm"
+                  className="w-full justify-start mb-1"
+                >
+                  Все ({allReviews.length})
+                </Button>
+                {[5, 4, 3, 2, 1].map(rating => (
+                  <Button
+                    key={rating}
+                    variant={selectedRating === rating ? 'default' : 'ghost'}
+                    onClick={() => { handleRatingChange(rating); setIsFilterOpen(false); }}
+                    size="sm"
+                    className="w-full justify-start flex items-center gap-1 mb-1"
+                  >
+                    {rating} <Icon name="Star" size={14} className="text-secondary fill-secondary" />
+                    ({allReviews.filter(r => r.rating === rating).length})
+                  </Button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <Button
             variant={sortOrder === 'newest' ? 'default' : 'outline'}
             onClick={() => handleSortChange('newest')}
