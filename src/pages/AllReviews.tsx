@@ -127,7 +127,7 @@ export default function AllReviews() {
           </a>
         </div>
 
-        <div className="flex justify-center gap-2 mb-3 flex-wrap text-sm">
+        <div className="flex justify-center gap-2 mb-4 flex-wrap text-sm">
           <Button
             variant={selectedRating === null ? 'default' : 'outline'}
             onClick={() => handleRatingChange(null)}
@@ -147,9 +147,7 @@ export default function AllReviews() {
               ({allReviews.filter(r => r.rating === rating).length})
             </Button>
           ))}
-        </div>
-
-        <div className="flex justify-center gap-2 mb-4">
+          <div className="w-px h-6 bg-border mx-1" />
           <Button
             variant={sortOrder === 'newest' ? 'default' : 'outline'}
             onClick={() => handleSortChange('newest')}
