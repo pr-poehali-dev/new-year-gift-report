@@ -3,7 +3,6 @@ import Snowfall from '@/components/Snowfall';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import ProductCatalog, { Product } from '@/components/ProductCatalog';
-import AboutSection from '@/components/AboutSection';
 import CallbackForm from '@/components/CallbackForm';
 import ReviewsSection from '@/components/ReviewsSection';
 import ContactsSection from '@/components/ContactsSection';
@@ -89,7 +88,6 @@ export default function Index() {
         setPriceRange={setPriceRange}
         filteredProducts={filteredProducts}
       />
-      <AboutSection />
       <CallbackForm
         formData={formData}
         setFormData={setFormData}

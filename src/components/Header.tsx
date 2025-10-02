@@ -50,11 +50,11 @@ export default function Header() {
             </h1>
           </div>
           <div className="hidden lg:flex items-center gap-6">
-            <a href="#home" className="text-foreground hover:text-primary transition-colors font-medium">Главная</a>
-            <a href="#catalog" className="text-foreground hover:text-primary transition-colors font-medium">Ассортимент</a>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors font-medium">О нас</a>
-            <a href="#reviews" className="text-foreground hover:text-primary transition-colors font-medium">Отзывы</a>
-            <a href="#contacts" className="text-foreground hover:text-primary transition-colors font-medium">Контакты</a>
+            <a href="/" className="text-foreground hover:text-primary transition-colors font-medium">Главная</a>
+            <a href="/#catalog" className="text-foreground hover:text-primary transition-colors font-medium">Ассортимент</a>
+            <a href="/about" className="text-foreground hover:text-primary transition-colors font-medium">О нас</a>
+            <a href="/#reviews" className="text-foreground hover:text-primary transition-colors font-medium">Отзывы</a>
+            <a href="/#contacts" className="text-foreground hover:text-primary transition-colors font-medium">Контакты</a>
           </div>
           <a href="#contacts" className="lg:hidden">
             <Button size="sm" className="text-xs px-3 py-2">
