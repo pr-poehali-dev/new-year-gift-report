@@ -72,7 +72,7 @@ export default function Index() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-green-50 to-yellow-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
       <Snowfall />
       <Header />
       <HeroSection 
