@@ -55,6 +55,12 @@ export default function Header() {
             <a href="/about" className="text-foreground hover:text-primary transition-colors font-medium">О нас</a>
             <a href="/#reviews" className="text-foreground hover:text-primary transition-colors font-medium">Отзывы</a>
             <a href="/#contacts" className="text-foreground hover:text-primary transition-colors font-medium">Контакты</a>
+            <a href="/callback">
+              <Button className="ml-4">
+                <Icon name="Phone" size={16} className="mr-2" />
+                Заказать звонок
+              </Button>
+            </a>
           </div>
           <a href="/callback" className="lg:hidden">
             <Button size="sm" className="text-xs px-3 py-2">
