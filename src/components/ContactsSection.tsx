@@ -13,7 +13,7 @@ export default function ContactsSection() {
               <Icon name="Store" size={24} className="text-primary" />
               Наши магазины
             </h3>
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="flex gap-3 p-3 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary">
                 <div className="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold flex-shrink-0 text-sm">1</div>
                 <div>
