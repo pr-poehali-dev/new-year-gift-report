@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Callback from "./pages/Callback";
 import Reviews from "./pages/Reviews";
+import AllReviews from "./pages/AllReviews";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/callback" element={<Callback />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/all-reviews" element={<AllReviews />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

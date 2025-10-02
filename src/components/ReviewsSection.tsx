@@ -26,7 +26,7 @@ export default function ReviewsSection() {
         </h2>
         <p className="text-center text-xl text-muted-foreground mb-8">⭐ Более 10,000 довольных покупателей ⭐</p>
         <div className="flex justify-center gap-4 mb-12">
-          <a href="/reviews">
+          <a href="/all-reviews">
             <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-2">
               <Icon name="Eye" size={20} className="mr-2" />
               Все отзывы
