@@ -25,7 +25,13 @@ export default function ReviewsSection() {
           <Icon name="MessageCircle" size={48} className="text-primary" />
         </h2>
         <p className="text-center text-xl text-muted-foreground mb-8">⭐ Более 10,000 довольных покупателей ⭐</p>
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center gap-4 mb-12">
+          <a href="/reviews">
+            <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-2">
+              <Icon name="Eye" size={20} className="mr-2" />
+              Все отзывы
+            </Button>
+          </a>
           <a href="/reviews">
             <Button size="lg" className="text-lg px-8 py-6">
               <Icon name="Plus" size={20} className="mr-2" />
