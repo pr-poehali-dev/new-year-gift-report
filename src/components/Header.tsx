@@ -1,6 +1,18 @@
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 
+const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const isOnHomePage = window.location.pathname === '/';
+  
+  if (isOnHomePage) {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
+
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary/20 shadow-lg">
@@ -53,7 +65,7 @@ export default function Header() {
             <a href="/" className="text-foreground hover:text-primary transition-colors font-medium">Главная</a>
             <a href="/#catalog" className="text-foreground hover:text-primary transition-colors font-medium">Ассортимент</a>
             <a href="/about" className="text-foreground hover:text-primary transition-colors font-medium">О нас</a>
-            <a href="/#reviews" className="text-foreground hover:text-primary transition-colors font-medium">Отзывы</a>
+            <a href="/#reviews" onClick={(e) => handleAnchorClick(e, 'reviews')} className="text-foreground hover:text-primary transition-colors font-medium">Отзывы</a>
             <a href="/#contacts" className="text-foreground hover:text-primary transition-colors font-medium">Контакты</a>
             <a href="/callback">
               <Button className="ml-4">
