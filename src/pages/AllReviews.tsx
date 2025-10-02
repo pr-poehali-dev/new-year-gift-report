@@ -137,8 +137,9 @@ export default function AllReviews() {
           </Card>
         </div>
 
-        <div className="flex justify-center gap-2 mb-4 flex-wrap text-sm">
-          <div className="relative" ref={filterRef}>
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-2 mb-4 text-sm">
+          <div className="flex gap-2 items-center flex-wrap justify-center">
+            <div className="relative" ref={filterRef}>
             <Button
               variant="outline"
               onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -176,27 +177,28 @@ export default function AllReviews() {
             )}
           </div>
 
-          <Button
-            variant={sortOrder === 'newest' ? 'default' : 'outline'}
-            onClick={() => handleSortChange('newest')}
-            size="sm"
-          >
-            <Icon name="ArrowDown" size={14} className="mr-1" />
-            Новые
-          </Button>
-          <Button
-            variant={sortOrder === 'oldest' ? 'default' : 'outline'}
-            onClick={() => handleSortChange('oldest')}
-            size="sm"
-          >
-            <Icon name="ArrowUp" size={14} className="mr-1" />
-            Старые
-          </Button>
+            <Button
+              variant={sortOrder === 'newest' ? 'default' : 'outline'}
+              onClick={() => handleSortChange('newest')}
+              size="sm"
+            >
+              <Icon name="ArrowDown" size={14} className="mr-1" />
+              Новые
+            </Button>
+            <Button
+              variant={sortOrder === 'oldest' ? 'default' : 'outline'}
+              onClick={() => handleSortChange('oldest')}
+              size="sm"
+            >
+              <Icon name="ArrowUp" size={14} className="mr-1" />
+              Старые
+            </Button>
+          </div>
 
-          <div className="w-px h-6 bg-border mx-1" />
+          <div className="hidden sm:block w-px h-6 bg-border mx-1" />
 
-          <a href="/reviews">
-            <Button size="sm" variant="default" className="text-sm px-6">
+          <a href="/reviews" className="w-full sm:w-auto">
+            <Button size="sm" variant="default" className="w-full sm:w-auto text-sm px-6">
               <Icon name="Plus" size={16} className="mr-1" />
               Добавить отзыв
             </Button>
