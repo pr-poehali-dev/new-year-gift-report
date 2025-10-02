@@ -29,10 +29,29 @@ const allReviews: Review[] = [
 
 export default function AllReviews() {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
+  const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
+
+  const parseDate = (dateStr: string) => {
+    const months: { [key: string]: number } = {
+      'января': 0, 'февраля': 1, 'марта': 2, 'апреля': 3, 'мая': 4, 'июня': 5,
+      'июля': 6, 'августа': 7, 'сентября': 8, 'октября': 9, 'ноября': 10, 'декабря': 11
+    };
+    const parts = dateStr.split(' ');
+    const day = parseInt(parts[0]);
+    const month = months[parts[1]];
+    const year = parseInt(parts[2]);
+    return new Date(year, month, day);
+  };
 
   const filteredReviews = selectedRating 
     ? allReviews.filter(review => review.rating === selectedRating)
     : allReviews;
+
+  const sortedReviews = [...filteredReviews].sort((a, b) => {
+    const dateA = parseDate(a.date).getTime();
+    const dateB = parseDate(b.date).getTime();
+    return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
@@ -54,7 +73,7 @@ export default function AllReviews() {
           </a>
         </div>
 
-        <div className="flex justify-center gap-3 mb-8 flex-wrap">
+        <div className="flex justify-center gap-3 mb-4 flex-wrap">
           <Button
             variant={selectedRating === null ? 'default' : 'outline'}
             onClick={() => setSelectedRating(null)}
@@ -75,8 +94,27 @@ export default function AllReviews() {
           ))}
         </div>
 
+        <div className="flex justify-center gap-3 mb-8">
+          <Button
+            variant={sortOrder === 'newest' ? 'default' : 'outline'}
+            onClick={() => setSortOrder('newest')}
+            className="text-base"
+          >
+            <Icon name="ArrowDown" size={16} className="mr-1" />
+            Сначала новые
+          </Button>
+          <Button
+            variant={sortOrder === 'oldest' ? 'default' : 'outline'}
+            onClick={() => setSortOrder('oldest')}
+            className="text-base"
+          >
+            <Icon name="ArrowUp" size={16} className="mr-1" />
+            Сначала старые
+          </Button>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredReviews.map((review, index) => (
+          {sortedReviews.map((review, index) => (
             <Card key={index} className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-white">
               <CardContent className="p-6">
                 <div className="flex items-center gap-1 mb-4">
