@@ -39,25 +39,55 @@ export default function ReviewsSection() {
             </Button>
           </a>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+        <div className="md:grid md:grid-cols-3 md:gap-6 hidden">
           {reviews.map((review, index) => (
-            <Card key={index} className="hover:shadow-2xl transition-all hover:-translate-y-1 sm:hover:-translate-y-2 border-2 border-secondary/20 bg-white">
-              <CardContent className="p-4 sm:p-6">
-                <div className="flex items-center gap-1 mb-3 sm:mb-4">
+            <Card key={index} className="hover:shadow-2xl transition-all hover:-translate-y-2 border-2 border-secondary/20 bg-white">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-1 mb-4">
                   {Array.from({ length: review.rating }).map((_, i) => (
-                    <Icon key={i} name="Star" size={16} className="text-secondary fill-secondary sm:w-5 sm:h-5" />
+                    <Icon key={i} name="Star" size={20} className="text-secondary fill-secondary" />
                   ))}
                 </div>
-                <p className="text-foreground mb-3 sm:mb-4 font-medium italic text-sm sm:text-base">"{review.text}"</p>
-                <div className="flex items-center gap-2 sm:gap-3 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t">
-                  <div className="text-3xl sm:text-4xl">{review.avatar}</div>
+                <p className="text-foreground mb-4 font-medium italic">{review.text}"</p>
+                <div className="flex items-center gap-3 mt-4 pt-4 border-t">
+                  <div className="text-4xl">{review.avatar}</div>
                   <div>
-                    <p className="font-black text-base sm:text-lg">{review.name}</p>
-                    <p className="text-xs sm:text-sm text-muted-foreground">Проверенный покупатель</p>
+                    <p className="font-black text-lg">{review.name}</p>
+                    <p className="text-sm text-muted-foreground">Проверенный покупатель</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
+          ))}
+        </div>
+        
+        <div className="md:hidden overflow-x-auto scrollbar-hide -mx-4 px-4">
+          <div className="flex gap-4 pb-4" style={{ scrollSnapType: 'x mandatory' }}>
+            {reviews.map((review, index) => (
+              <Card key={index} className="flex-shrink-0 w-[85vw] max-w-sm border-2 border-secondary/20 bg-white" style={{ scrollSnapAlign: 'center' }}>
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-1 mb-3">
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <Icon key={i} name="Star" size={16} className="text-secondary fill-secondary" />
+                    ))}
+                  </div>
+                  <p className="text-foreground mb-3 font-medium italic text-sm">"{review.text}"</p>
+                  <div className="flex items-center gap-2 mt-3 pt-3 border-t">
+                    <div className="text-3xl">{review.avatar}</div>
+                    <div>
+                      <p className="font-black text-base">{review.name}</p>
+                      <p className="text-xs text-muted-foreground">Проверенный покупатель</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+        
+        <div className="flex justify-center gap-1 mt-4 md:hidden">
+          {reviews.map((_, index) => (
+            <div key={index} className="w-2 h-2 rounded-full bg-primary/30"></div>
           ))}
         </div>
       </div>

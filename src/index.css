@@ -255,3 +255,14 @@
 .animate-star-6 {
   animation: star-6 2.2s ease-in-out infinite 0.7s;
 }
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
