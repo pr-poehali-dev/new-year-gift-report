@@ -103,46 +103,47 @@ export default function AllReviews() {
       <Snowfall />
       <Header />
       <div className="container mx-auto px-4 pt-24 pb-16">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-black mb-2 text-red-600">Все отзывы</h1>
-          <p className="text-base text-muted-foreground mb-4">⭐ Более 10,000 довольных покупателей</p>
+        <div className="mb-6">
+          <h1 className="text-3xl md:text-4xl font-black mb-4 text-red-600 text-center">Все отзывы</h1>
           
-          <Card className="max-w-2xl mx-auto mb-4 border border-primary/20 bg-white">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between gap-4">
-                <div className="text-center">
-                  <div className="text-4xl font-black text-primary">{averageRating.toFixed(1)}</div>
-                  <div className="flex items-center gap-0.5 justify-center my-1">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Icon key={i} name="Star" size={16} className={i < Math.round(averageRating) ? 'text-secondary fill-secondary' : 'text-gray-300'} />
+          <div className="flex items-center justify-between gap-4 max-w-4xl mx-auto">
+            <Card className="flex-1 border border-primary/20 bg-white">
+              <CardContent className="p-3">
+                <div className="flex items-center gap-3">
+                  <div className="text-center">
+                    <div className="text-3xl font-black text-primary">{averageRating.toFixed(1)}</div>
+                    <div className="flex items-center gap-0.5 justify-center my-1">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Icon key={i} name="Star" size={14} className={i < Math.round(averageRating) ? 'text-secondary fill-secondary' : 'text-gray-300'} />
+                      ))}
+                    </div>
+                    <p className="text-xs text-muted-foreground">{ratingPercentage.toFixed(0)}%</p>
+                  </div>
+                  <div className="flex-1">
+                    {ratingDistribution.map(({ rating, count, percentage }) => (
+                      <div key={rating} className="flex items-center gap-1.5 mb-0.5">
+                        <span className="text-xs font-semibold w-7">{rating}⭐</span>
+                        <div className="flex-1 bg-gray-200 rounded-full h-1.5 overflow-hidden">
+                          <div 
+                            className="bg-secondary h-full rounded-full transition-all" 
+                            style={{ width: `${percentage}%` }}
+                          />
+                        </div>
+                        <span className="text-xs text-muted-foreground w-8">{count}</span>
+                      </div>
                     ))}
                   </div>
-                  <p className="text-xs text-muted-foreground">{ratingPercentage.toFixed(0)}%</p>
                 </div>
-                <div className="flex-1">
-                  {ratingDistribution.map(({ rating, count, percentage }) => (
-                    <div key={rating} className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-semibold w-8">{rating} ⭐</span>
-                      <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
-                        <div 
-                          className="bg-secondary h-full rounded-full transition-all" 
-                          style={{ width: `${percentage}%` }}
-                        />
-                      </div>
-                      <span className="text-xs text-muted-foreground w-12">{count}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
 
-          <a href="/reviews">
-            <Button size="sm" className="text-sm px-6">
-              <Icon name="Plus" size={16} className="mr-1" />
-              Добавить отзыв
-            </Button>
-          </a>
+            <a href="/reviews">
+              <Button size="sm" className="text-sm px-6 whitespace-nowrap">
+                <Icon name="Plus" size={16} className="mr-1" />
+                Добавить отзыв
+              </Button>
+            </a>
+          </div>
         </div>
 
         <div className="flex justify-center gap-2 mb-4 flex-wrap text-sm">
