@@ -53,6 +53,15 @@ export default function AllReviews() {
     return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
   });
 
+  const averageRating = allReviews.reduce((sum, review) => sum + review.rating, 0) / allReviews.length;
+  const ratingPercentage = (averageRating / 5) * 100;
+
+  const ratingDistribution = [5, 4, 3, 2, 1].map(rating => {
+    const count = allReviews.filter(r => r.rating === rating).length;
+    const percentage = (count / allReviews.length) * 100;
+    return { rating, count, percentage };
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
       <Snowfall />
@@ -65,6 +74,37 @@ export default function AllReviews() {
             <Icon name="MessageCircle" size={48} className="text-primary" />
           </h1>
           <p className="text-xl text-muted-foreground mb-6">⭐ Более 10,000 довольных покупателей ⭐</p>
+          
+          <Card className="max-w-3xl mx-auto mb-8 border-2 border-primary/20 bg-white shadow-xl">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-center gap-8 mb-6">
+                <div className="text-center">
+                  <div className="text-6xl font-black text-primary mb-2">{averageRating.toFixed(1)}</div>
+                  <div className="flex items-center gap-1 justify-center mb-2">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Icon key={i} name="Star" size={24} className={i < Math.round(averageRating) ? 'text-secondary fill-secondary' : 'text-gray-300'} />
+                    ))}
+                  </div>
+                  <p className="text-sm text-muted-foreground">Общий рейтинг: {ratingPercentage.toFixed(0)}%</p>
+                </div>
+                <div className="flex-1 max-w-md">
+                  {ratingDistribution.map(({ rating, count, percentage }) => (
+                    <div key={rating} className="flex items-center gap-3 mb-2">
+                      <span className="text-sm font-semibold w-12">{rating} <Icon name="Star" size={12} className="inline text-secondary fill-secondary" /></span>
+                      <div className="flex-1 bg-gray-200 rounded-full h-3 overflow-hidden">
+                        <div 
+                          className="bg-secondary h-full rounded-full transition-all" 
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
+                      <span className="text-sm text-muted-foreground w-16">{percentage.toFixed(0)}% ({count})</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <a href="/reviews">
             <Button size="lg" className="text-lg px-8 py-6">
               <Icon name="Plus" size={20} className="mr-2" />
