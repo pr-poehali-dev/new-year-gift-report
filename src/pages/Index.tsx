@@ -3,7 +3,6 @@ import Snowfall from '@/components/Snowfall';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import ProductCatalog, { Product } from '@/components/ProductCatalog';
-import CallbackForm from '@/components/CallbackForm';
 import ReviewsSection from '@/components/ReviewsSection';
 import ContactsSection from '@/components/ContactsSection';
 import Footer from '@/components/Footer';
@@ -27,20 +26,8 @@ export default function Index() {
   const [selectedCategory, setSelectedCategory] = useState('Все');
   const [priceRange, setPriceRange] = useState([0, 15000]);
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [formData, setFormData] = useState({ name: '', phone: '' });
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const [catalogModalOpen, setCatalogModalOpen] = useState(false);
   const [compositionModalOpen, setCompositionModalOpen] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Форма отправлена:', formData);
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: '', phone: '' });
-    }, 3000);
-  };
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -87,12 +74,6 @@ export default function Index() {
         priceRange={priceRange}
         setPriceRange={setPriceRange}
         filteredProducts={filteredProducts}
-      />
-      <CallbackForm
-        formData={formData}
-        setFormData={setFormData}
-        formSubmitted={formSubmitted}
-        handleSubmit={handleSubmit}
       />
       <ReviewsSection />
       <ContactsSection />
