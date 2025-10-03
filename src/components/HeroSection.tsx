@@ -74,9 +74,9 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
             </button>
             <button 
               onClick={handleDownloadCatalog}
-              className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 sm:px-8 py-2.5 sm:py-4 rounded-xl font-bold text-sm sm:text-lg shadow-2xl active:scale-95 sm:hover:scale-105 transition-transform flex items-center justify-center gap-2"
+              className="w-full sm:hidden bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2.5 rounded-xl font-bold text-sm shadow-2xl active:scale-95 transition-transform flex items-center justify-center gap-2"
             >
-              <Icon name="Download" size={18} className="sm:w-6 sm:h-6" />
+              <Icon name="Download" size={18} />
               <span className="whitespace-nowrap">Скачать каталог</span>
             </button>
           </div>
