@@ -37,7 +37,7 @@ export default function ProductCatalog({
 
   return (
     <section id="catalog" className="container mx-auto px-4 py-8 md:py-16">
-      <div className="bg-gradient-to-br from-red-100 via-yellow-50 to-green-100 rounded-3xl p-4 md:p-8 shadow-2xl border-2 border-primary/20">
+      <div className="bg-gradient-to-br from-red-100 via-yellow-50 to-green-100 rounded-3xl p-4 md:p-8 shadow-2xl border-2 border-primary/20 overflow-hidden">
         <h2 className="text-3xl md:text-5xl font-black text-center mb-2 md:mb-4 flex items-center justify-center gap-2 md:gap-3">
           <Icon name="Sparkles" size={32} className="md:w-12 md:h-12 text-secondary animate-pulse" />
           <span className="text-red-600">Наш Ассортимент</span>
@@ -95,8 +95,8 @@ export default function ProductCatalog({
             </Card>
           </aside>
 
-          <div className="lg:col-span-3">
-            <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible scrollbar-hide lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0 px-1 lg:px-0">
+          <div className="lg:col-span-3 -mx-4 md:mx-0">
+            <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible scrollbar-hide lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0 px-4 md:px-0">
               {filteredProducts.map(product => (
                 <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-primary/20 hover:border-primary/50 bg-gradient-to-br from-white to-red-50 flex-shrink-0 w-[280px] lg:w-auto snap-center">
                   <CardContent className="p-0">
