@@ -190,12 +190,6 @@ export default function CatalogModal({ open, onOpenChange, type }: CatalogModalP
               </div>
             </>
           )}
-
-          <div className="bg-yellow-100 border-2 border-yellow-400 p-3 sm:p-4 rounded-xl text-center">
-            <p className="text-sm sm:text-lg font-bold">
-              🎁 При заказе от 10 подарков - скидка 10%!
-            </p>
-          </div>
         </div>
       </DialogContent>
     </Dialog>
