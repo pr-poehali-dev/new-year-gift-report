@@ -36,7 +36,7 @@ export default function ProductCatalog({
   const [showFilters, setShowFilters] = useState(false);
 
   return (
-    <section id="catalog" className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-16">
+    <section id="catalog" className="px-4 sm:px-6 py-8 md:py-16">
       <div className="bg-gradient-to-br from-red-100 via-yellow-50 to-green-100 rounded-3xl p-4 md:p-8 shadow-2xl border-2 border-primary/20 overflow-hidden">
         <h2 className="text-3xl md:text-5xl font-black text-center mb-2 md:mb-4 flex items-center justify-center gap-2 md:gap-3">
           <Icon name="Sparkles" size={32} className="md:w-12 md:h-12 text-secondary animate-pulse" />
