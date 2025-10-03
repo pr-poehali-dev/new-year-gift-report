@@ -15,6 +15,15 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ countdown, onOpenCatalog, onOpenComposition }: HeroSectionProps) {
+  const handleDownloadCatalog = () => {
+    const link = document.createElement('a');
+    link.href = '/catalog.pdf';
+    link.download = 'Каталог_подарков_ЧеБ.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section id="home" className="relative overflow-hidden">
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-red-200/30">
@@ -64,6 +73,7 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
               <span className="whitespace-nowrap">Состав подарков</span>
             </button>
             <button 
+              onClick={handleDownloadCatalog}
               className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 sm:px-8 py-2.5 sm:py-4 rounded-xl font-bold text-sm sm:text-lg shadow-2xl active:scale-95 sm:hover:scale-105 transition-transform flex items-center justify-center gap-2"
             >
               <Icon name="Download" size={18} className="sm:w-6 sm:h-6" />
