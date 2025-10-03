@@ -96,28 +96,28 @@ export default function ProductCatalog({
           </aside>
 
           <div className="lg:col-span-3">
-            <div className="flex lg:grid overflow-x-scroll lg:overflow-x-visible scrollbar-hide lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-6 snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0">
+            <div className="flex lg:grid overflow-x-scroll lg:overflow-x-visible scrollbar-hide lg:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-6 snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0">
               {filteredProducts.map(product => (
-                <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-primary/20 hover:border-primary/50 bg-gradient-to-br from-white to-red-50 flex-shrink-0 w-[240px] sm:w-[280px] lg:w-auto snap-center">
+                <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-primary/20 hover:border-primary/50 bg-gradient-to-br from-white to-red-50 flex-shrink-0 w-[200px] sm:w-[260px] lg:w-auto snap-center">
                   <CardContent className="p-0">
-                    <div className="relative overflow-hidden rounded-t-lg bg-muted h-32 sm:h-40 md:h-48">
+                    <div className="relative overflow-hidden rounded-t-lg bg-muted h-28 sm:h-36 md:h-48">
                       <img 
                         src={product.image} 
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
-                      <Badge className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-gradient-to-r from-secondary to-yellow-400 text-secondary-foreground shadow-lg font-bold text-xs">
-                        <Icon name="Star" size={12} className="mr-0.5 sm:mr-1" />
+                      <Badge className="absolute top-1.5 right-1.5 sm:top-3 sm:right-3 bg-gradient-to-r from-secondary to-yellow-400 text-secondary-foreground shadow-lg font-bold text-[10px] sm:text-xs">
+                        <Icon name="Star" size={10} className="mr-0.5 sm:mr-1" />
                         {product.rating}
                       </Badge>
-                      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 bg-primary text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold">ХИТ 🔥</div>
+                      <div className="absolute top-1.5 left-1.5 sm:top-3 sm:left-3 bg-primary text-white px-1.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[9px] sm:text-xs font-bold">ХИТ 🔥</div>
                     </div>
                     <div className="p-2 sm:p-3 md:p-4">
-                      <Badge variant="outline" className="mb-1 md:mb-2 border-primary text-primary font-semibold text-[10px] sm:text-xs">{product.category}</Badge>
-                      <h3 className="font-bold text-sm sm:text-base md:text-lg mb-1 md:mb-2 line-clamp-2">{product.name}</h3>
-                      <p className="text-[11px] sm:text-xs md:text-sm text-muted-foreground mb-1 sm:mb-2 md:mb-3 line-clamp-2">{product.description}</p>
+                      <Badge variant="outline" className="mb-0.5 sm:mb-1 md:mb-2 border-primary text-primary font-semibold text-[9px] sm:text-xs">{product.category}</Badge>
+                      <h3 className="font-bold text-xs sm:text-base md:text-lg mb-0.5 sm:mb-1 md:mb-2 line-clamp-2">{product.name}</h3>
+                      <p className="text-[10px] sm:text-xs md:text-sm text-muted-foreground mb-1 sm:mb-2 md:mb-3 line-clamp-2">{product.description}</p>
                       <div className="flex items-center justify-center">
-                        <span className="text-lg sm:text-xl md:text-2xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent">{product.price} ₽</span>
+                        <span className="text-base sm:text-xl md:text-2xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent">{product.price} ₽</span>
                       </div>
                     </div>
                   </CardContent>
