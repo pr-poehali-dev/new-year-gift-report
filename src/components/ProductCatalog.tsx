@@ -95,8 +95,8 @@ export default function ProductCatalog({
             </Card>
           </aside>
 
-          <div className="lg:col-span-3">
-            <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible scrollbar-hide lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0 -mx-4 px-4 lg:mx-0 lg:px-0">
+          <div className="lg:col-span-3 overflow-hidden">
+            <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible scrollbar-hide lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0">
               {filteredProducts.map(product => (
                 <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-primary/20 hover:border-primary/50 bg-gradient-to-br from-white to-red-50 flex-shrink-0 w-[280px] lg:w-auto snap-center">
                   <CardContent className="p-0">
