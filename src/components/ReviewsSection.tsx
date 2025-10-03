@@ -17,7 +17,7 @@ const reviews: Review[] = [
 
 export default function ReviewsSection() {
   return (
-    <section id="reviews" className="container mx-auto px-4 py-8 sm:py-12 md:py-16">
+    <section id="reviews" className="max-w-7xl mx-auto px-4 py-8 sm:py-12 md:py-16">
       <div className="bg-gradient-to-br from-yellow-100 via-green-50 to-red-100 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl border-2 border-primary/20">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-center mb-3 sm:mb-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
           <Icon name="MessageCircle" size={32} className="text-primary hidden sm:block sm:w-10 sm:h-10 md:w-12 md:h-12" />

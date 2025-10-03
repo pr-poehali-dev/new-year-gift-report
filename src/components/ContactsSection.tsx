@@ -4,7 +4,7 @@ import Icon from '@/components/ui/icon';
 
 export default function ContactsSection() {
   return (
-    <section id="contacts" className="container mx-auto px-4 py-12 max-w-7xl">
+    <section id="contacts" className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
       <h2 className="text-3xl md:text-4xl font-black text-center mb-8">Контакты</h2>
       
       <div className="grid lg:grid-cols-2 gap-6 mb-6">

@@ -3,7 +3,7 @@ import Icon from '@/components/ui/icon';
 export default function Footer() {
   return (
     <footer className="bg-gradient-to-r from-red-700 via-primary to-red-700 text-white py-6 sm:py-8 mt-8 sm:mt-16">
-      <div className="container mx-auto px-3 sm:px-4 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
         <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4">
           <div className="relative w-8 h-8 sm:w-12 sm:h-12 animate-bounce" style={{animationDuration: '2s'}}>
             <img 

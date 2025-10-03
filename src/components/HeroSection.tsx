@@ -34,7 +34,7 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
         />
       </div>
       
-      <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-16 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-16 relative z-10">
         <div className="text-center mb-8 sm:mb-12 animate-fade-in">
           <div className="flex flex-col items-center justify-center gap-3 sm:gap-6 mb-3 sm:mb-6">
             <div className="relative group w-32 h-32 sm:w-48 sm:h-48 md:w-80 md:h-80">

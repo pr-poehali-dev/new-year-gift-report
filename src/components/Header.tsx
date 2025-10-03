@@ -33,8 +33,8 @@ export default function Header() {
   };
   return (
     <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary/20 shadow-lg">
-      <div className="bg-gradient-to-r from-red-700 via-primary to-red-700 text-white py-2">
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 flex items-center justify-between text-xs sm:text-sm">
+      <div className="bg-gradient-to-r from-red-700 via-primary to-red-700 text-white py-2 px-2 sm:px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-xs sm:text-sm">
           <div className="flex items-center gap-2 sm:gap-6">
             <a href="tel:+79123456789" className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
               <Icon name="Phone" size={14} className="sm:w-4 sm:h-4" />
@@ -63,7 +63,7 @@ export default function Header() {
           </a>
         </div>
       </div>
-      <nav className="max-w-7xl mx-auto px-2 sm:px-4 py-3 sm:py-4">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="relative w-8 h-8 sm:w-12 sm:h-12 animate-bounce" style={{animationDuration: '2s'}}>
