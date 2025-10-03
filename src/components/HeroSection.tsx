@@ -63,6 +63,12 @@ export default function HeroSection({ countdown, onOpenCatalog, onOpenCompositio
               <Icon name="FileText" size={18} className="sm:w-6 sm:h-6" />
               <span className="whitespace-nowrap">Состав подарков</span>
             </button>
+            <button 
+              className="w-full sm:w-auto bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 sm:px-8 py-2.5 sm:py-4 rounded-xl font-bold text-sm sm:text-lg shadow-2xl active:scale-95 sm:hover:scale-105 transition-transform flex items-center justify-center gap-2"
+            >
+              <Icon name="Download" size={18} className="sm:w-6 sm:h-6" />
+              <span className="whitespace-nowrap">Скачать каталог</span>
+            </button>
           </div>
         </div>
 
