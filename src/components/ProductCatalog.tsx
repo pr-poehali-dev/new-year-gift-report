@@ -66,7 +66,7 @@ export default function ProductCatalog({
 
                 <div className="mb-4 md:mb-6">
                   <h4 className="font-bold mb-2 md:mb-3 text-base md:text-lg">📂 Категории</h4>
-                  <div className="flex lg:flex-col overflow-x-auto lg:overflow-x-visible scrollbar-hide gap-2 pb-2 lg:pb-0">
+                  <div className="flex lg:flex-col overflow-x-auto lg:overflow-visible scrollbar-hide gap-2 pb-2 lg:pb-0">
                     {categories.map(category => (
                       <Button
                         key={category}
@@ -96,7 +96,7 @@ export default function ProductCatalog({
           </aside>
 
           <div className="lg:col-span-3">
-            <div className="flex lg:grid overflow-x-scroll lg:overflow-x-visible scrollbar-hide lg:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-6 snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0">
+            <div className="flex lg:grid overflow-x-auto lg:overflow-visible scrollbar-hide lg:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-6 snap-x snap-mandatory lg:snap-none pb-4 lg:pb-0">
               {filteredProducts.map(product => (
                 <Card key={product.id} className="group hover:shadow-2xl transition-all duration-300 border-2 border-primary/20 hover:border-primary hover:bg-gradient-to-br hover:from-red-50 hover:to-yellow-50 bg-gradient-to-br from-white to-red-50 flex-shrink-0 w-[200px] sm:w-[260px] lg:w-auto snap-center">
                   <CardContent className="p-0">
