@@ -1,160 +1,119 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import { toast } from 'sonner';
+
+const contacts = [
+  { icon: 'Phone', label: 'Телефон', value: '+7 909 302-00-77', href: 'tel:+79093020077' },
+  { icon: 'Mail', label: 'Почта', value: 'chebpodarki@yandex.ru', href: 'mailto:chebpodarki@yandex.ru' },
+  { icon: 'MapPin', label: 'Офис', value: 'Чебоксары, ул. Петрова, 6/3' },
+];
 
 export default function ContactsSection() {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [amount, setAmount] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !phone.trim()) {
+      toast.error('Заполните имя и телефон');
+      return;
+    }
+    toast.success('Заявка отправлена! Перезвоним в течение 15 минут');
+    setName('');
+    setPhone('');
+    setAmount('');
+  };
+
   return (
-    <section id="contacts" className="px-4 sm:px-6 py-12">
-      <h2 className="text-3xl md:text-4xl font-black text-center mb-8">Контакты</h2>
-      
-      <div className="grid lg:grid-cols-2 gap-6 mb-6">
-        <Card>
-          <CardContent className="p-6">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <Icon name="Store" size={24} className="text-primary" />
-              Наши магазины
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="flex gap-3 p-3 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary">
-                <div className="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold flex-shrink-0 text-sm">1</div>
-                <div>
-                  <h4 className="font-bold">Москва (Центр)</h4>
-                  <p className="text-sm text-muted-foreground">ул. Тверская, д. 12</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                    <Icon name="Clock" size={12} /> Пн-Вс: 10:00-22:00
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3 p-3 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary">
-                <div className="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold flex-shrink-0 text-sm">2</div>
-                <div>
-                  <h4 className="font-bold">Москва (ТЦ Авиапарк)</h4>
-                  <p className="text-sm text-muted-foreground">Ходынский бульвар, д. 4</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                    <Icon name="Clock" size={12} /> Пн-Вс: 10:00-23:00
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3 p-3 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary">
-                <div className="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold flex-shrink-0 text-sm">3</div>
-                <div>
-                  <h4 className="font-bold">Санкт-Петербург</h4>
-                  <p className="text-sm text-muted-foreground">Невский проспект, д. 28</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                    <Icon name="Clock" size={12} /> Пн-Вс: 10:00-22:00
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-3 p-3 bg-gradient-to-r from-primary/5 to-transparent rounded-lg border-l-4 border-primary">
-                <div className="bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold flex-shrink-0 text-sm">4</div>
-                <div>
-                  <h4 className="font-bold">Казань</h4>
-                  <p className="text-sm text-muted-foreground">ул. Баумана, д. 15</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                    <Icon name="Clock" size={12} /> Пн-Вс: 10:00-21:00
-                  </p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-6">
-            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <Icon name="Map" size={24} className="text-primary" />
-              Мы на карте
-            </h3>
-            <div className="relative bg-muted rounded-lg h-[350px] overflow-hidden border-2 border-primary/20">
-              <iframe 
-                src="https://yandex.ru/map-widget/v1/?um=constructor%3A64c0a8f8c8c3e8e9a8c3e8e9a8c3e8e9&amp;source=constructor" 
-                width="100%" 
-                height="100%" 
-                frameBorder="0"
-                className="rounded-lg"
-                title="Карта главного офиса"
-              ></iframe>
-            </div>
-            <div className="mt-3 p-3 bg-primary/5 rounded-lg border-l-4 border-primary">
-              <div className="flex items-start gap-2">
-                <Icon name="MapPin" size={18} className="text-primary flex-shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-bold mb-1">Главный офис</h4>
-                  <p className="text-sm text-muted-foreground mb-1">г. Москва, ул. Тверская, д. 12, офис 301</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1">
-                    <Icon name="Clock" size={12} />
-                    Пн-Пт: 9:00-20:00, Сб-Вс: 10:00-18:00
-                  </p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Card>
-        <CardContent className="p-4 sm:p-6">
-          <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-center">Свяжитесь с нами</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="p-3 sm:p-4 rounded-lg border border-primary/10 bg-gradient-to-br from-primary/5 to-transparent">
-              <div className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 mb-3 sm:mb-2">
-                <div className="bg-primary rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center flex-shrink-0">
-                  <Icon name="Phone" size={24} className="text-white sm:w-7 sm:h-7" />
-                </div>
-                <div className="flex-1 sm:text-center">
-                  <h4 className="font-bold mb-0.5">Телефон</h4>
-                  <p className="text-muted-foreground text-sm">+7 (495) 123-45-67</p>
-                  <p className="text-xs text-muted-foreground hidden sm:block">Ежедневно 9:00-21:00</p>
-                </div>
-              </div>
-              <a href="tel:+74951234567" className="block sm:mx-auto sm:w-fit">
-                <Button className="w-full sm:w-auto" size="sm">
-                  <Icon name="Phone" size={16} className="mr-1" />
-                  Позвонить
-                </Button>
-              </a>
-            </div>
-
-            <div className="p-3 sm:p-4 rounded-lg border border-primary/10 bg-gradient-to-br from-primary/5 to-transparent">
-              <div className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 mb-3 sm:mb-2">
-                <div className="bg-primary rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center flex-shrink-0">
-                  <Icon name="Mail" size={24} className="text-white sm:w-7 sm:h-7" />
-                </div>
-                <div className="flex-1 sm:text-center">
-                  <h4 className="font-bold mb-0.5">Email</h4>
-                  <p className="text-muted-foreground text-sm break-all">info@newyeargifts.ru</p>
-                  <p className="text-xs text-muted-foreground hidden sm:block">Ответим в течение 1 часа</p>
-                </div>
-              </div>
-              <a href="mailto:info@newyeargifts.ru" className="block sm:mx-auto sm:w-fit">
-                <Button className="w-full sm:w-auto" size="sm">
-                  <Icon name="Mail" size={16} className="mr-1" />
-                  Написать
-                </Button>
-              </a>
-            </div>
-
-            <div className="p-3 sm:p-4 rounded-lg border border-primary/10 bg-gradient-to-br from-primary/5 to-transparent">
-              <div className="flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 mb-3 sm:mb-2">
-                <div className="bg-primary rounded-full w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center flex-shrink-0">
-                  <Icon name="MessageCircle" size={24} className="text-white sm:w-7 sm:h-7" />
-                </div>
-                <div className="flex-1 sm:text-center">
-                  <h4 className="font-bold mb-0.5">WhatsApp</h4>
-                  <p className="text-muted-foreground text-sm">+7 (495) 123-45-67</p>
-                  <p className="text-xs text-muted-foreground hidden sm:block">Быстрая связь онлайн</p>
-                </div>
-              </div>
-              <a href="https://wa.me/74951234567" target="_blank" rel="noopener noreferrer" className="block sm:mx-auto sm:w-fit">
-                <Button className="w-full sm:w-auto" size="sm">
-                  <Icon name="MessageCircle" size={16} className="mr-1" />
-                  Открыть чат
-                </Button>
-              </a>
-            </div>
+    <section id="contacts" className="bg-forest text-forest-foreground">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-secondary mb-3">
+            Мы рядом
           </div>
-        </CardContent>
-      </Card>
+          <h2 className="text-3xl sm:text-5xl font-extrabold leading-tight">
+            Давайте соберём ваш идеальный подарок
+          </h2>
+          <p className="mt-5 text-sm sm:text-base text-forest-foreground/75 max-w-md leading-relaxed">
+            Позвоните или оставьте заявку — поможем выбрать упаковку, вес и состав.
+          </p>
+
+          <div className="mt-8 space-y-4">
+            {contacts.map(c => (
+              <div key={c.label} className="flex items-center gap-3">
+                <span className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center shrink-0">
+                  <Icon name={c.icon} size={18} />
+                </span>
+                <div className="leading-tight">
+                  <div className="text-[10px] uppercase tracking-wide text-forest-foreground/55">{c.label}</div>
+                  {c.href ? (
+                    <a href={c.href} className="font-bold text-sm sm:text-base hover:text-secondary transition-colors">
+                      {c.value}
+                    </a>
+                  ) : (
+                    <div className="font-bold text-sm sm:text-base">{c.value}</div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white text-foreground rounded-3xl p-6 sm:p-8 shadow-2xl">
+          <h3 className="text-xl sm:text-2xl font-extrabold text-forest">Получить консультацию</h3>
+          <p className="mt-1.5 text-xs text-muted-foreground">
+            Ответим на вопросы и рассчитаем стоимость
+          </p>
+
+          <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            <div>
+              <label className="block text-xs font-semibold mb-1.5">Ваше имя</label>
+              <input
+                value={name}
+                onChange={e => setName(e.target.value)}
+                placeholder="Георгий"
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-forest transition"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold mb-1.5">Номер телефона</label>
+              <input
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
+                placeholder="+7 (___) ___-__-__"
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-forest transition"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold mb-1.5">Количество подарков</label>
+              <select
+                value={amount}
+                onChange={e => setAmount(e.target.value)}
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-forest transition"
+              >
+                <option value="">Выберите количество</option>
+                <option value="1-10">1–10 шт.</option>
+                <option value="10-50">10–50 шт.</option>
+                <option value="50-200">50–200 шт.</option>
+                <option value="200+">Более 200 шт.</option>
+              </select>
+            </div>
+
+            <button
+              type="submit"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white py-3.5 font-bold hover:brightness-110 transition"
+            >
+              Жду звонка
+              <Icon name="ArrowRight" size={18} />
+            </button>
+
+            <p className="text-[10px] text-muted-foreground text-center">
+              Нажимая кнопку, вы соглашаетесь на обработку персональных данных
+            </p>
+          </form>
+        </div>
+      </div>
     </section>
   );
 }

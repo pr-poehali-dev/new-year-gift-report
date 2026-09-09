@@ -1,159 +1,107 @@
-import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
-
-interface Countdown {
-  days: number;
-  hours: number;
-  minutes: number;
-  seconds: number;
-}
+import { heroImage } from '@/data/products';
 
 interface HeroSectionProps {
-  countdown: Countdown;
   onOpenCatalog: () => void;
-  onOpenComposition: () => void;
 }
 
-export default function HeroSection({ countdown, onOpenCatalog, onOpenComposition }: HeroSectionProps) {
-  const handleDownloadCatalog = () => {
-    const link = document.createElement('a');
-    link.href = '/catalog.pdf';
-    link.download = 'Каталог_подарков_ЧеБ.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+const stats = [
+  { value: '15+', label: 'лет радуем детей' },
+  { value: '300–1500 г', label: 'на любой бюджет' },
+  { value: 'По России', label: 'бережная доставка' },
+];
+
+const advantages = [
+  { icon: 'ShieldCheck', title: 'Проверенный состав', text: 'Сертифицированные сладости' },
+  { icon: 'Tag', title: 'Цены от производителя', text: 'Скидки на объём заказа' },
+  { icon: 'Palette', title: 'Брендирование', text: 'Ваш логотип и открытка' },
+  { icon: 'Truck', title: 'Доставка по России', text: 'Аккуратно и точно в срок' },
+];
+
+export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" className="relative overflow-hidden">
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-red-200/30">
-        <img 
-          src="/img/fb9dad36-b0a4-4017-8c17-a92a8ae860ba.jpg" 
-          alt="Christmas background"
-          className="w-full h-full object-cover opacity-30 mix-blend-overlay"
-        />
+    <section id="home">
+      <div className="bg-forest text-forest-foreground">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-20 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-secondary/50 px-4 py-1.5 text-[11px] sm:text-xs font-bold tracking-widest uppercase text-secondary">
+              ★ Новогодняя коллекция 2026/27
+            </div>
+
+            <h1 className="mt-6 text-4xl sm:text-6xl font-extrabold leading-[1.05]">
+              Подарки, от которых
+              <span className="block text-secondary">глаза горят</span>
+            </h1>
+
+            <p className="mt-5 text-sm sm:text-base text-forest-foreground/75 max-w-lg leading-relaxed">
+              Любимые сладости в волшебной упаковке — детям, близким, коллегам и партнёрам.
+              Оптом и в розницу с доставкой по всей России.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <button
+                onClick={() => scrollTo('catalog')}
+                className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 sm:px-7 py-3.5 font-bold text-secondary-foreground hover:brightness-105 transition"
+              >
+                Выбрать подарок
+                <Icon name="ArrowRight" size={18} />
+              </button>
+              <button
+                onClick={onOpenCatalog}
+                className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-6 sm:px-7 py-3.5 font-bold hover:bg-white/20 transition"
+              >
+                Скачать каталог
+              </button>
+            </div>
+
+            <div className="mt-10 grid grid-cols-3 gap-4 max-w-lg">
+              {stats.map(s => (
+                <div key={s.label}>
+                  <div className="font-extrabold text-base sm:text-xl">{s.value}</div>
+                  <div className="text-[10px] sm:text-xs text-forest-foreground/60 mt-1">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="overflow-hidden rounded-3xl shadow-2xl">
+              <img src={heroImage} alt="Новогодние подарочные наборы" className="w-full h-[280px] sm:h-[420px] object-cover" />
+            </div>
+
+            <div className="absolute -top-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
+              <span className="font-extrabold text-xs sm:text-sm">от 590 ₽</span>
+              <span className="text-[8px] sm:text-[9px] opacity-80">за подарок</span>
+            </div>
+
+            <div className="absolute -bottom-5 left-4 sm:left-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center shrink-0">
+                <Icon name="Check" size={18} />
+              </div>
+              <div className="leading-tight">
+                <div className="font-bold text-sm text-forest">Свежие сладости</div>
+                <div className="text-[10px] text-muted-foreground">Прямые контракты с фабриками</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      
-      <div className="px-4 sm:px-6 py-8 sm:py-16 relative z-10">
-        <div className="text-center mb-8 sm:mb-12 animate-fade-in">
-          <div className="flex flex-col items-center justify-center gap-3 sm:gap-6 mb-3 sm:mb-6">
-            <div className="relative group w-32 h-32 sm:w-48 sm:h-48 md:w-80 md:h-80">
-              <div className="absolute inset-0 blur-xl opacity-50 animate-pulse bg-gradient-to-r from-yellow-400 via-red-500 to-green-500 rounded-full"></div>
-              
-              <img 
-                src="https://static.tildacdn.com/tild3934-3361-4465-b763-396463353837/-.gif" 
-                alt="ЧеБ подарки" 
-                className="relative w-full h-full object-contain drop-shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="flex items-center gap-1 sm:gap-4">
-              <Icon name="Sparkles" size={24} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
-              <h2 className="text-2xl sm:text-5xl md:text-7xl font-black drop-shadow-lg text-red-600" style={{ fontFamily: 'Merriweather, serif' }}>
-                Волшебные подарки к Новому Году
-              </h2>
-              <Icon name="Sparkles" size={24} className="text-secondary animate-pulse sm:w-12 sm:h-12" />
-            </div>
-          </div>
-          <p className="text-sm sm:text-xl md:text-2xl font-semibold text-foreground max-w-3xl mx-auto mb-4 sm:mb-8 px-2">
-            🎄 Создайте незабываемое настроение праздника с нашей эксклюзивной коллекцией подарков 🎁
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 w-full sm:w-auto px-2">
-            <button 
-              onClick={onOpenCatalog}
-              className="w-full sm:w-auto bg-gradient-to-r from-primary to-red-700 text-white px-4 sm:px-8 py-2.5 sm:py-4 rounded-xl font-bold text-sm sm:text-lg shadow-2xl active:scale-95 sm:hover:scale-105 transition-transform flex items-center justify-center gap-2"
-            >
-              <Icon name="BookOpen" size={18} className="sm:w-6 sm:h-6" />
-              <span className="whitespace-nowrap">Каталог подарков</span>
-            </button>
-            <button 
-              onClick={onOpenComposition}
-              className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-green-700 text-white px-4 sm:px-8 py-2.5 sm:py-4 rounded-xl font-bold text-sm sm:text-lg shadow-2xl active:scale-95 sm:hover:scale-105 transition-transform flex items-center justify-center gap-2"
-            >
-              <Icon name="FileText" size={18} className="sm:w-6 sm:h-6" />
-              <span className="whitespace-nowrap">Состав подарков</span>
-            </button>
-            <button 
-              onClick={handleDownloadCatalog}
-              className="w-full sm:hidden bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-4 py-2.5 rounded-xl font-bold text-sm shadow-2xl active:scale-95 transition-transform flex items-center justify-center gap-2"
-            >
-              <Icon name="Download" size={18} />
-              <span className="whitespace-nowrap">Скачать каталог</span>
-            </button>
-          </div>
-        </div>
 
-        <div className="relative bg-gradient-to-br from-primary via-red-600 to-red-700 rounded-xl sm:rounded-3xl p-3 sm:p-8 md:p-12 text-white shadow-2xl mb-6 sm:mb-16 animate-scale-in overflow-hidden border-2 sm:border-4 border-yellow-400">
-          <div className="absolute inset-0 opacity-10">
-            <img src="/img/1ece02ee-45aa-45eb-80d5-19b4d7d75a4a.jpg" alt="gifts" className="w-full h-full object-cover" />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 via-transparent to-yellow-400/10 animate-pulse"></div>
-          <div className="relative z-10 text-center">
-            <div className="flex items-center justify-center gap-1 sm:gap-3 mb-3 sm:mb-8">
-              <Icon name="Clock" size={20} className="animate-pulse text-yellow-300 sm:w-12 sm:h-12" />
-              <h3 className="text-base sm:text-3xl md:text-4xl lg:text-5xl font-black drop-shadow-2xl">⏰ До Нового Года осталось</h3>
-              <Icon name="Clock" size={20} className="animate-pulse text-yellow-300 sm:w-12 sm:h-12" />
-            </div>
-            <div className="grid grid-cols-2 sm:flex sm:justify-center gap-1.5 sm:gap-4 md:gap-8 mb-3 sm:mb-8">
-              <div className="bg-white/30 backdrop-blur-lg rounded-lg sm:rounded-2xl p-2 sm:p-6 md:p-8 min-w-[70px] sm:min-w-[140px] active:scale-95 sm:hover:scale-110 transition-all shadow-2xl border border-yellow-300/50 sm:border-2">
-                <div className="text-2xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-0.5 sm:mb-2 text-yellow-300 drop-shadow-lg">{countdown.days}</div>
-                <div className="text-[10px] sm:text-base md:text-lg lg:text-xl uppercase tracking-wide font-bold">дней</div>
+      <div className="bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 grid grid-cols-2 lg:grid-cols-4 gap-5">
+          {advantages.map(a => (
+            <div key={a.title} className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-white border border-border flex items-center justify-center shrink-0">
+                <Icon name={a.icon} size={18} className="text-primary" />
               </div>
-              <div className="hidden sm:flex items-center text-4xl md:text-7xl font-black text-yellow-300">:</div>
-              <div className="bg-white/30 backdrop-blur-lg rounded-lg sm:rounded-2xl p-2 sm:p-6 md:p-8 min-w-[70px] sm:min-w-[140px] active:scale-95 sm:hover:scale-110 transition-all shadow-2xl border border-yellow-300/50 sm:border-2">
-                <div className="text-2xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-0.5 sm:mb-2 text-yellow-300 drop-shadow-lg">{countdown.hours}</div>
-                <div className="text-[10px] sm:text-base md:text-lg lg:text-xl uppercase tracking-wide font-bold">часов</div>
-              </div>
-              <div className="hidden sm:flex items-center text-4xl md:text-7xl font-black text-yellow-300">:</div>
-              <div className="bg-white/30 backdrop-blur-lg rounded-lg sm:rounded-2xl p-2 sm:p-6 md:p-8 min-w-[70px] sm:min-w-[140px] active:scale-95 sm:hover:scale-110 transition-all shadow-2xl border border-yellow-300/50 sm:border-2">
-                <div className="text-2xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-0.5 sm:mb-2 text-yellow-300 drop-shadow-lg">{countdown.minutes}</div>
-                <div className="text-[10px] sm:text-base md:text-lg lg:text-xl uppercase tracking-wide font-bold">минут</div>
-              </div>
-              <div className="hidden sm:flex items-center text-4xl md:text-7xl font-black text-yellow-300">:</div>
-              <div className="bg-white/30 backdrop-blur-lg rounded-lg sm:rounded-2xl p-2 sm:p-6 md:p-8 min-w-[70px] sm:min-w-[140px] active:scale-95 sm:hover:scale-110 transition-all shadow-2xl border border-yellow-300/50 sm:border-2">
-                <div className="text-2xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-0.5 sm:mb-2 text-yellow-300 drop-shadow-lg">{countdown.seconds}</div>
-                <div className="text-[10px] sm:text-base md:text-lg lg:text-xl uppercase tracking-wide font-bold">секунд</div>
+              <div>
+                <div className="font-bold text-sm text-forest">{a.title}</div>
+                <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">{a.text}</div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-8 sm:mb-16">
-          <Card className="hover:shadow-2xl transition-all border-2 border-secondary/20 bg-gradient-to-br from-white via-yellow-50 to-white">
-            <CardContent className="p-4 sm:p-8 text-center">
-              <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-12 h-12 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-2 sm:mb-4 shadow-lg">
-                <Icon name="Gift" size={24} className="sm:w-12 sm:h-12 text-white" />
-              </div>
-              <h3 className="font-black text-xs sm:text-xl mb-1 sm:mb-2">🎁 Более 1000 подарков</h3>
-              <p className="text-[10px] sm:text-sm text-foreground font-medium">Огромный выбор для всей семьи</p>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-2xl transition-all border-2 border-secondary/20 bg-gradient-to-br from-white via-green-50 to-white">
-            <CardContent className="p-4 sm:p-8 text-center">
-              <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-12 h-12 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-2 sm:mb-4 shadow-lg">
-                <Icon name="Truck" size={24} className="sm:w-12 sm:h-12 text-white" />
-              </div>
-              <h3 className="font-black text-xs sm:text-xl mb-1 sm:mb-2">🚚 Быстрая доставка</h3>
-              <p className="text-[10px] sm:text-sm text-foreground font-medium">До 31 декабря гарантированно</p>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-2xl transition-all border-2 border-secondary/20 bg-gradient-to-br from-white via-red-50 to-white">
-            <CardContent className="p-4 sm:p-8 text-center">
-              <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-12 h-12 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-2 sm:mb-4 shadow-lg">
-                <Icon name="Package" size={24} className="sm:w-12 sm:h-12 text-white" />
-              </div>
-              <h3 className="font-black text-xs sm:text-xl mb-1 sm:mb-2">📦 Подарочная упаковка</h3>
-              <p className="text-[10px] sm:text-sm text-foreground font-medium">Красиво упакуем бесплатно</p>
-            </CardContent>
-          </Card>
-          <Card className="hover:shadow-2xl transition-all border-2 border-secondary/20 bg-gradient-to-br from-white via-yellow-50 to-white">
-            <CardContent className="p-4 sm:p-8 text-center">
-              <div className="bg-gradient-to-br from-primary to-red-600 rounded-full w-12 h-12 sm:w-20 sm:h-20 flex items-center justify-center mx-auto mb-2 sm:mb-4 shadow-lg">
-                <Icon name="Shield" size={24} className="sm:w-12 sm:h-12 text-white" />
-              </div>
-              <h3 className="font-black text-xs sm:text-xl mb-1 sm:mb-2">✨ Гарантия качества</h3>
-              <p className="text-[10px] sm:text-sm text-foreground font-medium">Только проверенные бренды</p>
-            </CardContent>
-          </Card>
+          ))}
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Snowfall from '@/components/Snowfall';
 import CallbackForm from '@/components/CallbackForm';
 
 export default function Callback() {
@@ -19,8 +18,7 @@ export default function Callback() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
-      <Snowfall />
+    <div className="min-h-screen bg-background relative">
       <Header />
       <div className="pt-32 pb-20">
         <CallbackForm

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Snowfall from '@/components/Snowfall';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -99,8 +98,7 @@ export default function AllReviews() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
-      <Snowfall />
+    <div className="min-h-screen bg-background relative">
       <Header />
       <div className="container mx-auto px-4 pt-24 pb-16">
         <div className="mb-6">

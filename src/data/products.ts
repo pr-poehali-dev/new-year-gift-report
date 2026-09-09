@@ -6,25 +6,94 @@ export interface Product {
   image: string;
   rating: number;
   description: string;
+  weight: string;
+  badge?: string;
 }
 
-export const categories = ['Все', 'Для детей', 'Для женщин', 'Для мужчин', 'Для дома', 'Сладости'];
-
-export const categoryStyles: Record<string, { icon: string; wrapper: string; price: string }> = {
-  'Для детей': { icon: 'Gift', wrapper: 'from-primary/10 to-red-100', price: 'text-primary' },
-  'Для женщин': { icon: 'Sparkles', wrapper: 'from-pink-100 to-purple-100', price: 'text-pink-600' },
-  'Для мужчин': { icon: 'Briefcase', wrapper: 'from-blue-100 to-indigo-100', price: 'text-blue-600' },
-  'Для дома': { icon: 'Home', wrapper: 'from-yellow-100 to-orange-100', price: 'text-orange-600' },
-  'Сладости': { icon: 'Candy', wrapper: 'from-green-100 to-emerald-100', price: 'text-green-600' },
-};
+export const categories = ['Все подарки', 'Картон', 'Жесть', 'Текстиль', 'Дерево'];
 
 export const products: Product[] = [
-  { id: 1, name: 'Набор ёлочных игрушек "Золотая сказка"', price: 2500, category: 'Для дома', image: '/img/d7903f82-c5e2-48d6-b51c-b00f1d01832f.jpg', rating: 5, description: 'Премиальный набор из 12 стеклянных шаров' },
-  { id: 2, name: 'Плюшевый медведь в новогоднем костюме', price: 1800, category: 'Для детей', image: '/img/dccd281c-fdab-454e-90f4-b15b0a011140.jpg', rating: 5, description: 'Мягкая игрушка ручной работы' },
-  { id: 3, name: 'Подарочный набор косметики "Зимняя свежесть"', price: 3200, category: 'Для женщин', image: '/img/0b123a86-a3b3-4483-9f94-3d1fa2aa802d.jpg', rating: 4, description: 'Крем, маска и аромат в праздничной упаковке' },
-  { id: 4, name: 'Кожаный кошелек в подарочной коробке', price: 4500, category: 'Для мужчин', image: '/placeholder.svg', rating: 5, description: 'Итальянская кожа, 8 отделений для карт' },
-  { id: 5, name: 'Бельгийский шоколад "Новогодняя коллекция"', price: 1500, category: 'Сладости', image: '/placeholder.svg', rating: 5, description: '500г ассорти в подарочной упаковке' },
-  { id: 6, name: 'Свеча ароматическая "Корица и апельсин"', price: 890, category: 'Для дома', image: '/placeholder.svg', rating: 4, description: 'Соевый воск, время горения 40 часов' },
-  { id: 7, name: 'Конструктор LEGO "Новогодний поезд"', price: 5900, category: 'Для детей', image: '/placeholder.svg', rating: 5, description: '734 детали, с подсветкой и звуком' },
-  { id: 8, name: 'Шелковый платок Hermès', price: 12000, category: 'Для женщин', image: '/placeholder.svg', rating: 5, description: 'Дизайнерский принт с новогодними мотивами' },
+  {
+    id: 1,
+    name: 'Снежная сказка',
+    price: 590,
+    category: 'Картон',
+    weight: '700 г',
+    image: 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/8abe0ce8-5af4-4be9-a3ff-150aa85191ff.jpg',
+    rating: 5,
+    badge: 'ХИТ',
+    description: 'Яркая коробка и любимые конфеты российских фабрик',
+  },
+  {
+    id: 2,
+    name: 'Зимний экспресс',
+    price: 790,
+    category: 'Картон',
+    weight: '1000 г',
+    image: 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/8abe0ce8-5af4-4be9-a3ff-150aa85191ff.jpg',
+    rating: 5,
+    badge: 'ДЕТЯМ',
+    description: 'Большой праздничный набор с ассорти сладостей',
+  },
+  {
+    id: 3,
+    name: 'Изумрудный праздник',
+    price: 1190,
+    category: 'Жесть',
+    weight: '1000 г',
+    image: 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/09b7b378-4e3b-4292-af98-6788e823b49c.jpg',
+    rating: 5,
+    badge: 'ПРЕМИУМ',
+    description: 'Подарочная жестяная упаковка, которую хочется сохранить',
+  },
+  {
+    id: 4,
+    name: 'Северное сияние',
+    price: 1690,
+    category: 'Дерево',
+    weight: '1500 г',
+    image: 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/fc6902a7-42ba-4867-a845-63f7a8cb4e1d.jpg',
+    rating: 5,
+    badge: 'НОВИНКА',
+    description: 'Солидный подарок для семьи, коллег и партнёров',
+  },
+  {
+    id: 5,
+    name: 'Мешок чудес',
+    price: 690,
+    category: 'Текстиль',
+    weight: '700 г',
+    image: 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/d367959e-76e4-4618-be72-b36b9524de2e.jpg',
+    rating: 5,
+    badge: 'ЛЮБИМЫЙ',
+    description: 'Мягкий праздничный рюкзачок со сладким наполнением',
+  },
+  {
+    id: 6,
+    name: 'Золотая ночь',
+    price: 1490,
+    category: 'Жесть',
+    weight: '1000 г',
+    image: 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/8e04a134-6c5d-46c9-a838-d5113f6a7ab4.jpg',
+    rating: 5,
+    badge: 'ВЫГОДНО',
+    description: 'Много сладостей в эффектной новогодней упаковке',
+  },
 ];
+
+export const packagingTypes = [
+  { name: 'Картон', icon: 'Gift', description: 'Лёгкие яркие коробки для детских праздников', bg: 'bg-rose-50' },
+  { name: 'Жесть', icon: 'Sparkles', description: 'Нарядная упаковка, которая останется на память', bg: 'bg-emerald-50' },
+  { name: 'Текстиль', icon: 'ShoppingBag', description: 'Мягкие рюкзачки, мешочки и игрушки', bg: 'bg-amber-50' },
+  { name: 'Дерево', icon: 'TreePine', description: 'Премиальные подарки для близких и партнёров', bg: 'bg-indigo-50' },
+];
+
+export const compositions: Record<string, string[]> = {
+  '700 г': ['25–30 конфет', 'Карамель и мини-батончики', 'Шоколадные и вафельные конфеты', 'Сертификат качества'],
+  '1000 г': ['35–40 конфет', 'Шоколадные батончики премиум', 'Печенье и вафли', 'Сертификат качества'],
+  '1500 г': ['50–55 конфет', 'Шоколад плиточный 2 шт', 'Мармелад и зефир', 'Сертификат качества'],
+};
+
+export const heroImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/95ad02e2-604a-4bc7-b8e9-daf29f4a36d5.jpg';
+export const compositionImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/95ad02e2-604a-4bc7-b8e9-daf29f4a36d5.jpg';
+export const corporateImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/8e04a134-6c5d-46c9-a838-d5113f6a7ab4.jpg';

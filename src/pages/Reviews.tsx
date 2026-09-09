@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Snowfall from '@/components/Snowfall';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,8 +27,7 @@ export default function Reviews() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
-      <Snowfall />
+    <div className="min-h-screen bg-background relative">
       <Header />
       <div className="container mx-auto px-4 pt-32 pb-20">
         <Card className="max-w-2xl mx-auto shadow-2xl border-2 border-primary/20">

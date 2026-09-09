@@ -1,39 +1,56 @@
-import Icon from '@/components/ui/icon';
+const links = [
+  { label: 'Подарки', id: 'catalog' },
+  { label: 'Состав', id: 'composition' },
+  { label: 'Организациям', id: 'corporate' },
+  { label: 'Контакты', id: 'contacts' },
+];
 
 export default function Footer() {
+  const scrollTo = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-gradient-to-r from-red-700 via-primary to-red-700 text-white py-6 sm:py-8 mt-8 sm:mt-16">
-      <div className="px-4 sm:px-6 text-center">
-        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4">
-          <div className="relative w-8 h-8 sm:w-12 sm:h-12 animate-bounce" style={{animationDuration: '2s'}}>
-            <img 
-              src="https://cdn.poehali.dev/files/14d570ca-89a2-4c95-b32a-9cde0aff7ba9.png" 
-              alt="Чеб Подарки"
-              className="w-full h-full object-contain animate-pulse brightness-0 invert"
-              style={{animationDuration: '3s'}}
-            />
+    <footer className="bg-[hsl(163_62%_10%)] text-forest-foreground">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 lg:grid-cols-3 items-center">
+        <div className="flex items-center gap-2">
+          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-extrabold">
+            Ч
           </div>
-          <span className="text-lg sm:text-2xl font-bold">Чеб Подарки</span>
+          <div className="leading-tight">
+            <div className="font-extrabold text-lg">
+              <span className="text-primary">ЧЕБ</span>подарки
+            </div>
+            <div className="text-[9px] tracking-[0.18em] uppercase text-forest-foreground/50">
+              Сладкий Новый год
+            </div>
+          </div>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mb-4 text-sm sm:text-base">
-          <a href="tel:+79123456789" className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
-            <Icon name="Phone" size={16} className="sm:w-[18px] sm:h-[18px]" />
-            <span className="font-semibold">+7 (912) 345-67-89</span>
-          </a>
-          <a href="https://wa.me/79123456789" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
-            <Icon name="MessageCircle" size={16} className="sm:w-[18px] sm:h-[18px]" />
-            <span className="font-semibold">WhatsApp</span>
-          </a>
-          <a href="https://t.me/chebpodarki" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
-            <Icon name="Send" size={16} className="sm:w-[18px] sm:h-[18px]" />
-            <span className="font-semibold">Telegram</span>
-          </a>
-          <a href="https://vk.com/chebpodarki" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 sm:gap-2 hover:opacity-80 transition-opacity">
-            <Icon name="Share2" size={16} className="sm:w-[18px] sm:h-[18px]" />
-            <span className="font-semibold">VK</span>
-          </a>
+
+        <p className="text-xs text-forest-foreground/60 lg:text-center">
+          Новогодние сладкие подарки оптом и в розницу с доставкой по России.
+        </p>
+
+        <nav className="flex flex-wrap gap-5 text-sm font-semibold lg:justify-end">
+          {links.map(l => (
+            <a
+              key={l.id}
+              href={`#${l.id}`}
+              onClick={e => scrollTo(e, l.id)}
+              className="hover:text-secondary transition-colors"
+            >
+              {l.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5 flex flex-col sm:flex-row gap-2 justify-between text-[10px] text-forest-foreground/45">
+          <span>© 2026 «ЧЕБподарки». Все права защищены.</span>
+          <span>ИП Ефимова Е.Н. · ИНН 212345678901 · ОГРНИП 312345678901234</span>
         </div>
-        <p className="text-white/80 text-xs sm:text-base px-2">© 2025 Все права защищены. Дарим радость с 2010 года!</p>
       </div>
     </footer>
   );

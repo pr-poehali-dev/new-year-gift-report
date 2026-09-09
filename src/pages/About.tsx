@@ -1,4 +1,3 @@
-import Snowfall from '@/components/Snowfall';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
@@ -6,8 +5,7 @@ import Icon from '@/components/ui/icon';
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100 relative overflow-hidden">
-      <Snowfall />
+    <div className="min-h-screen bg-background relative">
       <Header />
       
       <section className="container mx-auto px-4 py-16">

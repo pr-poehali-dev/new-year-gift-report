@@ -1,47 +1,45 @@
-import { Card, CardContent } from '@/components/ui/card';
-import Icon from '@/components/ui/icon';
+const stats = [
+  { value: '15+', label: 'лет опыта' },
+  { value: '4', label: 'вида упаковки' },
+  { value: '3', label: 'варианта веса' },
+  { value: 'РФ', label: 'география доставки' },
+];
 
 export default function AboutSection() {
   return (
-    <section id="about" className="container mx-auto px-4 py-16">
-      <div className="max-w-5xl mx-auto">
-        <Card className="bg-gradient-to-br from-red-100 via-yellow-50 to-green-100 border-2 border-primary/30 shadow-2xl">
-          <CardContent className="p-12">
-            <div className="text-center mb-8">
-              <h2 className="text-5xl font-black mb-6 flex items-center justify-center gap-3">
-                <Icon name="Heart" size={48} className="text-primary" />
-                <span className="text-red-600">О нас</span>
-                <Icon name="Heart" size={48} className="text-primary" />
+    <section id="about" className="bg-background">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
+        <div className="relative overflow-hidden rounded-3xl bg-[hsl(40_45%_90%)] p-6 sm:p-12">
+          <span className="pointer-events-none absolute top-2 right-6 text-[120px] sm:text-[200px] font-extrabold text-white/50 leading-none select-none">
+            15
+          </span>
+
+          <div className="relative grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
+                С 2010 года
+              </div>
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-forest leading-tight">
+                Мы знаем, из чего складывается настоящий праздник
               </h2>
-              <div className="max-w-3xl mx-auto">
-                <p className="text-xl font-semibold text-foreground mb-4">
-                  ✨ Чеб Подарки — это семейный бизнес, который уже 15 лет помогает создавать новогоднее настроение.
-                </p>
-                <p className="text-lg text-muted-foreground">
-                  Мы тщательно отбираем каждый товар, чтобы ваши подарки приносили искреннюю радость близким и друзьям. 
-                  Каждый подарок упакован с любовью! 🎁
-                </p>
-              </div>
+              <p className="mt-5 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">
+                «ЧЕБподарки» напрямую работает с крупнейшими кондитерскими фабриками и производителями
+                упаковки. Поэтому в каждом наборе — свежие сладости, честная цена и праздничное настроение.
+              </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 mt-12">
-              <div className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-6xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent mb-3">15+</div>
-                <div className="text-base font-bold text-foreground">🎄 лет на рынке</div>
-                <p className="text-sm text-muted-foreground mt-2">С 2010 года дарим радость</p>
-              </div>
-              <div className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-6xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent mb-3">50k+</div>
-                <div className="text-base font-bold text-foreground">😊 счастливых клиентов</div>
-                <p className="text-sm text-muted-foreground mt-2">Спасибо за доверие!</p>
-              </div>
-              <div className="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
-                <div className="text-6xl font-black bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent mb-3">1000+</div>
-                <div className="text-base font-bold text-foreground">🎁 товаров в каталоге</div>
-                <p className="text-sm text-muted-foreground mt-2">Подарки на любой вкус</p>
-              </div>
+
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {stats.map(s => (
+                <div key={s.label} className="rounded-2xl bg-white border border-border p-4 sm:p-5">
+                  <div className="text-2xl sm:text-3xl font-extrabold text-primary">{s.value}</div>
+                  <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </section>
   );
