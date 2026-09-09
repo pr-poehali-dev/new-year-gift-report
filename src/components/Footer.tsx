@@ -14,10 +14,8 @@ export default function Footer() {
   return (
     <footer className="bg-[hsl(163_62%_10%)] text-forest-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 lg:grid-cols-3 items-center">
-        <div className="flex items-center gap-2">
-          <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-extrabold">
-            Ч
-          </div>
+        <div className="flex items-center gap-2.5">
+          <img src="/logo-light.png" alt="ЧЕБподарки" className="h-14 w-auto" />
           <div className="leading-tight">
             <div className="font-extrabold text-lg">
               <span className="text-primary">ЧЕБ</span>подарки

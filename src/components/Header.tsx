@@ -45,11 +45,9 @@ export default function Header() {
 
       <div className="bg-cream/95 backdrop-blur-md border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-primary flex items-center justify-center text-white font-extrabold text-lg">
-              Ч
-            </div>
-            <div className="leading-tight">
+          <a href="/" className="flex items-center gap-2.5 shrink-0">
+            <img src="/logo.png" alt="ЧЕБподарки" className="h-11 sm:h-14 w-auto" />
+            <div className="leading-tight hidden sm:block">
               <div className="font-extrabold text-base sm:text-lg text-forest">
                 <span className="text-primary">ЧЕБ</span>подарки
               </div>
