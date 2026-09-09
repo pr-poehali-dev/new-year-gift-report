@@ -77,7 +77,7 @@ export default function Header() {
               <div className="text-[10px] text-muted-foreground">Ежедневно 9:00–19:00</div>
               <a href="tel:+79093020077" className="font-bold text-forest text-sm">+7 909 302-00-77</a>
             </div>
-            <a href="/callback" className="hidden sm:block">
+            <a href="/#contacts" onClick={e => handleAnchorClick(e, 'contacts')} className="hidden sm:block">
               <Button className="rounded-full font-bold px-5">Заказать звонок</Button>
             </a>
             <button
