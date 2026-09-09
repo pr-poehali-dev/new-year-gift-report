@@ -5,15 +5,9 @@ import { Slider } from '@/components/ui/slider';
 import Icon from '@/components/ui/icon';
 import { useState } from 'react';
 
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  category: string;
-  image: string;
-  rating: number;
-  description: string;
-}
+import type { Product } from '@/data/products';
+
+export type { Product };
 
 interface ProductCatalogProps {
   products: Product[];

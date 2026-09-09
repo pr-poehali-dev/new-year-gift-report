@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
+import { products, categories, categoryStyles } from '@/data/products';
 
 interface CatalogModalProps {
   open: boolean;
@@ -22,110 +23,27 @@ export default function CatalogModal({ open, onOpenChange, type }: CatalogModalP
         <div className="space-y-3 sm:space-y-6">
           {isCatalog ? (
             <>
-              <div className="bg-gradient-to-r from-primary/10 to-red-100 p-3 sm:p-6 rounded-xl">
-                <h3 className="text-lg sm:text-2xl font-bold mb-2 sm:mb-4 flex items-center gap-2">
-                  <Icon name="Gift" size={20} className="sm:w-7 sm:h-7 text-primary" />
-                  Для детей
-                </h3>
-                <ul className="space-y-2 sm:space-y-3 text-sm sm:text-lg">
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🧸 Плюшевый медведь в новогоднем костюме</span>
-                    <span className="font-bold text-primary whitespace-nowrap">1 800 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🎮 Конструктор LEGO "Новогодний поезд"</span>
-                    <span className="font-bold text-primary whitespace-nowrap">5 900 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🎨 Набор для творчества "Зимняя сказка"</span>
-                    <span className="font-bold text-primary whitespace-nowrap">1 200 ₽</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-r from-pink-100 to-purple-100 p-3 sm:p-6 rounded-xl">
-                <h3 className="text-lg sm:text-2xl font-bold mb-2 sm:mb-4 flex items-center gap-2">
-                  <Icon name="Sparkles" size={20} className="sm:w-7 sm:h-7 text-pink-600" />
-                  Для женщин
-                </h3>
-                <ul className="space-y-2 sm:space-y-3 text-sm sm:text-lg">
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">💄 Набор косметики "Зимняя свежесть"</span>
-                    <span className="font-bold text-pink-600 whitespace-nowrap">3 200 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">👜 Шелковый платок Hermès</span>
-                    <span className="font-bold text-pink-600 whitespace-nowrap">12 000 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">💍 Ювелирный набор с кристаллами</span>
-                    <span className="font-bold text-pink-600 whitespace-nowrap">4 500 ₽</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-r from-blue-100 to-indigo-100 p-3 sm:p-6 rounded-xl">
-                <h3 className="text-lg sm:text-2xl font-bold mb-2 sm:mb-4 flex items-center gap-2">
-                  <Icon name="Briefcase" size={20} className="sm:w-7 sm:h-7 text-blue-600" />
-                  Для мужчин
-                </h3>
-                <ul className="space-y-2 sm:space-y-3 text-sm sm:text-lg">
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">👔 Кожаный кошелек в подарочной коробке</span>
-                    <span className="font-bold text-blue-600 whitespace-nowrap">4 500 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">⌚ Часы Swiss Military</span>
-                    <span className="font-bold text-blue-600 whitespace-nowrap">8 900 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🎧 Наушники премиум-класса</span>
-                    <span className="font-bold text-blue-600 whitespace-nowrap">6 700 ₽</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-r from-yellow-100 to-orange-100 p-3 sm:p-6 rounded-xl">
-                <h3 className="text-lg sm:text-2xl font-bold mb-2 sm:mb-4 flex items-center gap-2">
-                  <Icon name="Home" size={20} className="sm:w-7 sm:h-7 text-orange-600" />
-                  Для дома
-                </h3>
-                <ul className="space-y-2 sm:space-y-3 text-sm sm:text-lg">
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🎄 Набор ёлочных игрушек "Золотая сказка"</span>
-                    <span className="font-bold text-orange-600 whitespace-nowrap">2 500 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🕯️ Свеча ароматическая "Корица и апельсин"</span>
-                    <span className="font-bold text-orange-600 whitespace-nowrap">890 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🖼️ Панно декоративное "Зимний лес"</span>
-                    <span className="font-bold text-orange-600 whitespace-nowrap">3 400 ₽</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-gradient-to-r from-green-100 to-emerald-100 p-3 sm:p-6 rounded-xl">
-                <h3 className="text-lg sm:text-2xl font-bold mb-2 sm:mb-4 flex items-center gap-2">
-                  <Icon name="Candy" size={20} className="sm:w-7 sm:h-7 text-green-600" />
-                  Сладости
-                </h3>
-                <ul className="space-y-2 sm:space-y-3 text-sm sm:text-lg">
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🍫 Бельгийский шоколад "Новогодняя коллекция"</span>
-                    <span className="font-bold text-green-600 whitespace-nowrap">1 500 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🍬 Набор конфет ручной работы</span>
-                    <span className="font-bold text-green-600 whitespace-nowrap">2 200 ₽</span>
-                  </li>
-                  <li className="flex justify-between items-start sm:items-center gap-2">
-                    <span className="flex-1">🎂 Новогодний торт "Снежинка"</span>
-                    <span className="font-bold text-green-600 whitespace-nowrap">3 800 ₽</span>
-                  </li>
-                </ul>
-              </div>
+              {categories.filter(c => c !== 'Все').map(category => {
+                const items = products.filter(p => p.category === category);
+                if (!items.length) return null;
+                const style = categoryStyles[category];
+                return (
+                  <div key={category} className={`bg-gradient-to-r ${style.wrapper} p-3 sm:p-6 rounded-xl`}>
+                    <h3 className="text-lg sm:text-2xl font-bold mb-2 sm:mb-4 flex items-center gap-2">
+                      <Icon name={style.icon} size={20} className={`sm:w-7 sm:h-7 ${style.price}`} />
+                      {category}
+                    </h3>
+                    <ul className="space-y-2 sm:space-y-3 text-sm sm:text-lg">
+                      {items.map(item => (
+                        <li key={item.id} className="flex justify-between items-start sm:items-center gap-2">
+                          <span className="flex-1">{item.name}</span>
+                          <span className={`font-bold whitespace-nowrap ${style.price}`}>{item.price.toLocaleString('ru-RU')} ₽</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
             </>
           ) : (
             <>
