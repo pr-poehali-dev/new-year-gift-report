@@ -1,4 +1,5 @@
 import Icon from '@/components/ui/icon';
+import { useText } from '@/hooks/useSiteTexts';
 
 interface Review {
   name: string;
@@ -29,14 +30,16 @@ const reviews: Review[] = [
 ];
 
 export default function ReviewsSection() {
+  const t = useText();
+
   return (
     <section id="reviews" className="bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-14 sm:pb-20">
         <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
-          Нам доверяют
+          {t('rev.eyebrow', 'Нам доверяют')}
         </div>
         <h2 className="text-3xl sm:text-5xl font-extrabold text-forest mb-8">
-          Отзывы наших клиентов
+          {t('rev.title', 'Отзывы наших клиентов')}
         </h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

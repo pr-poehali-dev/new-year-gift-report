@@ -1,3 +1,5 @@
+import { useText } from '@/hooks/useSiteTexts';
+
 const links = [
   { label: 'Подарки', id: 'catalog' },
   { label: 'Состав', id: 'composition' },
@@ -6,6 +8,7 @@ const links = [
 ];
 
 export default function Footer() {
+  const t = useText();
   const scrollTo = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -21,13 +24,13 @@ export default function Footer() {
               <span className="text-primary">ЧЕБ</span>подарки
             </div>
             <div className="text-[9px] tracking-[0.18em] uppercase text-forest-foreground/50">
-              Сладкий Новый год
+              {t('head.sub', 'Сладкий Новый год')}
             </div>
           </div>
         </div>
 
         <p className="text-xs text-forest-foreground/60 lg:text-center">
-          Новогодние сладкие подарки оптом и в розницу с доставкой по России.
+          {t('foot.tagline', 'Новогодние сладкие подарки оптом и в розницу с доставкой по России.')}
         </p>
 
         <nav className="flex flex-wrap gap-5 text-sm font-semibold lg:justify-end">
@@ -46,8 +49,8 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-5 flex flex-col sm:flex-row gap-2 justify-between text-[10px] text-forest-foreground/45">
-          <span>© 2026 «ЧЕБподарки». Все права защищены.</span>
-          <span>ИП Ефимова Е.Н. · ИНН 212345678901 · ОГРНИП 312345678901234</span>
+          <span>{t('foot.copyright', '© 2026 «ЧЕБподарки». Все права защищены.')}</span>
+          <span>{t('foot.requisites', 'ИП Ефимова Е.Н. · ИНН 212345678901 · ОГРНИП 312345678901234')}</span>
         </div>
       </div>
     </footer>

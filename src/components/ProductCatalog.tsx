@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { products, categories, packagingTypes } from '@/data/products';
+import { useText } from '@/hooks/useSiteTexts';
 
 interface ProductCatalogProps {
   onRequest: () => void;
 }
 
 export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
+  const t = useText();
   const [selectedCategory, setSelectedCategory] = useState('Все подарки');
 
   const filtered = selectedCategory === 'Все подарки'
@@ -20,14 +22,14 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
           <div className="grid lg:grid-cols-2 gap-6 lg:items-end mb-8">
             <div>
               <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
-                Найдите свой подарок
+                {t('catalog.eyebrow', 'Найдите свой подарок')}
               </div>
               <h2 className="text-3xl sm:text-5xl font-extrabold text-forest leading-tight">
-                Праздник на любой вкус
+                {t('catalog.title', 'Праздник на любой вкус')}
               </h2>
             </div>
             <p className="text-sm sm:text-base text-muted-foreground lg:pb-2">
-              От небольших ярких коробок до солидных премиальных наборов — выбирайте упаковку, вес и бюджет
+              {t('catalog.text', 'От небольших ярких коробок до солидных премиальных наборов — выбирайте упаковку, вес и бюджет')}
             </p>
           </div>
 
@@ -102,10 +104,10 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
               onClick={onRequest}
               className="rounded-full bg-primary text-white px-7 py-3.5 font-bold hover:brightness-110 transition"
             >
-              Получить подборку подарков
+              {t('catalog.btn', 'Получить подборку подарков')}
             </button>
             <span className="text-xs text-muted-foreground text-center sm:text-left max-w-[220px]">
-              Подберём 3–5 вариантов под ваш бюджет за 15 минут
+              {t('catalog.btnNote', 'Подберём 3–5 вариантов под ваш бюджет за 15 минут')}
             </span>
           </div>
         </div>
@@ -114,10 +116,10 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
       <section id="packaging" className="bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-14 sm:pb-20">
           <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
-            Упаковка — часть чуда
+            {t('pack.eyebrow', 'Упаковка — часть чуда')}
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-forest mb-8">
-            Какой будет ваш подарок?
+            {t('pack.title', 'Какой будет ваш подарок?')}
           </h2>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">

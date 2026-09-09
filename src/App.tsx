@@ -10,6 +10,8 @@ import Callback from "./pages/Callback";
 import Reviews from "./pages/Reviews";
 import AllReviews from "./pages/AllReviews";
 import NotFound from "./pages/NotFound";
+import Admin from "./pages/Admin";
+import { SiteTextsProvider } from "@/hooks/useSiteTexts";
 
 const queryClient = new QueryClient();
 
@@ -19,15 +21,18 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <SiteTextsProvider>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/about" element={<About />} />
           <Route path="/callback" element={<Callback />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/all-reviews" element={<AllReviews />} />
+          <Route path="/admin" element={<Admin />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </SiteTextsProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

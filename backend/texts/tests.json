@@ -1,0 +1,17 @@
+{
+  "tests": [
+    {
+      "name": "Получить тексты сайта",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Неверный пароль не пускает",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "login", "password": "wrong-password-123"},
+      "expectedStatus": 401
+    }
+  ]
+}

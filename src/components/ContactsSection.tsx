@@ -2,13 +2,20 @@ import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
 
-const contacts = [
-  { icon: 'Phone', label: 'Телефон', value: '+7 909 302-00-77', href: 'tel:+79093020077' },
-  { icon: 'Mail', label: 'Почта', value: 'chebpodarki@yandex.ru', href: 'mailto:chebpodarki@yandex.ru' },
-  { icon: 'MapPin', label: 'Офис', value: 'Чебоксары, ул. Петрова, 6/3' },
-];
+import { useText } from '@/hooks/useSiteTexts';
 
 export default function ContactsSection() {
+  const t = useText();
+
+  const officePhone = t('cont.phone', '+7 909 302-00-77');
+  const email = t('cont.email', 'chebpodarki@yandex.ru');
+
+  const contacts = [
+    { icon: 'Phone', label: 'Телефон', value: officePhone, href: `tel:${officePhone.replace(/[^+\d]/g, '')}` },
+    { icon: 'Mail', label: 'Почта', value: email, href: `mailto:${email}` },
+    { icon: 'MapPin', label: 'Офис', value: t('cont.address', 'Чебоксары, ул. Петрова, 6/3'), href: '' },
+  ];
+
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [amount, setAmount] = useState('');
@@ -30,13 +37,13 @@ export default function ContactsSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
         <div>
           <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-secondary mb-3">
-            Мы рядом
+            {t('cont.eyebrow', 'Мы рядом')}
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold leading-tight">
-            Давайте соберём ваш идеальный подарок
+            {t('cont.title', 'Давайте соберём ваш идеальный подарок')}
           </h2>
           <p className="mt-5 text-sm sm:text-base text-forest-foreground/75 max-w-md leading-relaxed">
-            Позвоните или оставьте заявку — поможем выбрать упаковку, вес и состав.
+            {t('cont.text', 'Позвоните или оставьте заявку — поможем выбрать упаковку, вес и состав.')}
           </p>
 
           <div className="mt-8 space-y-4">
@@ -61,9 +68,9 @@ export default function ContactsSection() {
         </div>
 
         <div className="bg-white text-foreground rounded-3xl p-6 sm:p-8 shadow-2xl">
-          <h3 className="text-xl sm:text-2xl font-extrabold text-forest">Получить консультацию</h3>
+          <h3 className="text-xl sm:text-2xl font-extrabold text-forest">{t('cont.formTitle', 'Получить консультацию')}</h3>
           <p className="mt-1.5 text-xs text-muted-foreground">
-            Ответим на вопросы и рассчитаем стоимость
+            {t('cont.formText', 'Ответим на вопросы и рассчитаем стоимость')}
           </p>
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
@@ -104,7 +111,7 @@ export default function ContactsSection() {
               type="submit"
               className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white py-3.5 font-bold hover:brightness-110 transition"
             >
-              Жду звонка
+              {t('cont.formBtn', 'Жду звонка')}
               <Icon name="ArrowRight" size={18} />
             </button>
 

@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useText } from '@/hooks/useSiteTexts';
 
 const navLinks = [
   { label: 'Подарки', id: 'catalog' },
@@ -12,6 +13,9 @@ const navLinks = [
 ];
 
 export default function Header() {
+  const t = useText();
+  const phone = t('cont.phone', '+7 909 302-00-77');
+  const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,7 +43,7 @@ export default function Header() {
     <header className="sticky top-0 z-50">
       <div className="bg-primary text-white text-[11px] sm:text-xs">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2 text-center font-semibold tracking-wide">
-          ★ Коллекция к Новому 2027 году уже открыта — раннее бронирование для организаций
+          {t('head.slogan', '★ Коллекция к Новому 2027 году уже открыта — раннее бронирование для организаций')}
         </div>
       </div>
 
@@ -52,7 +56,7 @@ export default function Header() {
                 <span className="text-primary">ЧЕБ</span>подарки
               </div>
               <div className="text-[9px] sm:text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
-                Сладкий Новый год
+                {t('head.sub', 'Сладкий Новый год')}
               </div>
             </div>
           </a>
@@ -72,11 +76,11 @@ export default function Header() {
 
           <div className="flex items-center gap-3">
             <div className="hidden xl:block text-right leading-tight">
-              <div className="text-[10px] text-muted-foreground">Ежедневно 9:00–19:00</div>
-              <a href="tel:+79093020077" className="font-bold text-forest text-sm">+7 909 302-00-77</a>
+              <div className="text-[10px] text-muted-foreground">{t('head.hours', 'Ежедневно 9:00–19:00')}</div>
+              <a href={phoneHref} className="font-bold text-forest text-sm">{phone}</a>
             </div>
             <a href="/#contacts" onClick={e => handleAnchorClick(e, 'contacts')} className="hidden sm:block">
-              <Button className="rounded-full font-bold px-5">Заказать звонок</Button>
+              <Button className="rounded-full font-bold px-5">{t('head.btn', 'Заказать звонок')}</Button>
             </a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
@@ -100,7 +104,7 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <a href="tel:+79093020077" className="py-2.5 font-bold text-primary">+7 909 302-00-77</a>
+            <a href={phoneHref} className="py-2.5 font-bold text-primary">{phone}</a>
           </div>
         )}
       </div>
