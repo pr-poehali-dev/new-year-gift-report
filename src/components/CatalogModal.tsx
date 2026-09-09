@@ -1,6 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
-import { products, packagingTypes, compositions } from '@/data/products';
+import { packagingTypes, compositions } from '@/data/products';
+import { useProducts } from '@/hooks/useProducts';
 
 interface CatalogModalProps {
   open: boolean;
@@ -10,6 +11,7 @@ interface CatalogModalProps {
 
 export default function CatalogModal({ open, onOpenChange, type }: CatalogModalProps) {
   const isCatalog = type === 'catalog';
+  const { products } = useProducts();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

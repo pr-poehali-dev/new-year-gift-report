@@ -1,0 +1,17 @@
+{
+  "tests": [
+    {
+      "name": "Получить каталог подарков",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Без пароля изменения запрещены",
+      "method": "POST",
+      "path": "/",
+      "body": {"action": "save", "products": []},
+      "expectedStatus": 401
+    }
+  ]
+}

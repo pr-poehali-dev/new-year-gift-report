@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import { products, categories, packagingTypes } from '@/data/products';
+import { categories, packagingTypes } from '@/data/products';
 import { useText } from '@/hooks/useSiteTexts';
+import { useProducts } from '@/hooks/useProducts';
 
 interface ProductCatalogProps {
   onRequest: () => void;
@@ -9,6 +10,7 @@ interface ProductCatalogProps {
 
 export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   const t = useText();
+  const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('Все подарки');
 
   const filtered = selectedCategory === 'Все подарки'

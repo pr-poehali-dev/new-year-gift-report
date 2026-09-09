@@ -3,6 +3,9 @@ import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { TEXTS_URL, TextField } from '@/hooks/useSiteTexts';
+import ProductsEditor from '@/components/admin/ProductsEditor';
+
+const PRODUCTS_TAB = 'Подарки в каталоге';
 
 export default function Admin() {
   const [password, setPassword] = useState(() => sessionStorage.getItem('admin_pw') || '');
@@ -19,7 +22,7 @@ export default function Admin() {
     const list: TextField[] = data.fields || [];
     setFields(list);
     setDraft(Object.fromEntries(list.map(f => [f.key, f.value])));
-    if (list.length) setActiveSection(prev => prev || list[0].section);
+    setActiveSection(prev => prev || PRODUCTS_TAB);
   };
 
   useEffect(() => {
@@ -49,7 +52,7 @@ export default function Admin() {
   };
 
   const sections = useMemo(() => {
-    const order: string[] = [];
+    const order: string[] = [PRODUCTS_TAB];
     fields.forEach(f => {
       if (!order.includes(f.section)) order.push(f.section);
     });
@@ -129,13 +132,15 @@ export default function Admin() {
             <button onClick={logout} className="text-xs font-semibold hover:text-secondary transition px-2">
               Выйти
             </button>
-            <Button
-              onClick={save}
-              disabled={!changed.length || saving}
-              className="rounded-full font-bold bg-secondary text-secondary-foreground hover:brightness-105"
-            >
-              {saving ? 'Сохраняем...' : changed.length ? `Сохранить (${changed.length})` : 'Сохранено'}
-            </Button>
+            {activeSection !== PRODUCTS_TAB && (
+              <Button
+                onClick={save}
+                disabled={!changed.length || saving}
+                className="rounded-full font-bold bg-secondary text-secondary-foreground hover:brightness-105"
+              >
+                {saving ? 'Сохраняем...' : changed.length ? `Сохранить (${changed.length})` : 'Сохранено'}
+              </Button>
+            )}
           </div>
         </div>
       </header>
@@ -157,6 +162,9 @@ export default function Admin() {
           ))}
         </nav>
 
+        {activeSection === PRODUCTS_TAB ? (
+          <ProductsEditor />
+        ) : (
         <div className="space-y-4">
           {visible.map(f => (
             <div key={f.key} className="bg-white rounded-2xl border border-border p-4 sm:p-5">
@@ -184,6 +192,7 @@ export default function Admin() {
             </div>
           ))}
         </div>
+        )}
       </div>
     </div>
   );
