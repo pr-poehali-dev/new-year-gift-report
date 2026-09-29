@@ -66,10 +66,15 @@ def handler(event: dict, context) -> dict:
     if method == 'GET':
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute(
-            f'SELECT id, name, price, category, weight, image, description, badge, sort_order, is_active '
+            f'SELECT id, name, price, category, weight, image, images, description, badge, sort_order, is_active '
             f'FROM {table} ORDER BY sort_order, id'
         )
-        rows = [dict(r) for r in cur.fetchall()]
+        rows = []
+        for r in cur.fetchall():
+            item = dict(r)
+            raw = item.pop('images', '') or ''
+            item['images'] = [u for u in raw.split('|') if u.strip()]
+            rows.append(item)
         cur.close()
         conn.close()
         return {
@@ -121,12 +126,17 @@ def handler(event: dict, context) -> dict:
         items = body.get('products') or []
         for p in items:
             pid = int(p.get('id') or 0)
+            gallery = p.get('images') or []
+            if isinstance(gallery, str):
+                gallery = [gallery]
+            gallery_str = '|'.join(str(u).strip() for u in gallery if str(u).strip())
             fields = (
                 f"name = '{esc(p.get('name', ''))}', "
                 f"price = {int(p.get('price') or 0)}, "
                 f"category = '{esc(p.get('category', 'Картон'))}', "
                 f"weight = '{esc(p.get('weight', ''))}', "
                 f"image = '{esc(p.get('image', ''))}', "
+                f"images = '{esc(gallery_str)}', "
                 f"description = '{esc(p.get('description', ''))}', "
                 f"badge = '{esc(p.get('badge') or '')}', "
                 f"sort_order = {int(p.get('sort_order') or 0)}, "
@@ -137,10 +147,10 @@ def handler(event: dict, context) -> dict:
                 cur.execute(f'UPDATE {table} SET {fields} WHERE id = {pid}')
             else:
                 cur.execute(
-                    f"INSERT INTO {table} (name, price, category, weight, image, description, badge, sort_order, is_active) "
+                    f"INSERT INTO {table} (name, price, category, weight, image, images, description, badge, sort_order, is_active) "
                     f"VALUES ('{esc(p.get('name', 'Новый подарок'))}', {int(p.get('price') or 0)}, "
                     f"'{esc(p.get('category', 'Картон'))}', '{esc(p.get('weight', ''))}', "
-                    f"'{esc(p.get('image', ''))}', '{esc(p.get('description', ''))}', "
+                    f"'{esc(p.get('image', ''))}', '{esc(gallery_str)}', '{esc(p.get('description', ''))}', "
                     f"'{esc(p.get('badge') or '')}', {int(p.get('sort_order') or 0)}, "
                     f"{'TRUE' if p.get('is_active', True) else 'FALSE'})"
                 )

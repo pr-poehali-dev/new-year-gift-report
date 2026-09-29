@@ -11,6 +11,7 @@ export interface ApiProduct {
   category: string;
   weight: string;
   image: string;
+  images: string[];
   description: string;
   badge: string;
   sort_order: number;
@@ -25,12 +26,20 @@ export function useProducts(onlyActive = true) {
     setLoading(true);
     fetch(PRODUCTS_URL)
       .then(r => r.json())
-      .then(d => setItems(d.products || []))
+      .then(d =>
+        setItems(
+          (d.products || []).map((p: ApiProduct) => ({
+            ...p,
+            images: Array.isArray(p.images) ? p.images : [],
+          })),
+        ),
+      )
       .catch(() =>
         setItems(
           fallbackProducts.map((p, i) => ({
             ...p,
             badge: p.badge || '',
+            images: [],
             sort_order: i,
             is_active: true,
           })) as ApiProduct[],

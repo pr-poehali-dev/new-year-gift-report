@@ -18,6 +18,7 @@ export default function ProductsEditor() {
   const [saving, setSaving] = useState(false);
   const [uploadingId, setUploadingId] = useState<number | null>(null);
   const fileRefs = useRef<Record<number, HTMLInputElement | null>>({});
+  const galleryRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   const list = draft ?? products;
 
@@ -36,6 +37,7 @@ export default function ProductsEditor() {
       category: 'Картон',
       weight: '700 г',
       image: '',
+      images: [],
       description: '',
       badge: '',
       sort_order: base.length + 1,
@@ -68,21 +70,20 @@ export default function ProductsEditor() {
     }
   };
 
-  const uploadPhoto = async (id: number, file: File) => {
+  const sendPhoto = async (file: File): Promise<string | null> => {
     if (!file.type.startsWith('image/')) {
       toast.error('Выберите файл изображения: JPG, PNG или WEBP');
-      return;
+      return null;
     }
     if (file.size > 25 * 1024 * 1024) {
       toast.error('Фото больше 25 МБ — слишком тяжёлое даже для сжатия');
-      return;
+      return null;
     }
-    setUploadingId(id);
     try {
       const image = await compressImage(file);
       if (image.length * 0.75 > 5 * 1024 * 1024) {
         toast.error('Фото слишком большое даже после сжатия');
-        return;
+        return null;
       }
       const res = await fetch(PRODUCTS_URL, {
         method: 'POST',
@@ -93,17 +94,50 @@ export default function ProductsEditor() {
         body: JSON.stringify({ action: 'upload', image }),
       });
       const data = await res.json().catch(() => ({}));
-      if (res.ok && data.url) {
-        update(id, { image: data.url });
-        toast.success('Фото загружено — не забудьте сохранить');
-      } else {
-        toast.error(data.error || 'Не удалось загрузить фото');
-      }
+      if (res.ok && data.url) return data.url as string;
+      toast.error(data.error || 'Не удалось загрузить фото');
+      return null;
     } catch {
       toast.error('Не удалось обработать файл. Попробуйте другое фото');
-    } finally {
-      setUploadingId(null);
+      return null;
     }
+  };
+
+  const uploadPhoto = async (id: number, file: File) => {
+    setUploadingId(id);
+    const url = await sendPhoto(file);
+    setUploadingId(null);
+    if (url) {
+      update(id, { image: url });
+      toast.success('Главное фото загружено — не забудьте сохранить');
+    }
+  };
+
+  const uploadGallery = async (id: number, files: File[]) => {
+    setUploadingId(id);
+    const urls: string[] = [];
+    for (const f of files) {
+      const url = await sendPhoto(f);
+      if (url) urls.push(url);
+    }
+    setUploadingId(null);
+    if (!urls.length) return;
+    const current = (draft ?? products).find(p => p.id === id);
+    const base = current?.images || [];
+    update(id, { images: [...base, ...urls] });
+    toast.success(`Добавлено фото: ${urls.length} — не забудьте сохранить`);
+  };
+
+  const removeGalleryPhoto = (id: number, url: string) => {
+    const current = (draft ?? products).find(p => p.id === id);
+    update(id, { images: (current?.images || []).filter(u => u !== url) });
+  };
+
+  const makeMain = (id: number, url: string) => {
+    const current = (draft ?? products).find(p => p.id === id);
+    if (!current) return;
+    const rest = (current.images || []).filter(u => u !== url);
+    update(id, { image: url, images: current.image ? [current.image, ...rest] : rest });
   };
 
   const save = async () => {
@@ -196,6 +230,53 @@ export default function ProductsEditor() {
                 placeholder="или ссылка на фото"
                 className="mt-1.5 w-full rounded-lg border border-border bg-background px-2.5 py-1.5 text-[10px] outline-none focus:border-forest transition"
               />
+              <div className="mt-2 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+                Ещё фото
+              </div>
+              <div className="mt-1 flex flex-wrap gap-1.5">
+                {(p.images || []).map(url => (
+                  <div
+                    key={url}
+                    className="relative w-11 h-11 rounded-lg overflow-hidden border border-border bg-background group"
+                  >
+                    <img src={url} alt="" loading="lazy" className="w-full h-full object-contain p-0.5" />
+                    <button
+                      onClick={() => makeMain(p.id, url)}
+                      title="Сделать главным"
+                      className="absolute inset-x-0 bottom-0 bg-forest/80 text-white text-[8px] font-bold py-0.5 opacity-0 group-hover:opacity-100 transition"
+                    >
+                      ГЛАВНОЕ
+                    </button>
+                    <button
+                      onClick={() => removeGalleryPhoto(p.id, url)}
+                      title="Удалить фото"
+                      className="absolute top-0 right-0 bg-primary text-white w-4 h-4 flex items-center justify-center text-[10px] leading-none rounded-bl-md opacity-0 group-hover:opacity-100 transition"
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+                <input
+                  ref={el => (galleryRefs.current[p.id] = el)}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  className="hidden"
+                  onChange={e => {
+                    const files = Array.from(e.target.files || []);
+                    if (files.length) uploadGallery(p.id, files);
+                    e.target.value = '';
+                  }}
+                />
+                <button
+                  onClick={() => galleryRefs.current[p.id]?.click()}
+                  disabled={uploadingId === p.id}
+                  title="Добавить фото"
+                  className="w-11 h-11 rounded-lg border border-dashed border-border text-muted-foreground hover:border-forest hover:text-forest transition flex items-center justify-center disabled:opacity-60"
+                >
+                  <Icon name="Plus" size={16} />
+                </button>
+              </div>
             </div>
 
             <div className="space-y-3">

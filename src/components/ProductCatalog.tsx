@@ -2,7 +2,8 @@ import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { categories, packagingTypes } from '@/data/products';
 import { useText } from '@/hooks/useSiteTexts';
-import { useProducts } from '@/hooks/useProducts';
+import { ApiProduct, useProducts } from '@/hooks/useProducts';
+import ProductGallery from '@/components/ProductGallery';
 
 interface ProductCatalogProps {
   onRequest: () => void;
@@ -13,6 +14,13 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('Все подарки');
   const [sort, setSort] = useState<'default' | 'asc' | 'desc'>('default');
+  const [galleryId, setGalleryId] = useState<number | null>(null);
+
+  const photosOf = (p: ApiProduct) =>
+    [p.image, ...(p.images || [])].filter((u, i, arr) => u && arr.indexOf(u) === i);
+
+  const openGallery = (id: number) => setGalleryId(id);
+  const galleryProduct = products.find(p => p.id === galleryId) || null;
 
   const byCategory = selectedCategory === 'Все подарки'
     ? products
@@ -78,12 +86,27 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                 className="group bg-white rounded-3xl overflow-hidden border border-border hover:shadow-xl transition-shadow flex flex-col"
               >
                 <div className="relative bg-background">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    loading="lazy"
-                    className="w-full h-40 sm:h-44 object-contain p-3"
-                  />
+                  <button
+                    onClick={() => openGallery(product.id)}
+                    className="block w-full"
+                    aria-label={`Посмотреть фото: ${product.name}`}
+                  >
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      loading="lazy"
+                      className="w-full h-40 sm:h-44 object-contain p-3 cursor-zoom-in"
+                    />
+                  </button>
+                  {photosOf(product).length > 1 && (
+                    <button
+                      onClick={() => openGallery(product.id)}
+                      className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full bg-forest/85 text-white text-[10px] font-bold px-2.5 py-1 hover:bg-forest transition"
+                    >
+                      <Icon name="Images" size={12} />
+                      {photosOf(product).length} фото
+                    </button>
+                  )}
                   {product.badge && (
                     <span className="absolute top-4 left-4 rounded-full bg-primary text-white text-[10px] font-extrabold tracking-wider px-3 py-1.5">
                       {product.badge}
@@ -161,6 +184,14 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
           </div>
         </div>
       </section>
+
+      {galleryProduct && (
+        <ProductGallery
+          photos={photosOf(galleryProduct)}
+          name={galleryProduct.name}
+          onClose={() => setGalleryId(null)}
+        />
+      )}
     </>
   );
 }
