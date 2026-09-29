@@ -143,13 +143,18 @@ export default function ProductsEditor() {
 
       {list.map(p => (
         <div key={p.id} className="bg-white rounded-2xl border border-border p-4 sm:p-5">
-          <div className="grid sm:grid-cols-[160px_1fr] gap-5">
+          <div className="grid sm:grid-cols-[112px_1fr] gap-4">
             <div>
-              <div className="aspect-square rounded-xl overflow-hidden bg-background border border-border flex items-center justify-center">
+              <div className="h-24 rounded-xl overflow-hidden bg-background border border-border flex items-center justify-center">
                 {p.image ? (
-                  <img src={p.image} alt="" className="w-full h-full object-cover" />
+                  <img
+                    src={p.image}
+                    alt=""
+                    loading="lazy"
+                    className="max-w-full max-h-full object-contain p-1.5"
+                  />
                 ) : (
-                  <Icon name="Image" size={28} className="text-muted-foreground" />
+                  <Icon name="Image" size={22} className="text-muted-foreground" />
                 )}
               </div>
               <input
@@ -166,15 +171,15 @@ export default function ProductsEditor() {
               <button
                 onClick={() => fileRefs.current[p.id]?.click()}
                 disabled={uploadingId === p.id}
-                className="mt-2 w-full rounded-xl border border-border py-2 text-xs font-bold text-forest hover:border-forest/50 transition disabled:opacity-60"
+                className="mt-1.5 w-full rounded-lg border border-border py-1.5 text-[11px] font-bold text-forest hover:border-forest/50 transition disabled:opacity-60"
               >
                 {uploadingId === p.id ? 'Загружаем...' : 'Загрузить фото'}
               </button>
               <input
                 value={p.image}
                 onChange={e => update(p.id, { image: e.target.value })}
-                placeholder="или вставьте ссылку на фото"
-                className="mt-2 w-full rounded-xl border border-border bg-background px-3 py-2 text-[11px] outline-none focus:border-forest transition"
+                placeholder="или ссылка на фото"
+                className="mt-1.5 w-full rounded-lg border border-border bg-background px-2.5 py-1.5 text-[10px] outline-none focus:border-forest transition"
               />
             </div>
 
