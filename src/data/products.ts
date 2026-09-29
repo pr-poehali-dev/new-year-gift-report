@@ -10,7 +10,7 @@ export interface Product {
   badge?: string;
 }
 
-export const categories = ['Все подарки', 'Картон', 'Текстиль', 'Дерево'];
+export const categories = ['Все подарки', 'Картон', 'Текстиль', 'Мешочек', 'Дерево'];
 
 export const products: Product[] = [
   {
