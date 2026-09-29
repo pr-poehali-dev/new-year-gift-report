@@ -144,22 +144,18 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             {t('pack.title', 'Какой будет ваш подарок?')}
           </h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className={`grid gap-4 sm:grid-cols-2 ${packagingTypes.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`}>
             {packagingTypes.map(type => (
-              <button
+              <div
                 key={type.name}
-                onClick={() => setSelectedCategory(type.name)}
-                className={`${type.bg} text-left rounded-3xl p-5 relative overflow-hidden hover:-translate-y-1 transition-transform`}
+                className={`${type.bg} rounded-3xl p-6 flex flex-col items-center text-center`}
               >
-                <Icon name={type.icon} size={26} className="text-forest" />
+                <Icon name={type.icon} size={28} className="text-forest" />
                 <h3 className="mt-4 text-lg font-extrabold text-forest">{type.name}</h3>
-                <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed pr-8">
+                <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                   {type.description}
                 </p>
-                <span className="absolute bottom-5 right-5 w-8 h-8 rounded-full bg-forest text-white flex items-center justify-center">
-                  <Icon name="ArrowUpRight" size={16} />
-                </span>
-              </button>
+              </div>
             ))}
           </div>
         </div>
