@@ -81,7 +81,8 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-52 sm:h-56 object-cover"
+                    loading="lazy"
+                    className="w-full h-36 sm:h-40 object-cover"
                   />
                   {product.badge && (
                     <span className="absolute top-4 left-4 rounded-full bg-primary text-white text-[10px] font-extrabold tracking-wider px-3 py-1.5">

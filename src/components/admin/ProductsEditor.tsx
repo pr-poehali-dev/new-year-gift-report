@@ -143,13 +143,13 @@ export default function ProductsEditor() {
 
       {list.map(p => (
         <div key={p.id} className="bg-white rounded-2xl border border-border p-4 sm:p-5">
-          <div className="grid sm:grid-cols-[160px_1fr] gap-5">
+          <div className="grid sm:grid-cols-[110px_1fr] gap-5">
             <div>
-              <div className="aspect-square rounded-xl overflow-hidden bg-background border border-border flex items-center justify-center">
+              <div className="h-24 rounded-xl overflow-hidden bg-background border border-border flex items-center justify-center">
                 {p.image ? (
-                  <img src={p.image} alt="" className="w-full h-full object-cover" />
+                  <img src={p.image} alt="" loading="lazy" className="w-full h-full object-cover" />
                 ) : (
-                  <Icon name="Image" size={28} className="text-muted-foreground" />
+                  <Icon name="Image" size={22} className="text-muted-foreground" />
                 )}
               </div>
               <input
