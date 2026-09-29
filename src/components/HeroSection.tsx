@@ -1,6 +1,6 @@
 import Icon from '@/components/ui/icon';
 import { heroImage } from '@/data/products';
-import { useText } from '@/hooks/useSiteTexts';
+import { useText, useSetting } from '@/hooks/useSiteTexts';
 
 interface HeroSectionProps {
   onOpenCatalog: () => void;
@@ -8,6 +8,7 @@ interface HeroSectionProps {
 
 export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
   const t = useText();
+  const s = useSetting();
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   const stats = [
@@ -58,8 +59,8 @@ export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
             </div>
 
             <div className="mt-10 grid grid-cols-3 gap-4 max-w-lg">
-              {stats.map(s => (
-                <div key={s.label}>
+              {stats.map((s, i) => (
+                <div key={i}>
                   <div className="font-extrabold text-base sm:text-xl">{s.value}</div>
                   <div className="text-[10px] sm:text-xs text-forest-foreground/60 mt-1">{s.label}</div>
                 </div>
@@ -69,7 +70,7 @@ export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
 
           <div className="relative">
             <div className="overflow-hidden rounded-3xl shadow-2xl">
-              <img src={heroImage} alt="Новогодние подарочные наборы" className="w-full h-[280px] sm:h-[420px] object-cover" />
+              <img src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" className="w-full h-[280px] sm:h-[420px] object-cover" />
             </div>
 
             <div className="absolute -top-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
@@ -92,8 +93,8 @@ export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
 
       <div className="bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {advantages.map(a => (
-            <div key={a.title} className="flex items-start gap-3">
+          {advantages.map((a, i) => (
+            <div key={i} className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-xl bg-white border border-border flex items-center justify-center shrink-0">
                 <Icon name={a.icon} size={18} className="text-primary" />
               </div>

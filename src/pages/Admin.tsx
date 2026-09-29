@@ -2,16 +2,21 @@ import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-import { TEXTS_URL, TextField } from '@/hooks/useSiteTexts';
+import { TEXTS_URL, TextField, SettingField, applyTheme } from '@/hooks/useSiteTexts';
 import ProductsEditor from '@/components/admin/ProductsEditor';
+import DesignEditor from '@/components/admin/DesignEditor';
 
 const PRODUCTS_TAB = 'Подарки в каталоге';
+const IMAGES_TAB = 'Картинки сайта';
+const DESIGN_TAB = 'Цвета и шрифты';
+const SPECIAL_TABS = [PRODUCTS_TAB, IMAGES_TAB, DESIGN_TAB];
 
 export default function Admin() {
   const [password, setPassword] = useState(() => sessionStorage.getItem('admin_pw') || '');
   const [authorized, setAuthorized] = useState(false);
   const [checking, setChecking] = useState(false);
   const [fields, setFields] = useState<TextField[]>([]);
+  const [settingFields, setSettingFields] = useState<SettingField[]>([]);
   const [draft, setDraft] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -21,6 +26,8 @@ export default function Admin() {
     const data = await res.json();
     const list: TextField[] = data.fields || [];
     setFields(list);
+    setSettingFields(data.settingFields || []);
+    applyTheme(data.settings || {});
     setDraft(Object.fromEntries(list.map(f => [f.key, f.value])));
     setActiveSection(prev => prev || PRODUCTS_TAB);
   };
@@ -52,7 +59,7 @@ export default function Admin() {
   };
 
   const sections = useMemo(() => {
-    const order: string[] = [PRODUCTS_TAB];
+    const order: string[] = [...SPECIAL_TABS];
     fields.forEach(f => {
       if (!order.includes(f.section)) order.push(f.section);
     });
@@ -125,14 +132,18 @@ export default function Admin() {
             <div className="font-extrabold text-sm sm:text-base">Редактор надписей</div>
           </div>
           <div className="flex items-center gap-2">
-            <a href="/" target="_blank" rel="noreferrer" className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold hover:text-secondary transition">
+            <a href="/?edit=1" className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 px-3 py-1.5 text-xs font-bold hover:bg-white/20 transition whitespace-nowrap">
+              <Icon name="MousePointerClick" size={14} />
+              <span className="hidden sm:inline">Править на сайте</span>
+            </a>
+            <a href="/" target="_blank" rel="noreferrer" className="hidden lg:inline-flex items-center gap-1.5 text-xs font-semibold hover:text-secondary transition">
               <Icon name="ExternalLink" size={15} />
               Открыть сайт
             </a>
             <button onClick={logout} className="text-xs font-semibold hover:text-secondary transition px-2">
               Выйти
             </button>
-            {activeSection !== PRODUCTS_TAB && (
+            {!SPECIAL_TABS.includes(activeSection) && (
               <Button
                 onClick={save}
                 disabled={!changed.length || saving}
@@ -164,6 +175,10 @@ export default function Admin() {
 
         {activeSection === PRODUCTS_TAB ? (
           <ProductsEditor />
+        ) : activeSection === IMAGES_TAB ? (
+          <DesignEditor fields={settingFields} kinds={['image']} onSaved={loadFields} />
+        ) : activeSection === DESIGN_TAB ? (
+          <DesignEditor fields={settingFields} kinds={['color', 'font', 'fontsize']} onSaved={loadFields} />
         ) : (
         <div className="space-y-4">
           {visible.map(f => (

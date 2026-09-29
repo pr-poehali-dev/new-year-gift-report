@@ -2,18 +2,19 @@ import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
 
-import { useText } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw } from '@/hooks/useSiteTexts';
 
 export default function ContactsSection() {
   const t = useText();
+  const tr = useTextRaw();
 
-  const officePhone = t('cont.phone', '+7 909 302-00-77');
-  const email = t('cont.email', 'chebpodarki@yandex.ru');
+  const officePhone = tr('cont.phone', '+7 909 302-00-77');
+  const email = tr('cont.email', 'chebpodarki@yandex.ru');
 
   const contacts = [
     { icon: 'Phone', label: 'Телефон', value: officePhone, href: `tel:${officePhone.replace(/[^+\d]/g, '')}` },
     { icon: 'Mail', label: 'Почта', value: email, href: `mailto:${email}` },
-    { icon: 'MapPin', label: 'Офис', value: t('cont.address', 'Чебоксары, ул. Петрова, 6/3'), href: '' },
+    { icon: 'MapPin', label: 'Офис', value: tr('cont.address', 'Чебоксары, ул. Петрова, 6/3'), href: '' },
   ];
 
   const [name, setName] = useState('');

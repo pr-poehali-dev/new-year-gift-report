@@ -1,4 +1,4 @@
-import { useText } from '@/hooks/useSiteTexts';
+import { useText, useSetting } from '@/hooks/useSiteTexts';
 
 const links = [
   { label: 'Подарки', id: 'catalog' },
@@ -9,6 +9,7 @@ const links = [
 
 export default function Footer() {
   const t = useText();
+  const s = useSetting();
   const scrollTo = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -18,7 +19,7 @@ export default function Footer() {
     <footer className="bg-[hsl(163_62%_10%)] text-forest-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 lg:grid-cols-3 items-center">
         <div className="flex items-center gap-2.5">
-          <img src="/logo-light.png" alt="ЧЕБподарки" className="h-14 w-auto" />
+          <img src={s('img.logoLight', '/logo-light.png')} alt="ЧЕБподарки" className="h-14 w-auto" />
           <div className="leading-tight">
             <div className="font-extrabold text-lg">
               <span className="text-primary">ЧЕБ</span>подарки

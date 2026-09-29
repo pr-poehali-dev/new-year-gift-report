@@ -32,8 +32,8 @@ export default function AboutSection() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
-              {stats.map(s => (
-                <div key={s.label} className="rounded-2xl bg-white border border-border p-4 sm:p-5">
+              {stats.map((s, i) => (
+                <div key={i} className="rounded-2xl bg-white border border-border p-4 sm:p-5">
                   <div className="text-2xl sm:text-3xl font-extrabold text-primary">{s.value}</div>
                   <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground">
                     {s.label}

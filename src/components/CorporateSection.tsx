@@ -1,6 +1,6 @@
 import Icon from '@/components/ui/icon';
 import { corporateImage } from '@/data/products';
-import { useText } from '@/hooks/useSiteTexts';
+import { useText, useSetting } from '@/hooks/useSiteTexts';
 
 interface CorporateSectionProps {
   onRequest: () => void;
@@ -8,6 +8,7 @@ interface CorporateSectionProps {
 
 export default function CorporateSection({ onRequest }: CorporateSectionProps) {
   const t = useText();
+  const s = useSetting();
 
   const benefits = [
     t('corp.b1', 'Персональная цена от объёма'),
@@ -39,8 +40,8 @@ export default function CorporateSection({ onRequest }: CorporateSectionProps) {
               </p>
 
               <div className="mt-6 grid sm:grid-cols-2 gap-2.5">
-                {benefits.map(b => (
-                  <div key={b} className="flex items-center gap-2 text-xs sm:text-sm">
+                {benefits.map((b, i) => (
+                  <div key={i} className="flex items-center gap-2 text-xs sm:text-sm">
                     <Icon name="Check" size={15} className="text-secondary shrink-0" />
                     {b}
                   </div>
@@ -57,7 +58,7 @@ export default function CorporateSection({ onRequest }: CorporateSectionProps) {
             </div>
 
             <div className="relative bg-[hsl(10_60%_94%)] order-1 lg:order-2 min-h-[240px]">
-              <img src={corporateImage} alt="Корпоративные подарки" className="w-full h-full object-cover" />
+              <img src={s('img.corporate', corporateImage)} alt="Корпоративные подарки" className="w-full h-full object-cover" />
               <div className="absolute top-6 right-6 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
                 <span className="font-extrabold text-sm">{t('corp.circle', 'от 50 шт.')}</span>
                 <span className="text-[8px] opacity-80">{t('corp.circleSub', 'особые условия')}</span>

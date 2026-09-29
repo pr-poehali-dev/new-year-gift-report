@@ -12,6 +12,7 @@ import AllReviews from "./pages/AllReviews";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import { SiteTextsProvider } from "@/hooks/useSiteTexts";
+import EditModeBar from "@/components/EditModeBar";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <EditModeBar />
         </SiteTextsProvider>
       </BrowserRouter>
     </TooltipProvider>

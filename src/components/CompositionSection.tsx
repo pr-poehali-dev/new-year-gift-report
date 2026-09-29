@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { compositions, compositionImage } from '@/data/products';
-import { useText } from '@/hooks/useSiteTexts';
+import { useText, useSetting } from '@/hooks/useSiteTexts';
 
 interface CompositionSectionProps {
   onOpenComposition: () => void;
@@ -9,6 +9,7 @@ interface CompositionSectionProps {
 
 export default function CompositionSection({ onOpenComposition }: CompositionSectionProps) {
   const t = useText();
+  const st = useSetting();
   const weights = Object.keys(compositions);
   const [activeWeight, setActiveWeight] = useState(weights[0]);
 
@@ -64,7 +65,7 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
 
         <div className="relative">
           <div className="overflow-hidden rounded-3xl shadow-2xl">
-            <img src={compositionImage} alt="Состав подарка" className="w-full h-[280px] sm:h-[420px] object-cover" />
+            <img src={st('img.composition', compositionImage)} alt="Состав подарка" className="w-full h-[280px] sm:h-[420px] object-cover" />
           </div>
           <div className="absolute -bottom-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
             <span className="font-extrabold text-base sm:text-lg">{t('comp.badge', '100%')}</span>

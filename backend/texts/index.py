@@ -1,5 +1,8 @@
 import json
 import os
+import base64
+import uuid
+import boto3
 import psycopg2
 import psycopg2.extras
 
@@ -16,6 +19,28 @@ def get_conn():
     return psycopg2.connect(os.environ['DATABASE_URL'])
 
 
+def upload_image(data_url: str) -> str:
+    header, _, payload = data_url.partition(',')
+    ext = 'png'
+    if 'jpeg' in header or 'jpg' in header:
+        ext = 'jpg'
+    elif 'webp' in header:
+        ext = 'webp'
+    elif 'svg' in header:
+        ext = 'svg'
+    key_id = os.environ['AWS_ACCESS_KEY_ID']
+    s3 = boto3.client(
+        's3',
+        endpoint_url='https://bucket.poehali.dev',
+        aws_access_key_id=key_id,
+        aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+    )
+    name = f'site/{uuid.uuid4().hex}.{ext}'
+    ctype = 'image/svg+xml' if ext == 'svg' else f'image/{"jpeg" if ext == "jpg" else ext}'
+    s3.put_object(Bucket='files', Key=name, Body=base64.b64decode(payload), ContentType=ctype)
+    return f'https://cdn.poehali.dev/projects/{key_id}/bucket/{name}'
+
+
 def handler(event: dict, context) -> dict:
     """Хранит редактируемые надписи сайта: GET отдаёт все тексты, POST сохраняет изменения по паролю администратора."""
     method = event.get('httpMethod', 'GET')
@@ -25,6 +50,7 @@ def handler(event: dict, context) -> dict:
 
     schema = os.environ.get('MAIN_DB_SCHEMA', 'public')
     table = f'{schema}.site_texts'
+    settings_table = f'{schema}.site_settings'
 
     if method == 'GET':
         conn = get_conn()
@@ -33,6 +59,10 @@ def handler(event: dict, context) -> dict:
             f'SELECT text_key, section, title, value, multiline, sort_order FROM {table} ORDER BY id'
         )
         rows = cur.fetchall()
+        cur.execute(
+            f'SELECT setting_key, kind, title, hint, value, sort_order FROM {settings_table} ORDER BY sort_order, id'
+        )
+        setting_rows = cur.fetchall()
         cur.close()
         conn.close()
 
@@ -48,11 +78,30 @@ def handler(event: dict, context) -> dict:
             }
             for r in rows
         ]
+        settings = {r['setting_key']: r['value'] for r in setting_rows}
+        setting_fields = [
+            {
+                'key': r['setting_key'],
+                'kind': r['kind'],
+                'title': r['title'],
+                'hint': r['hint'],
+                'value': r['value'],
+            }
+            for r in setting_rows
+        ]
         return {
             'statusCode': 200,
             'headers': CORS,
             'isBase64Encoded': False,
-            'body': json.dumps({'values': values, 'fields': fields}, ensure_ascii=False),
+            'body': json.dumps(
+                {
+                    'values': values,
+                    'fields': fields,
+                    'settings': settings,
+                    'settingFields': setting_fields,
+                },
+                ensure_ascii=False,
+            ),
         }
 
     if method == 'POST':
@@ -79,7 +128,16 @@ def handler(event: dict, context) -> dict:
                 'body': json.dumps({'error': 'Неверный пароль'}, ensure_ascii=False),
             }
 
+        if body.get('action') == 'upload':
+            return {
+                'statusCode': 200,
+                'headers': CORS,
+                'isBase64Encoded': False,
+                'body': json.dumps({'url': upload_image(body.get('image', ''))}),
+            }
+
         updates = body.get('updates') or {}
+        settings_updates = body.get('settings') or {}
         conn = get_conn()
         cur = conn.cursor()
         saved = 0
@@ -88,6 +146,13 @@ def handler(event: dict, context) -> dict:
             safe_value = str(value).replace("'", "''")
             cur.execute(
                 f"UPDATE {table} SET value = '{safe_value}', updated_at = NOW() WHERE text_key = '{safe_key}'"
+            )
+            saved += cur.rowcount
+        for key, value in settings_updates.items():
+            safe_key = str(key).replace("'", "''")
+            safe_value = str(value).replace("'", "''")
+            cur.execute(
+                f"UPDATE {settings_table} SET value = '{safe_value}', updated_at = NOW() WHERE setting_key = '{safe_key}'"
             )
             saved += cur.rowcount
         conn.commit()

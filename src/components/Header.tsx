@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useText } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw, useSetting } from '@/hooks/useSiteTexts';
 
 const navLinks = [
   { label: 'Подарки', id: 'catalog' },
@@ -14,7 +14,9 @@ const navLinks = [
 
 export default function Header() {
   const t = useText();
-  const phone = t('cont.phone', '+7 909 302-00-77');
+  const tr = useTextRaw();
+  const st = useSetting();
+  const phone = tr('cont.phone', '+7 909 302-00-77');
   const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,7 +52,7 @@ export default function Header() {
       <div className="bg-cream/95 backdrop-blur-md border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
           <a href="/" className="flex items-center gap-2.5 shrink-0">
-            <img src="/logo.png" alt="ЧЕБподарки" className="h-11 sm:h-14 w-auto" />
+            <img src={st('img.logo', '/logo.png')} alt="ЧЕБподарки" className="h-11 sm:h-14 w-auto" />
             <div className="leading-tight hidden sm:block">
               <div className="font-extrabold text-base sm:text-lg text-forest">
                 <span className="text-primary">ЧЕБ</span>подарки
