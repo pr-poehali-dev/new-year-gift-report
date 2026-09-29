@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { TEXTS_URL, TextField, SettingField, applyTheme } from '@/hooks/useSiteTexts';
+import { clearDraft, loadDraft, useLocalDraft } from '@/hooks/useLocalDraft';
 import ProductsEditor from '@/components/admin/ProductsEditor';
 import DesignEditor from '@/components/admin/DesignEditor';
 
@@ -11,6 +12,7 @@ const IMAGES_TAB = 'Картинки сайта';
 const DESIGN_TAB = 'Цвета и шрифты';
 const FILES_TAB = 'Файлы для скачивания';
 const SPECIAL_TABS = [PRODUCTS_TAB, IMAGES_TAB, FILES_TAB, DESIGN_TAB];
+const TEXTS_DRAFT_KEY = 'admin_texts_draft';
 
 export default function Admin() {
   const [password, setPassword] = useState(() => sessionStorage.getItem('admin_pw') || '');
@@ -29,7 +31,8 @@ export default function Admin() {
     setFields(list);
     setSettingFields(data.settingFields || []);
     applyTheme(data.settings || {});
-    setDraft(Object.fromEntries(list.map(f => [f.key, f.value])));
+    const saved = loadDraft<Record<string, string>>(TEXTS_DRAFT_KEY) || {};
+    setDraft({ ...Object.fromEntries(list.map(f => [f.key, f.value])), ...saved });
     setActiveSection(prev => prev || PRODUCTS_TAB);
   };
 
@@ -72,6 +75,12 @@ export default function Admin() {
     [fields, draft],
   );
 
+  useLocalDraft(
+    TEXTS_DRAFT_KEY,
+    Object.fromEntries(changed.map(f => [f.key, draft[f.key]])),
+    changed.length > 0,
+  );
+
   const save = async () => {
     if (!changed.length) return;
     setSaving(true);
@@ -87,6 +96,7 @@ export default function Admin() {
     });
     setSaving(false);
     if (res.ok) {
+      clearDraft(TEXTS_DRAFT_KEY);
       toast.success('Сохранено! Обновите главную страницу, чтобы увидеть изменения');
       loadFields();
     } else {

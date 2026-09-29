@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { clearDraft, loadDraft, useLocalDraft } from '@/hooks/useLocalDraft';
 import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
@@ -7,15 +8,20 @@ import { categories } from '@/data/products';
 import { compressImage } from '@/lib/compressImage';
 
 const packOptions = categories.filter(c => c !== 'Все подарки');
+const DRAFT_KEY = 'admin_products_draft';
 
 export default function ProductsEditor() {
   const { products, reload } = useProducts(false);
-  const [draft, setDraft] = useState<ApiProduct[] | null>(null);
+  const [draft, setDraft] = useState<ApiProduct[] | null>(() =>
+    loadDraft<ApiProduct[]>(DRAFT_KEY),
+  );
   const [saving, setSaving] = useState(false);
   const [uploadingId, setUploadingId] = useState<number | null>(null);
   const fileRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   const list = draft ?? products;
+
+  useLocalDraft(DRAFT_KEY, draft, !!draft);
 
   const update = (id: number, patch: Partial<ApiProduct>) => {
     setDraft((draft ?? products).map(p => (p.id === id ? { ...p, ...patch } : p)));
@@ -53,6 +59,7 @@ export default function ProductsEditor() {
       body: JSON.stringify({ action: 'delete', id }),
     });
     if (res.ok) {
+      clearDraft(DRAFT_KEY);
       setDraft(null);
       reload();
       toast.success('Подарок удалён');
@@ -112,6 +119,7 @@ export default function ProductsEditor() {
     });
     setSaving(false);
     if (res.ok) {
+      clearDraft(DRAFT_KEY);
       setDraft(null);
       reload();
       toast.success('Каталог сохранён');
@@ -140,6 +148,13 @@ export default function ProductsEditor() {
           </Button>
         </div>
       </div>
+
+      {draft && (
+        <div className="flex items-center gap-2 rounded-2xl border border-primary/30 bg-primary/5 px-4 py-2.5 text-xs font-semibold text-primary">
+          <Icon name="TriangleAlert" size={15} />
+          Есть несохранённые правки — они не пропадут при обновлении страницы. Нажмите «Сохранить каталог».
+        </div>
+      )}
 
       {list.map(p => (
         <div key={p.id} className="bg-white rounded-2xl border border-border p-4 sm:p-5">
