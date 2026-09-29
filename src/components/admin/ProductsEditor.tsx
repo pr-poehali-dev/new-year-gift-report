@@ -61,24 +61,41 @@ export default function ProductsEditor() {
   };
 
   const uploadPhoto = (id: number, file: File) => {
+    if (!file.type.startsWith('image/')) {
+      toast.error('Выберите файл изображения: JPG, PNG или WEBP');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Фото больше 5 МБ. Сожмите изображение и попробуйте снова');
+      return;
+    }
     setUploadingId(id);
     const reader = new FileReader();
-    reader.onload = async () => {
-      const res = await fetch(PRODUCTS_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Admin-Password': sessionStorage.getItem('admin_pw') || '',
-        },
-        body: JSON.stringify({ action: 'upload', image: reader.result }),
-      });
+    reader.onerror = () => {
       setUploadingId(null);
-      if (res.ok) {
-        const data = await res.json();
-        update(id, { image: data.url });
-        toast.success('Фото загружено — не забудьте сохранить');
-      } else {
-        toast.error('Не удалось загрузить фото');
+      toast.error('Не удалось прочитать файл');
+    };
+    reader.onload = async () => {
+      try {
+        const res = await fetch(PRODUCTS_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Admin-Password': sessionStorage.getItem('admin_pw') || '',
+          },
+          body: JSON.stringify({ action: 'upload', image: reader.result }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.url) {
+          update(id, { image: data.url });
+          toast.success('Фото загружено — не забудьте сохранить');
+        } else {
+          toast.error(data.error || 'Не удалось загрузить фото');
+        }
+      } catch {
+        toast.error('Нет связи с сервером. Проверьте интернет и попробуйте снова');
+      } finally {
+        setUploadingId(null);
       }
     };
     reader.readAsDataURL(file);
@@ -142,15 +159,25 @@ export default function ProductsEditor() {
                 type="file"
                 accept="image/*"
                 className="hidden"
-                onChange={e => e.target.files?.[0] && uploadPhoto(p.id, e.target.files[0])}
+                onChange={e => {
+                  const f = e.target.files?.[0];
+                  if (f) uploadPhoto(p.id, f);
+                  e.target.value = '';
+                }}
               />
               <button
                 onClick={() => fileRefs.current[p.id]?.click()}
                 disabled={uploadingId === p.id}
-                className="mt-2 w-full rounded-xl border border-border py-2 text-xs font-bold text-forest hover:border-forest/50 transition"
+                className="mt-2 w-full rounded-xl border border-border py-2 text-xs font-bold text-forest hover:border-forest/50 transition disabled:opacity-60"
               >
                 {uploadingId === p.id ? 'Загружаем...' : 'Загрузить фото'}
               </button>
+              <input
+                value={p.image}
+                onChange={e => update(p.id, { image: e.target.value })}
+                placeholder="или вставьте ссылку на фото"
+                className="mt-2 w-full rounded-xl border border-border bg-background px-3 py-2 text-[11px] outline-none focus:border-forest transition"
+              />
             </div>
 
             <div className="space-y-3">

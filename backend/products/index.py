@@ -19,7 +19,7 @@ def esc(v):
     return str(v).replace("'", "''")
 
 
-def upload_image(data_url: str) -> str:
+def upload_image(data_url: str) -> dict:
     header, _, payload = data_url.partition(',')
     ext = 'png'
     if 'jpeg' in header or 'jpg' in header:
@@ -34,13 +34,22 @@ def upload_image(data_url: str) -> str:
         aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
     )
     name = f'products/{uuid.uuid4().hex}.{ext}'
-    s3.put_object(
-        Bucket='files',
-        Key=name,
-        Body=base64.b64decode(payload),
-        ContentType=f'image/{"jpeg" if ext == "jpg" else ext}',
-    )
-    return f'https://cdn.poehali.dev/projects/{key_id}/bucket/{name}'
+    data = base64.b64decode(payload)
+    if len(data) > 5 * 1024 * 1024:
+        return {'error': 'Фото слишком большое. Загрузите файл до 5 МБ.'}
+    try:
+        s3.put_object(
+            Bucket='files',
+            Key=name,
+            Body=data,
+            ContentType=f'image/{"jpeg" if ext == "jpg" else ext}',
+        )
+    except Exception as e:
+        text = str(e)
+        if '402' in text or 'Payment Required' in text:
+            return {'error': 'Хранилище файлов недоступно: закончился баланс проекта. Пополните баланс или вставьте ссылку на фото вручную.'}
+        return {'error': f'Не удалось загрузить фото: {text}'}
+    return {'url': f'https://cdn.poehali.dev/projects/{key_id}/bucket/{name}'}
 
 
 def handler(event: dict, context) -> dict:
@@ -99,14 +108,14 @@ def handler(event: dict, context) -> dict:
             }
 
         if action == 'upload':
-            url = upload_image(body.get('image', ''))
+            result = upload_image(body.get('image', ''))
             cur.close()
             conn.close()
             return {
-                'statusCode': 200,
+                'statusCode': 200 if result.get('url') else 400,
                 'headers': CORS,
                 'isBase64Encoded': False,
-                'body': json.dumps({'url': url}),
+                'body': json.dumps(result, ensure_ascii=False),
             }
 
         items = body.get('products') or []
