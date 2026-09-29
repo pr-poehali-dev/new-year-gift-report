@@ -4,6 +4,7 @@ import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { PRODUCTS_URL, ApiProduct, useProducts } from '@/hooks/useProducts';
 import { categories } from '@/data/products';
+import { compressImage } from '@/lib/compressImage';
 
 const packOptions = categories.filter(c => c !== 'Все подарки');
 
@@ -60,45 +61,42 @@ export default function ProductsEditor() {
     }
   };
 
-  const uploadPhoto = (id: number, file: File) => {
+  const uploadPhoto = async (id: number, file: File) => {
     if (!file.type.startsWith('image/')) {
       toast.error('Выберите файл изображения: JPG, PNG или WEBP');
       return;
     }
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error('Фото больше 5 МБ. Сожмите изображение и попробуйте снова');
+    if (file.size > 25 * 1024 * 1024) {
+      toast.error('Фото больше 25 МБ — слишком тяжёлое даже для сжатия');
       return;
     }
     setUploadingId(id);
-    const reader = new FileReader();
-    reader.onerror = () => {
-      setUploadingId(null);
-      toast.error('Не удалось прочитать файл');
-    };
-    reader.onload = async () => {
-      try {
-        const res = await fetch(PRODUCTS_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Admin-Password': sessionStorage.getItem('admin_pw') || '',
-          },
-          body: JSON.stringify({ action: 'upload', image: reader.result }),
-        });
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && data.url) {
-          update(id, { image: data.url });
-          toast.success('Фото загружено — не забудьте сохранить');
-        } else {
-          toast.error(data.error || 'Не удалось загрузить фото');
-        }
-      } catch {
-        toast.error('Нет связи с сервером. Проверьте интернет и попробуйте снова');
-      } finally {
-        setUploadingId(null);
+    try {
+      const image = await compressImage(file);
+      if (image.length * 0.75 > 5 * 1024 * 1024) {
+        toast.error('Фото слишком большое даже после сжатия');
+        return;
       }
-    };
-    reader.readAsDataURL(file);
+      const res = await fetch(PRODUCTS_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Password': sessionStorage.getItem('admin_pw') || '',
+        },
+        body: JSON.stringify({ action: 'upload', image }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.url) {
+        update(id, { image: data.url });
+        toast.success('Фото загружено — не забудьте сохранить');
+      } else {
+        toast.error(data.error || 'Не удалось загрузить фото');
+      }
+    } catch {
+      toast.error('Не удалось обработать файл. Попробуйте другое фото');
+    } finally {
+      setUploadingId(null);
+    }
   };
 
   const save = async () => {
