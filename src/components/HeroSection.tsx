@@ -11,6 +11,22 @@ export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
   const s = useSetting();
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
+  const catalogFile = s('file.catalog', '');
+  const handleCatalog = () => {
+    if (catalogFile) {
+      const link = document.createElement('a');
+      link.href = catalogFile;
+      link.download = '';
+      link.target = '_blank';
+      link.rel = 'noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } else {
+      onOpenCatalog();
+    }
+  };
+
   const stats = [
     { value: t('hero.stat1v', '15+'), label: t('hero.stat1l', 'лет радуем детей') },
     { value: t('hero.stat2v', '300–1500 г'), label: t('hero.stat2l', 'на любой бюджет') },
@@ -51,9 +67,10 @@ export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
                 <Icon name="ArrowRight" size={18} />
               </button>
               <button
-                onClick={onOpenCatalog}
+                onClick={handleCatalog}
                 className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-6 sm:px-7 py-3.5 font-bold hover:bg-white/20 transition"
               >
+                {catalogFile && <Icon name="Download" size={18} />}
                 {t('hero.btn2', 'Скачать каталог')}
               </button>
             </div>

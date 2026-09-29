@@ -19,15 +19,31 @@ def get_conn():
     return psycopg2.connect(os.environ['DATABASE_URL'])
 
 
-def upload_image(data_url: str) -> str:
+EXT_BY_TYPE = {
+    'image/jpeg': 'jpg',
+    'image/jpg': 'jpg',
+    'image/png': 'png',
+    'image/webp': 'webp',
+    'image/svg+xml': 'svg',
+    'image/gif': 'gif',
+    'application/pdf': 'pdf',
+    'application/msword': 'doc',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'docx',
+    'application/vnd.ms-excel': 'xls',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+    'application/zip': 'zip',
+}
+
+
+def upload_image(data_url: str, filename: str = '') -> str:
     header, _, payload = data_url.partition(',')
-    ext = 'png'
-    if 'jpeg' in header or 'jpg' in header:
-        ext = 'jpg'
-    elif 'webp' in header:
-        ext = 'webp'
-    elif 'svg' in header:
-        ext = 'svg'
+    mime = header.replace('data:', '').replace(';base64', '').strip() or 'application/octet-stream'
+    ext = EXT_BY_TYPE.get(mime, '')
+    if not ext and '.' in filename:
+        ext = filename.rsplit('.', 1)[-1].lower()[:8]
+    if not ext:
+        ext = 'bin'
+
     key_id = os.environ['AWS_ACCESS_KEY_ID']
     s3 = boto3.client(
         's3',
@@ -36,8 +52,7 @@ def upload_image(data_url: str) -> str:
         aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
     )
     name = f'site/{uuid.uuid4().hex}.{ext}'
-    ctype = 'image/svg+xml' if ext == 'svg' else f'image/{"jpeg" if ext == "jpg" else ext}'
-    s3.put_object(Bucket='files', Key=name, Body=base64.b64decode(payload), ContentType=ctype)
+    s3.put_object(Bucket='files', Key=name, Body=base64.b64decode(payload), ContentType=mime)
     return f'https://cdn.poehali.dev/projects/{key_id}/bucket/{name}'
 
 
@@ -133,7 +148,9 @@ def handler(event: dict, context) -> dict:
                 'statusCode': 200,
                 'headers': CORS,
                 'isBase64Encoded': False,
-                'body': json.dumps({'url': upload_image(body.get('image', ''))}),
+                'body': json.dumps(
+                    {'url': upload_image(body.get('image', ''), body.get('filename', ''))}
+                ),
             }
 
         updates = body.get('updates') or {}

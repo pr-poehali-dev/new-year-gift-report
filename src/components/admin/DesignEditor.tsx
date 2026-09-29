@@ -49,7 +49,7 @@ export default function DesignEditor({ fields, kinds, onSaved }: Props) {
           'Content-Type': 'application/json',
           'X-Admin-Password': sessionStorage.getItem('admin_pw') || '',
         },
-        body: JSON.stringify({ action: 'upload', image: reader.result }),
+        body: JSON.stringify({ action: 'upload', image: reader.result, filename: file.name }),
       });
       setUploading(null);
       if (res.ok) {
@@ -137,6 +137,53 @@ export default function DesignEditor({ fields, kinds, onSaved }: Props) {
                   className="mt-2 w-full rounded-xl border border-border bg-background px-3 py-2 text-xs outline-none focus:border-forest transition"
                 />
               </div>
+            </div>
+          )}
+
+          {f.kind === 'file' && (
+            <div className="mt-3">
+              <input
+                ref={el => (fileRefs.current[f.key] = el)}
+                type="file"
+                accept=".pdf,.doc,.docx,.xls,.xlsx,.zip"
+                className="hidden"
+                onChange={e => e.target.files?.[0] && upload(f.key, e.target.files[0])}
+              />
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  onClick={() => fileRefs.current[f.key]?.click()}
+                  disabled={uploading === f.key}
+                  className="inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-xs font-bold text-forest hover:border-forest/50 transition"
+                >
+                  <Icon name="Upload" size={14} />
+                  {uploading === f.key ? 'Загружаем...' : 'Загрузить файл'}
+                </button>
+                {valueOf(f) && (
+                  <>
+                    <a
+                      href={valueOf(f)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
+                    >
+                      <Icon name="FileText" size={14} />
+                      Проверить файл
+                    </a>
+                    <button
+                      onClick={() => set(f.key, '')}
+                      className="text-xs font-semibold text-muted-foreground hover:text-primary transition"
+                    >
+                      Убрать
+                    </button>
+                  </>
+                )}
+              </div>
+              <input
+                value={valueOf(f)}
+                onChange={e => set(f.key, e.target.value)}
+                placeholder="или вставьте ссылку на файл"
+                className="mt-2 w-full rounded-xl border border-border bg-background px-3 py-2 text-xs outline-none focus:border-forest transition"
+              />
             </div>
           )}
 

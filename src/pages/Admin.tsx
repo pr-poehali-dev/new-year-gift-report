@@ -9,7 +9,8 @@ import DesignEditor from '@/components/admin/DesignEditor';
 const PRODUCTS_TAB = 'Подарки в каталоге';
 const IMAGES_TAB = 'Картинки сайта';
 const DESIGN_TAB = 'Цвета и шрифты';
-const SPECIAL_TABS = [PRODUCTS_TAB, IMAGES_TAB, DESIGN_TAB];
+const FILES_TAB = 'Файлы для скачивания';
+const SPECIAL_TABS = [PRODUCTS_TAB, IMAGES_TAB, FILES_TAB, DESIGN_TAB];
 
 export default function Admin() {
   const [password, setPassword] = useState(() => sessionStorage.getItem('admin_pw') || '');
@@ -177,6 +178,8 @@ export default function Admin() {
           <ProductsEditor />
         ) : activeSection === IMAGES_TAB ? (
           <DesignEditor fields={settingFields} kinds={['image']} onSaved={loadFields} />
+        ) : activeSection === FILES_TAB ? (
+          <DesignEditor fields={settingFields} kinds={['file']} onSaved={loadFields} />
         ) : activeSection === DESIGN_TAB ? (
           <DesignEditor fields={settingFields} kinds={['color', 'font', 'fontsize']} onSaved={loadFields} />
         ) : (
