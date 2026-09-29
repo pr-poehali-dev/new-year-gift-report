@@ -10,7 +10,7 @@ export interface Product {
   badge?: string;
 }
 
-export const categories = ['Все подарки', 'Картон', 'Текстиль', 'Дерево'];
+export const categories = ['Все подарки', 'Картон', 'Жесть', 'Текстиль', 'Дерево'];
 
 export const products: Product[] = [
   {
@@ -83,6 +83,7 @@ export const products: Product[] = [
 
 export const packagingTypes = [
   { name: 'Картон', icon: 'Gift', description: 'Лёгкие яркие коробки для детских праздников', bg: 'bg-rose-50' },
+  { name: 'Жесть', icon: 'Sparkles', description: 'Нарядная упаковка, которая останется на память', bg: 'bg-emerald-50' },
   { name: 'Текстиль', icon: 'ShoppingBag', description: 'Мягкие рюкзачки, мешочки и игрушки', bg: 'bg-amber-50' },
   { name: 'Дерево', icon: 'TreePine', description: 'Премиальные подарки для близких и партнёров', bg: 'bg-indigo-50' },
 ];
