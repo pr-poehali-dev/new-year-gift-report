@@ -9,19 +9,32 @@ export default function HeroSection() {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   const catalogFile = s('file.catalog', '');
-  const handleCatalog = () => {
+  const handleCatalog = async () => {
     if (!catalogFile) {
       toast.info('Каталог скоро появится — позвоните нам, вышлем подборку');
       return;
     }
-    const link = document.createElement('a');
-    link.href = catalogFile;
-    link.download = '';
-    link.target = '_blank';
-    link.rel = 'noreferrer';
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+
+    const fileName = catalogFile.split('/').pop()?.split('?')[0] || 'katalog.pdf';
+    const saveAs = (href: string, revoke?: string) => {
+      const link = document.createElement('a');
+      link.href = href;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      if (revoke) setTimeout(() => URL.revokeObjectURL(revoke), 4000);
+    };
+
+    try {
+      const res = await fetch(catalogFile);
+      if (!res.ok) throw new Error('fetch failed');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      saveAs(url, url);
+    } catch {
+      saveAs(catalogFile);
+    }
   };
 
   const stats = [
