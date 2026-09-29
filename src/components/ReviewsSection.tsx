@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { useText } from '@/hooks/useSiteTexts';
 
@@ -38,9 +39,28 @@ export default function ReviewsSection() {
         <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
           {t('rev.eyebrow', 'Нам доверяют')}
         </div>
-        <h2 className="text-3xl sm:text-5xl font-extrabold text-forest mb-8">
-          {t('rev.title', 'Отзывы наших клиентов')}
-        </h2>
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-forest">
+            {t('rev.title', 'Отзывы наших клиентов')}
+          </h2>
+
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/reviews"
+              className="inline-flex items-center gap-2 rounded-full bg-primary text-white px-6 py-3 font-bold hover:brightness-110 transition"
+            >
+              <Icon name="PenLine" size={17} />
+              {t('rev.btn', 'Оставить отзыв')}
+            </Link>
+            <Link
+              to="/all-reviews"
+              className="inline-flex items-center gap-2 rounded-full bg-white border border-border text-forest px-6 py-3 font-bold hover:border-forest/40 transition"
+            >
+              {t('rev.btnAll', 'Все отзывы')}
+              <Icon name="ArrowRight" size={17} />
+            </Link>
+          </div>
+        </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {reviews.map(review => (
