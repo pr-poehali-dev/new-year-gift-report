@@ -12,7 +12,6 @@ import CatalogModal from '@/components/CatalogModal';
 import ScrollToTop from '@/components/ScrollToTop';
 
 export default function Index() {
-  const [catalogModalOpen, setCatalogModalOpen] = useState(false);
   const [compositionModalOpen, setCompositionModalOpen] = useState(false);
 
   const scrollToContacts = () => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' });
@@ -20,7 +19,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <HeroSection onOpenCatalog={() => setCatalogModalOpen(true)} />
+      <HeroSection />
       <ProductCatalog onRequest={scrollToContacts} />
       <CompositionSection onOpenComposition={() => setCompositionModalOpen(true)} />
       <AboutSection />
@@ -29,7 +28,6 @@ export default function Index() {
       <ContactsSection />
       <Footer />
 
-      <CatalogModal open={catalogModalOpen} onOpenChange={setCatalogModalOpen} type="catalog" />
       <CatalogModal open={compositionModalOpen} onOpenChange={setCompositionModalOpen} type="composition" />
       <ScrollToTop />
     </div>

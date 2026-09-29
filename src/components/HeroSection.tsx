@@ -1,30 +1,27 @@
+import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { heroImage } from '@/data/products';
 import { useText, useSetting } from '@/hooks/useSiteTexts';
 
-interface HeroSectionProps {
-  onOpenCatalog: () => void;
-}
-
-export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
+export default function HeroSection() {
   const t = useText();
   const s = useSetting();
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   const catalogFile = s('file.catalog', '');
   const handleCatalog = () => {
-    if (catalogFile) {
-      const link = document.createElement('a');
-      link.href = catalogFile;
-      link.download = '';
-      link.target = '_blank';
-      link.rel = 'noreferrer';
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-    } else {
-      onOpenCatalog();
+    if (!catalogFile) {
+      toast.info('Каталог скоро появится — позвоните нам, вышлем подборку');
+      return;
     }
+    const link = document.createElement('a');
+    link.href = catalogFile;
+    link.download = '';
+    link.target = '_blank';
+    link.rel = 'noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
 
   const stats = [
@@ -70,7 +67,7 @@ export default function HeroSection({ onOpenCatalog }: HeroSectionProps) {
                 onClick={handleCatalog}
                 className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-6 sm:px-7 py-3.5 font-bold hover:bg-white/20 transition"
               >
-                {catalogFile && <Icon name="Download" size={18} />}
+                <Icon name="Download" size={18} />
                 {t('hero.btn2', 'Скачать каталог')}
               </button>
             </div>
