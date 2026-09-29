@@ -77,11 +77,12 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                 key={product.id}
                 className="group bg-white rounded-3xl overflow-hidden border border-border hover:shadow-xl transition-shadow flex flex-col"
               >
-                <div className="relative">
+                <div className="relative bg-background">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-52 sm:h-56 object-cover"
+                    loading="lazy"
+                    className="w-full h-40 sm:h-44 object-contain p-3"
                   />
                   {product.badge && (
                     <span className="absolute top-4 left-4 rounded-full bg-primary text-white text-[10px] font-extrabold tracking-wider px-3 py-1.5">
