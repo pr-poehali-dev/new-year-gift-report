@@ -12,10 +12,15 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   const t = useText();
   const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState('Все подарки');
+  const [sort, setSort] = useState<'default' | 'asc' | 'desc'>('default');
 
-  const filtered = selectedCategory === 'Все подарки'
+  const byCategory = selectedCategory === 'Все подарки'
     ? products
     : products.filter(p => p.category === selectedCategory);
+
+  const filtered = sort === 'default'
+    ? byCategory
+    : [...byCategory].sort((a, b) => (sort === 'asc' ? a.price - b.price : b.price - a.price));
 
   return (
     <>
@@ -35,20 +40,35 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-8">
-            {categories.map(category => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
-                  selectedCategory === category
-                    ? 'bg-forest text-forest-foreground'
-                    : 'bg-white text-forest border border-border hover:border-forest/40'
-                }`}
+          <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
+            <div className="flex flex-wrap gap-2">
+              {categories.map(category => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                    selectedCategory === category
+                      ? 'bg-forest text-forest-foreground'
+                      : 'bg-white text-forest border border-border hover:border-forest/40'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2 text-sm">
+              <Icon name="ArrowDownUp" size={16} className="text-muted-foreground" />
+              <select
+                value={sort}
+                onChange={e => setSort(e.target.value as 'default' | 'asc' | 'desc')}
+                className="rounded-full bg-white border border-border px-4 py-2.5 font-semibold text-forest outline-none cursor-pointer hover:border-forest/40 transition"
               >
-                {category}
-              </button>
-            ))}
+                <option value="default">Сначала популярные</option>
+                <option value="asc">Сначала дешевле</option>
+                <option value="desc">Сначала дороже</option>
+              </select>
+            </div>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">

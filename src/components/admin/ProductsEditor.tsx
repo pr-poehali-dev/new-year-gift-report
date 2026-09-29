@@ -198,7 +198,7 @@ export default function ProductsEditor() {
                     onChange={e => update(p.id, { category: e.target.value })}
                     className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-forest transition"
                   >
-                    {packOptions.map(c => (
+                    {(packOptions.includes(p.category) ? packOptions : [p.category, ...packOptions]).map(c => (
                       <option key={c} value={c}>
                         {c}
                       </option>
