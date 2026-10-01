@@ -2,8 +2,14 @@ import json
 import os
 import re
 import smtplib
+from datetime import datetime, timedelta
+from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.image import MIMEImage
 from email.header import Header
+from email.utils import formataddr
+from email_template import lead_email_html, lead_email_text
 from urllib.parse import urlencode
 from urllib.request import urlopen
 import psycopg2
@@ -16,6 +22,8 @@ CORS = {
     'Access-Control-Max-Age': '86400',
     'Content-Type': 'application/json',
 }
+
+LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logo.png')
 
 AMOUNT_LABELS = {
     '1-10': '1–10 шт.',
@@ -51,14 +59,31 @@ def normalize_phone(p: str) -> str:
     return digits
 
 
-def send_email(to_list: list, subject: str, text: str) -> str:
+def build_message(text: str, html: str = '') -> MIMEBase:
+    if not html:
+        return MIMEText(text, 'plain', 'utf-8')
+    root = MIMEMultipart('related')
+    alt = MIMEMultipart('alternative')
+    alt.attach(MIMEText(text, 'plain', 'utf-8'))
+    alt.attach(MIMEText(html, 'html', 'utf-8'))
+    root.attach(alt)
+    if os.path.exists(LOGO_PATH):
+        with open(LOGO_PATH, 'rb') as f:
+            img = MIMEImage(f.read(), 'png')
+        img.add_header('Content-ID', '<logo>')
+        img.add_header('Content-Disposition', 'inline', filename='logo.png')
+        root.attach(img)
+    return root
+
+
+def send_email(to_list: list, subject: str, text: str, html: str = '') -> str:
     user = os.environ.get('SMTP_USER', '')
     password = os.environ.get('SMTP_PASSWORD', '')
     if not user or not password:
         return 'Почта не настроена: нет SMTP_USER / SMTP_PASSWORD'
-    msg = MIMEText(text, 'plain', 'utf-8')
+    msg = build_message(text, html)
     msg['Subject'] = Header(subject, 'utf-8')
-    msg['From'] = user
+    msg['From'] = formataddr((str(Header('Сайт ЧеБ Подарки', 'utf-8')), user))
     msg['To'] = ', '.join(to_list)
     try:
         with smtplib.SMTP_SSL('smtp.yandex.ru', 465, timeout=8) as s:
@@ -83,6 +108,17 @@ def send_sms(phones: list, text: str) -> str:
     if data.get('status') != 'OK':
         return f"Ошибка СМС: {data.get('status_text', 'неизвестная ошибка')}"
     return ''
+
+
+def send_lead_email(emails: list, lead_id: int, name: str, phone: str, amount_label: str) -> str:
+    created = (datetime.utcnow() + timedelta(hours=3)).strftime('%d.%m.%Y, %H:%M')
+    phone_href = '+' + normalize_phone(phone)
+    return send_email(
+        emails,
+        f'Новая заявка: {name}, {phone}',
+        lead_email_text(lead_id, name, phone, amount_label, created),
+        lead_email_html(lead_id, name, phone, phone_href, amount_label, created),
+    )
 
 
 def load_settings(cur, schema: str) -> dict:
@@ -123,11 +159,7 @@ def handler(event: dict, context) -> dict:
 
         emails = split_list(st.get('emails', ''))
         if st.get('email_enabled') == 'true' and emails:
-            text = (
-                f'Новая заявка с сайта «Жду звонка» №{lead_id}\n\n'
-                f'Имя: {name}\nТелефон: {phone}\nКоличество подарков: {amount_label}\n'
-            )
-            err = send_email(emails, f'Новая заявка: {name}, {phone}', text)
+            err = send_lead_email(emails, lead_id, name, phone, amount_label)
             email_ok = not err
             if err:
                 errors.append(err)
@@ -213,7 +245,7 @@ def handler(event: dict, context) -> dict:
         result = {}
         emails = split_list(st.get('emails', ''))
         if emails:
-            result['email'] = send_email(emails, 'Проверка уведомлений', 'Это тестовое письмо: уведомления о заявках настроены.') or 'ok'
+            result['email'] = send_lead_email(emails, 0, 'Тестовый клиент', '+7 900 000-00-00', '10–50 шт.') or 'ok'
         return resp(200, result)
 
     cur.close()
