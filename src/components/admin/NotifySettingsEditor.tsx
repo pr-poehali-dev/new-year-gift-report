@@ -74,18 +74,14 @@ const toList = (s = '') => s.split(/[,;\n]+/).map(x => x.trim()).filter(Boolean)
 export default function NotifySettingsEditor() {
   const { data, reload } = useLeads();
   const [emails, setEmails] = useState<string[]>([]);
-  const [phones, setPhones] = useState<string[]>([]);
   const [emailOn, setEmailOn] = useState(true);
-  const [smsOn, setSmsOn] = useState(true);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
 
   useEffect(() => {
     if (!data) return;
     setEmails(toList(data.settings.emails));
-    setPhones(toList(data.settings.phones));
     setEmailOn(data.settings.email_enabled !== 'false');
-    setSmsOn(data.settings.sms_enabled !== 'false');
   }, [data]);
 
   const save = async () => {
@@ -94,9 +90,8 @@ export default function NotifySettingsEditor() {
       action: 'settings',
       settings: {
         emails: emails.map(e => e.trim()).filter(Boolean).join(','),
-        phones: phones.map(p => p.trim()).filter(Boolean).join(','),
         email_enabled: emailOn ? 'true' : 'false',
-        sms_enabled: smsOn ? 'true' : 'false',
+        sms_enabled: 'false',
       },
     });
     setSaving(false);
@@ -111,8 +106,8 @@ export default function NotifySettingsEditor() {
     const { ok, data: r } = await leadsRequest({ action: 'test' });
     setTesting(false);
     if (!ok) return toast.error('Не удалось отправить проверку');
-    if (r.email) r.email === 'ok' ? toast.success('Тестовое письмо отправлено') : toast.error(r.email);
-    if (r.sms) r.sms === 'ok' ? toast.success('Тестовое СМС отправлено') : toast.error(r.sms);
+    if (r.email === 'ok') toast.success('Тестовое письмо отправлено');
+    else if (r.email) toast.error(r.email);
   };
 
   const cfg = data?.configured;
@@ -136,12 +131,11 @@ export default function NotifySettingsEditor() {
         </div>
       </div>
 
-      {cfg && (!cfg.email || !cfg.sms) && (
+      {cfg && !cfg.email && (
         <div className="flex gap-2 rounded-2xl border border-primary/30 bg-primary/5 px-4 py-3 text-xs text-primary font-semibold">
           <Icon name="TriangleAlert" size={16} className="shrink-0" />
           <div>
-            {!cfg.email && <div>Почта ещё не подключена — добавьте ключи доступа к почтовому ящику.</div>}
-            {!cfg.sms && <div>СМС ещё не подключены — добавьте ключ сервиса SMS.ru.</div>}
+            <div>Почта ещё не подключена — добавьте ключи доступа к почтовому ящику.</div>
             <div className="font-normal mt-0.5">Пока ключей нет, заявки всё равно сохраняются в разделе «Заявки».</div>
           </div>
         </div>
@@ -157,15 +151,6 @@ export default function NotifySettingsEditor() {
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-border p-4 sm:p-5">
-        <label className="flex items-center gap-2 text-xs font-bold text-muted-foreground mb-4 cursor-pointer">
-          <input type="checkbox" checked={smsOn} onChange={e => setSmsOn(e.target.checked)} className="w-4 h-4 accent-[hsl(var(--primary))]" />
-          Отправлять СМС
-        </label>
-        <div className={smsOn ? '' : 'opacity-50 pointer-events-none'}>
-          <ListField title="Телефоны для СМС" icon="Smartphone" placeholder="89270000000" items={phones} onChange={setPhones} />
-        </div>
-      </div>
     </div>
   );
 }

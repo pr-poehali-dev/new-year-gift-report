@@ -1,0 +1,1 @@
+UPDATE notify_settings SET value = 'false' WHERE setting_key = 'sms_enabled';

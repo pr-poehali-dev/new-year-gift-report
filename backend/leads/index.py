@@ -91,7 +91,7 @@ def load_settings(cur, schema: str) -> dict:
 
 
 def handler(event: dict, context) -> dict:
-    """Заявки «Жду звонка»: POST create сохраняет заявку и шлёт письмо и СМС; админ видит список заявок и настраивает получателей уведомлений."""
+    """Заявки «Жду звонка»: POST create сохраняет заявку и шлёт письмо на почту; админ видит список заявок и настраивает получателей уведомлений."""
     method = event.get('httpMethod', 'GET')
     if method == 'OPTIONS':
         return {'statusCode': 200, 'headers': CORS, 'body': ''}
@@ -212,11 +212,8 @@ def handler(event: dict, context) -> dict:
         conn.close()
         result = {}
         emails = split_list(st.get('emails', ''))
-        phones = split_list(st.get('phones', ''))
         if emails:
             result['email'] = send_email(emails, 'Проверка уведомлений', 'Это тестовое письмо: уведомления о заявках настроены.') or 'ok'
-        if phones:
-            result['sms'] = send_sms(phones, 'Проверка: СМС-уведомления о заявках работают') or 'ok'
         return resp(200, result)
 
     cur.close()

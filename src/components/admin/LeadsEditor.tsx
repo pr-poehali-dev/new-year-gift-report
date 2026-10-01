@@ -191,10 +191,6 @@ export default function LeadsEditor() {
                     <Icon name={l.email_sent ? 'MailCheck' : 'MailX'} size={13} className={l.email_sent ? 'text-forest' : 'text-primary'} />
                     {l.email_sent ? 'Письмо ушло' : 'Письмо не ушло'}
                   </span>
-                  <span className="inline-flex items-center gap-1">
-                    <Icon name={l.sms_sent ? 'MessageSquareText' : 'MessageSquareOff'} size={13} className={l.sms_sent ? 'text-forest' : 'text-primary'} />
-                    {l.sms_sent ? 'СМС ушло' : 'СМС не ушло'}
-                  </span>
                 </div>
               </div>
             </div>
