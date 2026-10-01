@@ -77,8 +77,10 @@ def build_message(text: str, html: str = '') -> MIMEBase:
 
 
 def send_email(to_list: list, subject: str, text: str, html: str = '') -> str:
-    user = os.environ.get('SMTP_USER', '')
-    password = os.environ.get('SMTP_PASSWORD', '')
+    user = os.environ.get('SMTP_USER', '').strip().strip('"\'').lower()
+    password = re.sub(r'\s+', '', os.environ.get('SMTP_PASSWORD', '')).strip('"\'')
+    if user and '@' not in user:
+        user = f'{user}@yandex.ru'
     if not user or not password:
         return 'Почта не настроена: нет SMTP_USER / SMTP_PASSWORD'
     msg = build_message(text, html)
@@ -89,6 +91,15 @@ def send_email(to_list: list, subject: str, text: str, html: str = '') -> str:
         with smtplib.SMTP_SSL('smtp.yandex.ru', 465, timeout=8) as s:
             s.login(user, password)
             s.sendmail(user, to_list, msg.as_string())
+    except smtplib.SMTPAuthenticationError:
+        hint = f'длина пароля {len(password)} симв.'
+        if len(password) != 16:
+            hint += ' — пароль приложения Яндекса должен быть ровно 16 символов'
+        return (
+            f'Яндекс не принял вход для {user} ({hint}). '
+            'Нужен именно пароль приложения (id.yandex.ru → Безопасность → Пароли приложений → Почта), '
+            'и в настройках почты должен быть включён доступ по IMAP / почтовым программам.'
+        )
     except Exception as e:
         return f'Ошибка почты: {e}'
     return ''
