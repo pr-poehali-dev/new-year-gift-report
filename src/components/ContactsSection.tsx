@@ -3,6 +3,7 @@ import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
 
 import { useText, useTextRaw } from '@/hooks/useSiteTexts';
+import func2url from '../../backend/func2url.json';
 
 export default function ContactsSection() {
   const t = useText();
@@ -21,16 +22,35 @@ export default function ContactsSection() {
   const [phone, setPhone] = useState('');
   const [amount, setAmount] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !phone.trim()) {
-      toast.error('Заполните имя и телефон');
+    if (!name.trim() || phone.replace(/\D/g, '').length < 10) {
+      toast.error('Заполните имя и корректный номер телефона');
       return;
     }
-    toast.success('Заявка отправлена! Перезвоним в течение 15 минут');
-    setName('');
-    setPhone('');
-    setAmount('');
+    setSending(true);
+    try {
+      const res = await fetch(func2url.leads, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'create', name, phone, amount }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        toast.error(data.error || 'Не удалось отправить заявку, позвоните нам');
+        return;
+      }
+      toast.success('Заявка отправлена! Перезвоним в течение 15 минут');
+      setName('');
+      setPhone('');
+      setAmount('');
+    } catch {
+      toast.error('Нет связи. Попробуйте ещё раз или позвоните нам');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -110,9 +130,10 @@ export default function ContactsSection() {
 
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white py-3.5 font-bold hover:brightness-110 transition"
+              disabled={sending}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-primary text-white py-3.5 font-bold hover:brightness-110 transition disabled:opacity-70"
             >
-              {t('cont.formBtn', 'Жду звонка')}
+              {sending ? 'Отправляем...' : t('cont.formBtn', 'Жду звонка')}
               <Icon name="ArrowRight" size={18} />
             </button>
 

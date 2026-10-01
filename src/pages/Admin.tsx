@@ -8,16 +8,22 @@ import ProductsEditor from '@/components/admin/ProductsEditor';
 import DesignEditor from '@/components/admin/DesignEditor';
 import BlocksEditor from '@/components/admin/BlocksEditor';
 import CatalogFiltersEditor from '@/components/admin/CatalogFiltersEditor';
+import LeadsEditor from '@/components/admin/LeadsEditor';
+import NotifySettingsEditor from '@/components/admin/NotifySettingsEditor';
 
+const LEADS_TAB = 'Заявки';
+const NOTIFY_TAB = 'Уведомления';
 const BLOCKS_TAB = 'Блоки страницы';
 const PRODUCTS_TAB = 'Подарки в каталоге';
 const FILTERS_TAB = 'Кнопки фильтра';
 const IMAGES_TAB = 'Картинки сайта';
 const DESIGN_TAB = 'Цвета и шрифты';
 const FILES_TAB = 'Файлы для скачивания';
-const SPECIAL_TABS = [BLOCKS_TAB, PRODUCTS_TAB, FILTERS_TAB, IMAGES_TAB, FILES_TAB, DESIGN_TAB];
+const SPECIAL_TABS = [LEADS_TAB, NOTIFY_TAB, BLOCKS_TAB, PRODUCTS_TAB, FILTERS_TAB, IMAGES_TAB, FILES_TAB, DESIGN_TAB];
 
 const TAB_ICONS: Record<string, string> = {
+  [LEADS_TAB]: 'Inbox',
+  [NOTIFY_TAB]: 'BellRing',
   [BLOCKS_TAB]: 'LayoutTemplate',
   [PRODUCTS_TAB]: 'Gift',
   [FILTERS_TAB]: 'SlidersHorizontal',
@@ -49,7 +55,7 @@ export default function Admin() {
     applyTheme(data.settings || {});
     const saved = loadDraft<Record<string, string>>(TEXTS_DRAFT_KEY) || {};
     setDraft({ ...Object.fromEntries(list.map(f => [f.key, f.value])), ...saved });
-    setActiveSection(prev => prev || BLOCKS_TAB);
+    setActiveSection(prev => prev || LEADS_TAB);
   };
 
   useEffect(() => {
@@ -84,6 +90,7 @@ export default function Admin() {
       if (!textSections.includes(f.section)) textSections.push(f.section);
     });
     return [
+      { title: 'Клиенты', items: [LEADS_TAB, NOTIFY_TAB] },
       { title: 'Страница', items: [BLOCKS_TAB] },
       { title: 'Каталог', items: [PRODUCTS_TAB, FILTERS_TAB] },
       { title: 'Тексты блоков', items: textSections },
@@ -215,7 +222,11 @@ export default function Admin() {
           ))}
         </nav>
 
-        {activeSection === BLOCKS_TAB ? (
+        {activeSection === LEADS_TAB ? (
+          <LeadsEditor />
+        ) : activeSection === NOTIFY_TAB ? (
+          <NotifySettingsEditor />
+        ) : activeSection === BLOCKS_TAB ? (
           <BlocksEditor fields={settingFields} onSaved={loadFields} onOpen={setActiveSection} />
         ) : activeSection === FILTERS_TAB ? (
           <CatalogFiltersEditor fields={settingFields} onSaved={loadFields} />

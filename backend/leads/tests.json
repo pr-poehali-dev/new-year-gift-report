@@ -1,0 +1,6 @@
+{
+  "tests": [
+    {"name": "Пустая заявка отклоняется", "method": "POST", "path": "/", "body": {"action": "create", "name": "", "phone": ""}, "expectedStatus": 400},
+    {"name": "Список заявок без пароля закрыт", "method": "GET", "path": "/", "expectedStatus": 401}
+  ]
+}
