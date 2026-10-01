@@ -6,12 +6,12 @@ from datetime import datetime, timedelta
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email.mime.image import MIMEImage
 from email.header import Header
 from email.utils import formataddr
 from email_template import lead_email_html, lead_email_text
 from urllib.parse import urlencode
 from urllib.request import urlopen
+import boto3
 import psycopg2
 import psycopg2.extras
 
@@ -62,18 +62,28 @@ def normalize_phone(p: str) -> str:
 def build_message(text: str, html: str = '') -> MIMEBase:
     if not html:
         return MIMEText(text, 'plain', 'utf-8')
-    root = MIMEMultipart('related')
     alt = MIMEMultipart('alternative')
     alt.attach(MIMEText(text, 'plain', 'utf-8'))
     alt.attach(MIMEText(html, 'html', 'utf-8'))
-    root.attach(alt)
-    if os.path.exists(LOGO_PATH):
-        with open(LOGO_PATH, 'rb') as f:
-            img = MIMEImage(f.read(), 'png')
-        img.add_header('Content-ID', '<logo>')
-        img.add_header('Content-Disposition', 'inline', filename='logo.png')
-        root.attach(img)
-    return root
+    return alt
+
+
+def get_logo_url() -> str:
+    key_id = os.environ.get('AWS_ACCESS_KEY_ID', '')
+    secret = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
+    if not key_id or not secret or not os.path.exists(LOGO_PATH):
+        return ''
+    key = 'email/logo-v1.png'
+    try:
+        s3 = boto3.client('s3', endpoint_url='https://bucket.poehali.dev', aws_access_key_id=key_id, aws_secret_access_key=secret)
+        try:
+            s3.head_object(Bucket='files', Key=key)
+        except Exception:
+            with open(LOGO_PATH, 'rb') as f:
+                s3.put_object(Bucket='files', Key=key, Body=f.read(), ContentType='image/png')
+    except Exception:
+        return ''
+    return f'https://cdn.poehali.dev/projects/{key_id}/bucket/{key}'
 
 
 SMTP = {'user': '', 'password': ''}
@@ -131,7 +141,7 @@ def send_lead_email(emails: list, lead_id: int, name: str, phone: str, amount_la
         emails,
         f'Новая заявка: {name}, {phone}',
         lead_email_text(lead_id, name, phone, amount_label, created),
-        lead_email_html(lead_id, name, phone, phone_href, amount_label, created),
+        lead_email_html(lead_id, name, phone, phone_href, amount_label, created, get_logo_url()),
     )
 
 

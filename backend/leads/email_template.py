@@ -6,11 +6,17 @@ SECONDARY = '#FBBF24'
 BG = '#FBF8F1'
 
 
-def lead_email_html(lead_id: int, name: str, phone: str, phone_href: str, amount: str, created: str) -> str:
+def lead_email_html(lead_id: int, name: str, phone: str, phone_href: str, amount: str, created: str, logo_url: str = '') -> str:
     n = escape(name)
     p = escape(phone)
     a = escape(amount)
     badge = f'Новая заявка №{lead_id}' if lead_id else 'Тестовое письмо'
+    logo = (
+        f'<img src="{escape(logo_url)}" width="80" height="100" alt="ЧеБ Подарки" '
+        f'style="display:block;width:80px;height:100px;border:0;outline:none;">'
+        if logo_url
+        else f'<div style="font-size:26px;font-weight:bold;color:{FOREST};">ЧеБ <span style="color:{PRIMARY};">ПОДАРКИ</span></div>'
+    )
     return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -24,7 +30,7 @@ def lead_email_html(lead_id: int, name: str, phone: str, phone_href: str, amount
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;background:#ffffff;border-radius:20px;overflow:hidden;border:1px solid #ece6d8;">
 
 <tr><td align="center" style="padding:28px 24px 8px;">
-<img src="cid:logo" width="80" alt="ЧеБ Подарки" style="display:block;width:80px;height:auto;border:0;">
+{logo}
 </td></tr>
 
 <tr><td align="center" style="padding:8px 24px 0;">
