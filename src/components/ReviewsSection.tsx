@@ -36,11 +36,11 @@ export default function ReviewsSection() {
   return (
     <section id="reviews" className="bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-14 sm:pb-20">
-        <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
+        <div className="eyebrow-script text-primary mb-2">
           {t('rev.eyebrow', 'Нам доверяют')}
         </div>
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-forest">
+          <h2 className="text-3xl sm:text-5xl font-black text-forest">
             {t('rev.title', 'Отзывы наших клиентов')}
           </h2>
 

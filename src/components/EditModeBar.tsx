@@ -50,7 +50,7 @@ export default function EditModeBar() {
   };
 
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-3 rounded-full bg-[hsl(163_62%_10%)] text-white pl-5 pr-2 py-2 shadow-2xl border border-white/10">
+    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-3 rounded-full bg-[hsl(226_70%_14%)] text-white pl-5 pr-2 py-2 shadow-2xl border border-white/10">
       <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold whitespace-nowrap">
         <Icon name="Pencil" size={15} className="text-sky-400" />
         {dirty ? `Изменено надписей: ${dirty}` : 'Кликните по любой надписи'}

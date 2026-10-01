@@ -20,10 +20,10 @@ export default function AboutSection() {
 
           <div className="relative grid lg:grid-cols-2 gap-8 items-center">
             <div>
-              <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
+              <div className="eyebrow-script text-primary mb-2">
                 {t('about.eyebrow', 'С 2010 года')}
               </div>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-forest leading-tight">
+              <h2 className="text-2xl sm:text-4xl font-black text-forest leading-tight">
                 {t('about.title', 'Мы знаем, из чего складывается настоящий праздник')}
               </h2>
               <p className="mt-5 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">

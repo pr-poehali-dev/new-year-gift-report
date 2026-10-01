@@ -62,12 +62,12 @@ export default function HeroSection() {
               {t('hero.badge', '★ Новогодняя коллекция 2026/27')}
             </div>
 
-            <h1 className="mt-6 text-4xl sm:text-6xl font-extrabold leading-[1.05]">
+            <h1 className="mt-6 text-4xl sm:text-6xl font-black leading-[1.05] text-glow">
               {t('hero.title1', 'Подарки, от которых')}
-              <span className="block text-secondary">{t('hero.title2', 'глаза горят')}</span>
+              <span className="block mt-1 font-script font-normal text-5xl sm:text-7xl text-festive-gold">{t('hero.title2', 'глаза горят')}</span>
             </h1>
 
-            <p className="mt-5 text-sm sm:text-base text-forest-foreground/75 max-w-lg leading-relaxed">
+            <p className="mt-5 text-sm sm:text-base text-white/85 max-w-lg leading-relaxed">
               {t('hero.text', 'Любимые сладости в волшебной упаковке — детям, близким, коллегам и партнёрам. Оптом и в розницу с доставкой по всей России.')}
             </p>
 
@@ -91,7 +91,7 @@ export default function HeroSection() {
             <div className="mt-10 grid grid-cols-3 gap-4 max-w-lg">
               {stats.map((s, i) => (
                 <div key={i}>
-                  <div className="font-extrabold text-base sm:text-xl">{s.value}</div>
+                  <div className="font-display font-extrabold text-base sm:text-2xl text-secondary">{s.value}</div>
                   <div className="text-[10px] sm:text-xs text-forest-foreground/60 mt-1">{s.label}</div>
                 </div>
               ))}

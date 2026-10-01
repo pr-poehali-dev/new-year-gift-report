@@ -32,7 +32,7 @@ export default function CorporateSection({ onRequest }: CorporateSectionProps) {
               <div className="inline-block rounded-full bg-secondary text-secondary-foreground px-4 py-1.5 text-[10px] font-extrabold tracking-[0.16em] uppercase">
                 {t('corp.badge', 'Для компаний и организаций')}
               </div>
-              <h2 className="mt-6 text-2xl sm:text-4xl font-extrabold leading-tight">
+              <h2 className="mt-6 text-2xl sm:text-4xl font-black leading-tight">
                 {t('corp.title', 'Подарки сотрудникам, клиентам и детям')}
               </h2>
               <p className="mt-4 text-sm sm:text-base text-white/85 leading-relaxed max-w-md">
@@ -71,10 +71,10 @@ export default function CorporateSection({ onRequest }: CorporateSectionProps) {
 
       <section className="bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-14 sm:pb-20 text-center">
-          <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
+          <div className="eyebrow-script text-primary mb-2">
             {t('steps.eyebrow', 'Всё просто')}
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-forest mb-10">
+          <h2 className="text-3xl sm:text-5xl font-black text-forest mb-10">
             {t('steps.title', 'Четыре шага до праздника')}
           </h2>
 
@@ -88,7 +88,7 @@ export default function CorporateSection({ onRequest }: CorporateSectionProps) {
                 >
                   {step.num}
                 </div>
-                <h3 className="mt-5 font-extrabold text-forest">{step.title}</h3>
+                <h3 className="mt-5 font-black text-forest">{step.title}</h3>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed max-w-[220px] mx-auto">
                   {step.text}
                 </p>

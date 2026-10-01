@@ -1,0 +1,1 @@
+UPDATE t_p8000729_new_year_gift_report.site_settings SET value = '#14286B', title = 'Тёмный цвет (синий)', updated_at = NOW() WHERE setting_key = 'color.forest' AND value = '#0E3A2C';

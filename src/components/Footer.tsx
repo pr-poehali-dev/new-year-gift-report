@@ -16,7 +16,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[hsl(163_62%_10%)] text-forest-foreground">
+    <footer className="bg-[hsl(226_70%_14%)] text-forest-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 lg:grid-cols-3 items-center">
         <div className="flex items-center gap-2.5">
           <img src={s('img.logoLight', '/logo-light.png')} alt="ЧЕБподарки" className="h-14 w-auto" />

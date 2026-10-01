@@ -75,6 +75,8 @@ export default {
 			},
 			fontFamily: {
 				sans: ['Manrope', 'sans-serif'],
+				display: ['Rubik', 'Manrope', 'sans-serif'],
+				script: ['"Marck Script"', 'cursive'],
 			},
 			keyframes: {
 				'accordion-down': {

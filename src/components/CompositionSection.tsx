@@ -20,13 +20,13 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
       <FestiveBackground image={st('img.compositionBg', villageBgImage)} flakes={40} overlay="linear-gradient(90deg, rgba(12,16,48,0.9) 0%, rgba(20,18,60,0.75) 50%, rgba(20,18,60,0.45) 100%)" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
         <div>
-          <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-secondary mb-3">
+          <div className="eyebrow-script text-festive-gold mb-2">
             {t('comp.eyebrow', 'Внутри — только радость')}
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-black leading-tight text-glow">
             {t('comp.title', 'Состав, которому доверяют родители')}
           </h2>
-          <p className="mt-5 text-sm sm:text-base text-forest-foreground/75 max-w-lg leading-relaxed">
+          <p className="mt-5 text-sm sm:text-base text-white/85 max-w-lg leading-relaxed">
             {t('comp.text', 'Собираем подарки из популярных конфет крупнейших российских фабрик. Качество и безопасность подтверждены сертификатами.')}
           </p>
 

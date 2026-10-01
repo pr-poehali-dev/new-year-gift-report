@@ -52,10 +52,10 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
           <div className="grid lg:grid-cols-2 gap-6 lg:items-end mb-8">
             <div>
-              <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
+              <div className="eyebrow-script text-primary mb-2">
                 {t('catalog.eyebrow', 'Найдите свой подарок')}
               </div>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-forest leading-tight">
+              <h2 className="text-3xl sm:text-5xl font-black text-forest leading-tight">
                 {t('catalog.title', 'Праздник на любой вкус')}
               </h2>
             </div>
@@ -145,13 +145,13 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                   <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-muted-foreground">
                     {product.category} • {product.weight}
                   </div>
-                  <h3 className="mt-2 text-lg font-extrabold text-forest">{product.name}</h3>
+                  <h3 className="mt-2 text-lg font-black text-forest">{product.name}</h3>
                   <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground leading-relaxed">
                     {product.description}
                   </p>
 
                   <div className="mt-5 pt-4 border-t border-border flex items-center justify-between">
-                    <span className="font-extrabold text-forest">от {product.price.toLocaleString('ru-RU')} ₽</span>
+                    <span className="font-black text-forest">от {product.price.toLocaleString('ru-RU')} ₽</span>
                     <button
                       onClick={onRequest}
                       className="inline-flex items-center gap-1 text-sm font-bold text-primary hover:gap-2 transition-all"
@@ -181,10 +181,10 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
 
       <section id="packaging" className="bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-14 sm:pb-20">
-          <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-primary mb-3">
+          <div className="eyebrow-script text-primary mb-2">
             {t('pack.eyebrow', 'Упаковка — часть чуда')}
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-forest mb-8">
+          <h2 className="text-3xl sm:text-5xl font-black text-forest mb-8">
             {t('pack.title', 'Какой будет ваш подарок?')}
           </h2>
 
@@ -195,7 +195,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                 className={`${type.bg} rounded-3xl p-6 flex flex-col items-center text-center`}
               >
                 <Icon name={type.icon} size={28} className="text-forest" />
-                <h3 className="mt-4 text-lg font-extrabold text-forest">{type.name}</h3>
+                <h3 className="mt-4 text-lg font-black text-forest">{type.name}</h3>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                   {type.description}
                 </p>

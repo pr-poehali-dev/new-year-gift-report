@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Rubik:wght@600;700;800;900&family=Marck+Script&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 @layer base {
   :root {
     --background: 40 60% 97%;
-    --foreground: 160 30% 10%;
+    --foreground: 226 45% 14%;
 
     --card: 0 0% 100%;
     --card-foreground: 160 30% 10%;
@@ -19,22 +19,22 @@
     --primary-foreground: 0 0% 100%;
 
     --secondary: 43 96% 56%;
-    --secondary-foreground: 160 40% 12%;
+    --secondary-foreground: 226 60% 16%;
 
     --muted: 40 40% 92%;
     --muted-foreground: 160 10% 40%;
 
     --accent: 43 96% 56%;
-    --accent-foreground: 160 40% 12%;
+    --accent-foreground: 226 60% 16%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 40 25% 88%;
     --input: 40 25% 88%;
-    --ring: 163 62% 15%;
+    --ring: 226 68% 24%;
 
-    --forest: 163 62% 14%;
+    --forest: 226 68% 24%;
     --forest-foreground: 40 60% 97%;
     --cream: 40 60% 96%;
 
@@ -111,8 +111,44 @@
   h4,
   h5,
   h6 {
-    font-family: "Manrope", sans-serif;
-    letter-spacing: -0.02em;
+    font-family: "Rubik", "Manrope", sans-serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+@layer components {
+  .font-display { font-family: "Rubik", "Manrope", sans-serif; }
+  .font-script { font-family: "Marck Script", cursive; }
+
+  .eyebrow-script {
+    font-family: "Marck Script", cursive;
+    font-size: 1.6rem;
+    line-height: 1.1;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+  }
+  @media (min-width: 640px) {
+    .eyebrow-script { font-size: 2rem; }
+  }
+
+  .text-festive-gold {
+    background: linear-gradient(180deg, #fff3b0 0%, #ffd23f 45%, #f0a81c 75%, #ffe27a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 0 rgba(120, 60, 0, 0.45)) drop-shadow(0 0 18px rgba(255, 200, 80, 0.45));
+  }
+
+  .text-festive-red {
+    background: linear-gradient(180deg, #ff5a6a 0%, #d81f30 60%, #a8101f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-glow {
+    text-shadow: 0 2px 12px rgba(10, 20, 70, 0.6), 0 0 28px rgba(140, 180, 255, 0.35);
   }
 }
 

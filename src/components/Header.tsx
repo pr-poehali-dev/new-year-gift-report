@@ -54,7 +54,7 @@ export default function Header() {
           <a href="/" className="flex items-center gap-2.5 shrink-0">
             <img src={st('img.logo', '/logo.png')} alt="ЧЕБподарки" className="h-11 sm:h-14 w-auto" />
             <div className="leading-tight hidden sm:block">
-              <div className="font-extrabold text-base sm:text-lg text-forest">
+              <div className="font-display font-extrabold text-base sm:text-lg text-forest">
                 <span className="text-primary">ЧЕБ</span>подарки
               </div>
               <div className="text-[9px] sm:text-[10px] tracking-[0.18em] text-muted-foreground uppercase">

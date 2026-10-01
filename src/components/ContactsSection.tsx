@@ -61,13 +61,13 @@ export default function ContactsSection() {
       <FestiveBackground image={st('img.contactsBg', villageBgImage)} flakes={40} overlay="linear-gradient(90deg, rgba(12,16,48,0.9) 0%, rgba(20,18,60,0.75) 50%, rgba(20,18,60,0.45) 100%)" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
         <div>
-          <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-secondary mb-3">
+          <div className="eyebrow-script text-festive-gold mb-2">
             {t('cont.eyebrow', 'Мы рядом')}
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-black leading-tight text-glow">
             {t('cont.title', 'Давайте соберём ваш идеальный подарок')}
           </h2>
-          <p className="mt-5 text-sm sm:text-base text-forest-foreground/75 max-w-md leading-relaxed">
+          <p className="mt-5 text-sm sm:text-base text-white/85 max-w-md leading-relaxed">
             {t('cont.text', 'Позвоните или оставьте заявку — поможем выбрать упаковку, вес и состав.')}
           </p>
 
@@ -93,7 +93,7 @@ export default function ContactsSection() {
         </div>
 
         <div className="bg-white text-foreground rounded-3xl p-6 sm:p-8 shadow-2xl">
-          <h3 className="text-xl sm:text-2xl font-extrabold text-forest">{t('cont.formTitle', 'Получить консультацию')}</h3>
+          <h3 className="text-xl sm:text-2xl font-black text-forest">{t('cont.formTitle', 'Получить консультацию')}</h3>
           <p className="mt-1.5 text-xs text-muted-foreground">
             {t('cont.formText', 'Ответим на вопросы и рассчитаем стоимость')}
           </p>
