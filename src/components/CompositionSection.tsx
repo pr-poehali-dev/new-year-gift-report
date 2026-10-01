@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import FestiveBackground from '@/components/festive/FestiveBackground';
+import BlendImage from '@/components/festive/BlendImage';
 import { compositions, compositionImage, villageBgImage } from '@/data/products';
 import { useText, useSetting } from '@/hooks/useSiteTexts';
 
@@ -66,10 +67,8 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
         </div>
 
         <div className="relative">
-          <div className="overflow-hidden rounded-3xl shadow-2xl">
-            <img src={st('img.composition', compositionImage)} alt="Состав подарка" className="w-full h-[280px] sm:h-[420px] object-cover" />
-          </div>
-          <div className="absolute -bottom-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
+          <BlendImage src={st('img.composition', compositionImage)} alt="Состав подарка" className="max-w-[540px] mx-auto -my-6 sm:-my-10" />
+          <div className="animate-float absolute bottom-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
             <span className="font-extrabold text-base sm:text-lg">{t('comp.badge', '100%')}</span>
             <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wide">{t('comp.badgeSub', 'контроль качества')}</span>
           </div>

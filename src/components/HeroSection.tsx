@@ -2,6 +2,7 @@ import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { heroImage, heroBgImage } from '@/data/products';
 import FestiveBackground from '@/components/festive/FestiveBackground';
+import BlendImage from '@/components/festive/BlendImage';
 import { useText, useSetting } from '@/hooks/useSiteTexts';
 
 export default function HeroSection() {
@@ -54,7 +55,7 @@ export default function HeroSection() {
   return (
     <section id="home">
       <div className="relative bg-[#141238] text-forest-foreground">
-        <FestiveBackground image={s('img.heroBg', heroBgImage)} />
+        <FestiveBackground image={s('img.heroBg', heroBgImage)} overlay="linear-gradient(90deg, rgba(10,22,70,0.85) 0%, rgba(14,30,90,0.55) 45%, rgba(14,30,90,0.15) 100%)" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-16 pb-12 sm:pt-24 sm:pb-20 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-secondary/50 px-4 py-1.5 text-[11px] sm:text-xs font-bold tracking-widest uppercase text-secondary">
@@ -98,16 +99,14 @@ export default function HeroSection() {
           </div>
 
           <div className="relative">
-            <div className="shine overflow-hidden rounded-3xl shadow-2xl ring-4 ring-white/20">
-              <img src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" className="w-full h-[280px] sm:h-[420px] object-cover" />
-            </div>
+            <BlendImage src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" className="max-w-[560px] mx-auto -my-6 sm:-my-10" />
 
             <div className="animate-float absolute -top-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
               <span className="font-extrabold text-xs sm:text-sm">{t('hero.price', 'от 590 ₽')}</span>
               <span className="text-[8px] sm:text-[9px] opacity-80">{t('hero.priceSub', 'за подарок')}</span>
             </div>
 
-            <div className="absolute -bottom-5 left-4 sm:left-8 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
+            <div className="absolute bottom-2 left-2 sm:left-6 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center shrink-0">
                 <Icon name="Check" size={18} />
               </div>
