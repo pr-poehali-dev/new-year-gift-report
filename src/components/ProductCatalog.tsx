@@ -132,13 +132,6 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                       {product.badge}
                     </span>
                   )}
-                  <button
-                    onClick={onRequest}
-                    className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-forest text-white flex items-center justify-center shadow-lg hover:scale-105 transition"
-                    aria-label={`Заказать ${product.name}`}
-                  >
-                    <Icon name="Plus" size={20} />
-                  </button>
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
@@ -155,8 +148,9 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                     <button
                       onClick={onRequest}
                       className="inline-flex items-center gap-1 text-sm font-bold text-primary hover:gap-2 transition-all"
+                      aria-label={`Заказать ${product.name}`}
                     >
-                      Подробнее
+                      Заказать
                       <Icon name="ArrowRight" size={15} />
                     </button>
                   </div>
