@@ -72,7 +72,7 @@ export default function ReviewsSection() {
               </div>
               <p className="mt-4 text-sm text-foreground/80 leading-relaxed flex-1">{review.text}</p>
               <div className="mt-5 pt-4 border-t border-border">
-                <div className="font-bold text-forest">{review.name}</div>
+                <div className="font-display font-bold text-forest">{review.name}</div>
                 <div className="text-[11px] text-muted-foreground mt-0.5">{review.role}</div>
               </div>
             </article>

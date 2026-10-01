@@ -33,7 +33,8 @@ export default function Reviews() {
         <Card className="max-w-2xl mx-auto shadow-2xl border-2 border-primary/20">
           <CardContent className="p-8">
             <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-red-600 mb-4 flex items-center justify-center gap-3">
+              <div className="eyebrow-script text-primary mb-1">Нам важно ваше мнение</div>
+              <h1 className="text-3xl sm:text-5xl font-black text-forest mb-4 flex items-center justify-center gap-3">
                 <Icon name="Star" size={40} className="text-secondary fill-secondary" />
                 Оставить отзыв
                 <Icon name="Star" size={40} className="text-secondary fill-secondary" />
@@ -46,7 +47,7 @@ export default function Reviews() {
             {submitted ? (
               <div className="bg-green-100 border-2 border-green-500 rounded-xl p-8 text-center">
                 <Icon name="CheckCircle" size={64} className="mx-auto mb-4 text-green-600" />
-                <h3 className="text-2xl font-bold text-green-700 mb-2">Спасибо за отзыв! 🎉</h3>
+                <h3 className="font-display text-2xl font-black text-green-700 mb-2">Спасибо за отзыв! 🎉</h3>
                 <p className="text-green-600">Ваше мнение очень важно для нас</p>
               </div>
             ) : (

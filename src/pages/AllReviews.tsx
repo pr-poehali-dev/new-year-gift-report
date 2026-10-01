@@ -102,13 +102,14 @@ export default function AllReviews() {
       <Header />
       <div className="container mx-auto px-4 pt-24 pb-16">
         <div className="mb-6">
-          <h1 className="text-3xl md:text-4xl font-black mb-4 text-red-600 text-center">Все отзывы</h1>
+          <div className="eyebrow-script text-primary text-center mb-1">Нам доверяют</div>
+          <h1 className="text-3xl md:text-5xl font-black mb-6 text-forest text-center">Все отзывы</h1>
           
           <Card className="max-w-2xl mx-auto border border-primary/20 bg-white">
             <CardContent className="p-3">
               <div className="flex items-center gap-3">
                 <div className="text-center">
-                  <div className="text-3xl font-black text-primary">{averageRating.toFixed(1)}</div>
+                  <div className="font-display text-4xl font-black text-primary">{averageRating.toFixed(1)}</div>
                   <div className="flex items-center gap-0.5 justify-center my-1">
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Icon key={i} name="Star" size={14} className={i < Math.round(averageRating) ? 'text-secondary fill-secondary' : 'text-gray-300'} />
@@ -224,11 +225,11 @@ export default function AllReviews() {
                     <Icon key={i} name="Star" size={16} className="text-secondary fill-secondary" />
                   ))}
                 </div>
-                <p className="text-sm text-foreground mb-3 italic">"{review.text}"</p>
+                <p className="text-sm text-foreground/85 mb-3 leading-relaxed">«{review.text}»</p>
                 <div className="flex items-center gap-2 pt-2 border-t">
                   <div className="text-2xl">{review.avatar}</div>
                   <div className="flex-1">
-                    <p className="font-bold text-sm">{review.name}</p>
+                    <p className="font-display font-bold text-sm text-forest">{review.name}</p>
                     <p className="text-xs text-muted-foreground">{review.date}</p>
                   </div>
                 </div>
