@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import ProductCatalog from '@/components/ProductCatalog';
@@ -10,22 +10,32 @@ import ContactsSection from '@/components/ContactsSection';
 import Footer from '@/components/Footer';
 import CatalogModal from '@/components/CatalogModal';
 import ScrollToTop from '@/components/ScrollToTop';
+import { useSiteContext } from '@/hooks/useSiteTexts';
+import { parseBlocks } from '@/lib/siteConfig';
 
 export default function Index() {
   const [compositionModalOpen, setCompositionModalOpen] = useState(false);
+  const { settings } = useSiteContext();
+  const blocks = parseBlocks(settings['page.blocks']);
 
   const scrollToContacts = () => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' });
+
+  const render: Record<string, ReactNode> = {
+    hero: <HeroSection />,
+    catalog: <ProductCatalog onRequest={scrollToContacts} />,
+    composition: <CompositionSection onOpenComposition={() => setCompositionModalOpen(true)} />,
+    about: <AboutSection />,
+    corporate: <CorporateSection onRequest={scrollToContacts} />,
+    reviews: <ReviewsSection />,
+    contacts: <ContactsSection />,
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <HeroSection />
-      <ProductCatalog onRequest={scrollToContacts} />
-      <CompositionSection onOpenComposition={() => setCompositionModalOpen(true)} />
-      <AboutSection />
-      <CorporateSection onRequest={scrollToContacts} />
-      <ReviewsSection />
-      <ContactsSection />
+      {blocks.filter(b => b.enabled).map(b => (
+        <div key={b.id}>{render[b.id]}</div>
+      ))}
       <Footer />
 
       <CatalogModal open={compositionModalOpen} onOpenChange={setCompositionModalOpen} type="composition" />

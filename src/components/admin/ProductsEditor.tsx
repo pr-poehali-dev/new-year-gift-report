@@ -4,14 +4,16 @@ import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { PRODUCTS_URL, ApiProduct, useProducts } from '@/hooks/useProducts';
-import { categories } from '@/data/products';
+import { useSiteContext } from '@/hooks/useSiteTexts';
+import { parseFilters } from '@/lib/siteConfig';
 import { compressImage } from '@/lib/compressImage';
 
-const packOptions = categories.filter(c => c !== 'Все подарки');
 const DRAFT_KEY = 'admin_products_draft';
 
 export default function ProductsEditor() {
   const { products, reload } = useProducts(false);
+  const { settings } = useSiteContext();
+  const packOptions = parseFilters(settings['catalog.filters']).categories;
   const [draft, setDraft] = useState<ApiProduct[] | null>(() =>
     loadDraft<ApiProduct[]>(DRAFT_KEY),
   );

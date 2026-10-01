@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import { categories, packagingTypes } from '@/data/products';
-import { useText } from '@/hooks/useSiteTexts';
+import { packagingTypes } from '@/data/products';
+import { useSiteContext, useText } from '@/hooks/useSiteTexts';
+import { parseFilters, SortKey } from '@/lib/siteConfig';
+
+const ALL = '__all__';
 import { ApiProduct, useProducts } from '@/hooks/useProducts';
 import ProductGallery from '@/components/ProductGallery';
 
@@ -11,9 +14,12 @@ interface ProductCatalogProps {
 
 export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   const t = useText();
+  const { settings } = useSiteContext();
+  const filters = parseFilters(settings['catalog.filters']);
+  const enabledSorts = filters.sorts.filter(s => s.enabled);
   const { products } = useProducts();
-  const [selectedCategory, setSelectedCategory] = useState('Все подарки');
-  const [sort, setSort] = useState<'default' | 'asc' | 'desc'>('default');
+  const [selectedCategory, setSelectedCategory] = useState(ALL);
+  const [sort, setSort] = useState<SortKey>('default');
   const [galleryId, setGalleryId] = useState<number | null>(null);
 
   const photosOf = (p: ApiProduct) =>
@@ -22,13 +28,23 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   const openGallery = (id: number) => setGalleryId(id);
   const galleryProduct = products.find(p => p.id === galleryId) || null;
 
-  const byCategory = selectedCategory === 'Все подарки'
-    ? products
-    : products.filter(p => p.category === selectedCategory);
+  const activeCategory = filters.categories.includes(selectedCategory) ? selectedCategory : ALL;
 
-  const filtered = sort === 'default'
+  const activeSort: SortKey = filters.showSort && enabledSorts.some(s => s.key === sort) ? sort : 'default';
+
+  const byCategory = activeCategory === ALL
+    ? products
+    : products.filter(p => p.category === activeCategory);
+
+  const filtered = activeSort === 'default'
     ? byCategory
-    : [...byCategory].sort((a, b) => (sort === 'asc' ? a.price - b.price : b.price - a.price));
+    : [...byCategory].sort((a, b) => (activeSort === 'asc' ? a.price - b.price : b.price - a.price));
+
+  const chips = [
+    ...(filters.showAll ? [{ value: ALL, label: filters.allLabel || 'Все подарки' }] : []),
+    ...filters.categories.map(c => ({ value: c, label: c })),
+  ];
+  const showSortSelect = filters.showSort && enabledSorts.length > 1;
 
   return (
     <>
@@ -48,36 +64,40 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             </p>
           </div>
 
+          {(chips.length > 1 || showSortSelect) && (
           <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
             <div className="flex flex-wrap gap-2">
-              {categories.map(category => (
+              {chips.length > 1 && chips.map(chip => (
                 <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
+                  key={chip.value}
+                  onClick={() => setSelectedCategory(chip.value)}
                   className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
-                    selectedCategory === category
+                    activeCategory === chip.value
                       ? 'bg-forest text-forest-foreground'
                       : 'bg-white text-forest border border-border hover:border-forest/40'
                   }`}
                 >
-                  {category}
+                  {chip.label}
                 </button>
               ))}
             </div>
 
+            {showSortSelect && (
             <div className="flex items-center gap-2 text-sm">
               <Icon name="ArrowDownUp" size={16} className="text-muted-foreground" />
               <select
-                value={sort}
-                onChange={e => setSort(e.target.value as 'default' | 'asc' | 'desc')}
+                value={activeSort}
+                onChange={e => setSort(e.target.value as SortKey)}
                 className="rounded-full bg-white border border-border px-4 py-2.5 font-semibold text-forest outline-none cursor-pointer hover:border-forest/40 transition"
               >
-                <option value="default">Сначала популярные</option>
-                <option value="asc">Сначала дешевле</option>
-                <option value="desc">Сначала дороже</option>
+                {enabledSorts.map(s => (
+                  <option key={s.key} value={s.key}>{s.label}</option>
+                ))}
               </select>
             </div>
+            )}
           </div>
+          )}
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map(product => (

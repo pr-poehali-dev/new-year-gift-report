@@ -1,0 +1,72 @@
+export type SortKey = 'default' | 'asc' | 'desc';
+
+export interface SortOption {
+  key: SortKey;
+  label: string;
+  enabled: boolean;
+}
+
+export interface CatalogFilters {
+  showAll: boolean;
+  allLabel: string;
+  categories: string[];
+  showSort: boolean;
+  sorts: SortOption[];
+}
+
+export interface PageBlock {
+  id: string;
+  enabled: boolean;
+}
+
+export const DEFAULT_FILTERS: CatalogFilters = {
+  showAll: true,
+  allLabel: 'Все подарки',
+  categories: ['Картон', 'Текстиль', 'Мешочек', 'Дерево'],
+  showSort: true,
+  sorts: [
+    { key: 'default', label: 'Сначала популярные', enabled: true },
+    { key: 'asc', label: 'Сначала дешевле', enabled: true },
+    { key: 'desc', label: 'Сначала дороже', enabled: true },
+  ],
+};
+
+export const BLOCKS_META: Record<string, { title: string; icon: string; section: string }> = {
+  hero: { title: 'Первый экран', icon: 'Sparkles', section: 'Первый экран' },
+  catalog: { title: 'Каталог подарков', icon: 'Gift', section: 'Каталог подарков' },
+  composition: { title: 'Состав', icon: 'Candy', section: 'Состав' },
+  about: { title: 'О компании', icon: 'Info', section: 'О компании' },
+  corporate: { title: 'Организациям', icon: 'Building2', section: 'Организациям' },
+  reviews: { title: 'Отзывы', icon: 'MessageSquareQuote', section: 'Отзывы' },
+  contacts: { title: 'Контакты', icon: 'Phone', section: 'Контакты' },
+};
+
+export const DEFAULT_BLOCKS: PageBlock[] = Object.keys(BLOCKS_META).map(id => ({ id, enabled: true }));
+
+function parse<T>(raw: string | undefined): T | null {
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as T;
+  } catch {
+    return null;
+  }
+}
+
+export function parseFilters(raw: string | undefined): CatalogFilters {
+  const p = parse<Partial<CatalogFilters>>(raw);
+  if (!p) return DEFAULT_FILTERS;
+  return {
+    ...DEFAULT_FILTERS,
+    ...p,
+    categories: Array.isArray(p.categories) ? p.categories : DEFAULT_FILTERS.categories,
+    sorts: Array.isArray(p.sorts) ? p.sorts : DEFAULT_FILTERS.sorts,
+  };
+}
+
+export function parseBlocks(raw: string | undefined): PageBlock[] {
+  const p = parse<PageBlock[]>(raw);
+  if (!Array.isArray(p)) return DEFAULT_BLOCKS;
+  const known = p.filter(b => BLOCKS_META[b.id]);
+  const missing = DEFAULT_BLOCKS.filter(d => !known.some(b => b.id === d.id));
+  return [...known, ...missing];
+}
