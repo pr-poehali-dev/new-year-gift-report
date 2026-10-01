@@ -100,3 +100,20 @@ export function parsePackaging(raw: string | undefined): PackagingType[] {
   const p = parse<PackagingType[]>(raw);
   return Array.isArray(p) ? p : DEFAULT_PACKAGING;
 }
+
+export interface CompositionSet {
+  weight: string;
+  candies: string;
+  image: string;
+}
+
+export const DEFAULT_COMPOSITION: CompositionSet[] = [
+  { weight: '700 г', candies: '25–30 конфет', image: '/sostav/700.jpg' },
+  { weight: '1000 г', candies: '35–40 конфет', image: '/sostav/1000.jpg' },
+  { weight: '1500 г', candies: '50–55 конфет', image: '/sostav/1500.jpg' },
+];
+
+export function parseComposition(raw: string | undefined): CompositionSet[] {
+  const p = parse<CompositionSet[]>(raw);
+  return Array.isArray(p) && p.length ? p : DEFAULT_COMPOSITION;
+}

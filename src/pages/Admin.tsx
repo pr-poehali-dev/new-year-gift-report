@@ -9,6 +9,7 @@ import DesignEditor from '@/components/admin/DesignEditor';
 import BlocksEditor from '@/components/admin/BlocksEditor';
 import CatalogFiltersEditor from '@/components/admin/CatalogFiltersEditor';
 import PackagingEditor from '@/components/admin/PackagingEditor';
+import CompositionEditor from '@/components/admin/CompositionEditor';
 import LeadsEditor from '@/components/admin/LeadsEditor';
 import NotifySettingsEditor from '@/components/admin/NotifySettingsEditor';
 
@@ -18,10 +19,11 @@ const BLOCKS_TAB = 'Блоки страницы';
 const PRODUCTS_TAB = 'Подарки в каталоге';
 const FILTERS_TAB = 'Кнопки фильтра';
 const PACKAGING_TAB = 'Виды упаковки';
+const COMPOSITION_TAB = 'Состав подарков';
 const IMAGES_TAB = 'Картинки сайта';
 const DESIGN_TAB = 'Цвета и шрифты';
 const FILES_TAB = 'Файлы для скачивания';
-const SPECIAL_TABS = [LEADS_TAB, NOTIFY_TAB, BLOCKS_TAB, PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB, IMAGES_TAB, FILES_TAB, DESIGN_TAB];
+const SPECIAL_TABS = [LEADS_TAB, NOTIFY_TAB, BLOCKS_TAB, PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB, COMPOSITION_TAB, IMAGES_TAB, FILES_TAB, DESIGN_TAB];
 
 const TAB_ICONS: Record<string, string> = {
   [LEADS_TAB]: 'Inbox',
@@ -30,6 +32,7 @@ const TAB_ICONS: Record<string, string> = {
   [PRODUCTS_TAB]: 'Gift',
   [FILTERS_TAB]: 'SlidersHorizontal',
   [PACKAGING_TAB]: 'Package',
+  [COMPOSITION_TAB]: 'Candy',
   [IMAGES_TAB]: 'Image',
   [FILES_TAB]: 'FileDown',
   [DESIGN_TAB]: 'Palette',
@@ -95,7 +98,7 @@ export default function Admin() {
     return [
       { title: 'Клиенты', items: [LEADS_TAB, NOTIFY_TAB] },
       { title: 'Страница', items: [BLOCKS_TAB] },
-      { title: 'Каталог', items: [PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB] },
+      { title: 'Каталог', items: [PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB, COMPOSITION_TAB] },
       { title: 'Тексты блоков', items: textSections },
       { title: 'Оформление', items: [IMAGES_TAB, DESIGN_TAB, FILES_TAB] },
     ];
@@ -233,6 +236,8 @@ export default function Admin() {
           <BlocksEditor fields={settingFields} onSaved={loadFields} onOpen={setActiveSection} />
         ) : activeSection === FILTERS_TAB ? (
           <CatalogFiltersEditor fields={settingFields} onSaved={loadFields} />
+        ) : activeSection === COMPOSITION_TAB ? (
+          <CompositionEditor fields={settingFields} onSaved={loadFields} />
         ) : activeSection === PACKAGING_TAB ? (
           <PackagingEditor fields={settingFields} onSaved={loadFields} />
         ) : activeSection === PRODUCTS_TAB ? (

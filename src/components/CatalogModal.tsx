@@ -1,9 +1,8 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
 import { useEffect, useState } from 'react';
-import { compositions, compositionPhotos } from '@/data/products';
 import { useSiteContext } from '@/hooks/useSiteTexts';
-import { parsePackaging, PACKAGING_COLORS } from '@/lib/siteConfig';
+import { parsePackaging, parseComposition, PACKAGING_COLORS } from '@/lib/siteConfig';
 import { useProducts } from '@/hooks/useProducts';
 
 interface CatalogModalProps {
@@ -15,13 +14,14 @@ interface CatalogModalProps {
 
 export default function CatalogModal({ open, onOpenChange, type, weight }: CatalogModalProps) {
   const isCatalog = type === 'catalog';
-  const weights = Object.keys(compositionPhotos);
-  const [active, setActive] = useState(weights[0]);
-  useEffect(() => {
-    if (open && weight && compositionPhotos[weight]) setActive(weight);
-  }, [open, weight]);
-  const { products } = useProducts();
   const { settings } = useSiteContext();
+  const sets = parseComposition(settings['composition.sets']);
+  const [selected, setActive] = useState('');
+  useEffect(() => {
+    if (open && weight) setActive(weight);
+  }, [open, weight]);
+  const current = sets.find(c => c.weight === selected) || sets[0];
+  const { products } = useProducts();
   const packagingTypes = parsePackaging(settings['catalog.packaging']);
 
   return (
@@ -63,26 +63,26 @@ export default function CatalogModal({ open, onOpenChange, type, weight }: Catal
             : (
                 <div>
                   <div className="flex flex-wrap gap-2">
-                    {weights.map(w => (
+                    {sets.map(c => (
                       <button
-                        key={w}
-                        onClick={() => setActive(w)}
+                        key={c.weight}
+                        onClick={() => setActive(c.weight)}
                         className={`rounded-full px-5 py-2 text-sm font-bold transition ${
-                          active === w ? 'bg-primary text-white' : 'bg-muted text-forest hover:bg-muted/70'
+                          current?.weight === c.weight ? 'bg-primary text-white' : 'bg-muted text-forest hover:bg-muted/70'
                         }`}
                       >
-                        {w}
+                        {c.weight}
                       </button>
                     ))}
                     <span className="ml-auto self-center text-xs font-semibold text-muted-foreground">
-                      {compositions[active]?.[0]}
+                      {current?.candies}
                     </span>
                   </div>
                   <div className="mt-4 rounded-2xl overflow-hidden bg-sky-50">
                     <img
-                      key={active}
-                      src={compositionPhotos[active]}
-                      alt={`Состав подарка ${active}`}
+                      key={current?.weight}
+                      src={current?.image}
+                      alt={`Состав подарка ${current?.weight}`}
                       className="w-full h-auto animate-in fade-in duration-300"
                     />
                   </div>

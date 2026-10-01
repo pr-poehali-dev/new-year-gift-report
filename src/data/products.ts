@@ -81,17 +81,6 @@ export const products: Product[] = [
   },
 ];
 
-export const compositions: Record<string, string[]> = {
-  '700 г': ['25–30 конфет', 'Сертификат качества'],
-  '1000 г': ['35–40 конфет', 'Сертификат качества'],
-  '1500 г': ['50–55 конфет', 'Сертификат качества'],
-};
-
-export const compositionPhotos: Record<string, string> = {
-  '700 г': '/sostav/700.jpg',
-  '1000 г': '/sostav/1000.jpg',
-  '1500 г': '/sostav/1500.jpg',
-};
 
 export const heroImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/ffc70d06-2ecc-4118-a570-1e0b6d74e314.jpg';
 export const compositionImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/43e6209c-5f53-429d-8e9a-947f7ca4f1df.jpg';

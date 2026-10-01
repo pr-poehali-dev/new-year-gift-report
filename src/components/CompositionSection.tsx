@@ -2,8 +2,9 @@ import { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import FestiveBackground from '@/components/festive/FestiveBackground';
 import BlendImage from '@/components/festive/BlendImage';
-import { compositions, compositionImage, villageBgImage } from '@/data/products';
-import { useText, useSetting } from '@/hooks/useSiteTexts';
+import { compositionImage, villageBgImage } from '@/data/products';
+import { parseComposition } from '@/lib/siteConfig';
+import { useText, useSetting, useSiteContext } from '@/hooks/useSiteTexts';
 
 interface CompositionSectionProps {
   onOpenComposition: (weight: string) => void;
@@ -12,8 +13,12 @@ interface CompositionSectionProps {
 export default function CompositionSection({ onOpenComposition }: CompositionSectionProps) {
   const t = useText();
   const st = useSetting();
-  const weights = Object.keys(compositions);
-  const [activeWeight, setActiveWeight] = useState(weights[0]);
+  const { settings } = useSiteContext();
+  const sets = parseComposition(settings['composition.sets']);
+  const weights = sets.map(c => c.weight);
+  const [selected, setActiveWeight] = useState('');
+  const activeWeight = weights.includes(selected) ? selected : weights[0];
+  const activeSet = sets.find(c => c.weight === activeWeight);
 
   return (
     <section id="composition" className="relative bg-[#141238] text-forest-foreground">
@@ -47,7 +52,7 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
           </div>
 
           <div className="mt-7 grid sm:grid-cols-2 gap-3">
-            {compositions[activeWeight].map(item => (
+            {[activeSet?.candies, 'Сертификат качества'].filter(Boolean).map(item => (
               <div key={item} className="flex items-center gap-2.5 text-sm">
                 <span className="w-5 h-5 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center shrink-0">
                   <Icon name="Check" size={12} />
