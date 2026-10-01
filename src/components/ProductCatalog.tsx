@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import { packagingTypes } from '@/data/products';
 import { useSiteContext, useText } from '@/hooks/useSiteTexts';
-import { parseFilters, SortKey } from '@/lib/siteConfig';
+import { parseFilters, parsePackaging, PACKAGING_COLORS, SortKey } from '@/lib/siteConfig';
 
 const ALL = '__all__';
 import { ApiProduct, useProducts } from '@/hooks/useProducts';
@@ -17,6 +16,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   const { settings } = useSiteContext();
   const filters = parseFilters(settings['catalog.filters']);
   const enabledSorts = filters.sorts.filter(s => s.enabled);
+  const packagingTypes = parsePackaging(settings['catalog.packaging']);
   const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState(ALL);
   const [sort, setSort] = useState<SortKey>('default');
@@ -179,6 +179,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
         </div>
       </section>
 
+      {packagingTypes.length > 0 && (
       <section id="packaging" className="bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-14 sm:pb-20">
           <div className="eyebrow-script text-primary mb-2">
@@ -188,13 +189,13 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             {t('pack.title', 'Какой будет ваш подарок?')}
           </h2>
 
-          <div className={`grid gap-4 sm:grid-cols-2 ${packagingTypes.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'}`}>
-            {packagingTypes.map(type => (
+          <div className={`grid gap-4 sm:grid-cols-2 ${packagingTypes.length % 3 === 0 ? 'lg:grid-cols-3' : packagingTypes.length === 1 ? '' : 'lg:grid-cols-4'}`}>
+            {packagingTypes.map((type, i) => (
               <div
-                key={type.name}
-                className={`${type.bg} rounded-3xl p-6 flex flex-col items-center text-center`}
+                key={type.name + i}
+                className={`${(PACKAGING_COLORS[type.color] || PACKAGING_COLORS.rose).bg} rounded-3xl p-6 flex flex-col items-center text-center`}
               >
-                <Icon name={type.icon} size={28} className="text-forest" />
+                <Icon name={type.icon} fallback="Gift" size={28} className="text-forest" />
                 <h3 className="mt-4 text-lg font-black text-forest">{type.name}</h3>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                   {type.description}
@@ -204,6 +205,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
           </div>
         </div>
       </section>
+      )}
 
       {galleryProduct && (
         <ProductGallery

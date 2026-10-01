@@ -1,6 +1,8 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
-import { packagingTypes, compositions } from '@/data/products';
+import { compositions } from '@/data/products';
+import { useSiteContext } from '@/hooks/useSiteTexts';
+import { parsePackaging, PACKAGING_COLORS } from '@/lib/siteConfig';
 import { useProducts } from '@/hooks/useProducts';
 
 interface CatalogModalProps {
@@ -12,6 +14,8 @@ interface CatalogModalProps {
 export default function CatalogModal({ open, onOpenChange, type }: CatalogModalProps) {
   const isCatalog = type === 'catalog';
   const { products } = useProducts();
+  const { settings } = useSiteContext();
+  const packagingTypes = parsePackaging(settings['catalog.packaging']);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -28,9 +32,9 @@ export default function CatalogModal({ open, onOpenChange, type }: CatalogModalP
                 const items = products.filter(p => p.category === pack.name);
                 if (!items.length) return null;
                 return (
-                  <div key={pack.name} className={`${pack.bg} rounded-2xl p-5`}>
+                  <div key={pack.name} className={`${(PACKAGING_COLORS[pack.color] || PACKAGING_COLORS.rose).bg} rounded-2xl p-5`}>
                     <h3 className="flex items-center gap-2 text-lg font-black text-forest mb-3">
-                      <Icon name={pack.icon} size={20} />
+                      <Icon name={pack.icon} fallback="Gift" size={20} />
                       {pack.name}
                     </h3>
                     <ul className="space-y-2.5">

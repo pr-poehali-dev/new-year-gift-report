@@ -70,3 +70,33 @@ export function parseBlocks(raw: string | undefined): PageBlock[] {
   const missing = DEFAULT_BLOCKS.filter(d => !known.some(b => b.id === d.id));
   return [...known, ...missing];
 }
+
+export interface PackagingType {
+  name: string;
+  icon: string;
+  description: string;
+  color: string;
+}
+
+export const PACKAGING_COLORS: Record<string, { bg: string; label: string }> = {
+  rose: { bg: 'bg-rose-50', label: 'Розовый' },
+  amber: { bg: 'bg-amber-50', label: 'Жёлтый' },
+  indigo: { bg: 'bg-indigo-50', label: 'Синий' },
+  emerald: { bg: 'bg-emerald-50', label: 'Зелёный' },
+  sky: { bg: 'bg-sky-50', label: 'Голубой' },
+  violet: { bg: 'bg-violet-50', label: 'Фиолетовый' },
+};
+
+export const PACKAGING_ICONS = ['Gift', 'ShoppingBag', 'Package', 'Gem', 'Box', 'Backpack', 'TreePine', 'Candy', 'Star', 'Snowflake', 'Crown', 'Heart'];
+
+export const DEFAULT_PACKAGING: PackagingType[] = [
+  { name: 'Картон', icon: 'Gift', description: 'Лёгкие яркие коробки для детских праздников', color: 'rose' },
+  { name: 'Текстиль', icon: 'ShoppingBag', description: 'Мягкие рюкзачки и игрушки', color: 'amber' },
+  { name: 'Футляр', icon: 'Package', description: 'Тубы и футляры с золотым тиснением', color: 'indigo' },
+  { name: 'Мешочки', icon: 'Gem', description: 'Нарядные мешочки со сладостями', color: 'emerald' },
+];
+
+export function parsePackaging(raw: string | undefined): PackagingType[] {
+  const p = parse<PackagingType[]>(raw);
+  return Array.isArray(p) ? p : DEFAULT_PACKAGING;
+}

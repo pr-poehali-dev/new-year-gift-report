@@ -81,12 +81,6 @@ export const products: Product[] = [
   },
 ];
 
-export const packagingTypes = [
-  { name: 'Картон', icon: 'Gift', description: 'Лёгкие яркие коробки для детских праздников', bg: 'bg-rose-50' },
-  { name: 'Текстиль', icon: 'ShoppingBag', description: 'Мягкие рюкзачки, мешочки и игрушки', bg: 'bg-amber-50' },
-  { name: 'Дерево', icon: 'TreePine', description: 'Премиальные подарки для близких и партнёров', bg: 'bg-indigo-50' },
-];
-
 export const compositions: Record<string, string[]> = {
   '700 г': ['25–30 конфет', 'Карамель и мини-батончики', 'Шоколадные и вафельные конфеты', 'Сертификат качества'],
   '1000 г': ['35–40 конфет', 'Шоколадные батончики премиум', 'Печенье и вафли', 'Сертификат качества'],
