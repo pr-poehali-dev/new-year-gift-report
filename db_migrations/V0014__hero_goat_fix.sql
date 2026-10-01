@@ -1,0 +1,1 @@
+UPDATE t_p8000729_new_year_gift_report.site_settings SET updated_at = NOW(), value = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/ffc70d06-2ecc-4118-a570-1e0b6d74e314.jpg' WHERE setting_key = 'img.hero' AND value LIKE '%1955e8b6-6019-4c1c-8062-848ab80000e9%';
