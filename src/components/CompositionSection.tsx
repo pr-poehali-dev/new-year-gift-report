@@ -6,7 +6,7 @@ import { compositions, compositionImage, villageBgImage } from '@/data/products'
 import { useText, useSetting } from '@/hooks/useSiteTexts';
 
 interface CompositionSectionProps {
-  onOpenComposition: () => void;
+  onOpenComposition: (weight: string) => void;
 }
 
 export default function CompositionSection({ onOpenComposition }: CompositionSectionProps) {
@@ -58,7 +58,7 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
           </div>
 
           <button
-            onClick={onOpenComposition}
+            onClick={() => onOpenComposition(activeWeight)}
             className="mt-8 inline-flex items-center gap-2 font-bold border-b-2 border-secondary pb-1 hover:gap-3 transition-all"
           >
             {t('comp.btn', 'Посмотреть полный состав')}

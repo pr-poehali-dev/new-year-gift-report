@@ -1,6 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import Icon from '@/components/ui/icon';
-import { compositions } from '@/data/products';
+import { useEffect, useState } from 'react';
+import { compositions, compositionPhotos } from '@/data/products';
 import { useSiteContext } from '@/hooks/useSiteTexts';
 import { parsePackaging, PACKAGING_COLORS } from '@/lib/siteConfig';
 import { useProducts } from '@/hooks/useProducts';
@@ -9,10 +10,16 @@ interface CatalogModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   type: 'catalog' | 'composition';
+  weight?: string;
 }
 
-export default function CatalogModal({ open, onOpenChange, type }: CatalogModalProps) {
+export default function CatalogModal({ open, onOpenChange, type, weight }: CatalogModalProps) {
   const isCatalog = type === 'catalog';
+  const weights = Object.keys(compositionPhotos);
+  const [active, setActive] = useState(weights[0]);
+  useEffect(() => {
+    if (open && weight && compositionPhotos[weight]) setActive(weight);
+  }, [open, weight]);
   const { products } = useProducts();
   const { settings } = useSiteContext();
   const packagingTypes = parsePackaging(settings['catalog.packaging']);
@@ -22,7 +29,7 @@ export default function CatalogModal({ open, onOpenChange, type }: CatalogModalP
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto w-[95vw] sm:w-full rounded-3xl">
         <DialogHeader>
           <DialogTitle className="text-xl sm:text-3xl font-black text-forest">
-            {isCatalog ? 'Каталог подарков' : 'Полный состав наборов'}
+            {isCatalog ? 'Каталог подарков' : 'Конфеты в подарке'}
           </DialogTitle>
         </DialogHeader>
 
@@ -53,19 +60,34 @@ export default function CatalogModal({ open, onOpenChange, type }: CatalogModalP
                   </div>
                 );
               })
-            : Object.entries(compositions).map(([weight, items]) => (
-                <div key={weight} className="rounded-2xl border border-border p-5">
-                  <h3 className="text-lg font-black text-forest mb-3">Набор {weight}</h3>
-                  <ul className="space-y-2">
-                    {items.map(item => (
-                      <li key={item} className="flex items-center gap-2 text-sm">
-                        <Icon name="Check" size={15} className="text-primary shrink-0" />
-                        {item}
-                      </li>
+            : (
+                <div>
+                  <div className="flex flex-wrap gap-2">
+                    {weights.map(w => (
+                      <button
+                        key={w}
+                        onClick={() => setActive(w)}
+                        className={`rounded-full px-5 py-2 text-sm font-bold transition ${
+                          active === w ? 'bg-primary text-white' : 'bg-muted text-forest hover:bg-muted/70'
+                        }`}
+                      >
+                        {w}
+                      </button>
                     ))}
-                  </ul>
+                    <span className="ml-auto self-center text-xs font-semibold text-muted-foreground">
+                      {compositions[active]?.[0]}
+                    </span>
+                  </div>
+                  <div className="mt-4 rounded-2xl overflow-hidden bg-sky-50">
+                    <img
+                      key={active}
+                      src={compositionPhotos[active]}
+                      alt={`Состав подарка ${active}`}
+                      className="w-full h-auto animate-in fade-in duration-300"
+                    />
+                  </div>
                 </div>
-              ))}
+              )}
         </div>
       </DialogContent>
     </Dialog>

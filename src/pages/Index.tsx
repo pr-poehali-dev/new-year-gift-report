@@ -15,6 +15,7 @@ import { parseBlocks } from '@/lib/siteConfig';
 
 export default function Index() {
   const [compositionModalOpen, setCompositionModalOpen] = useState(false);
+  const [compositionWeight, setCompositionWeight] = useState<string>();
   const { settings } = useSiteContext();
   const blocks = parseBlocks(settings['page.blocks']);
 
@@ -23,7 +24,7 @@ export default function Index() {
   const render: Record<string, ReactNode> = {
     hero: <HeroSection />,
     catalog: <ProductCatalog onRequest={scrollToContacts} />,
-    composition: <CompositionSection onOpenComposition={() => setCompositionModalOpen(true)} />,
+    composition: <CompositionSection onOpenComposition={w => { setCompositionWeight(w); setCompositionModalOpen(true); }} />,
     about: <AboutSection />,
     corporate: <CorporateSection onRequest={scrollToContacts} />,
     reviews: <ReviewsSection />,
@@ -38,7 +39,7 @@ export default function Index() {
       ))}
       <Footer />
 
-      <CatalogModal open={compositionModalOpen} onOpenChange={setCompositionModalOpen} type="composition" />
+      <CatalogModal open={compositionModalOpen} onOpenChange={setCompositionModalOpen} type="composition" weight={compositionWeight} />
       <ScrollToTop />
     </div>
   );
