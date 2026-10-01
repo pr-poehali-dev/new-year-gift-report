@@ -76,9 +76,12 @@ def build_message(text: str, html: str = '') -> MIMEBase:
     return root
 
 
+SMTP = {'user': '', 'password': ''}
+
+
 def send_email(to_list: list, subject: str, text: str, html: str = '') -> str:
-    user = os.environ.get('SMTP_USER', '').strip().strip('"\'').lower()
-    password = re.sub(r'\s+', '', os.environ.get('SMTP_PASSWORD', '')).strip('"\'')
+    user = (SMTP['user'] or os.environ.get('SMTP_USER', '')).strip().strip('"\'').lower()
+    password = re.sub(r'\s+', '', SMTP['password'] or os.environ.get('SMTP_PASSWORD', '')).strip('"\'')
     if user and '@' not in user:
         user = f'{user}@yandex.ru'
     if not user or not password:
@@ -134,7 +137,16 @@ def send_lead_email(emails: list, lead_id: int, name: str, phone: str, amount_la
 
 def load_settings(cur, schema: str) -> dict:
     cur.execute(f'SELECT setting_key, value FROM {schema}.notify_settings')
-    return {r['setting_key']: r['value'] for r in cur.fetchall()}
+    st = {r['setting_key']: r['value'] for r in cur.fetchall()}
+    SMTP['user'] = st.pop('smtp_user', '') or ''
+    SMTP['password'] = st.pop('smtp_password', '') or ''
+    return st
+
+
+def smtp_configured() -> bool:
+    user = SMTP['user'] or os.environ.get('SMTP_USER', '')
+    password = SMTP['password'] or os.environ.get('SMTP_PASSWORD', '')
+    return bool(user and password)
 
 
 def handler(event: dict, context) -> dict:
@@ -213,7 +225,9 @@ def handler(event: dict, context) -> dict:
             'leads': leads,
             'settings': st,
             'configured': {
-                'email': bool(os.environ.get('SMTP_USER') and os.environ.get('SMTP_PASSWORD')),
+                'email': smtp_configured(),
+                'smtp_user': SMTP['user'] or os.environ.get('SMTP_USER', ''),
+                'smtp_password_saved': bool(SMTP['password']),
                 'sms': bool(os.environ.get('SMSRU_API_KEY')),
             },
         })
@@ -236,10 +250,14 @@ def handler(event: dict, context) -> dict:
         return resp(200, {'success': True})
 
     if action == 'settings':
-        allowed = ('emails', 'phones', 'email_enabled', 'sms_enabled')
+        allowed = ('emails', 'phones', 'email_enabled', 'sms_enabled', 'smtp_user', 'smtp_password')
         for key, value in (body.get('settings') or {}).items():
             if key not in allowed:
                 continue
+            if key == 'smtp_password':
+                value = re.sub(r'\s+', '', str(value))
+                if not value:
+                    continue
             cur.execute(
                 f"INSERT INTO {schema}.notify_settings (setting_key, value) VALUES ('{esc(key)}', '{esc(value)}') "
                 f"ON CONFLICT (setting_key) DO UPDATE SET value = EXCLUDED.value"

@@ -75,6 +75,9 @@ export default function NotifySettingsEditor() {
   const { data, reload } = useLeads();
   const [emails, setEmails] = useState<string[]>([]);
   const [emailOn, setEmailOn] = useState(true);
+  const [smtpUser, setSmtpUser] = useState('');
+  const [smtpPassword, setSmtpPassword] = useState('');
+  const [showPw, setShowPw] = useState(false);
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState(false);
 
@@ -82,6 +85,8 @@ export default function NotifySettingsEditor() {
     if (!data) return;
     setEmails(toList(data.settings.emails));
     setEmailOn(data.settings.email_enabled !== 'false');
+    setSmtpUser(data.configured.smtp_user || 'chebpodarki@yandex.ru');
+    setSmtpPassword('');
   }, [data]);
 
   const save = async () => {
@@ -92,6 +97,8 @@ export default function NotifySettingsEditor() {
         emails: emails.map(e => e.trim()).filter(Boolean).join(','),
         email_enabled: emailOn ? 'true' : 'false',
         sms_enabled: 'false',
+        smtp_user: smtpUser.trim(),
+        smtp_password: smtpPassword.replace(/\s+/g, ''),
       },
     });
     setSaving(false);
@@ -135,11 +142,58 @@ export default function NotifySettingsEditor() {
         <div className="flex gap-2 rounded-2xl border border-primary/30 bg-primary/5 px-4 py-3 text-xs text-primary font-semibold">
           <Icon name="TriangleAlert" size={16} className="shrink-0" />
           <div>
-            <div>Почта ещё не подключена — добавьте ключи доступа к почтовому ящику.</div>
+            <div>Почта ещё не подключена — укажите ниже ящик и пароль приложения Яндекса.</div>
             <div className="font-normal mt-0.5">Пока ключей нет, заявки всё равно сохраняются в разделе «Заявки».</div>
           </div>
         </div>
       )}
+
+      <div className="bg-white rounded-2xl border border-border p-4 sm:p-5">
+        <div className="flex items-center gap-2 text-sm font-extrabold text-forest">
+          <Icon name="KeyRound" size={16} />
+          С какой почты отправлять письма
+        </div>
+        <p className="text-[11px] text-muted-foreground mt-1">
+          Пароль приложения создаётся на id.yandex.ru → Безопасность → Пароли приложений → Почта. Это 16 латинских букв, не обычный пароль от ящика.
+        </p>
+        <div className="mt-4 grid sm:grid-cols-2 gap-3">
+          <div>
+            <label className="block text-[11px] font-bold text-forest mb-1.5">Почта-отправитель</label>
+            <input
+              value={smtpUser}
+              onChange={e => setSmtpUser(e.target.value)}
+              placeholder="chebpodarki@yandex.ru"
+              className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-forest"
+            />
+          </div>
+          <div>
+            <label className="block text-[11px] font-bold text-forest mb-1.5">Пароль приложения</label>
+            <div className="relative">
+              <input
+                type={showPw ? 'text' : 'password'}
+                value={smtpPassword}
+                onChange={e => setSmtpPassword(e.target.value)}
+                placeholder={cfg?.smtp_password_saved ? '•••••••• сохранён — введите новый, чтобы заменить' : '16 букв'}
+                autoComplete="new-password"
+                className="w-full rounded-xl border border-border bg-background pl-4 pr-10 py-2.5 text-sm outline-none focus:border-forest"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPw(v => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-forest"
+              >
+                <Icon name={showPw ? 'EyeOff' : 'Eye'} size={16} />
+              </button>
+            </div>
+            {cfg?.smtp_password_saved && (
+              <div className="mt-1.5 text-[11px] font-semibold text-forest inline-flex items-center gap-1">
+                <Icon name="ShieldCheck" size={13} />
+                Пароль сохранён
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
 
       <div className="bg-white rounded-2xl border border-border p-4 sm:p-5">
         <label className="flex items-center gap-2 text-xs font-bold text-muted-foreground mb-4 cursor-pointer">

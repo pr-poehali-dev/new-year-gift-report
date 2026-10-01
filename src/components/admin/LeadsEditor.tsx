@@ -21,7 +21,7 @@ export interface Lead {
 export interface LeadsData {
   leads: Lead[];
   settings: Record<string, string>;
-  configured: { email: boolean; sms: boolean };
+  configured: { email: boolean; sms: boolean; smtp_user?: string; smtp_password_saved?: boolean };
 }
 
 const AMOUNT_LABELS: Record<string, string> = {
