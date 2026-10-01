@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
+import { villageBgImage } from '@/data/products';
+import FestiveBackground from '@/components/festive/FestiveBackground';
 import { toast } from 'sonner';
 
-import { useText, useTextRaw } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw, useSetting } from '@/hooks/useSiteTexts';
 import func2url from '../../backend/func2url.json';
 
 export default function ContactsSection() {
   const t = useText();
   const tr = useTextRaw();
+  const st = useSetting();
 
   const officePhone = tr('cont.phone', '+7 909 302-00-77');
   const email = tr('cont.email', 'chebpodarki@yandex.ru');
@@ -54,8 +57,9 @@ export default function ContactsSection() {
   };
 
   return (
-    <section id="contacts" className="bg-forest text-forest-foreground">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
+    <section id="contacts" className="relative bg-[#141238] text-forest-foreground">
+      <FestiveBackground image={st('img.contactsBg', villageBgImage)} flakes={40} overlay="linear-gradient(90deg, rgba(12,16,48,0.9) 0%, rgba(20,18,60,0.75) 50%, rgba(20,18,60,0.45) 100%)" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
         <div>
           <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-secondary mb-3">
             {t('cont.eyebrow', 'Мы рядом')}

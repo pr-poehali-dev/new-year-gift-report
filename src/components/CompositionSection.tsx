@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import { compositions, compositionImage } from '@/data/products';
+import FestiveBackground from '@/components/festive/FestiveBackground';
+import { compositions, compositionImage, villageBgImage } from '@/data/products';
 import { useText, useSetting } from '@/hooks/useSiteTexts';
 
 interface CompositionSectionProps {
@@ -14,8 +15,9 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
   const [activeWeight, setActiveWeight] = useState(weights[0]);
 
   return (
-    <section id="composition" className="bg-forest text-forest-foreground">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
+    <section id="composition" className="relative bg-[#141238] text-forest-foreground">
+      <FestiveBackground image={st('img.compositionBg', villageBgImage)} flakes={40} overlay="linear-gradient(90deg, rgba(12,16,48,0.9) 0%, rgba(20,18,60,0.75) 50%, rgba(20,18,60,0.45) 100%)" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
         <div>
           <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-secondary mb-3">
             {t('comp.eyebrow', 'Внутри — только радость')}

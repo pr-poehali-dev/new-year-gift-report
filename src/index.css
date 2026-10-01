@@ -271,3 +271,47 @@
     display: none;
   }
 }
+
+@keyframes snow-drift {
+  0% { transform: translate3d(0, -10vh, 0); opacity: 0; }
+  10% { opacity: var(--o, 0.9); }
+  50% { transform: translate3d(var(--dx, 20px), 50vh, 0); }
+  90% { opacity: var(--o, 0.9); }
+  100% { transform: translate3d(0, 110vh, 0); opacity: 0; }
+}
+.animate-snow { animation: snow-drift linear infinite; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+.animate-twinkle { animation: twinkle ease-in-out infinite; }
+
+@keyframes slow-zoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.12); }
+}
+.animate-slow-zoom { animation: slow-zoom 24s ease-in-out infinite alternate; }
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+.animate-sway { animation: sway 4s ease-in-out infinite; transform-origin: top center; }
+
+@keyframes shine {
+  0% { transform: translateX(-120%) skewX(-20deg); }
+  60%, 100% { transform: translateX(220%) skewX(-20deg); }
+}
+.shine { position: relative; overflow: hidden; }
+.shine::after {
+  content: '';
+  position: absolute; inset: 0; width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  animation: shine 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-snow, .animate-twinkle, .animate-slow-zoom, .animate-sway, .shine::after { animation: none !important; }
+}

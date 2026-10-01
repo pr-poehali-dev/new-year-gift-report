@@ -93,6 +93,8 @@ export const compositions: Record<string, string[]> = {
   '1500 г': ['50–55 конфет', 'Шоколад плиточный 2 шт', 'Мармелад и зефир', 'Сертификат качества'],
 };
 
-export const heroImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/95ad02e2-604a-4bc7-b8e9-daf29f4a36d5.jpg';
-export const compositionImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/95ad02e2-604a-4bc7-b8e9-daf29f4a36d5.jpg';
-export const corporateImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/8e04a134-6c5d-46c9-a838-d5113f6a7ab4.jpg';
+export const heroImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/8dce556a-bd66-403f-a5f2-de602493a4b3.jpg';
+export const compositionImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/f1b7ff6f-6e3e-4bbb-9785-d8c1b76e5402.jpg';
+export const corporateImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/9345ca85-d922-41ef-9e0a-a7366d1acfbb.jpg';
+export const heroBgImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/918a5dc0-3d28-4e91-9b47-e96cbd3398b9.jpg';
+export const villageBgImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/1aefd25f-638a-4110-a976-8da504c110e6.jpg';
