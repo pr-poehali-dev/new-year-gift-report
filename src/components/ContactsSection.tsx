@@ -18,7 +18,7 @@ export default function ContactsSection() {
   const contacts = [
     { icon: 'Phone', label: 'Телефон', value: officePhone, href: `tel:${officePhone.replace(/[^+\d]/g, '')}` },
     { icon: 'Mail', label: 'Почта', value: email, href: `mailto:${email}` },
-    { icon: 'MapPin', label: 'Офис', value: tr('cont.address', 'Чебоксары, ул. Петрова, 6/3'), href: '' },
+    { icon: 'MapPin', label: 'Офис', value: tr('cont.address', 'г. Чебоксары, ул. Петрова, 6/3'), href: '' },
   ];
 
   const [name, setName] = useState('');
