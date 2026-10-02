@@ -236,6 +236,27 @@
     100% { left: 130%; }
   }
 
+  .hero-stat {
+    position: relative;
+    border-radius: 1rem;
+    padding: 0.75rem 0.7rem 0.7rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-top: 3px solid var(--stat-c);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(20, 30, 90, 0.35));
+    box-shadow: 0 8px 22px rgba(5, 10, 50, 0.3), inset 0 0 22px var(--stat-glow);
+    text-shadow: 0 1px 3px rgba(5, 10, 50, 0.7);
+  }
+
+  .hero-stat-0 { --stat-c: #ffd23f; --stat-glow: rgba(255, 210, 63, 0.12); --stat-g: linear-gradient(180deg, #fff3b0 0%, #ffd23f 50%, #ff9a0a 100%); }
+  .hero-stat-1 { --stat-c: #ff4b5f; --stat-glow: rgba(255, 75, 95, 0.14); --stat-g: linear-gradient(180deg, #ffd9dd 0%, #ff6b7d 45%, #e5132b 100%); }
+  .hero-stat-2 { --stat-c: #5ee6b5; --stat-glow: rgba(94, 230, 181, 0.12); --stat-g: linear-gradient(180deg, #e0fff2 0%, #7ef0c4 50%, #1fbf86 100%); }
+
+  .hero-stat-value {
+    color: var(--stat-c);
+    text-shadow: 0 2px 0 rgba(5, 10, 50, 0.55), 0 0 14px var(--stat-c);
+  }
+
   .hero-lead {
     color: #f3f6ff;
     background: linear-gradient(120deg, rgba(255, 255, 255, 0.14), rgba(140, 180, 255, 0.08));

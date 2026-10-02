@@ -109,11 +109,11 @@ export default function HeroSection() {
               </button>
             </div>
 
-            <div className="mt-10 grid grid-cols-3 gap-4 max-w-lg">
+            <div className="mt-10 grid grid-cols-3 gap-2.5 sm:gap-4 max-w-lg">
               {stats.map((s, i) => (
-                <div key={i}>
-                  <div className="font-display font-extrabold text-base sm:text-2xl text-secondary">{s.value}</div>
-                  <div className="text-[10px] sm:text-xs text-forest-foreground/60 mt-1">{s.label}</div>
+                <div key={i} className={`hero-stat ${['hero-stat-0', 'hero-stat-1', 'hero-stat-2'][i % 3]}`}>
+                  <div className="hero-stat-value font-display font-black text-sm sm:text-xl leading-tight whitespace-nowrap">{s.value}</div>
+                  <div className="text-[10px] sm:text-xs font-semibold text-white/90 mt-1.5 leading-tight">{s.label}</div>
                 </div>
               ))}
             </div>
