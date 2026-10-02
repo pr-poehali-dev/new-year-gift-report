@@ -84,6 +84,6 @@ export const products: Product[] = [
 
 export const heroImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/ffc70d06-2ecc-4118-a570-1e0b6d74e314.jpg';
 export const compositionImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/43e6209c-5f53-429d-8e9a-947f7ca4f1df.jpg';
-export const corporateImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/5dd0d559-6ae9-436b-ba57-d9a17c963832.jpg';
+export const corporateImage = '/corporate-tree.jpg';
 export const heroBgImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/9f658aa5-3c93-4fe7-adaa-2610566eef2a.jpg';
 export const villageBgImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/c83912e3-6c1f-4afe-b3a1-0708562c88c6.jpg';
