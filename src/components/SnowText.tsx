@@ -43,47 +43,14 @@ export function SnowDefs() {
   );
 }
 
-const NO_ICICLE = /[рудзфцщуёйъ,.!?\-–—:;]/i;
-
-function Icicle({ len, left }: { len: number; left: string }) {
-  return (
-    <svg
-      className="icicle"
-      style={{ left, height: `${len}em`, width: `${len * 0.42}em` }}
-      viewBox="0 0 10 32"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="ice-g" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0" stopColor="#bfe3ff" />
-          <stop offset="0.35" stopColor="#ffffff" />
-          <stop offset="1" stopColor="#8cc4f5" />
-        </linearGradient>
-      </defs>
-      <path d="M0 0 H10 C9 6 7 14 5.6 31 Q5 32.5 4.4 31 C3 14 1 6 0 0 Z" fill="url(#ice-g)" />
-      <path d="M2.6 1 C3.2 8 4 16 4.8 26" stroke="#ffffff" strokeWidth="0.9" fill="none" strokeLinecap="round" opacity="0.9" />
-    </svg>
-  );
-}
-
 export default function SnowText({ text, className = '' }: SnowTextProps) {
   const words = text.split(/\s+/).filter(Boolean);
-  let n = 0;
   return (
     <>
       {words.map((w, i) => (
         <span key={i}>
           <span className="snow-word" data-text={w}>
             <span className={`snow-word-fill ${className}`}>{w}</span>
-            <span className="icicles" aria-hidden="true">
-              {[...w].map((ch, j) => {
-                n += 1;
-                if (NO_ICICLE.test(ch) || n % 2 === 0) return null;
-                const len = [0.42, 0.55, 0.46, 0.6][n % 4];
-                return <Icicle key={j} len={len} left={`${((j + 0.5) / w.length) * 100}%`} />;
-              })}
-            </span>
           </span>
           {i < words.length - 1 && ' '}
         </span>

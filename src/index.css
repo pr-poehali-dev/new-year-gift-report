@@ -201,23 +201,6 @@
     filter: url(#snow-cap);
   }
 
-  .icicles {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: var(--icicle-top, 0.7em);
-    height: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .icicle {
-    position: absolute;
-    top: 0;
-    transform: translateX(-50%);
-    filter: drop-shadow(0 0 3px rgba(170, 215, 255, 0.85)) drop-shadow(0 2px 2px rgba(5, 15, 60, 0.5));
-  }
-
   .snow-fill-bright {
     background: linear-gradient(180deg, #ffd84a 0%, #ffc21a 45%, #ff9a0a 100%);
     -webkit-background-clip: text;
