@@ -6,6 +6,21 @@ import FestiveBackground from '@/components/festive/FestiveBackground';
 import BlendImage from '@/components/festive/BlendImage';
 import { useText, useSetting } from '@/hooks/useSiteTexts';
 
+const ACCENTS: [RegExp, string][] = [
+  [/(сладост\S*|конфет\S*)/i, 'lead-gold'],
+  [/(волшебн\S* упаковк\S*)/i, 'lead-red'],
+  [/(оптом и в розницу)/i, 'lead-mint'],
+  [/(по всей России)/i, 'lead-gold'],
+];
+
+function highlight(text: string) {
+  const re = new RegExp(ACCENTS.map(([r]) => r.source).join('|'), 'gi');
+  return text.split(re).filter(p => p !== undefined && p !== '').map((part, i) => {
+    const hit = ACCENTS.find(([r]) => new RegExp(`^${r.source}$`, 'i').test(part));
+    return hit ? <span key={i} className={hit[1]}>{part}</span> : <span key={i}>{part}</span>;
+  });
+}
+
 export default function HeroSection() {
   const t = useText();
   const s = useSetting();
@@ -71,8 +86,8 @@ export default function HeroSection() {
               </span>
             </h1>
 
-            <p className="mt-5 text-sm sm:text-base text-white/85 max-w-lg leading-relaxed">
-              {t('hero.text', 'Любимые сладости в волшебной упаковке — детям, близким, коллегам и партнёрам. Оптом и в розницу с доставкой по всей России.')}
+            <p className="hero-lead mt-5 max-w-lg rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-semibold leading-relaxed">
+              {highlight(t('hero.text', 'Любимые сладости в волшебной упаковке — детям, близким, коллегам и партнёрам. Оптом и в розницу с доставкой по всей России.'))}
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">

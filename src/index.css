@@ -201,6 +201,20 @@
     filter: url(#snow-cap);
   }
 
+  .hero-lead {
+    color: #f3f6ff;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.14), rgba(140, 180, 255, 0.08));
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-left: 4px solid #ffc21a;
+    backdrop-filter: blur(6px);
+    text-shadow: 0 1px 3px rgba(5, 10, 50, 0.7);
+    box-shadow: 0 8px 24px rgba(5, 10, 50, 0.25);
+  }
+
+  .lead-gold { color: #ffd23f; font-weight: 800; }
+  .lead-red { color: #ff6b7d; font-weight: 800; }
+  .lead-mint { color: #7ef0c4; font-weight: 800; }
+
   .snow-fill-bright {
     background: linear-gradient(180deg, #ffd84a 0%, #ffc21a 45%, #ff9a0a 100%);
     -webkit-background-clip: text;
