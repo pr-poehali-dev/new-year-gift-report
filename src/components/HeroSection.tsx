@@ -1,5 +1,5 @@
 import { toast } from 'sonner';
-import SnowText from '@/components/SnowText';
+import SnowText, { SnowDefs } from '@/components/SnowText';
 import Icon from '@/components/ui/icon';
 import { heroImage, heroBgImage } from '@/data/products';
 import FestiveBackground from '@/components/festive/FestiveBackground';
@@ -64,6 +64,7 @@ export default function HeroSection() {
             </div>
 
             <h1 className="mt-6 text-4xl sm:text-6xl font-normal leading-[1.2] tracking-[0.01em]" style={{ fontFamily: "'Lobster', cursive" }}>
+              <SnowDefs />
               <SnowText text={t('hero.title1', 'Подарки, от которых')} className="snow-fill-bright" />
               <span className="block mt-1 text-5xl sm:text-7xl">
                 <SnowText text={t('hero.title2', 'глаза горят')} className="snow-fill-red" />
