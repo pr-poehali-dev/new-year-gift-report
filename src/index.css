@@ -179,10 +179,20 @@
     white-space: nowrap;
   }
 
+  .snow-word-fill {
+    display: inline-block;
+    padding: 0.06em 0.18em;
+    margin: -0.06em -0.18em;
+  }
+
   .snow-word::before {
     content: attr(data-text);
     position: absolute;
-    inset: 0;
+    top: -0.06em;
+    bottom: -0.06em;
+    left: -0.18em;
+    right: -0.18em;
+    padding: 0.06em 0.18em;
     z-index: 2;
     pointer-events: none;
     color: #ffffff;
