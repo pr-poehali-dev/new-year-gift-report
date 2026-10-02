@@ -64,7 +64,7 @@ export default function ContactsSection() {
           <div className="eyebrow-script text-festive-gold mb-2">
             {t('cont.eyebrow', 'Мы рядом')}
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black leading-tight text-glow">
+          <h2 className="text-4xl sm:text-6xl title-festive-light">
             {t('cont.title', 'Давайте соберём ваш идеальный подарок')}
           </h2>
           <p className="mt-5 text-sm sm:text-base text-white/85 max-w-md leading-relaxed">

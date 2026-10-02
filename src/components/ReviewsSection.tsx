@@ -40,7 +40,7 @@ export default function ReviewsSection() {
           {t('rev.eyebrow', 'Нам доверяют')}
         </div>
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-          <h2 className="text-3xl sm:text-5xl font-black text-forest">
+          <h2 className="text-4xl sm:text-6xl title-festive">
             {t('rev.title', 'Отзывы наших клиентов')}
           </h2>
 

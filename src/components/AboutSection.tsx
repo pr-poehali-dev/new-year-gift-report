@@ -23,7 +23,7 @@ export default function AboutSection() {
               <div className="eyebrow-script text-primary mb-2">
                 {t('about.eyebrow', 'С 2010 года')}
               </div>
-              <h2 className="text-2xl sm:text-4xl font-black text-forest leading-tight">
+              <h2 className="text-3xl sm:text-5xl title-festive">
                 {t('about.title', 'Мы знаем, из чего складывается настоящий праздник')}
               </h2>
               <p className="mt-5 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">

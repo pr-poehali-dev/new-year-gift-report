@@ -55,7 +55,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
               <div className="eyebrow-script text-primary mb-2">
                 {t('catalog.eyebrow', 'Найдите свой подарок')}
               </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-forest leading-tight">
+              <h2 className="text-4xl sm:text-6xl title-festive">
                 {t('catalog.title', 'Праздник на любой вкус')}
               </h2>
             </div>
@@ -179,7 +179,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
           <div className="eyebrow-script text-primary mb-2">
             {t('pack.eyebrow', 'Упаковка — часть чуда')}
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-forest mb-8">
+          <h2 className="text-4xl sm:text-6xl title-festive mb-8">
             {t('pack.title', 'Какой будет ваш подарок?')}
           </h2>
 

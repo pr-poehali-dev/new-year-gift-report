@@ -62,7 +62,7 @@ export default function HeroSection() {
               {t('hero.badge', '★ Новогодняя коллекция 2026/27')}
             </div>
 
-            <h1 className="mt-6 text-4xl sm:text-6xl font-black leading-[1.05] text-glow">
+            <h1 className="mt-6 text-4xl sm:text-6xl title-festive-light">
               {t('hero.title1', 'Подарки, от которых')}
               <span className="block mt-1 font-script font-normal text-5xl sm:text-7xl text-festive-gold">{t('hero.title2', 'глаза горят')}</span>
             </h1>
