@@ -49,29 +49,29 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   return (
     <>
       <section id="catalog" className="bg-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
-          <div className="grid lg:grid-cols-2 gap-6 lg:items-end mb-8">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 py-10 sm:py-20">
+          <div className="grid lg:grid-cols-2 gap-2 sm:gap-6 lg:items-end mb-5 sm:mb-8">
             <div>
-              <div className="eyebrow-script text-primary mb-2">
+              <div className="eyebrow-script text-primary mb-1 sm:mb-2">
                 {t('catalog.eyebrow', 'Найдите свой подарок')}
               </div>
-              <h2 className="text-4xl sm:text-6xl title-festive">
+              <h2 className="text-3xl sm:text-6xl title-festive">
                 {t('catalog.title', 'Праздник на любой вкус')}
               </h2>
             </div>
-            <p className="text-sm sm:text-base text-muted-foreground lg:pb-2">
+            <p className="text-xs sm:text-base text-muted-foreground lg:pb-2">
               {t('catalog.text', 'От небольших ярких коробок до солидных премиальных наборов — выбирайте упаковку, вес и бюджет')}
             </p>
           </div>
 
           {(chips.length > 1 || showSortSelect) && (
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
-            <div className="flex flex-wrap gap-2">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center justify-between gap-2.5 sm:gap-3 mb-5 sm:mb-8">
+            <div className="flex gap-1.5 sm:gap-2 overflow-x-auto sm:flex-wrap -mx-3 px-3 sm:mx-0 sm:px-0 pb-1 sm:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {chips.length > 1 && chips.map(chip => (
                 <button
                   key={chip.value}
                   onClick={() => setSelectedCategory(chip.value)}
-                  className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                  className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold transition ${
                     activeCategory === chip.value
                       ? 'bg-forest text-forest-foreground'
                       : 'bg-white text-forest border border-border hover:border-forest/40'
@@ -83,12 +83,12 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             </div>
 
             {showSortSelect && (
-            <div className="flex items-center gap-2 text-sm">
+            <div className="flex items-center gap-2 text-xs sm:text-sm">
               <Icon name="ArrowDownUp" size={16} className="text-muted-foreground" />
               <select
                 value={activeSort}
                 onChange={e => setSort(e.target.value as SortKey)}
-                className="rounded-full bg-white border border-border px-4 py-2.5 font-semibold text-forest outline-none cursor-pointer hover:border-forest/40 transition"
+                className="rounded-full bg-white border border-border px-3 py-1.5 sm:px-4 sm:py-2.5 font-semibold text-forest outline-none cursor-pointer hover:border-forest/40 transition"
               >
                 {enabledSorts.map(s => (
                   <option key={s.key} value={s.key}>{s.label}</option>
@@ -99,11 +99,11 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
           </div>
           )}
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5">
             {filtered.map(product => (
               <article
                 key={product.id}
-                className="group bg-white rounded-3xl overflow-hidden border border-border hover:shadow-xl transition-shadow flex flex-col"
+                className="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-border hover:shadow-xl transition-shadow flex flex-col"
               >
                 <div className="relative bg-background">
                   <button
@@ -115,39 +115,39 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                       src={product.image}
                       alt={product.name}
                       loading="lazy"
-                      className="w-full h-40 sm:h-44 object-contain p-3 cursor-zoom-in"
+                      className="w-full h-28 sm:h-44 object-contain p-2 sm:p-3 cursor-zoom-in"
                     />
                   </button>
                   {photosOf(product).length > 1 && (
                     <button
                       onClick={() => openGallery(product.id)}
-                      className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full bg-forest/85 text-white text-[10px] font-bold px-2.5 py-1 hover:bg-forest transition"
+                      className="absolute bottom-1.5 left-1.5 sm:bottom-3 sm:left-3 inline-flex items-center gap-1 rounded-full bg-forest/85 text-white text-[9px] sm:text-[10px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 hover:bg-forest transition"
                     >
                       <Icon name="Images" size={12} />
                       {photosOf(product).length} фото
                     </button>
                   )}
                   {product.badge && (
-                    <span className="absolute top-4 left-4 rounded-full bg-primary text-white text-[10px] font-extrabold tracking-wider px-3 py-1.5">
+                    <span className="absolute top-2 left-2 sm:top-4 sm:left-4 rounded-full bg-primary text-white text-[9px] sm:text-[10px] font-extrabold tracking-wider px-2 py-1 sm:px-3 sm:py-1.5">
                       {product.badge}
                     </span>
                   )}
                 </div>
 
-                <div className="p-5 flex flex-col flex-1">
-                  <div className="text-[10px] font-bold tracking-[0.16em] uppercase text-muted-foreground">
+                <div className="p-3 sm:p-5 flex flex-col flex-1">
+                  <div className="text-[9px] sm:text-[10px] font-bold tracking-wider sm:tracking-[0.16em] uppercase text-muted-foreground">
                     {product.category} • {product.weight}
                   </div>
-                  <h3 className="mt-2 text-lg font-black text-forest">{product.name}</h3>
-                  <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                  <h3 className="mt-1 sm:mt-2 text-sm sm:text-lg font-black text-forest leading-tight">{product.name}</h3>
+                  <p className="mt-1 sm:mt-1.5 text-[11px] sm:text-sm text-muted-foreground leading-snug sm:leading-relaxed line-clamp-2 sm:line-clamp-none">
                     {product.description}
                   </p>
 
-                  <div className="mt-5 pt-4 border-t border-border flex items-center justify-between">
-                    <span className="font-black text-forest">от {product.price.toLocaleString('ru-RU')} ₽</span>
+                  <div className="mt-auto pt-2.5 sm:pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-0 sm:mt-5">
+                    <span className="text-sm sm:text-base font-black text-forest">от {product.price.toLocaleString('ru-RU')} ₽</span>
                     <button
                       onClick={onRequest}
-                      className="inline-flex items-center gap-1 text-sm font-bold text-primary hover:gap-2 transition-all"
+                      className="inline-flex items-center justify-center sm:justify-start gap-1 rounded-full sm:rounded-none bg-primary sm:bg-transparent text-white sm:text-primary py-1.5 sm:py-0 text-xs sm:text-sm font-bold hover:gap-2 transition-all"
                       aria-label={`Заказать ${product.name}`}
                     >
                       Заказать
@@ -159,10 +159,10 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             ))}
           </div>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
             <button
               onClick={onRequest}
-              className="rounded-full bg-primary text-white px-7 py-3.5 font-bold hover:brightness-110 transition"
+              className="rounded-full bg-primary text-white px-6 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base font-bold hover:brightness-110 transition"
             >
               {t('catalog.btn', 'Получить подборку подарков')}
             </button>
