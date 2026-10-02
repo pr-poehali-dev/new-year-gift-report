@@ -74,8 +74,10 @@ export default function HeroSection() {
         <FestiveBackground image={s('img.heroBg', heroBgImage)} overlay="linear-gradient(90deg, rgba(10,22,70,0.85) 0%, rgba(14,30,90,0.55) 45%, rgba(14,30,90,0.15) 100%)" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-16 pb-12 sm:pt-24 sm:pb-20 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-secondary/50 px-4 py-1.5 text-[11px] sm:text-xs font-bold tracking-widest uppercase text-secondary">
-              {t('hero.badge', '★ Новогодняя коллекция 2026/27')}
+            <div className="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5 text-xs sm:text-sm font-extrabold tracking-widest uppercase">
+              <span className="hero-badge-star">❄</span>
+              <span className="hero-badge-text">{t('hero.badge', '★ Новогодняя коллекция 2026/27').replace(/^[★☆✦\s]+/, '')}</span>
+              <span className="hero-badge-star">❄</span>
             </div>
 
             <h1 className="mt-6 text-4xl sm:text-6xl font-normal leading-[1.2] tracking-[0.01em]" style={{ fontFamily: "'Lobster', cursive" }}>
