@@ -1,0 +1,1 @@
+UPDATE t_p8000729_new_year_gift_report.site_settings SET value = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/02aac156-c6bc-40bf-8b60-ab74cc58f71d.jpg' WHERE setting_key = 'img.corporate';
