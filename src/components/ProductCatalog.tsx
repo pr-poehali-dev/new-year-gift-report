@@ -103,7 +103,9 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             {filtered.map(product => (
               <article
                 key={product.id}
-                className="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-border hover:shadow-xl transition-shadow flex flex-col"
+                className={`group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-border transition-shadow flex flex-col ${
+                  product.is_sold_out ? 'opacity-80' : 'hover:shadow-xl'
+                }`}
               >
                 <div className="relative bg-background">
                   <button
@@ -115,9 +117,16 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                       src={product.image}
                       alt={product.name}
                       loading="lazy"
-                      className="w-full h-28 sm:h-44 object-contain p-2 sm:p-3 cursor-zoom-in"
+                      className={`w-full h-28 sm:h-44 object-contain p-2 sm:p-3 cursor-zoom-in ${product.is_sold_out ? 'grayscale opacity-50' : ''}`}
                     />
                   </button>
+                  {product.is_sold_out && (
+                    <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                      <span className="-rotate-6 rounded-lg bg-forest/90 text-white text-[10px] sm:text-sm font-black uppercase tracking-wider px-3 py-1.5 sm:px-5 sm:py-2 shadow-lg">
+                        Закончились
+                      </span>
+                    </div>
+                  )}
                   {photosOf(product).length > 1 && (
                     <button
                       onClick={() => openGallery(product.id)}
@@ -127,7 +136,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                       {photosOf(product).length} фото
                     </button>
                   )}
-                  {product.badge && (
+                  {product.badge && !product.is_sold_out && (
                     <span className="absolute top-2 left-2 sm:top-4 sm:left-4 rounded-full bg-primary text-white text-[9px] sm:text-[10px] font-extrabold tracking-wider px-2 py-1 sm:px-3 sm:py-1.5">
                       {product.badge}
                     </span>
@@ -145,14 +154,21 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
 
                   <div className="mt-auto pt-2.5 sm:pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-0 sm:mt-5">
                     <span className="text-sm sm:text-base font-black text-forest">от {product.price.toLocaleString('ru-RU')} ₽</span>
-                    <button
-                      onClick={onRequest}
-                      className="inline-flex items-center justify-center sm:justify-start gap-1 rounded-full sm:rounded-none bg-primary sm:bg-transparent text-white sm:text-primary py-1.5 sm:py-0 text-xs sm:text-sm font-bold hover:gap-2 transition-all"
-                      aria-label={`Заказать ${product.name}`}
-                    >
-                      Заказать
-                      <Icon name="ArrowRight" size={15} />
-                    </button>
+                    {product.is_sold_out ? (
+                      <span className="inline-flex items-center justify-center gap-1 rounded-full bg-muted text-muted-foreground py-1.5 sm:px-3 text-xs sm:text-sm font-bold">
+                        <Icon name="PackageX" size={15} />
+                        Нет в продаже
+                      </span>
+                    ) : (
+                      <button
+                        onClick={onRequest}
+                        className="inline-flex items-center justify-center sm:justify-start gap-1 rounded-full sm:rounded-none bg-primary sm:bg-transparent text-white sm:text-primary py-1.5 sm:py-0 text-xs sm:text-sm font-bold hover:gap-2 transition-all"
+                        aria-label={`Заказать ${product.name}`}
+                      >
+                        Заказать
+                        <Icon name="ArrowRight" size={15} />
+                      </button>
+                    )}
                   </div>
                 </div>
               </article>

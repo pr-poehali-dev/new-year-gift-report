@@ -16,6 +16,7 @@ export interface ApiProduct {
   badge: string;
   sort_order: number;
   is_active: boolean;
+  is_sold_out?: boolean;
 }
 
 export function useProducts(onlyActive = true) {

@@ -44,6 +44,7 @@ export default function ProductsEditor() {
       badge: '',
       sort_order: base.length + 1,
       is_active: true,
+      is_sold_out: false,
     };
     setDraft([...base, newItem]);
   };
@@ -354,6 +355,18 @@ export default function ProductsEditor() {
                   />
                   Показывать на сайте
                 </label>
+                <button
+                  type="button"
+                  onClick={() => update(p.id, { is_sold_out: !p.is_sold_out })}
+                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold border transition ${
+                    p.is_sold_out
+                      ? 'bg-forest text-white border-forest'
+                      : 'bg-background text-forest border-border hover:border-forest'
+                  }`}
+                >
+                  <Icon name={p.is_sold_out ? 'PackageX' : 'PackageCheck'} size={14} />
+                  {p.is_sold_out ? 'Закончились' : 'В наличии'}
+                </button>
                 <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
                   Порядок
                   <input

@@ -66,7 +66,7 @@ def handler(event: dict, context) -> dict:
     if method == 'GET':
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute(
-            f'SELECT id, name, price, category, weight, image, images, description, badge, sort_order, is_active '
+            f'SELECT id, name, price, category, weight, image, images, description, badge, sort_order, is_active, is_sold_out '
             f'FROM {table} ORDER BY sort_order, id'
         )
         rows = []
@@ -141,18 +141,20 @@ def handler(event: dict, context) -> dict:
                 f"badge = '{esc(p.get('badge') or '')}', "
                 f"sort_order = {int(p.get('sort_order') or 0)}, "
                 f"is_active = {'TRUE' if p.get('is_active', True) else 'FALSE'}, "
+                f"is_sold_out = {'TRUE' if p.get('is_sold_out') else 'FALSE'}, "
                 f"updated_at = NOW()"
             )
             if pid > 0:
                 cur.execute(f'UPDATE {table} SET {fields} WHERE id = {pid}')
             else:
                 cur.execute(
-                    f"INSERT INTO {table} (name, price, category, weight, image, images, description, badge, sort_order, is_active) "
+                    f"INSERT INTO {table} (name, price, category, weight, image, images, description, badge, sort_order, is_active, is_sold_out) "
                     f"VALUES ('{esc(p.get('name', 'Новый подарок'))}', {int(p.get('price') or 0)}, "
                     f"'{esc(p.get('category', 'Картон'))}', '{esc(p.get('weight', ''))}', "
                     f"'{esc(p.get('image', ''))}', '{esc(gallery_str)}', '{esc(p.get('description', ''))}', "
                     f"'{esc(p.get('badge') or '')}', {int(p.get('sort_order') or 0)}, "
-                    f"{'TRUE' if p.get('is_active', True) else 'FALSE'})"
+                    f"{'TRUE' if p.get('is_active', True) else 'FALSE'}, "
+                    f"{'TRUE' if p.get('is_sold_out') else 'FALSE'})"
                 )
 
         conn.commit()
