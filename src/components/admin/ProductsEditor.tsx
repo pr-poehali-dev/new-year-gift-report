@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { clearDraft, loadDraft, useLocalDraft } from '@/hooks/useLocalDraft';
 import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
@@ -7,8 +7,18 @@ import { PRODUCTS_URL, ApiProduct, useProducts } from '@/hooks/useProducts';
 import { useSiteContext } from '@/hooks/useSiteTexts';
 import { parseFilters } from '@/lib/siteConfig';
 import { compressImage } from '@/lib/compressImage';
+import ProductEditForm from '@/components/admin/ProductEditForm';
 
 const DRAFT_KEY = 'admin_products_draft';
+
+type StatusFilter = 'all' | 'active' | 'sold' | 'hidden';
+
+const STATUS_TABS: { key: StatusFilter; label: string }[] = [
+  { key: 'all', label: 'Все' },
+  { key: 'active', label: 'В продаже' },
+  { key: 'sold', label: 'Закончились' },
+  { key: 'hidden', label: 'Скрытые' },
+];
 
 export default function ProductsEditor() {
   const { products, reload } = useProducts(false);
@@ -23,6 +33,34 @@ export default function ProductsEditor() {
   const galleryRefs = useRef<Record<number, HTMLInputElement | null>>({});
 
   const list = draft ?? products;
+  const [query, setQuery] = useState('');
+  const [status, setStatus] = useState<StatusFilter>('all');
+  const [pack, setPack] = useState('');
+  const [openId, setOpenId] = useState<number | null>(null);
+
+  const counts = useMemo(
+    () => ({
+      all: list.length,
+      active: list.filter(p => p.is_active && !p.is_sold_out).length,
+      sold: list.filter(p => p.is_sold_out).length,
+      hidden: list.filter(p => !p.is_active).length,
+    }),
+    [list],
+  );
+
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return list.filter(p => {
+      if (status === 'active' && !(p.is_active && !p.is_sold_out)) return false;
+      if (status === 'sold' && !p.is_sold_out) return false;
+      if (status === 'hidden' && p.is_active) return false;
+      if (pack && p.category !== pack) return false;
+      if (!q) return true;
+      return [p.name, p.description, p.badge, p.weight, String(p.price)].some(v =>
+        (v || '').toLowerCase().includes(q),
+      );
+    });
+  }, [list, query, status, pack]);
 
   useLocalDraft(DRAFT_KEY, draft, !!draft);
 
@@ -47,6 +85,10 @@ export default function ProductsEditor() {
       is_sold_out: false,
     };
     setDraft([...base, newItem]);
+    setQuery('');
+    setStatus('all');
+    setPack('');
+    setOpenId(newItem.id);
   };
 
   const removeProduct = async (id: number) => {
@@ -165,229 +207,185 @@ export default function ProductsEditor() {
     }
   };
 
+
+  const allPacks = Array.from(new Set([...packOptions, ...list.map(p => p.category)])).filter(Boolean);
+
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white rounded-2xl border border-border p-4">
-        <div className="text-sm text-muted-foreground">
-          Подарков в каталоге: <b className="text-forest">{list.filter(p => p.is_active).length}</b>
+      <div className="sticky top-0 z-20 -mx-1 px-1 pt-1 pb-2 bg-background/95 backdrop-blur space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 bg-white rounded-2xl border border-border p-4">
+          <div className="text-sm text-muted-foreground">
+            Подарков в каталоге: <b className="text-forest">{list.filter(p => p.is_active).length}</b>
+          </div>
+          <div className="flex gap-2">
+            <Button onClick={addProduct} variant="outline" className="rounded-full font-bold">
+              <Icon name="Plus" size={16} className="mr-1.5" />
+              Добавить подарок
+            </Button>
+            <Button
+              onClick={save}
+              disabled={!draft || saving}
+              className="rounded-full font-bold bg-secondary text-secondary-foreground hover:brightness-105"
+            >
+              {saving ? 'Сохраняем...' : draft ? 'Сохранить каталог' : 'Сохранено'}
+            </Button>
+          </div>
         </div>
-        <div className="flex gap-2">
-          <Button onClick={addProduct} variant="outline" className="rounded-full font-bold">
-            <Icon name="Plus" size={16} className="mr-1.5" />
-            Добавить подарок
-          </Button>
-          <Button
-            onClick={save}
-            disabled={!draft || saving}
-            className="rounded-full font-bold bg-secondary text-secondary-foreground hover:brightness-105"
-          >
-            {saving ? 'Сохраняем...' : draft ? 'Сохранить каталог' : 'Сохранено'}
-          </Button>
+
+        <div className="bg-white rounded-2xl border border-border p-3 space-y-3">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <div className="relative flex-1">
+              <Icon name="Search" size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <input
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                placeholder="Найти подарок по названию, цене, описанию..."
+                className="w-full rounded-full border border-border bg-background pl-10 pr-9 py-2.5 text-sm outline-none focus:border-forest transition"
+              />
+              {query && (
+                <button
+                  onClick={() => setQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-forest"
+                  aria-label="Очистить поиск"
+                >
+                  <Icon name="X" size={16} />
+                </button>
+              )}
+            </div>
+            <select
+              value={pack}
+              onChange={e => setPack(e.target.value)}
+              className="rounded-full border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-forest transition"
+            >
+              <option value="">Любая упаковка</option>
+              {allPacks.map(c => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {STATUS_TABS.map(tab => (
+              <button
+                key={tab.key}
+                onClick={() => setStatus(tab.key)}
+                className={`rounded-full px-3 py-1.5 text-xs font-bold border transition ${
+                  status === tab.key
+                    ? 'bg-forest text-white border-forest'
+                    : 'bg-background text-forest border-border hover:border-forest'
+                }`}
+              >
+                {tab.label} <span className="opacity-70">{counts[tab.key]}</span>
+              </button>
+            ))}
+          </div>
         </div>
+
+        {draft && (
+          <div className="flex items-center gap-2 rounded-2xl border border-primary/30 bg-primary/5 px-4 py-2.5 text-xs font-semibold text-primary">
+            <Icon name="TriangleAlert" size={15} />
+            Есть несохранённые правки — они не пропадут при обновлении страницы. Нажмите «Сохранить каталог».
+          </div>
+        )}
       </div>
 
-      {draft && (
-        <div className="flex items-center gap-2 rounded-2xl border border-primary/30 bg-primary/5 px-4 py-2.5 text-xs font-semibold text-primary">
-          <Icon name="TriangleAlert" size={15} />
-          Есть несохранённые правки — они не пропадут при обновлении страницы. Нажмите «Сохранить каталог».
+      {visible.length === 0 && (
+        <div className="bg-white rounded-2xl border border-border p-8 text-center text-sm text-muted-foreground">
+          Ничего не найдено. Измените поиск или фильтры.
         </div>
       )}
 
-      {list.map(p => (
-        <div key={p.id} className="bg-white rounded-2xl border border-border p-4 sm:p-5">
-          <div className="grid sm:grid-cols-[112px_1fr] gap-4">
-            <div>
-              <div className="h-24 rounded-xl overflow-hidden bg-background border border-border flex items-center justify-center">
-                {p.image ? (
-                  <img
-                    src={p.image}
-                    alt=""
-                    loading="lazy"
-                    className="max-w-full max-h-full object-contain p-1.5"
-                  />
-                ) : (
-                  <Icon name="Image" size={22} className="text-muted-foreground" />
-                )}
-              </div>
-              <input
-                ref={el => (fileRefs.current[p.id] = el)}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={e => {
-                  const f = e.target.files?.[0];
-                  if (f) uploadPhoto(p.id, f);
-                  e.target.value = '';
-                }}
-              />
-              <button
-                onClick={() => fileRefs.current[p.id]?.click()}
-                disabled={uploadingId === p.id}
-                className="mt-1.5 w-full rounded-lg border border-border py-1.5 text-[11px] font-bold text-forest hover:border-forest/50 transition disabled:opacity-60"
-              >
-                {uploadingId === p.id ? 'Загружаем...' : 'Загрузить фото'}
-              </button>
-              <input
-                value={p.image}
-                onChange={e => update(p.id, { image: e.target.value })}
-                placeholder="или ссылка на фото"
-                className="mt-1.5 w-full rounded-lg border border-border bg-background px-2.5 py-1.5 text-[10px] outline-none focus:border-forest transition"
-              />
-              <div className="mt-2 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
-                Ещё фото
-              </div>
-              <div className="mt-1 flex flex-wrap gap-1.5">
-                {(p.images || []).map(url => (
-                  <div
-                    key={url}
-                    className="relative w-11 h-11 rounded-lg overflow-hidden border border-border bg-background group"
-                  >
-                    <img src={url} alt="" loading="lazy" className="w-full h-full object-contain p-0.5" />
-                    <button
-                      onClick={() => makeMain(p.id, url)}
-                      title="Сделать главным"
-                      className="absolute inset-x-0 bottom-0 bg-forest/80 text-white text-[8px] font-bold py-0.5 opacity-0 group-hover:opacity-100 transition"
-                    >
-                      ГЛАВНОЕ
-                    </button>
-                    <button
-                      onClick={() => removeGalleryPhoto(p.id, url)}
-                      title="Удалить фото"
-                      className="absolute top-0 right-0 bg-primary text-white w-4 h-4 flex items-center justify-center text-[10px] leading-none rounded-bl-md opacity-0 group-hover:opacity-100 transition"
-                    >
-                      ×
-                    </button>
-                  </div>
-                ))}
-                <input
-                  ref={el => (galleryRefs.current[p.id] = el)}
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  className="hidden"
-                  onChange={e => {
-                    const files = Array.from(e.target.files || []);
-                    if (files.length) uploadGallery(p.id, files);
-                    e.target.value = '';
-                  }}
-                />
+      <div className="space-y-2">
+        {visible.map(p => {
+          const isOpen = openId === p.id;
+          return (
+            <div
+              key={p.id}
+              className={`bg-white rounded-2xl border transition ${isOpen ? 'border-forest shadow-md' : 'border-border'}`}
+            >
+              <div className="flex items-center gap-3 p-2.5 sm:p-3">
                 <button
-                  onClick={() => galleryRefs.current[p.id]?.click()}
-                  disabled={uploadingId === p.id}
-                  title="Добавить фото"
-                  className="w-11 h-11 rounded-lg border border-dashed border-border text-muted-foreground hover:border-forest hover:text-forest transition flex items-center justify-center disabled:opacity-60"
+                  onClick={() => setOpenId(isOpen ? null : p.id)}
+                  className="flex flex-1 min-w-0 items-center gap-3 text-left"
                 >
-                  <Icon name="Plus" size={16} />
+                  <div className="w-12 h-12 shrink-0 rounded-xl overflow-hidden bg-background border border-border flex items-center justify-center">
+                    {p.image ? (
+                      <img
+                        src={p.image}
+                        alt=""
+                        loading="lazy"
+                        className={`max-w-full max-h-full object-contain p-1 ${p.is_sold_out ? 'grayscale opacity-60' : ''}`}
+                      />
+                    ) : (
+                      <Icon name="Image" size={18} className="text-muted-foreground" />
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="font-bold text-sm text-forest truncate">{p.name || 'Без названия'}</span>
+                      {p.badge && (
+                        <span className="rounded-full bg-primary text-white text-[9px] font-extrabold px-1.5 py-0.5">
+                          {p.badge}
+                        </span>
+                      )}
+                      {p.is_sold_out && (
+                        <span className="rounded-full bg-forest text-white text-[9px] font-extrabold px-1.5 py-0.5">
+                          ЗАКОНЧИЛИСЬ
+                        </span>
+                      )}
+                      {!p.is_active && (
+                        <span className="rounded-full bg-muted text-muted-foreground text-[9px] font-extrabold px-1.5 py-0.5">
+                          СКРЫТ
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-xs text-muted-foreground truncate">
+                      {p.price.toLocaleString('ru-RU')} ₽ • {p.category} • {p.weight}
+                    </div>
+                  </div>
                 </button>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div>
-                <label className="block text-[11px] font-bold text-forest mb-1.5">Название</label>
-                <input
-                  value={p.name}
-                  onChange={e => update(p.id, { name: e.target.value })}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-forest transition"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold text-forest mb-1.5">Описание</label>
-                <textarea
-                  value={p.description}
-                  onChange={e => update(p.id, { description: e.target.value })}
-                  rows={2}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm outline-none focus:border-forest transition resize-y"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div>
-                  <label className="block text-[11px] font-bold text-forest mb-1.5">Цена, ₽</label>
-                  <input
-                    type="number"
-                    value={p.price}
-                    onChange={e => update(p.id, { price: Number(e.target.value) })}
-                    className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-forest transition"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-forest mb-1.5">Вес</label>
-                  <input
-                    value={p.weight}
-                    onChange={e => update(p.id, { weight: e.target.value })}
-                    className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-forest transition"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-forest mb-1.5">Упаковка</label>
-                  <select
-                    value={p.category}
-                    onChange={e => update(p.id, { category: e.target.value })}
-                    className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-forest transition"
-                  >
-                    {(packOptions.includes(p.category) ? packOptions : [p.category, ...packOptions]).map(c => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-forest mb-1.5">Плашка</label>
-                  <input
-                    value={p.badge || ''}
-                    onChange={e => update(p.id, { badge: e.target.value })}
-                    placeholder="ХИТ"
-                    className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-forest transition"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4 pt-1">
-                <label className="flex items-center gap-2 text-xs font-semibold text-forest cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={p.is_active}
-                    onChange={e => update(p.id, { is_active: e.target.checked })}
-                    className="w-4 h-4 accent-[hsl(var(--primary))]"
-                  />
-                  Показывать на сайте
-                </label>
                 <button
-                  type="button"
                   onClick={() => update(p.id, { is_sold_out: !p.is_sold_out })}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold border transition ${
+                  title={p.is_sold_out ? 'Вернуть в продажу' : 'Отметить «Закончились»'}
+                  className={`hidden sm:inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1.5 text-[11px] font-bold border transition ${
                     p.is_sold_out
                       ? 'bg-forest text-white border-forest'
                       : 'bg-background text-forest border-border hover:border-forest'
                   }`}
                 >
-                  <Icon name={p.is_sold_out ? 'PackageX' : 'PackageCheck'} size={14} />
+                  <Icon name={p.is_sold_out ? 'PackageX' : 'PackageCheck'} size={13} />
                   {p.is_sold_out ? 'Закончились' : 'В наличии'}
                 </button>
-                <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
-                  Порядок
-                  <input
-                    type="number"
-                    value={p.sort_order}
-                    onChange={e => update(p.id, { sort_order: Number(e.target.value) })}
-                    className="w-16 rounded-lg border border-border bg-background px-2 py-1 text-sm outline-none focus:border-forest"
-                  />
-                </label>
                 <button
-                  onClick={() => removeProduct(p.id)}
-                  className="ml-auto inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline"
+                  onClick={() => setOpenId(isOpen ? null : p.id)}
+                  className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-forest hover:bg-background transition"
+                  aria-label={isOpen ? 'Свернуть' : 'Редактировать'}
                 >
-                  <Icon name="Trash2" size={14} />
-                  Удалить
+                  <Icon name={isOpen ? 'ChevronUp' : 'Pencil'} size={16} />
                 </button>
               </div>
+              {isOpen && (
+                <div className="border-t border-border p-4 sm:p-5">
+                  <ProductEditForm
+                    p={p}
+                    packOptions={packOptions}
+                    uploadingId={uploadingId}
+                    fileRefs={fileRefs}
+                    galleryRefs={galleryRefs}
+                    update={update}
+                    uploadPhoto={uploadPhoto}
+                    uploadGallery={uploadGallery}
+                    removeGalleryPhoto={removeGalleryPhoto}
+                    makeMain={makeMain}
+                    removeProduct={removeProduct}
+                  />
+                </div>
+              )}
             </div>
-          </div>
-        </div>
-      ))}
+          );
+        })}
+      </div>
     </div>
   );
 }

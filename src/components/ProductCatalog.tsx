@@ -36,9 +36,11 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
     ? products
     : products.filter(p => p.category === activeCategory);
 
-  const filtered = activeSort === 'default'
+  const sorted = activeSort === 'default'
     ? byCategory
     : [...byCategory].sort((a, b) => (activeSort === 'asc' ? a.price - b.price : b.price - a.price));
+
+  const filtered = [...sorted.filter(p => !p.is_sold_out), ...sorted.filter(p => p.is_sold_out)];
 
   const chips = [
     ...(filters.showAll ? [{ value: ALL, label: filters.allLabel || 'Все подарки' }] : []),
