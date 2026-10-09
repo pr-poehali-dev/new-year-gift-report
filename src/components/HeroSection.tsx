@@ -4,7 +4,7 @@ import Icon from '@/components/ui/icon';
 import { heroImage, heroBgImage } from '@/data/products';
 import FestiveBackground from '@/components/festive/FestiveBackground';
 import BlendImage from '@/components/festive/BlendImage';
-import { useText, useSetting } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw, useTextStyle, useSetting } from '@/hooks/useSiteTexts';
 
 const ACCENTS: [RegExp, string][] = [
   [/(сладост\S*|конфет\S*)/i, 'lead-gold'],
@@ -23,6 +23,8 @@ function highlight(text: string) {
 
 export default function HeroSection() {
   const t = useText();
+  const tr = useTextRaw();
+  const ts = useTextStyle();
   const s = useSetting();
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
@@ -76,20 +78,24 @@ export default function HeroSection() {
           <div>
             <div className="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5 text-xs sm:text-sm font-extrabold tracking-widest uppercase">
               <span className="hero-badge-star">❄</span>
-              <span className="hero-badge-text">{t('hero.badge', '★ Новогодняя коллекция 2026/27').replace(/^[★☆✦\s]+/, '')}</span>
+              <span className="hero-badge-text" style={ts('hero.badge')}>{tr('hero.badge', '★ Новогодняя коллекция 2026/27').replace(/^[★☆✦\s]+/, '')}</span>
               <span className="hero-badge-star">❄</span>
             </div>
 
             <h1 className="mt-6 text-4xl sm:text-6xl font-normal leading-[1.2] tracking-[0.01em]" style={{ fontFamily: "'Lobster', cursive" }}>
               <SnowDefs />
-              <SnowText text={t('hero.title1', 'Подарки, от которых')} className="snow-fill-bright" />
+              <span style={ts('hero.title1')}>
+                <SnowText text={tr('hero.title1', 'Подарки, от которых')} className="snow-fill-bright" />
+              </span>
               <span className="block mt-1 text-5xl sm:text-7xl">
-                <SnowText text={t('hero.title2', 'глаза горят')} className="snow-fill-red" />
+                <span style={ts('hero.title2')}>
+                  <SnowText text={tr('hero.title2', 'глаза горят')} className="snow-fill-red" />
+                </span>
               </span>
             </h1>
 
             <p className="hero-lead mt-5 max-w-lg rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-semibold leading-relaxed">
-              {highlight(t('hero.text', 'Любимые сладости в волшебной упаковке — детям, близким, коллегам и партнёрам. Оптом и в розницу с доставкой по всей России.'))}
+              <span style={ts('hero.text')}>{highlight(tr('hero.text', 'Любимые сладости в волшебной упаковке — детям, близким, коллегам и партнёрам. Оптом и в розницу с доставкой по всей России.'))}</span>
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">

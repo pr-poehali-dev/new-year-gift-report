@@ -1,12 +1,13 @@
-import { useEffect, useRef } from 'react';
+import { CSSProperties, useEffect, useRef } from 'react';
 import { useSiteContext } from '@/hooks/useSiteTexts';
 
 interface Props {
   textKey: string;
   value: string;
+  style?: CSSProperties;
 }
 
-export default function EditableText({ textKey, value }: Props) {
+export default function EditableText({ textKey, value, style }: Props) {
   const { setValue } = useSiteContext();
   const ref = useRef<HTMLSpanElement>(null);
 
@@ -23,6 +24,7 @@ export default function EditableText({ textKey, value }: Props) {
       suppressContentEditableWarning
       spellCheck={false}
       data-edit-key={textKey}
+      style={style}
       onBlur={e => setValue(textKey, e.currentTarget.innerText.trim())}
       onKeyDown={e => {
         if (e.key === 'Enter' && !e.shiftKey) {

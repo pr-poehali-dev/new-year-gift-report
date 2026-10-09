@@ -1,0 +1,1 @@
+INSERT INTO t_p8000729_new_year_gift_report.site_settings (setting_key, kind, title, hint, value, sort_order) VALUES ('text.styles', 'textStyles', 'Оформление отдельных надписей', 'Шрифт, размер и цвет для каждой надписи', '{}', 200);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
@@ -6,6 +6,8 @@ import { TEXTS_URL, TextField, SettingField } from '@/hooks/useSiteTexts';
 import InlineField from '@/components/admin/blocks/InlineField';
 import MediaSlot from '@/components/admin/blocks/MediaSlot';
 import { Group, SECTION_LAYOUTS, groupKeys } from '@/components/admin/blocks/sectionLayouts';
+import TextStylePanel from '@/components/admin/blocks/TextStylePanel';
+import { TEXT_STYLES_KEY, TextStyle, TextStyles, isEmptyStyle, loadStyleFonts, parseTextStyles, styleToCss } from '@/lib/textStyles';
 
 interface Props {
   section: string;
@@ -28,6 +30,7 @@ export default function VisualSectionEditor({
 }: Props) {
   const [setDraft, setSetDraft] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+  const [selected, setSelected] = useState<string | null>(null);
   const layout = SECTION_LAYOUTS[section];
   const sectionFields = fields.filter(f => f.section === section);
   const byKey = Object.fromEntries(fields.map(f => [f.key, f]));
@@ -41,9 +44,22 @@ export default function VisualSectionEditor({
   const sChanged = (k: string) => setDraft[k] !== undefined && setDraft[k] !== settingByKey[k]?.value;
   const setSVal = (k: string, v: string) => setSetDraft({ ...setDraft, [k]: v });
 
+  const savedStyles = parseTextStyles(settingByKey[TEXT_STYLES_KEY]?.value);
+  const styles: TextStyles = setDraft[TEXT_STYLES_KEY] !== undefined ? parseTextStyles(setDraft[TEXT_STYLES_KEY]) : savedStyles;
+  const styleOf = (k: string): TextStyle => styles[k] || {};
+  const setStyle = (k: string, st: TextStyle) => {
+    const next = { ...styles };
+    if (isEmptyStyle(st)) delete next[k];
+    else next[k] = st;
+    loadStyleFonts(next);
+    setSetDraft({ ...setDraft, [TEXT_STYLES_KEY]: JSON.stringify(next) });
+  };
+  const styleChanged = (k: string) => JSON.stringify(styles[k] || {}) !== JSON.stringify(savedStyles[k] || {});
+
   const changedTexts = fields.filter(f => isChanged(f.key));
   const changedSettings = Object.keys(setDraft).filter(sChanged);
-  const totalChanged = changedTexts.length + changedSettings.length;
+  const changedStyleCount = sectionFields.filter(f => styleChanged(f.key)).length;
+  const totalChanged = changedTexts.length + changedSettings.filter(k => k !== TEXT_STYLES_KEY).length + changedStyleCount;
 
   const save = async () => {
     if (!totalChanged) return;
@@ -62,6 +78,7 @@ export default function VisualSectionEditor({
     setSaving(false);
     if (res.ok) {
       setSetDraft({});
+      setSelected(null);
       toast.success('Блок сохранён — изменения уже на сайте');
       onSaved();
     } else {
@@ -74,6 +91,8 @@ export default function VisualSectionEditor({
     sectionFields.forEach(f => delete next[f.key]);
     setTextDraft(next);
     setSetDraft({});
+    loadStyleFonts(savedStyles);
+    setSelected(null);
   };
 
   const dark = layout?.dark;
@@ -83,7 +102,17 @@ export default function VisualSectionEditor({
 
   const field = (k: string, cls = '') =>
     byKey[k] ? (
-      <InlineField key={k} value={val(k)} onChange={v => setVal(k, v)} hint={hint(k)} changed={isChanged(k)} className={cls} />
+      <InlineField
+        key={k}
+        value={val(k)}
+        onChange={v => setVal(k, v)}
+        hint={hint(k)}
+        changed={isChanged(k) || styleChanged(k)}
+        active={selected === k}
+        onFocus={() => setSelected(k)}
+        style={styleToCss(styles[k])}
+        className={cls}
+      />
     ) : null;
 
   const renderGroup = (g: Group, i: number) => {
@@ -209,8 +238,24 @@ export default function VisualSectionEditor({
   const covered = new Set([...(layout?.left || []), ...(layout?.right || [])].flatMap(groupKeys));
   const rest = sectionFields.filter(f => !covered.has(f.key));
 
+  useEffect(() => {
+    loadStyleFonts(savedStyles);
+    setSelected(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section]);
+
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 ${selected ? 'lg:mr-[340px]' : ''} transition-[margin]`}>
+      {selected && byKey[selected] && (
+        <TextStylePanel
+          title={byKey[selected].title}
+          value={val(selected)}
+          style={styleOf(selected)}
+          onText={v => setVal(selected, v)}
+          onStyle={st => setStyle(selected, st)}
+          onClose={() => setSelected(null)}
+        />
+      )}
       <div className="sticky top-[64px] z-10 flex flex-wrap items-center justify-between gap-3 bg-white rounded-2xl border border-border p-3 sm:p-4 shadow-sm">
         <div className="flex items-center gap-2.5 min-w-0">
           <div className="w-9 h-9 rounded-xl bg-forest text-white flex items-center justify-center shrink-0">
@@ -219,7 +264,7 @@ export default function VisualSectionEditor({
           <div className="min-w-0">
             <div className="font-extrabold text-forest truncate">{section}</div>
             <div className="text-[11px] text-muted-foreground">
-              {totalChanged ? `Изменено: ${totalChanged}` : 'Нажмите на любой текст или картинку, чтобы изменить'}
+              {totalChanged ? `Изменено: ${totalChanged}` : 'Нажмите на текст — справа откроется панель оформления'}
             </div>
           </div>
         </div>

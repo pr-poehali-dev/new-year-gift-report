@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, ReactNode } from 'react';
 import func2url from '../../backend/func2url.json';
 import EditableText from '@/components/EditableText';
+import { TEXT_STYLES_KEY, loadStyleFonts, parseTextStyles, styleToCss } from '@/lib/textStyles';
 
 export interface TextField {
   key: string;
@@ -105,6 +106,7 @@ export function SiteTextsProvider({ children }: { children: ReactNode }) {
         setValues(d.values || {});
         setSettings(d.settings || {});
         applyTheme(d.settings || {});
+        loadStyleFonts(parseTextStyles((d.settings || {})[TEXT_STYLES_KEY]));
       })
       .catch(() => undefined);
   }, []);
@@ -141,12 +143,25 @@ export function useTextRaw() {
   return (key: string, fallback: string) => values[key] ?? fallback;
 }
 
+export function useTextStyle() {
+  const { settings } = useContext(SiteTextsContext);
+  const styles = parseTextStyles(settings[TEXT_STYLES_KEY]);
+  return (key: string, withSize = true) => styleToCss(styles[key], withSize);
+}
+
 export function useText() {
-  const { values, editMode } = useContext(SiteTextsContext);
+  const { values, settings, editMode } = useContext(SiteTextsContext);
+  const styles = parseTextStyles(settings[TEXT_STYLES_KEY]);
   return (key: string, fallback: string): ReactNode => {
     const value = values[key] ?? fallback;
-    if (!editMode) return value;
-    return <EditableText textKey={key} value={value} />;
+    const css = styleToCss(styles[key]);
+    if (editMode) return <EditableText textKey={key} value={value} style={css} />;
+    if (!css) return value;
+    return (
+      <span data-text-key={key} style={css}>
+        {value}
+      </span>
+    );
   };
 }
 
