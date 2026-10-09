@@ -12,6 +12,8 @@ import PackagingEditor from '@/components/admin/PackagingEditor';
 import CompositionEditor from '@/components/admin/CompositionEditor';
 import LeadsEditor from '@/components/admin/LeadsEditor';
 import NotifySettingsEditor from '@/components/admin/NotifySettingsEditor';
+import VisualSectionEditor from '@/components/admin/blocks/VisualSectionEditor';
+import { SECTION_LAYOUTS } from '@/components/admin/blocks/sectionLayouts';
 
 const LEADS_TAB = 'Заявки';
 const NOTIFY_TAB = 'Уведомления';
@@ -23,7 +25,6 @@ const COMPOSITION_TAB = 'Состав подарков';
 const IMAGES_TAB = 'Картинки сайта';
 const DESIGN_TAB = 'Цвета и шрифты';
 const FILES_TAB = 'Файлы для скачивания';
-const SPECIAL_TABS = [LEADS_TAB, NOTIFY_TAB, BLOCKS_TAB, PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB, COMPOSITION_TAB, IMAGES_TAB, FILES_TAB, DESIGN_TAB];
 
 const TAB_ICONS: Record<string, string> = {
   [LEADS_TAB]: 'Inbox',
@@ -46,7 +47,6 @@ export default function Admin() {
   const [fields, setFields] = useState<TextField[]>([]);
   const [settingFields, setSettingFields] = useState<SettingField[]>([]);
   const [draft, setDraft] = useState<Record<string, string>>({});
-  const [saving, setSaving] = useState(false);
   const [activeSection, setActiveSection] = useState('');
 
   const { reload: reloadSite } = useSiteContext();
@@ -99,7 +99,7 @@ export default function Admin() {
       { title: 'Клиенты', items: [LEADS_TAB, NOTIFY_TAB] },
       { title: 'Страница', items: [BLOCKS_TAB] },
       { title: 'Каталог', items: [PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB, COMPOSITION_TAB] },
-      { title: 'Тексты блоков', items: textSections },
+      { title: 'Блоки сайта', items: textSections },
       { title: 'Оформление', items: [IMAGES_TAB, DESIGN_TAB, FILES_TAB] },
     ];
   }, [fields]);
@@ -114,29 +114,6 @@ export default function Admin() {
     Object.fromEntries(changed.map(f => [f.key, draft[f.key]])),
     changed.length > 0,
   );
-
-  const save = async () => {
-    if (!changed.length) return;
-    setSaving(true);
-    const res = await fetch(TEXTS_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Admin-Password': sessionStorage.getItem('admin_pw') || '',
-      },
-      body: JSON.stringify({
-        updates: Object.fromEntries(changed.map(f => [f.key, draft[f.key]])),
-      }),
-    });
-    setSaving(false);
-    if (res.ok) {
-      clearDraft(TEXTS_DRAFT_KEY);
-      toast.success('Сохранено! Обновите главную страницу, чтобы увидеть изменения');
-      loadFields();
-    } else {
-      toast.error('Не удалось сохранить');
-    }
-  };
 
   const logout = () => {
     sessionStorage.removeItem('admin_pw');
@@ -166,15 +143,13 @@ export default function Admin() {
     );
   }
 
-  const visible = fields.filter(f => f.section === activeSection);
-
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-20 bg-forest text-forest-foreground">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <img src="/logo-light.png" alt="" className="h-9 w-auto" />
-            <div className="font-extrabold text-sm sm:text-base">Редактор надписей</div>
+            <div className="font-extrabold text-sm sm:text-base">Редактор сайта</div>
           </div>
           <div className="flex items-center gap-2">
             <a href="/?edit=1" className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/20 px-3 py-1.5 text-xs font-bold hover:bg-white/20 transition whitespace-nowrap">
@@ -188,15 +163,6 @@ export default function Admin() {
             <button onClick={logout} className="text-xs font-semibold hover:text-secondary transition px-2">
               Выйти
             </button>
-            {!SPECIAL_TABS.includes(activeSection) && (
-              <Button
-                onClick={save}
-                disabled={!changed.length || saving}
-                className="rounded-full font-bold bg-secondary text-secondary-foreground hover:brightness-105"
-              >
-                {saving ? 'Сохраняем...' : changed.length ? `Сохранить (${changed.length})` : 'Сохранено'}
-              </Button>
-            )}
           </div>
         </div>
       </header>
@@ -219,7 +185,7 @@ export default function Admin() {
                         : 'bg-white border border-border text-forest hover:border-forest/40'
                     }`}
                   >
-                    <Icon name={TAB_ICONS[s] || 'Type'} fallback="Type" size={15} className="shrink-0 opacity-80" />
+                    <Icon name={TAB_ICONS[s] || SECTION_LAYOUTS[s]?.icon || 'Type'} fallback="Type" size={15} className="shrink-0 opacity-80" />
                     {s}
                   </button>
                 ))}
@@ -249,51 +215,18 @@ export default function Admin() {
         ) : activeSection === DESIGN_TAB ? (
           <DesignEditor fields={settingFields} kinds={['color', 'font', 'fontsize']} onSaved={loadFields} />
         ) : (
-        <div className="space-y-4">
-          {activeSection === 'Каталог подарков' && (
-            <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setActiveSection(FILTERS_TAB)}
-                className="inline-flex items-center gap-1.5 rounded-full bg-white border border-border px-3.5 py-2 text-xs font-bold text-forest hover:border-forest/50 transition"
-              >
-                <Icon name="SlidersHorizontal" size={14} />
-                Кнопки фильтра
-              </button>
-              <button
-                onClick={() => setActiveSection(PRODUCTS_TAB)}
-                className="inline-flex items-center gap-1.5 rounded-full bg-white border border-border px-3.5 py-2 text-xs font-bold text-forest hover:border-forest/50 transition"
-              >
-                <Icon name="Gift" size={14} />
-                Подарки в каталоге
-              </button>
-            </div>
-          )}
-          {visible.map(f => (
-            <div key={f.key} className="bg-white rounded-2xl border border-border p-4 sm:p-5">
-              <label className="block text-xs font-bold text-forest mb-2">{f.title}</label>
-              {f.multiline ? (
-                <textarea
-                  value={draft[f.key] ?? ''}
-                  onChange={e => setDraft({ ...draft, [f.key]: e.target.value })}
-                  rows={3}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-forest transition resize-y"
-                />
-              ) : (
-                <input
-                  value={draft[f.key] ?? ''}
-                  onChange={e => setDraft({ ...draft, [f.key]: e.target.value })}
-                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-forest transition"
-                />
-              )}
-              {draft[f.key] !== f.value && (
-                <div className="mt-2 flex items-center gap-1.5 text-[11px] text-primary font-semibold">
-                  <Icon name="Pencil" size={12} />
-                  Изменено — не забудьте сохранить
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+          <VisualSectionEditor
+            section={activeSection}
+            fields={fields}
+            settingFields={settingFields}
+            textDraft={draft}
+            setTextDraft={setDraft}
+            onSaved={() => {
+              clearDraft(TEXTS_DRAFT_KEY);
+              loadFields();
+            }}
+            onOpen={setActiveSection}
+          />
         )}
       </div>
     </div>
