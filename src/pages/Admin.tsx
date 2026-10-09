@@ -22,9 +22,7 @@ const PRODUCTS_TAB = 'Подарки в каталоге';
 const FILTERS_TAB = 'Кнопки фильтра';
 const PACKAGING_TAB = 'Виды упаковки';
 const COMPOSITION_TAB = 'Состав подарков';
-const IMAGES_TAB = 'Картинки сайта';
 const DESIGN_TAB = 'Цвета и шрифты';
-const FILES_TAB = 'Файлы для скачивания';
 
 const TAB_ICONS: Record<string, string> = {
   [LEADS_TAB]: 'Inbox',
@@ -34,8 +32,6 @@ const TAB_ICONS: Record<string, string> = {
   [FILTERS_TAB]: 'SlidersHorizontal',
   [PACKAGING_TAB]: 'Package',
   [COMPOSITION_TAB]: 'Candy',
-  [IMAGES_TAB]: 'Image',
-  [FILES_TAB]: 'FileDown',
   [DESIGN_TAB]: 'Palette',
 };
 const TEXTS_DRAFT_KEY = 'admin_texts_draft';
@@ -100,7 +96,7 @@ export default function Admin() {
       { title: 'Страница', items: [BLOCKS_TAB] },
       { title: 'Каталог', items: [PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB, COMPOSITION_TAB] },
       { title: 'Блоки сайта', items: textSections },
-      { title: 'Оформление', items: [IMAGES_TAB, DESIGN_TAB, FILES_TAB] },
+      { title: 'Оформление', items: [DESIGN_TAB] },
     ];
   }, [fields]);
 
@@ -208,10 +204,6 @@ export default function Admin() {
           <PackagingEditor fields={settingFields} onSaved={loadFields} />
         ) : activeSection === PRODUCTS_TAB ? (
           <ProductsEditor />
-        ) : activeSection === IMAGES_TAB ? (
-          <DesignEditor fields={settingFields} kinds={['image']} onSaved={loadFields} />
-        ) : activeSection === FILES_TAB ? (
-          <DesignEditor fields={settingFields} kinds={['file']} onSaved={loadFields} />
         ) : activeSection === DESIGN_TAB ? (
           <DesignEditor fields={settingFields} kinds={['color', 'font', 'fontsize']} onSaved={loadFields} />
         ) : (
