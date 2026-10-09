@@ -30,13 +30,13 @@ export default function CorporateSection({ onRequest }: CorporateSectionProps) {
           <div className="grid lg:grid-cols-2 rounded-3xl overflow-hidden">
             <div className="bg-primary text-white p-6 sm:p-12 order-2 lg:order-1 flex flex-col justify-center items-start">
               <div className="inline-block rounded-full bg-secondary text-secondary-foreground px-4 py-1.5 text-[10px] font-extrabold tracking-[0.16em] uppercase">
-                {t('corp.badge', 'Для компаний и организаций')}
+                {t('corp.badge', 'Корпоративные новогодние подарки')}
               </div>
               <h2 className="mt-6 text-2xl sm:text-4xl font-black leading-tight">
                 {t('corp.title', 'Подарки сотрудникам, клиентам и детям')}
               </h2>
               <p className="mt-4 text-sm sm:text-base text-white/85 leading-relaxed max-w-md">
-                {t('corp.text', 'Соберём заказ под ваш бюджет, нанесём фирменный логотип и организуем доставку в нужный день.')}
+                {t('corp.text', 'Соберём корпоративные новогодние подарки под ваш бюджет: сладкие подарки оптом от 50 штук, фирменный логотип на упаковке и доставка по Чебоксарам и всей России в нужный день.')}
               </p>
 
               <div className="mt-6 w-full grid sm:grid-cols-2 gap-2.5">

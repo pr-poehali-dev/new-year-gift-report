@@ -58,11 +58,11 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                 {t('catalog.eyebrow', 'Найдите свой подарок')}
               </div>
               <h2 className="text-3xl sm:text-6xl title-festive">
-                {t('catalog.title', 'Праздник на любой вкус')}
+                {t('catalog.title', 'Новогодние подарки на любой вкус')}
               </h2>
             </div>
             <p className="text-xs sm:text-base text-muted-foreground lg:pb-2">
-              {t('catalog.text', 'От небольших ярких коробок до солидных премиальных наборов — выбирайте упаковку, вес и бюджет')}
+              {t('catalog.text', 'Каталог сладких новогодних подарков в Чебоксарах: от ярких детских коробок до премиальных наборов. Выбирайте упаковку, вес и бюджет — для семьи или для всего коллектива.')}
             </p>
           </div>
 

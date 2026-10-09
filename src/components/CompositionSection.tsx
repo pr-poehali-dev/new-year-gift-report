@@ -32,7 +32,7 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
             {t('comp.title', 'Состав, которому доверяют родители')}
           </h2>
           <p className="mt-5 text-sm sm:text-base text-white/85 max-w-lg leading-relaxed">
-            {t('comp.text', 'Собираем подарки из популярных конфет крупнейших российских фабрик. Качество и безопасность подтверждены сертификатами.')}
+            {t('comp.text', 'Собираем сладкие новогодние подарки из популярных конфет крупнейших российских фабрик. Качество и безопасность подтверждены сертификатами.')}
           </p>
 
           <div className="mt-7 flex flex-wrap gap-2">

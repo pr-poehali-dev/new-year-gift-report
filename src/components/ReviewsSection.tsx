@@ -41,7 +41,7 @@ export default function ReviewsSection() {
         </div>
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
           <h2 className="text-4xl sm:text-6xl title-festive">
-            {t('rev.title', 'Отзывы наших клиентов')}
+            {t('rev.title', 'Отзывы о наших новогодних подарках')}
           </h2>
 
           <div className="flex flex-wrap gap-3">

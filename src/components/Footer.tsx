@@ -31,7 +31,7 @@ export default function Footer() {
         </div>
 
         <p className="text-xs text-forest-foreground/60 lg:text-center">
-          {t('foot.tagline', 'Новогодние сладкие подарки оптом и в розницу с доставкой по России.')}
+          {t('foot.tagline', 'Сладкие новогодние подарки в Чебоксарах: оптом и в розницу, корпоративные заказы с доставкой по России.')}
         </p>
 
         <nav className="flex flex-wrap gap-5 text-sm font-semibold lg:justify-end">

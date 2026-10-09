@@ -78,7 +78,7 @@ export default function HeroSection() {
           <div>
             <div className="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5 text-xs sm:text-sm font-extrabold tracking-widest uppercase">
               <span className="hero-badge-star">❄</span>
-              <span className="hero-badge-text" style={ts('hero.badge')}>{tr('hero.badge', '★ Новогодняя коллекция 2026/27').replace(/^[★☆✦\s]+/, '')}</span>
+              <span className="hero-badge-text" style={ts('hero.badge')}>{tr('hero.badge', '★ Новогодние подарки в Чебоксарах · коллекция 2027').replace(/^[★☆✦\s]+/, '')}</span>
               <span className="hero-badge-star">❄</span>
             </div>
 
@@ -95,7 +95,7 @@ export default function HeroSection() {
             </h1>
 
             <p className="hero-lead mt-5 max-w-lg rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-semibold leading-relaxed">
-              <span style={ts('hero.text')}>{highlight(tr('hero.text', 'Любимые сладости в волшебной упаковке — детям, близким, коллегам и партнёрам. Оптом и в розницу с доставкой по всей России.'))}</span>
+              <span style={ts('hero.text')}>{highlight(tr('hero.text', 'Сладкие новогодние подарки в Чебоксарах — детям, близким, коллегам и партнёрам. Любимые конфеты в волшебной упаковке, сладкие подарки оптом и в розницу с доставкой по всей России.'))}</span>
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">

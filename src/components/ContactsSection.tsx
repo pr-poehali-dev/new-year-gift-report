@@ -68,7 +68,7 @@ export default function ContactsSection() {
             {t('cont.title', 'Давайте соберём ваш идеальный подарок')}
           </h2>
           <p className="mt-5 text-sm sm:text-base text-white/85 max-w-md leading-relaxed">
-            {t('cont.text', 'Позвоните или оставьте заявку — поможем выбрать упаковку, вес и состав.')}
+            {t('cont.text', 'Позвоните или оставьте заявку — подберём новогодние подарки в Чебоксарах под ваш бюджет и рассчитаем стоимость сладких подарков оптом для организации.')}
           </p>
 
           <div className="mt-8 space-y-4">
