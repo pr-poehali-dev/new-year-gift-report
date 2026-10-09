@@ -5,8 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import About from "./pages/About";
-import Callback from "./pages/Callback";
 import Reviews from "./pages/Reviews";
 import AllReviews from "./pages/AllReviews";
 import NotFound from "./pages/NotFound";
@@ -25,8 +23,6 @@ const App = () => (
         <SiteTextsProvider>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/callback" element={<Callback />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/all-reviews" element={<AllReviews />} />
           <Route path="/admin" element={<Admin />} />
