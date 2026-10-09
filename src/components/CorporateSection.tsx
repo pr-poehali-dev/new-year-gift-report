@@ -28,7 +28,7 @@ export default function CorporateSection({ onRequest }: CorporateSectionProps) {
       <section id="corporate" className="bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-14 sm:pb-20">
           <div className="grid lg:grid-cols-2 rounded-3xl overflow-hidden">
-            <div className="bg-primary text-white p-6 sm:p-12 order-2 lg:order-1">
+            <div className="bg-primary text-white p-6 sm:p-12 order-2 lg:order-1 flex flex-col justify-center items-start">
               <div className="inline-block rounded-full bg-secondary text-secondary-foreground px-4 py-1.5 text-[10px] font-extrabold tracking-[0.16em] uppercase">
                 {t('corp.badge', 'Для компаний и организаций')}
               </div>
@@ -39,7 +39,7 @@ export default function CorporateSection({ onRequest }: CorporateSectionProps) {
                 {t('corp.text', 'Соберём заказ под ваш бюджет, нанесём фирменный логотип и организуем доставку в нужный день.')}
               </p>
 
-              <div className="mt-6 grid sm:grid-cols-2 gap-2.5">
+              <div className="mt-6 w-full grid sm:grid-cols-2 gap-2.5">
                 {benefits.map((b, i) => (
                   <div key={i} className="flex items-center gap-2 text-xs sm:text-sm">
                     <Icon name="Check" size={15} className="text-secondary shrink-0" />
