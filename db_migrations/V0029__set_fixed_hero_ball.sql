@@ -1,0 +1,1 @@
+UPDATE t_p8000729_new_year_gift_report.site_settings SET value = '/hero-ball.webp', updated_at = NOW() WHERE setting_key = 'img.hero';

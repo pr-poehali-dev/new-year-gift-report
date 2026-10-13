@@ -126,7 +126,7 @@ export default function HeroSection() {
           </div>
 
           <div className="relative">
-            <BlendImage src={(() => { const u = s('img.hero', heroImage); return u.includes('1820e4f1-37fc-4718-856d-77af643145cc') ? '/hero-ball.webp' : u; })()} alt="Новогодние подарочные наборы" highlight className="max-w-[560px] mx-auto -my-6 sm:-my-10" />
+            <BlendImage src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" highlight className="max-w-[560px] mx-auto -my-6 sm:-my-10" />
 
             <div className="animate-float absolute -top-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
               <span className="font-extrabold text-xs sm:text-sm">{t('hero.price', 'от 590 ₽')}</span>
