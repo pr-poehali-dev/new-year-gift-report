@@ -3,7 +3,7 @@ import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import ProductCatalog from '@/components/ProductCatalog';
 import CompositionSection from '@/components/CompositionSection';
-import AboutSection from '@/components/AboutSection';
+import AboutCorporateSection from '@/components/AboutCorporateSection';
 import CorporateSection from '@/components/CorporateSection';
 import ReviewsSection from '@/components/ReviewsSection';
 import ContactsSection from '@/components/ContactsSection';
@@ -25,8 +25,8 @@ export default function Index() {
     hero: <HeroSection />,
     catalog: <ProductCatalog onRequest={scrollToContacts} />,
     composition: <CompositionSection onOpenComposition={w => { setCompositionWeight(w); setCompositionModalOpen(true); }} />,
-    about: <AboutSection />,
-    corporate: <CorporateSection onRequest={scrollToContacts} />,
+    about: <AboutCorporateSection onRequest={scrollToContacts} />,
+    corporate: <CorporateSection />,
     reviews: <ReviewsSection />,
     contacts: <ContactsSection />,
   };

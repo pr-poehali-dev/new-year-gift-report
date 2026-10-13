@@ -1,0 +1,1 @@
+UPDATE t_p8000729_new_year_gift_report.site_settings SET value = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/bucket/e9823c55-6762-4509-b4de-c7ee62a8ebf9.jpg', title = 'Картинка в блоке «О нас и организациям»', updated_at = NOW() WHERE setting_key = 'img.corporate';
