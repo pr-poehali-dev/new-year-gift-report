@@ -4,11 +4,12 @@ interface BlendImageProps {
   src: string;
   alt: string;
   className?: string;
+  highlight?: boolean;
 }
 
 const MASK = 'radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, rgba(0,0,0,0.6) 72%, transparent 100%)';
 
-export default function BlendImage({ src, alt, className = '' }: BlendImageProps) {
+export default function BlendImage({ src, alt, className = '', highlight = false }: BlendImageProps) {
   const sparkles = useMemo(
     () =>
       Array.from({ length: 14 }, (_, i) => ({
@@ -26,12 +27,24 @@ export default function BlendImage({ src, alt, className = '' }: BlendImageProps
     <div className={`relative ${className}`}>
       <div className="absolute inset-[12%] rounded-full bg-[radial-gradient(circle,rgba(255,214,120,0.45),transparent_70%)] blur-2xl animate-twinkle" style={{ animationDuration: '5s' }} />
       <div className="relative animate-float" style={{ animationDuration: '7s' }}>
-        <img
-          src={src}
-          alt={alt}
-          className="w-full aspect-square object-cover"
-          style={{ WebkitMaskImage: MASK, maskImage: MASK }}
-        />
+        {highlight ? (
+          <img
+            src={src}
+            alt={alt}
+            className="w-full aspect-[6/7] object-contain"
+            style={{
+              filter:
+                'brightness(1.06) contrast(1.06) saturate(1.1) drop-shadow(0 0 2px rgba(255,255,255,0.85)) drop-shadow(0 0 22px rgba(255,220,140,0.55)) drop-shadow(0 18px 30px rgba(5,10,40,0.55))',
+            }}
+          />
+        ) : (
+          <img
+            src={src}
+            alt={alt}
+            className="w-full aspect-square object-cover"
+            style={{ WebkitMaskImage: MASK, maskImage: MASK }}
+          />
+        )}
       </div>
       {sparkles.map(s => (
         <svg
