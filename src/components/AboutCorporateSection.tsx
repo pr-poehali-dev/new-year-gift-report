@@ -33,7 +33,7 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
             {t('about.bignum', '15')}
           </span>
 
-          <div className="relative grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-stretch gap-6 lg:gap-8 p-4 sm:p-8 lg:p-10">
+          <div className="relative grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-stretch gap-6 lg:gap-8 p-4 sm:p-8 lg:p-10">
             <div className="min-w-0 flex flex-col gap-6 order-2 lg:order-1">
               <div className="px-2 sm:px-2 pt-2">
                 <div className="eyebrow-script text-primary mb-2">
@@ -45,17 +45,6 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
                 <p className="mt-5 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl">
                   {t('about.text', '«ЧЕБподарки» с 2010 года собирает новогодние подарки в Чебоксарах и напрямую работает с крупнейшими кондитерскими фабриками. Поэтому наши сладкие подарки оптом и в розницу — это свежие конфеты, честная цена и праздничное настроение.')}
                 </p>
-
-                <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                  {stats.map((st, i) => (
-                    <div key={i} className="rounded-2xl bg-white border border-border px-3 py-3">
-                      <div className="text-2xl sm:text-3xl font-extrabold text-primary">{st.value}</div>
-                      <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground">
-                        {st.label}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               <div id="corporate" className="scroll-mt-24 lg:flex-1 flex flex-col justify-center rounded-3xl bg-primary text-white p-6 sm:p-8 shadow-xl">
@@ -94,14 +83,24 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
               </div>
             </div>
 
-            <div className="order-1 lg:order-2 flex justify-center">
-              <div className="relative w-full max-w-[460px] lg:max-w-none rounded-3xl overflow-hidden shadow-2xl lg:h-full lg:min-h-0">
+            <div className="order-1 lg:order-2 flex flex-col items-center gap-4">
+              <div className="relative w-full max-w-[460px] lg:max-w-none rounded-3xl overflow-hidden shadow-2xl">
                 <img
                   src={s('img.corporate', ABOUT_IMAGE)}
                   alt="О компании ЧЕБподарки"
-                  className="block w-full h-auto lg:h-full lg:object-cover lg:object-center"
+                  className="block w-full h-auto"
                   loading="lazy"
                 />
+              </div>
+              <div className="w-full max-w-[460px] lg:max-w-none lg:flex-1 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                {stats.map((st, i) => (
+                  <div key={i} className="rounded-2xl bg-white border border-border px-3 py-3 flex flex-col justify-center">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-primary">{st.value}</div>
+                    <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground">
+                      {st.label}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
