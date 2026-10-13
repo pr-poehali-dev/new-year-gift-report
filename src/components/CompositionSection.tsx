@@ -71,7 +71,7 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
           </button>
         </div>
 
-        <div className="relative">
+        <div className="hero-float-soft relative">
           <BlendImage src={st('img.composition', compositionImage)} alt="Состав подарка" className="max-w-[340px] sm:max-w-[420px] md:max-w-[540px] mx-auto -my-4 sm:-my-8 lg:-my-10" />
           <div className="animate-float absolute bottom-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
             <span className="font-extrabold text-base sm:text-lg">{t('comp.badge', '100%')}</span>
