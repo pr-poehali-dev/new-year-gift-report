@@ -51,7 +51,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   return (
     <>
       <section id="catalog" className="bg-background">
-        <div className="mx-auto max-w-7xl px-3 sm:px-6 py-10 sm:py-20">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 pt-8 pb-10 sm:pt-12 sm:pb-12">
           <div className="grid lg:grid-cols-2 gap-2 sm:gap-6 lg:items-end mb-5 sm:mb-8">
             <div>
               <div className="eyebrow-script text-primary mb-1 sm:mb-2">
@@ -193,11 +193,11 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
 
       {packagingTypes.length > 0 && (
       <section id="packaging" className="bg-background">
-        <div className="mx-auto max-w-7xl px-3 sm:px-6 pb-10 sm:pb-20">
-          <div className="eyebrow-script text-primary mb-1 sm:mb-2">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 pb-10 sm:pb-14">
+          <div className="eyebrow-script text-primary mb-1">
             {t('pack.eyebrow', 'Упаковка — часть чуда')}
           </div>
-          <h2 className="text-3xl sm:text-6xl title-festive mb-5 sm:mb-8">
+          <h2 className="text-3xl sm:text-5xl title-festive mb-4 sm:mb-6">
             {t('pack.title', 'Какой будет ваш подарок?')}
           </h2>
 
@@ -205,13 +205,17 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             {packagingTypes.map((type, i) => (
               <div
                 key={type.name + i}
-                className={`${(PACKAGING_COLORS[type.color] || PACKAGING_COLORS.rose).bg} rounded-2xl sm:rounded-3xl p-3.5 sm:p-6 flex flex-col items-center text-center`}
+                className={`${(PACKAGING_COLORS[type.color] || PACKAGING_COLORS.rose).bg} rounded-2xl p-3 sm:p-4 flex items-center gap-3 text-left`}
               >
-                <Icon name={type.icon} fallback="Gift" size={22} className="text-forest sm:w-7 sm:h-7" />
-                <h3 className="mt-2 sm:mt-4 text-sm sm:text-lg font-black text-forest">{type.name}</h3>
-                <p className="mt-1 sm:mt-2 text-[11px] sm:text-xs text-muted-foreground leading-snug sm:leading-relaxed">
-                  {type.description}
-                </p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/80 flex items-center justify-center shrink-0 shadow-sm">
+                  <Icon name={type.icon} fallback="Gift" size={20} className="text-forest sm:w-6 sm:h-6" />
+                </div>
+                <div className="min-w-0">
+                  <h3 className="text-sm sm:text-base font-black text-forest leading-tight">{type.name}</h3>
+                  <p className="mt-0.5 text-[11px] sm:text-xs text-muted-foreground leading-snug">
+                    {type.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

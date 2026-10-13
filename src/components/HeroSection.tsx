@@ -147,18 +147,20 @@ export default function HeroSection() {
       </div>
 
       <div className="bg-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 grid grid-cols-2 lg:grid-cols-4 gap-5">
-          {advantages.map((a, i) => (
-            <div key={i} className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white border border-border flex items-center justify-center shrink-0">
-                <Icon name={a.icon} size={18} className="text-primary" />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6 pb-2 sm:pt-8 sm:pb-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl sm:rounded-3xl bg-border border border-border shadow-sm overflow-hidden">
+            {advantages.map((a, i) => (
+              <div key={i} className="bg-white flex items-center gap-3 px-3 py-3.5 sm:px-5 sm:py-5">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 ${i % 2 === 0 ? 'bg-primary/10 text-primary' : 'bg-forest/10 text-forest'}`}>
+                  <Icon name={a.icon} size={20} />
+                </div>
+                <div className="min-w-0">
+                  <div className="font-bold text-[13px] sm:text-[15px] text-forest leading-tight">{a.title}</div>
+                  <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 leading-snug">{a.text}</div>
+                </div>
               </div>
-              <div>
-                <div className="font-bold text-sm text-forest">{a.title}</div>
-                <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5">{a.text}</div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
