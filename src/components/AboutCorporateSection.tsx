@@ -12,7 +12,7 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
   const s = useSetting();
 
   const stats = [
-    { value: t('about.s1v', '15+'), label: t('about.s1l', 'лет опыта') },
+    { value: t('about.s1v', '12+'), label: t('about.s1l', 'лет опыта') },
     { value: t('about.s2v', '4'), label: t('about.s2l', 'вида упаковки') },
     { value: t('about.s3v', '3'), label: t('about.s3l', 'варианта веса') },
     { value: t('about.s4v', 'РФ'), label: t('about.s4l', 'география доставки') },
@@ -30,7 +30,7 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
         <div className="relative overflow-hidden rounded-3xl bg-[hsl(40_45%_90%)]">
           <span className="pointer-events-none absolute top-2 left-[45%] text-[120px] sm:text-[200px] font-extrabold text-white/50 leading-none select-none">
-            {t('about.bignum', '15')}
+            {t('about.bignum', '12')}
           </span>
 
           <div className="relative grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-stretch gap-6 lg:gap-8 p-4 sm:p-8 lg:p-10">

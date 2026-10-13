@@ -1,0 +1,2 @@
+UPDATE t_p8000729_new_year_gift_report.site_texts SET value = '12+', updated_at = NOW() WHERE text_key = 'about.s1v';
+UPDATE t_p8000729_new_year_gift_report.site_texts SET value = '12', updated_at = NOW() WHERE text_key = 'about.bignum';
