@@ -23,12 +23,12 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
   return (
     <section id="composition" className="relative bg-[#141238] text-forest-foreground">
       <FestiveBackground image={st('img.compositionBg', villageBgImage)} flakes={40} overlay="linear-gradient(90deg, rgba(12,16,48,0.9) 0%, rgba(20,18,60,0.75) 50%, rgba(20,18,60,0.45) 100%)" />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 lg:py-20 grid md:grid-cols-2 gap-6 lg:gap-10 items-center">
         <div>
           <div className="eyebrow-script text-festive-gold mb-2">
             {t('comp.eyebrow', 'Внутри — только радость')}
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black leading-tight text-glow">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-glow">
             {t('comp.title', 'Состав, которому доверяют родители')}
           </h2>
           <p className="mt-5 text-sm sm:text-base text-white/85 max-w-lg leading-relaxed">
@@ -51,7 +51,7 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
             ))}
           </div>
 
-          <div className="mt-7 grid sm:grid-cols-2 gap-3">
+          <div className="mt-6 lg:mt-7 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-3">
             {[activeSet?.candies, 'Сертификат качества'].filter(Boolean).map(item => (
               <div key={item} className="flex items-center gap-2.5 text-sm">
                 <span className="w-5 h-5 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center shrink-0">
@@ -72,10 +72,10 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
         </div>
 
         <div className="relative">
-          <BlendImage src={st('img.composition', compositionImage)} alt="Состав подарка" className="max-w-[540px] mx-auto -my-6 sm:-my-10" />
+          <BlendImage src={st('img.composition', compositionImage)} alt="Состав подарка" className="max-w-[340px] sm:max-w-[420px] md:max-w-[540px] mx-auto -my-4 sm:-my-8 lg:-my-10" />
           <div className="animate-float absolute bottom-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
             <span className="font-extrabold text-base sm:text-lg">{t('comp.badge', '100%')}</span>
-            <span className="text-[8px] sm:text-[9px] font-bold uppercase tracking-wide">{t('comp.badgeSub', 'контроль качества')}</span>
+            <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wide">{t('comp.badgeSub', 'контроль качества')}</span>
           </div>
         </div>
       </div>

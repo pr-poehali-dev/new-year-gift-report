@@ -59,12 +59,12 @@ export default function ContactsSection() {
   return (
     <section id="contacts" className="relative bg-[#141238] text-forest-foreground">
       <FestiveBackground image={st('img.contactsBg', villageBgImage)} flakes={40} overlay="linear-gradient(90deg, rgba(12,16,48,0.9) 0%, rgba(20,18,60,0.75) 50%, rgba(20,18,60,0.45) 100%)" />
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20 grid lg:grid-cols-2 gap-10 items-center">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 lg:py-20 grid md:grid-cols-2 gap-8 lg:gap-10 items-center">
         <div>
           <div className="eyebrow-script text-festive-gold mb-2">
             {t('cont.eyebrow', 'Мы рядом')}
           </div>
-          <h2 className="text-4xl sm:text-6xl title-festive-light">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl title-festive-light">
             {t('cont.title', 'Давайте соберём ваш идеальный подарок')}
           </h2>
           <p className="mt-5 text-sm sm:text-base text-white/85 max-w-md leading-relaxed">

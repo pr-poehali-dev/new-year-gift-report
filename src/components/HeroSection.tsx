@@ -74,31 +74,31 @@ export default function HeroSection() {
     <section id="home">
       <div className="relative bg-[#141238] text-forest-foreground">
         <FestiveBackground image={s('img.heroBg', heroBgImage)} overlay="linear-gradient(90deg, rgba(10,22,70,0.85) 0%, rgba(14,30,90,0.55) 45%, rgba(14,30,90,0.15) 100%)" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-16 pb-12 sm:pt-24 sm:pb-20 grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-8 sm:pt-16 sm:pb-14 lg:pt-24 lg:pb-20 grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-cols-2 gap-6 md:gap-6 lg:gap-14 items-center">
           <div>
-            <div className="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5 text-xs sm:text-sm font-extrabold tracking-widest uppercase">
+            <div className="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5 text-xs sm:text-sm md:text-[11px] lg:text-sm font-extrabold tracking-widest md:tracking-wide lg:tracking-widest uppercase md:px-4 lg:px-5">
               <span className="hero-badge-star">❄</span>
               <span className="hero-badge-text" style={ts('hero.badge')}>{tr('hero.badge', '★ Новогодние подарки в Чебоксарах · коллекция 2027').replace(/^[★☆✦\s]+/, '')}</span>
               <span className="hero-badge-star">❄</span>
             </div>
 
-            <h1 className="mt-6 text-4xl sm:text-6xl font-normal leading-[1.2] tracking-[0.01em]" style={{ fontFamily: "'Lobster', cursive" }}>
+            <h1 className="mt-5 sm:mt-6 text-4xl sm:text-5xl md:text-[44px] lg:text-6xl font-normal leading-[1.2] tracking-[0.01em]" style={{ fontFamily: "'Lobster', cursive" }}>
               <SnowDefs />
               <span style={ts('hero.title1')}>
                 <SnowText text={tr('hero.title1', 'Подарки, от которых')} className="snow-fill-bright" />
               </span>
-              <span className="block mt-1 text-5xl sm:text-7xl">
+              <span className="block mt-1 text-5xl sm:text-6xl md:text-[54px] lg:text-7xl">
                 <span style={ts('hero.title2')}>
                   <SnowText text={tr('hero.title2', 'глаза горят')} className="snow-fill-red" />
                 </span>
               </span>
             </h1>
 
-            <p className="hero-lead mt-5 max-w-lg rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-semibold leading-relaxed">
+            <p className="hero-lead mt-5 max-w-lg rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-[15px] sm:text-base lg:text-lg font-semibold leading-relaxed">
               <span style={ts('hero.text')}>{highlight(tr('hero.text', 'Сладкие новогодние подарки в Чебоксарах — детям, близким, коллегам и партнёрам. Любимые конфеты в волшебной упаковке, сладкие подарки оптом и в розницу с доставкой по всей России.'))}</span>
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 lg:mt-8 flex flex-wrap gap-3">
               <button
                 onClick={() => scrollTo('catalog')}
                 className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 sm:px-7 py-3.5 font-bold text-secondary-foreground hover:brightness-105 transition"
@@ -115,10 +115,10 @@ export default function HeroSection() {
               </button>
             </div>
 
-            <div className="mt-10 grid grid-cols-3 gap-2.5 sm:gap-4 max-w-lg">
+            <div className="mt-7 lg:mt-10 grid grid-cols-3 gap-2.5 sm:gap-3 lg:gap-4 max-w-lg">
               {stats.map((s, i) => (
                 <div key={i} className={`hero-stat ${['hero-stat-0', 'hero-stat-1', 'hero-stat-2'][i % 3]}`}>
-                  <div className="hero-stat-value font-display font-black text-sm sm:text-xl leading-tight whitespace-nowrap">{s.value}</div>
+                  <div className="hero-stat-value font-display font-black text-sm sm:text-lg lg:text-xl leading-tight whitespace-nowrap">{s.value}</div>
                   <div className="text-[10px] sm:text-xs font-semibold text-white/90 mt-1.5 leading-tight">{s.label}</div>
                 </div>
               ))}
@@ -126,14 +126,14 @@ export default function HeroSection() {
           </div>
 
           <div className="relative">
-            <BlendImage src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" highlight className="max-w-[560px] mx-auto -my-6 sm:-my-10" />
+            <BlendImage src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" highlight className="max-w-[340px] sm:max-w-[420px] md:max-w-none lg:max-w-[560px] mx-auto -my-4 sm:-my-8 md:-mx-6 md:scale-110 lg:mx-auto lg:scale-100 lg:-my-10" />
 
-            <div className="animate-float absolute -top-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
+            <div className="animate-float absolute -top-4 right-4 sm:right-8 md:-top-8 md:right-0 lg:-top-4 lg:right-8 w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
               <span className="font-extrabold text-xs sm:text-sm">{t('hero.price', 'от 590 ₽')}</span>
-              <span className="text-[8px] sm:text-[9px] opacity-80">{t('hero.priceSub', 'за подарок')}</span>
+              <span className="text-[9px] sm:text-[10px] opacity-80">{t('hero.priceSub', 'за подарок')}</span>
             </div>
 
-            <div className="absolute bottom-2 left-2 sm:left-6 bg-white rounded-2xl shadow-xl px-4 py-3 flex items-center gap-3">
+            <div className="absolute bottom-2 left-2 sm:left-6 bg-white rounded-2xl shadow-xl px-4 py-3 flex md:hidden lg:flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center shrink-0">
                 <Icon name="Check" size={18} />
               </div>

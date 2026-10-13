@@ -27,7 +27,7 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
 
   return (
     <section id="about" className="bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-14 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-14 lg:py-20">
         <div className="relative overflow-hidden rounded-3xl bg-[hsl(40_45%_90%)]">
           <span className="pointer-events-none absolute top-2 left-[45%] text-[120px] sm:text-[200px] font-extrabold text-white/50 leading-none select-none">
             {t('about.bignum', '12')}
@@ -83,8 +83,8 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
               </div>
             </div>
 
-            <div className="order-1 lg:order-2 flex flex-col items-center gap-4">
-              <div className="relative w-full max-w-[460px] lg:max-w-none rounded-3xl overflow-hidden shadow-2xl">
+            <div className="order-1 lg:order-2 flex flex-col md:flex-row lg:flex-col items-center md:items-stretch lg:items-center gap-4">
+              <div className="relative w-full max-w-[460px] md:max-w-[330px] lg:max-w-none shrink-0 rounded-3xl overflow-hidden shadow-2xl">
                 <img
                   src={s('img.corporate', ABOUT_IMAGE)}
                   alt="О компании ЧЕБподарки"
@@ -92,10 +92,10 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
                   loading="lazy"
                 />
               </div>
-              <div className="w-full max-w-[460px] lg:max-w-none lg:flex-1 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <div className="w-full max-w-[460px] md:max-w-none md:flex-1 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 md:auto-rows-fr gap-2.5">
                 {stats.map((st, i) => (
                   <div key={i} className="rounded-2xl bg-white border border-border px-3 py-3 flex flex-col justify-center">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-primary">{st.value}</div>
+                    <div className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl font-extrabold text-primary">{st.value}</div>
                     <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground">
                       {st.label}
                     </div>

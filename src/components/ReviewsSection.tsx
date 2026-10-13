@@ -35,12 +35,12 @@ export default function ReviewsSection() {
 
   return (
     <section id="reviews" className="bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-14 sm:pb-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-20">
         <div className="eyebrow-script text-primary mb-2">
           {t('rev.eyebrow', 'Нам доверяют')}
         </div>
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-          <h2 className="text-4xl sm:text-6xl title-festive">
+          <h2 className="text-3xl sm:text-5xl lg:text-6xl title-festive">
             {t('rev.title', 'Отзывы о наших новогодних подарках')}
           </h2>
 
@@ -62,9 +62,9 @@ export default function ReviewsSection() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {reviews.map(review => (
-            <article key={review.name} className="bg-white rounded-3xl border border-border p-6 flex flex-col">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
+          {reviews.map((review, idx) => (
+            <article key={review.name} className={`bg-white rounded-3xl border border-border p-5 sm:p-6 flex-col ${idx === 2 ? 'flex sm:hidden lg:flex' : 'flex'}`}>
               <div className="flex gap-1">
                 {Array.from({ length: review.rating }).map((_, i) => (
                   <Icon key={i} name="Star" size={16} className="text-secondary fill-secondary" />

@@ -57,7 +57,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
               <div className="eyebrow-script text-primary mb-1 sm:mb-2">
                 {t('catalog.eyebrow', 'Найдите свой подарок')}
               </div>
-              <h2 className="text-3xl sm:text-6xl title-festive">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl title-festive">
                 {t('catalog.title', 'Новогодние подарки на любой вкус')}
               </h2>
             </div>
@@ -101,7 +101,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
           </div>
           )}
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-4 lg:gap-5">
             {filtered.map(product => (
               <article
                 key={product.id}
@@ -119,7 +119,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                       src={product.image}
                       alt={product.name}
                       loading="lazy"
-                      className={`w-full h-28 sm:h-44 object-contain p-2 sm:p-3 cursor-zoom-in ${product.is_sold_out ? 'grayscale opacity-50' : ''}`}
+                      className={`w-full h-32 sm:h-40 lg:h-44 object-contain p-2 sm:p-3 cursor-zoom-in ${product.is_sold_out ? 'grayscale opacity-50' : ''}`}
                     />
                   </button>
                   {product.is_sold_out && (
@@ -139,25 +139,25 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                     </button>
                   )}
                   {product.badge && !product.is_sold_out && (
-                    <span className="absolute top-2 left-2 sm:top-4 sm:left-4 rounded-full bg-primary text-white text-[9px] sm:text-[10px] font-extrabold tracking-wider px-2 py-1 sm:px-3 sm:py-1.5">
+                    <span className="absolute top-2 left-2 sm:top-4 sm:left-4 rounded-full bg-primary text-white text-[10px] font-extrabold tracking-wider px-2 py-1 sm:px-3 sm:py-1.5">
                       {product.badge}
                     </span>
                   )}
                 </div>
 
-                <div className="p-3 sm:p-5 flex flex-col flex-1">
-                  <div className="text-[9px] sm:text-[10px] font-bold tracking-wider sm:tracking-[0.16em] uppercase text-muted-foreground">
+                <div className="p-3 sm:p-4 lg:p-5 flex flex-col flex-1">
+                  <div className="text-[10px] font-bold tracking-wider sm:tracking-[0.16em] uppercase text-muted-foreground">
                     {product.category} • {product.weight}
                   </div>
-                  <h3 className="mt-1 sm:mt-2 text-sm sm:text-lg font-black text-forest leading-tight">{product.name}</h3>
-                  <p className="mt-1 sm:mt-1.5 text-[11px] sm:text-sm text-muted-foreground leading-snug sm:leading-relaxed line-clamp-2 sm:line-clamp-none">
+                  <h3 className="mt-1 sm:mt-2 text-sm sm:text-base lg:text-lg font-black text-forest leading-tight">{product.name}</h3>
+                  <p className="mt-1 sm:mt-1.5 text-[11px] sm:text-sm text-muted-foreground leading-snug sm:leading-relaxed line-clamp-2 lg:line-clamp-none">
                     {product.description}
                   </p>
 
-                  <div className="mt-auto pt-2.5 sm:pt-4 border-t border-border flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-0 sm:mt-5">
-                    <span className="text-sm sm:text-base font-black text-forest">от {product.price.toLocaleString('ru-RU')} ₽</span>
+                  <div className="mt-auto pt-2.5 sm:pt-4 border-t border-border flex flex-col sm:flex-row sm:flex-wrap sm:items-center justify-between gap-1.5 sm:gap-2 sm:mt-4 lg:mt-5">
+                    <span className="text-sm sm:text-base font-black text-forest whitespace-nowrap">от {product.price.toLocaleString('ru-RU')} ₽</span>
                     {product.is_sold_out ? (
-                      <span className="inline-flex items-center justify-center gap-1 rounded-full bg-muted text-muted-foreground py-1.5 sm:px-3 text-xs sm:text-sm font-bold">
+                      <span className="inline-flex items-center justify-center gap-1 rounded-full bg-muted text-muted-foreground py-1.5 sm:px-3 text-xs sm:text-sm font-bold whitespace-nowrap">
                         <Icon name="PackageX" size={15} />
                         Нет в продаже
                       </span>
