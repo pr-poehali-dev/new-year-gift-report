@@ -33,8 +33,8 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
             {t('about.bignum', '15')}
           </span>
 
-          <div className="relative grid lg:grid-cols-12 gap-6 lg:gap-10 p-4 sm:p-8 lg:p-10">
-            <div className="lg:col-span-7 flex flex-col gap-8 order-2 lg:order-1">
+          <div className="relative grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-stretch gap-6 lg:gap-8 p-4 sm:p-8 lg:p-10">
+            <div className="min-w-0 flex flex-col gap-6 order-2 lg:order-1">
               <div className="px-2 sm:px-2 pt-2">
                 <div className="eyebrow-script text-primary mb-2">
                   {t('about.eyebrow', 'С 2010 года')}
@@ -46,9 +46,9 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
                   {t('about.text', '«ЧЕБподарки» с 2010 года собирает новогодние подарки в Чебоксарах и напрямую работает с крупнейшими кондитерскими фабриками. Поэтому наши сладкие подарки оптом и в розницу — это свежие конфеты, честная цена и праздничное настроение.')}
                 </p>
 
-                <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                   {stats.map((st, i) => (
-                    <div key={i} className="rounded-2xl bg-white border border-border p-4">
+                    <div key={i} className="rounded-2xl bg-white border border-border px-3 py-3">
                       <div className="text-2xl sm:text-3xl font-extrabold text-primary">{st.value}</div>
                       <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground">
                         {st.label}
@@ -58,9 +58,15 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
                 </div>
               </div>
 
-              <div id="corporate" className="scroll-mt-24 rounded-3xl bg-primary text-white p-6 sm:p-8 shadow-xl">
-                <div className="inline-block rounded-full bg-secondary text-secondary-foreground px-4 py-1.5 text-[10px] font-extrabold tracking-[0.16em] uppercase">
-                  {t('corp.badge', 'Корпоративные новогодние подарки')}
+              <div id="corporate" className="scroll-mt-24 lg:flex-1 flex flex-col justify-center rounded-3xl bg-primary text-white p-6 sm:p-8 shadow-xl">
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="inline-block rounded-full bg-secondary text-secondary-foreground px-4 py-1.5 text-[10px] font-extrabold tracking-[0.16em] uppercase">
+                    {t('corp.badge', 'Корпоративные новогодние подарки')}
+                  </div>
+                  <div className="inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/10 px-3.5 py-1.5 text-xs">
+                    <span className="font-extrabold">{t('corp.circle', 'от 50 шт.')}</span>
+                    <span className="text-white/80">{t('corp.circleSub', 'особые условия')}</span>
+                  </div>
                 </div>
                 <h3 className="mt-5 text-2xl sm:text-3xl font-black leading-tight">
                   {t('corp.title', 'Подарки сотрудникам, клиентам и детям')}
@@ -80,7 +86,7 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
 
                 <button
                   onClick={onRequest}
-                  className="mt-7 inline-flex items-center gap-2 rounded-full bg-secondary text-secondary-foreground px-7 py-3.5 font-bold hover:brightness-105 transition"
+                  className="mt-7 self-start inline-flex items-center gap-2 rounded-full bg-secondary text-secondary-foreground px-7 py-3.5 font-bold hover:brightness-105 transition"
                 >
                   {t('corp.btn', 'Получить оптовое предложение')}
                   <Icon name="ArrowRight" size={18} />
@@ -88,18 +94,14 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
               </div>
             </div>
 
-            <div className="lg:col-span-5 order-1 lg:order-2">
-              <div className="relative lg:sticky lg:top-24 rounded-3xl overflow-hidden shadow-2xl aspect-[3/4] bg-primary">
+            <div className="order-1 lg:order-2 flex justify-center">
+              <div className="relative w-full max-w-[460px] lg:max-w-none rounded-3xl overflow-hidden shadow-2xl lg:h-full lg:min-h-0">
                 <img
                   src={s('img.corporate', ABOUT_IMAGE)}
                   alt="О компании ЧЕБподарки"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="block w-full h-auto lg:h-full lg:object-cover lg:object-center"
                   loading="lazy"
                 />
-                <div className="absolute bottom-4 right-4 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
-                  <span className="font-extrabold text-sm">{t('corp.circle', 'от 50 шт.')}</span>
-                  <span className="text-[8px] opacity-80">{t('corp.circleSub', 'особые условия')}</span>
-                </div>
               </div>
             </div>
           </div>
