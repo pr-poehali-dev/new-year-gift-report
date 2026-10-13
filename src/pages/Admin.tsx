@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
+import { PRODUCTS_URL } from '@/hooks/useProducts';
 import { TEXTS_URL, TextField, SettingField, applyTheme, useSiteContext } from '@/hooks/useSiteTexts';
 import { clearDraft, loadDraft, useLocalDraft } from '@/hooks/useLocalDraft';
 import ProductsEditor from '@/components/admin/ProductsEditor';
@@ -47,6 +48,16 @@ export default function Admin() {
 
   const { reload: reloadSite } = useSiteContext();
 
+  const refreshSnapshots = (pw: string) => {
+    const opts = (body: object) => ({
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Password': pw },
+      body: JSON.stringify(body),
+    });
+    fetch(TEXTS_URL, opts({ action: 'snapshot' })).catch(() => undefined);
+    fetch(PRODUCTS_URL, opts({ action: 'snapshot' })).catch(() => undefined);
+  };
+
   const loadFields = async () => {
     reloadSite();
     const res = await fetch(TEXTS_URL);
@@ -65,6 +76,7 @@ export default function Admin() {
     if (saved) {
       setAuthorized(true);
       loadFields();
+      refreshSnapshots(saved);
     }
   }, []);
 
@@ -81,6 +93,7 @@ export default function Admin() {
       sessionStorage.setItem('admin_pw', password);
       setAuthorized(true);
       loadFields();
+      refreshSnapshots(password);
     } else {
       toast.error('Неверный пароль');
     }

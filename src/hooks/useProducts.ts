@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import func2url from '../../backend/func2url.json';
 import { products as fallbackProducts } from '@/data/products';
+import { loadWithFallback } from '@/lib/resilientFetch';
 
 export const PRODUCTS_URL = func2url.products;
 
@@ -25,8 +26,11 @@ export function useProducts(onlyActive = true) {
 
   const reload = () => {
     setLoading(true);
-    fetch(PRODUCTS_URL)
-      .then(r => r.json())
+    loadWithFallback<{ products?: ApiProduct[] }>(
+      PRODUCTS_URL,
+      'products',
+      d => Array.isArray(d?.products) && d.products.length > 0,
+    )
       .then(d =>
         setItems(
           (d.products || []).map((p: ApiProduct) => ({

@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useState, ReactNode } from 'react';
 import func2url from '../../backend/func2url.json';
 import EditableText from '@/components/EditableText';
+import { loadWithFallback } from '@/lib/resilientFetch';
 import { TEXT_STYLES_KEY, loadStyleFonts, parseTextStyles, styleToCss } from '@/lib/textStyles';
 
 export interface TextField {
@@ -100,8 +101,11 @@ export function SiteTextsProvider({ children }: { children: ReactNode }) {
   const [editMode, setEditMode] = useState(false);
 
   const reload = useCallback(() => {
-    fetch(TEXTS_URL)
-      .then(r => r.json())
+    loadWithFallback<{ values?: Values; settings?: Values }>(
+      TEXTS_URL,
+      'texts',
+      d => !!d?.values && Object.keys(d.values).length > 0,
+    )
       .then(d => {
         setValues(d.values || {});
         setSettings(d.settings || {});

@@ -52,6 +52,37 @@ def upload_image(data_url: str) -> dict:
     return {'url': f'https://cdn.poehali.dev/projects/{key_id}/bucket/{name}'}
 
 
+def fetch_products(conn, table: str) -> list:
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute(
+        f'SELECT id, name, price, category, weight, image, images, description, badge, sort_order, is_active, is_sold_out '
+        f'FROM {table} ORDER BY sort_order, id'
+    )
+    rows = []
+    for r in cur.fetchall():
+        item = dict(r)
+        raw = item.pop('images', '') or ''
+        item['images'] = [u for u in raw.split('|') if u.strip()]
+        rows.append(item)
+    cur.close()
+    return rows
+
+
+def save_snapshot(conn, table: str):
+    try:
+        s3 = boto3.client(
+            's3',
+            endpoint_url='https://bucket.poehali.dev',
+            aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+            aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+        )
+        data = json.dumps({'products': fetch_products(conn, table)}, ensure_ascii=False).encode('utf-8')
+        s3.put_object(Bucket='files', Key='snapshot/products.json', Body=data,
+                      ContentType='application/json; charset=utf-8', CacheControl='no-cache')
+    except Exception as e:
+        print(f'snapshot error: {e}')
+
+
 def handler(event: dict, context) -> dict:
     """Управляет каталогом подарков: GET отдаёт список наборов, POST создаёт, обновляет и удаляет их по паролю администратора."""
     method = event.get('httpMethod', 'GET')
@@ -64,18 +95,7 @@ def handler(event: dict, context) -> dict:
     conn = psycopg2.connect(os.environ['DATABASE_URL'])
 
     if method == 'GET':
-        cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        cur.execute(
-            f'SELECT id, name, price, category, weight, image, images, description, badge, sort_order, is_active, is_sold_out '
-            f'FROM {table} ORDER BY sort_order, id'
-        )
-        rows = []
-        for r in cur.fetchall():
-            item = dict(r)
-            raw = item.pop('images', '') or ''
-            item['images'] = [u for u in raw.split('|') if u.strip()]
-            rows.append(item)
-        cur.close()
+        rows = fetch_products(conn, table)
         conn.close()
         return {
             'statusCode': 200,
@@ -104,6 +124,18 @@ def handler(event: dict, context) -> dict:
             cur.execute(f"DELETE FROM {table} WHERE id = {int(body.get('id', 0))}")
             conn.commit()
             cur.close()
+            save_snapshot(conn, table)
+            conn.close()
+            return {
+                'statusCode': 200,
+                'headers': CORS,
+                'isBase64Encoded': False,
+                'body': json.dumps({'success': True}),
+            }
+
+        if action == 'snapshot':
+            cur.close()
+            save_snapshot(conn, table)
             conn.close()
             return {
                 'statusCode': 200,
@@ -159,6 +191,7 @@ def handler(event: dict, context) -> dict:
 
         conn.commit()
         cur.close()
+        save_snapshot(conn, table)
         conn.close()
         return {
             'statusCode': 200,

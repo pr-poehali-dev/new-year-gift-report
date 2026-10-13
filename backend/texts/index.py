@@ -56,6 +56,27 @@ def upload_image(data_url: str, filename: str = '') -> str:
     return f'https://cdn.poehali.dev/projects/{key_id}/bucket/{name}'
 
 
+def save_snapshot(conn, table: str, settings_table: str):
+    try:
+        cur = conn.cursor()
+        cur.execute(f'SELECT text_key, value FROM {table}')
+        values = {k: v for k, v in cur.fetchall()}
+        cur.execute(f'SELECT setting_key, value FROM {settings_table}')
+        settings = {k: v for k, v in cur.fetchall()}
+        cur.close()
+        s3 = boto3.client(
+            's3',
+            endpoint_url='https://bucket.poehali.dev',
+            aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
+            aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'],
+        )
+        data = json.dumps({'values': values, 'settings': settings}, ensure_ascii=False).encode('utf-8')
+        s3.put_object(Bucket='files', Key='snapshot/texts.json', Body=data,
+                      ContentType='application/json; charset=utf-8', CacheControl='no-cache')
+    except Exception as e:
+        print(f'snapshot error: {e}')
+
+
 def handler(event: dict, context) -> dict:
     """Хранит редактируемые надписи сайта: GET отдаёт все тексты, POST сохраняет изменения по паролю администратора."""
     method = event.get('httpMethod', 'GET')
@@ -153,6 +174,17 @@ def handler(event: dict, context) -> dict:
                 ),
             }
 
+        if body.get('action') == 'snapshot':
+            conn = get_conn()
+            save_snapshot(conn, table, settings_table)
+            conn.close()
+            return {
+                'statusCode': 200,
+                'headers': CORS,
+                'isBase64Encoded': False,
+                'body': json.dumps({'success': True}),
+            }
+
         updates = body.get('updates') or {}
         settings_updates = body.get('settings') or {}
         conn = get_conn()
@@ -174,6 +206,7 @@ def handler(event: dict, context) -> dict:
             saved += cur.rowcount
         conn.commit()
         cur.close()
+        save_snapshot(conn, table, settings_table)
         conn.close()
 
         return {
