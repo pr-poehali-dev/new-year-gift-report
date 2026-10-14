@@ -57,8 +57,9 @@ export default function Header() {
               <div className="font-display font-extrabold text-base sm:text-lg text-forest">
                 <span className="text-primary">ЧЕБ</span>подарки
               </div>
-              <div className="text-[9px] sm:text-[10px] tracking-[0.18em] text-muted-foreground uppercase">
+              <div className="mt-0.5 flex items-center gap-1 text-primary leading-none" style={{ fontFamily: "'Marck Script', cursive", fontSize: '17px' }}>
                 {t('head.sub', 'Сладкий Новый год')}
+                <span className="text-secondary text-[13px]">❄</span>
               </div>
             </div>
           </a>
