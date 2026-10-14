@@ -24,7 +24,7 @@ export default function Footer() {
             <div className="font-extrabold text-lg">
               <span className="text-primary">ЧЕБ</span>подарки
             </div>
-            <div className="mt-0.5 flex items-center gap-1 text-primary leading-none" style={{ fontFamily: "'Marck Script', cursive", fontSize: '17px' }}>
+            <div className="mt-0.5 flex items-center gap-1 text-[#ff5a6e] leading-none" style={{ fontFamily: "'Marck Script', cursive", fontSize: '17px', textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>
               {t('head.sub', 'Сладкий Новый год')}
               <span className="text-secondary text-[13px]">❄</span>
             </div>
