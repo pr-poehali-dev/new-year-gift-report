@@ -125,7 +125,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                   {product.is_sold_out && (
                     <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                       <span className="-rotate-6 rounded-lg bg-forest/90 text-white text-[10px] sm:text-sm font-black uppercase tracking-wider px-3 py-1.5 sm:px-5 sm:py-2 shadow-lg">
-                        Закончились
+                        Распродали
                       </span>
                     </div>
                   )}
