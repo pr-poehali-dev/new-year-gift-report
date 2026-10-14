@@ -55,9 +55,9 @@ export default function Header() {
             <img src={st('img.logo', '/logo.png')} alt="ЧЕБподарки" className="h-11 sm:h-14 w-auto" />
             <div className="leading-tight hidden sm:block">
               <div className="font-display font-extrabold text-base sm:text-lg text-forest">
-                <span className="text-primary">ЧЕБ</span>подарки
+                <span className="text-[#ff5a6e]" style={{ textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>ЧЕБ</span>подарки
               </div>
-              <div className="mt-0.5 flex items-center gap-1 text-primary leading-none" style={{ fontFamily: "'Marck Script', cursive", fontSize: '17px' }}>
+              <div className="mt-0.5 flex items-center gap-1 text-[#ff5a6e] leading-none" style={{ fontFamily: "'Marck Script', cursive", fontSize: '17px', textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>
                 {t('head.sub', 'Сладкий Новый год')}
                 <span className="text-secondary text-[13px]">❄</span>
               </div>

@@ -22,7 +22,7 @@ export default function Footer() {
           <img src={s('img.logoLight', '/logo-light.png')} alt="ЧЕБподарки" className="h-14 w-auto" />
           <div className="leading-tight">
             <div className="font-extrabold text-lg">
-              <span className="text-primary">ЧЕБ</span>подарки
+              <span className="text-[#ff5a6e]" style={{ textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>ЧЕБ</span>подарки
             </div>
             <div className="mt-0.5 flex items-center gap-1 text-[#ff5a6e] leading-none" style={{ fontFamily: "'Marck Script', cursive", fontSize: '17px', textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>
               {t('head.sub', 'Сладкий Новый год')}
