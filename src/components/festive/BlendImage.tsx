@@ -29,9 +29,9 @@ export default function BlendImage({ src, alt, className = '', highlight = false
       <div className="relative animate-float" style={{ animationDuration: '7s' }}>
         {highlight ? (
           <img
-            src={src}
+            src={src || undefined}
             alt={alt}
-            className="w-full aspect-[6/7] object-contain"
+            className={`w-full aspect-[6/7] object-contain ${src ? '' : 'invisible'}`}
             style={{
               filter:
                 'brightness(1.06) contrast(1.06) saturate(1.1) drop-shadow(0 0 2px rgba(255,255,255,0.85)) drop-shadow(0 0 22px rgba(255,220,140,0.55)) drop-shadow(0 18px 30px rgba(5,10,40,0.55))',
@@ -39,9 +39,9 @@ export default function BlendImage({ src, alt, className = '', highlight = false
           />
         ) : (
           <img
-            src={src}
+            src={src || undefined}
             alt={alt}
-            className="w-full aspect-square object-cover"
+            className={`w-full aspect-square object-cover ${src ? '' : 'invisible'}`}
             style={{ WebkitMaskImage: MASK, maskImage: MASK }}
           />
         )}

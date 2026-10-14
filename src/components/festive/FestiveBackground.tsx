@@ -40,7 +40,7 @@ export default function FestiveBackground({
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-      <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover animate-slow-zoom" />
+      {image && <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover animate-slow-zoom" />}
       <div className="absolute inset-0" style={{ background: overlay }} />
 
       <div className="absolute top-0 inset-x-0 h-10">

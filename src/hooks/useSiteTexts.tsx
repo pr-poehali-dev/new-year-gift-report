@@ -25,9 +25,23 @@ export const TEXTS_URL = func2url.texts;
 
 type Values = Record<string, string>;
 
+const CACHE_KEY = 'site_texts_cache_v1';
+
+function readCache(): { values: Values; settings: Values } | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const d = JSON.parse(raw);
+    return d && d.values && d.settings ? d : null;
+  } catch {
+    return null;
+  }
+}
+
 interface Ctx {
   values: Values;
   settings: Values;
+  loaded: boolean;
   editMode: boolean;
   setValue: (key: string, value: string) => void;
   reload: () => void;
@@ -36,6 +50,7 @@ interface Ctx {
 const SiteTextsContext = createContext<Ctx>({
   values: {},
   settings: {},
+  loaded: false,
   editMode: false,
   setValue: () => {},
   reload: () => {},
@@ -96,8 +111,10 @@ export function applyTheme(settings: Values) {
 }
 
 export function SiteTextsProvider({ children }: { children: ReactNode }) {
-  const [values, setValues] = useState<Values>({});
-  const [settings, setSettings] = useState<Values>({});
+  const [cached] = useState(readCache);
+  const [values, setValues] = useState<Values>(cached?.values || {});
+  const [settings, setSettings] = useState<Values>(cached?.settings || {});
+  const [loaded, setLoaded] = useState(!!cached);
   const [editMode, setEditMode] = useState(false);
 
   const reload = useCallback(() => {
@@ -109,11 +126,24 @@ export function SiteTextsProvider({ children }: { children: ReactNode }) {
       .then(d => {
         setValues(d.values || {});
         setSettings(d.settings || {});
+        setLoaded(true);
         applyTheme(d.settings || {});
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ values: d.values || {}, settings: d.settings || {} }));
+        } catch {
+          /* хранилище недоступно */
+        }
         loadStyleFonts(parseTextStyles((d.settings || {})[TEXT_STYLES_KEY]));
       })
-      .catch(() => undefined);
+      .catch(() => setLoaded(true));
   }, []);
+
+  useEffect(() => {
+    if (cached) {
+      applyTheme(cached.settings);
+      loadStyleFonts(parseTextStyles(cached.settings[TEXT_STYLES_KEY]));
+    }
+  }, [cached]);
 
   useEffect(() => {
     reload();
@@ -132,7 +162,7 @@ export function SiteTextsProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <SiteTextsContext.Provider value={{ values, settings, editMode, setValue, reload }}>
+    <SiteTextsContext.Provider value={{ values, settings, loaded, editMode, setValue, reload }}>
       {children}
     </SiteTextsContext.Provider>
   );
@@ -170,6 +200,9 @@ export function useText() {
 }
 
 export function useSetting() {
-  const { settings } = useContext(SiteTextsContext);
-  return (key: string, fallback: string) => settings[key] || fallback;
+  const { settings, loaded } = useContext(SiteTextsContext);
+  return (key: string, fallback: string) => {
+    if (!loaded && key.startsWith('img.') && !key.startsWith('img.logo')) return '';
+    return settings[key] || fallback;
+  };
 }

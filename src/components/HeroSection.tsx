@@ -58,8 +58,8 @@ export default function HeroSection() {
   };
 
   const stats = [
-    { value: t('hero.stat1v', '15+'), label: t('hero.stat1l', 'лет радуем детей') },
-    { value: t('hero.stat2v', '300–1500 г'), label: t('hero.stat2l', 'на любой бюджет') },
+    { value: t('hero.stat1v', '12+'), label: t('hero.stat1l', 'лет радуем детей') },
+    { value: t('hero.stat2v', '700–1500 г'), label: t('hero.stat2l', 'на любой бюджет') },
     { value: t('hero.stat3v', 'По России'), label: t('hero.stat3l', 'бережная доставка') },
   ];
 
@@ -129,7 +129,7 @@ export default function HeroSection() {
             <BlendImage src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" highlight className="max-w-[340px] sm:max-w-[420px] md:max-w-none lg:max-w-[560px] mx-auto mt-2 mb-0 sm:-my-8 md:-mx-6 md:scale-110 lg:mx-auto lg:scale-100 lg:-my-10" />
 
             <div className="animate-float absolute top-6 right-2 sm:-top-4 sm:right-8 md:-top-8 md:right-0 lg:-top-4 lg:right-8 w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
-              <span className="font-extrabold text-xs sm:text-sm">{t('hero.price', 'от 590 ₽')}</span>
+              <span className="font-extrabold text-xs sm:text-sm">{t('hero.price', 'от 650 ₽')}</span>
               <span className="text-[9px] sm:text-[10px] opacity-80">{t('hero.priceSub', 'за подарок')}</span>
             </div>
 

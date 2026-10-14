@@ -85,12 +85,12 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
 
             <div className="order-1 lg:order-2 flex flex-col md:flex-row lg:flex-col items-center md:items-stretch lg:items-center gap-4">
               <div className="relative w-full max-w-[460px] md:max-w-[330px] lg:max-w-none shrink-0 rounded-3xl overflow-hidden shadow-2xl">
-                <img
+                {s('img.corporate', ABOUT_IMAGE) ? <img
                   src={s('img.corporate', ABOUT_IMAGE)}
                   alt="О компании ЧЕБподарки"
                   className="block w-full h-auto"
                   loading="lazy"
-                />
+                /> : <div className="w-full aspect-[3/4]" />}
               </div>
               <div className="w-full max-w-[460px] md:max-w-none md:flex-1 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 md:auto-rows-fr gap-2.5">
                 {stats.map((st, i) => (
