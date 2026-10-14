@@ -331,7 +331,7 @@ export default function ProductsEditor() {
                       )}
                       {p.is_sold_out && (
                         <span className="rounded-full bg-forest text-white text-[9px] font-extrabold px-1.5 py-0.5">
-                          ЗАКОНЧИЛИСЬ
+                          РАСПРОДАЛИ
                         </span>
                       )}
                       {!p.is_active && (
