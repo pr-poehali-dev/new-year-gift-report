@@ -16,7 +16,7 @@ type StatusFilter = 'all' | 'active' | 'sold' | 'hidden';
 const STATUS_TABS: { key: StatusFilter; label: string }[] = [
   { key: 'all', label: 'Все' },
   { key: 'active', label: 'В продаже' },
-  { key: 'sold', label: 'Закончились' },
+  { key: 'sold', label: 'Распродали' },
   { key: 'hidden', label: 'Скрытые' },
 ];
 
@@ -347,7 +347,7 @@ export default function ProductsEditor() {
                 </button>
                 <button
                   onClick={() => update(p.id, { is_sold_out: !p.is_sold_out })}
-                  title={p.is_sold_out ? 'Вернуть в продажу' : 'Отметить «Закончились»'}
+                  title={p.is_sold_out ? 'Вернуть в продажу' : 'Отметить «Распродали»'}
                   className={`hidden sm:inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1.5 text-[11px] font-bold border transition ${
                     p.is_sold_out
                       ? 'bg-forest text-white border-forest'
@@ -355,7 +355,7 @@ export default function ProductsEditor() {
                   }`}
                 >
                   <Icon name={p.is_sold_out ? 'PackageX' : 'PackageCheck'} size={13} />
-                  {p.is_sold_out ? 'Закончились' : 'В наличии'}
+                  {p.is_sold_out ? 'Распродали' : 'В наличии'}
                 </button>
                 <button
                   onClick={() => setOpenId(isOpen ? null : p.id)}

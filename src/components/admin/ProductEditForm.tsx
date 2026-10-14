@@ -200,7 +200,7 @@ export default function ProductEditForm({
             }`}
           >
             <Icon name={p.is_sold_out ? 'PackageX' : 'PackageCheck'} size={14} />
-            {p.is_sold_out ? 'Закончились' : 'В наличии'}
+            {p.is_sold_out ? 'Распродали' : 'В наличии'}
           </button>
           <label className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
             Порядок
