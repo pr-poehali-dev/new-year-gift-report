@@ -1,0 +1,6 @@
+{
+  "tests": [
+    {"name": "Список отзывов", "method": "GET", "path": "/", "expectedStatus": 200, "expectedBody": {"reviews": []}, "bodyMatcher": "partial"},
+    {"name": "Пустой отзыв отклоняется", "method": "POST", "path": "/", "body": {"name": "", "text": ""}, "expectedStatus": 400}
+  ]
+}

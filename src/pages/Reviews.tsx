@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
+import { Link } from 'react-router-dom';
+import { submitReview } from '@/hooks/useReviews';
 
 export default function Reviews() {
   const [formData, setFormData] = useState({
@@ -15,15 +17,22 @@ export default function Reviews() {
     text: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Отзыв отправлен:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
+    setSending(true);
+    setError('');
+    try {
+      await submitReview(formData);
+      setSubmitted(true);
       setFormData({ name: '', email: '', rating: 5, text: '' });
-    }, 3000);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Не удалось отправить отзыв');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -48,7 +57,16 @@ export default function Reviews() {
               <div className="bg-green-100 border-2 border-green-500 rounded-xl p-8 text-center">
                 <Icon name="CheckCircle" size={64} className="mx-auto mb-4 text-green-600" />
                 <h3 className="font-display text-2xl font-black text-green-700 mb-2">Спасибо за отзыв! 🎉</h3>
-                <p className="text-green-600">Ваше мнение очень важно для нас</p>
+                <p className="text-green-600 mb-6">Ваш отзыв уже опубликован на сайте</p>
+                <div className="flex flex-wrap gap-3 justify-center">
+                  <Link to="/all-reviews" className="inline-flex items-center gap-2 rounded-full bg-primary text-white px-6 py-3 font-bold hover:brightness-110 transition">
+                    Посмотреть отзывы
+                    <Icon name="ArrowRight" size={17} />
+                  </Link>
+                  <Link to="/" className="inline-flex items-center gap-2 rounded-full bg-white border border-border text-forest px-6 py-3 font-bold hover:border-forest/40 transition">
+                    На главную
+                  </Link>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -115,9 +133,13 @@ export default function Reviews() {
                   />
                 </div>
 
-                <Button type="submit" size="lg" className="w-full text-lg py-6">
-                  <Icon name="Send" size={20} className="mr-2" />
-                  Отправить отзыв
+                {error && (
+                  <div className="rounded-xl border border-red-300 bg-red-50 text-red-700 text-sm p-3 text-center">{error}</div>
+                )}
+
+                <Button type="submit" size="lg" disabled={sending} className="w-full text-lg py-6">
+                  <Icon name={sending ? 'Loader2' : 'Send'} size={20} className={`mr-2 ${sending ? 'animate-spin' : ''}`} />
+                  {sending ? 'Отправляем...' : 'Отправить отзыв'}
                 </Button>
 
                 <p className="text-sm text-center text-muted-foreground">

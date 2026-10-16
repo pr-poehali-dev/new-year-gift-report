@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import { useReviews, formatReviewDate } from '@/hooks/useReviews';
 
 interface Review {
   name: string;
@@ -13,7 +14,7 @@ interface Review {
   date: string;
 }
 
-const allReviews: Review[] = [
+const sampleReviews: Review[] = [
   { name: 'Анна М.', text: 'Заказывала набор ёлочных игрушек — пришли идеально упакованными! Очень довольна качеством.', rating: 5, avatar: '👩', date: '15 декабря 2024' },
   { name: 'Дмитрий К.', text: 'Отличный магазин! Быстрая доставка, подарки понравились всей семье. Буду заказывать ещё!', rating: 5, avatar: '👨', date: '12 декабря 2024' },
   { name: 'Елена В.', text: 'Шоколад просто божественный! Коллеги были в восторге. Спасибо за качество и сервис!', rating: 5, avatar: '👩‍💼', date: '10 декабря 2024' },
@@ -27,6 +28,11 @@ const allReviews: Review[] = [
 ];
 
 export default function AllReviews() {
+  const { reviews: userReviews } = useReviews();
+  const allReviews: Review[] = [
+    ...userReviews.map((r) => ({ name: r.name, text: r.text, rating: r.rating, avatar: '🙂', date: formatReviewDate(r.created_at) })),
+    ...sampleReviews,
+  ];
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [visibleCount, setVisibleCount] = useState(6);

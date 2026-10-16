@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Icon from '@/components/ui/icon';
 import { useText } from '@/hooks/useSiteTexts';
+import { useReviews } from '@/hooks/useReviews';
 
 interface Review {
   name: string;
@@ -9,7 +10,7 @@ interface Review {
   rating: number;
 }
 
-const reviews: Review[] = [
+const sampleReviews: Review[] = [
   {
     name: 'Анна М.',
     role: 'Заказ для детского сада',
@@ -32,6 +33,11 @@ const reviews: Review[] = [
 
 export default function ReviewsSection() {
   const t = useText();
+  const { reviews: userReviews } = useReviews();
+  const reviews: Review[] = [
+    ...userReviews.map((r) => ({ name: r.name, role: 'Покупатель', text: r.text, rating: r.rating })),
+    ...sampleReviews,
+  ].slice(0, 3);
 
   return (
     <section id="reviews" className="bg-background">
@@ -64,7 +70,7 @@ export default function ReviewsSection() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5">
           {reviews.map((review, idx) => (
-            <article key={review.name} className={`bg-white rounded-3xl border border-border p-5 sm:p-6 flex-col ${idx === 2 ? 'flex sm:hidden lg:flex' : 'flex'}`}>
+            <article key={`${review.name}-${idx}`} className={`bg-white rounded-3xl border border-border p-5 sm:p-6 flex-col ${idx === 2 ? 'flex sm:hidden lg:flex' : 'flex'}`}>
               <div className="flex gap-1">
                 {Array.from({ length: review.rating }).map((_, i) => (
                   <Icon key={i} name="Star" size={16} className="text-secondary fill-secondary" />
