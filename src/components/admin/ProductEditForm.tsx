@@ -139,12 +139,12 @@ export default function ProductEditForm({
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
-            <label className="block text-[11px] font-bold text-forest mb-1.5">Цена, ₽</label>
+            <label className="block text-[11px] font-bold text-forest mb-1.5">Цена: ₽</label>
             <input
               type="number"
               value={p.price}
               onChange={e => update(p.id, { price: Number(e.target.value) })}
-              className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-forest transition"
+              className="w-full rounded-xl border border-border bg-background px-3 py-2.5 text-lg font-black outline-none focus:border-forest transition"
             />
           </div>
           <div>

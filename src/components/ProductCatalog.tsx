@@ -155,7 +155,10 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                   </p>
 
                   <div className="mt-auto pt-2.5 sm:pt-4 border-t border-border flex flex-col sm:flex-row sm:flex-wrap sm:items-center justify-between gap-1.5 sm:gap-2 sm:mt-4 lg:mt-5">
-                    <span className="text-sm sm:text-base font-black text-forest whitespace-nowrap">от {product.price.toLocaleString('ru-RU')} ₽</span>
+                    <span className="flex items-baseline gap-1.5 whitespace-nowrap text-forest">
+                      <span className="text-xs sm:text-sm font-bold text-muted-foreground">Цена:</span>
+                      <span className="text-lg sm:text-xl lg:text-2xl font-black">{product.price.toLocaleString('ru-RU')} ₽</span>
+                    </span>
                     {product.is_sold_out ? (
                       <span className="inline-flex items-center justify-center gap-1 rounded-full bg-muted text-muted-foreground py-1.5 sm:px-3 text-xs sm:text-sm font-bold whitespace-nowrap">
                         <Icon name="PackageX" size={15} />

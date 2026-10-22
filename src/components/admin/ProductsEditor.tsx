@@ -341,7 +341,7 @@ export default function ProductsEditor() {
                       )}
                     </div>
                     <div className="text-xs text-muted-foreground truncate">
-                      {p.price.toLocaleString('ru-RU')} ₽ • {p.category} • {p.weight}
+                      Цена: <span className="text-sm font-black text-forest">{p.price.toLocaleString('ru-RU')} ₽</span> • {p.category} • {p.weight}
                     </div>
                   </div>
                 </button>

@@ -51,8 +51,8 @@ export default function CatalogModal({ open, onOpenChange, type, weight }: Catal
                             {item.name}
                             <span className="text-muted-foreground"> · {item.weight}</span>
                           </span>
-                          <span className="font-bold text-primary whitespace-nowrap">
-                            от {item.price.toLocaleString('ru-RU')} ₽
+                          <span className="font-black text-primary whitespace-nowrap text-base sm:text-lg">
+                            <span className="text-xs sm:text-sm font-bold text-muted-foreground mr-1">Цена:</span>{item.price.toLocaleString('ru-RU')} ₽
                           </span>
                         </li>
                       ))}
