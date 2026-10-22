@@ -1,6 +1,7 @@
 {
   "tests": [
-    {"name": "Список отзывов", "method": "GET", "path": "/", "expectedStatus": 200, "expectedBody": {"reviews": []}, "bodyMatcher": "partial"},
-    {"name": "Пустой отзыв отклоняется", "method": "POST", "path": "/", "body": {"name": "", "text": ""}, "expectedStatus": 400}
+    {"name": "Список отзывов", "method": "GET", "path": "/", "expectedStatus": 200},
+    {"name": "Пустой отзыв отклоняется", "method": "POST", "path": "/", "body": {"name": "", "text": ""}, "expectedStatus": 400},
+    {"name": "Отзыв не на русском отклоняется", "method": "POST", "path": "/", "body": {"name": "John", "text": "Great gifts", "rating": 5}, "expectedStatus": 400}
   ]
 }

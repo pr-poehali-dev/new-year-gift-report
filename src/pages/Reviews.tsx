@@ -22,6 +22,11 @@ export default function Reviews() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const isRu = (v: string) => /[А-Яа-яЁё]/.test(v) && !/[A-Za-z]/.test(v);
+    if (!isRu(formData.name) || !isRu(formData.text)) {
+      setError('Пожалуйста, напишите имя и отзыв на русском языке');
+      return;
+    }
     setSending(true);
     setError('');
     try {

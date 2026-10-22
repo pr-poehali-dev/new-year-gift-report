@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import psycopg2
 import psycopg2.extras
 
@@ -19,6 +20,10 @@ def resp(status: int, data: dict) -> dict:
         'isBase64Encoded': False,
         'body': json.dumps(data, ensure_ascii=False, default=str),
     }
+
+
+def is_russian(v: str) -> bool:
+    return bool(re.search(r'[А-Яа-яЁё]', v)) and not re.search(r'[A-Za-z]', v)
 
 
 def esc(v) -> str:
@@ -45,6 +50,8 @@ def handler(event: dict, context) -> dict:
         rating = max(1, min(5, rating))
         if not name or not text:
             return resp(400, {'error': 'Укажите имя и текст отзыва'})
+        if not is_russian(name) or not is_russian(text):
+            return resp(400, {'error': 'Отзыв можно оставить только на русском языке'})
 
         conn = psycopg2.connect(os.environ['DATABASE_URL'])
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
