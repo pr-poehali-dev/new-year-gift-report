@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import func2url from '../../backend/func2url.json';
+import { MAINTENANCE_MSG } from '@/lib/serverStatus';
 
 export const REVIEWS_URL = (func2url as Record<string, string>).reviews;
 
@@ -37,11 +38,17 @@ export function useReviews() {
 }
 
 export async function submitReview(data: { name: string; email: string; rating: number; text: string }) {
-  const r = await fetch(REVIEWS_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
+  let r: Response;
+  try {
+    r = await fetch(REVIEWS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+  } catch {
+    throw new Error(MAINTENANCE_MSG);
+  }
+  if (r.status >= 500) throw new Error(MAINTENANCE_MSG);
   const d = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(d.error || 'Не удалось отправить отзыв');
   return d;
