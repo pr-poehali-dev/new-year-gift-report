@@ -6,7 +6,7 @@ import { PRODUCTS_URL } from '@/hooks/useProducts';
 import { TEXTS_URL, TextField, SettingField, applyTheme, useSiteContext } from '@/hooks/useSiteTexts';
 import { clearDraft, loadDraft, useLocalDraft } from '@/hooks/useLocalDraft';
 import ProductsEditor from '@/components/admin/ProductsEditor';
-import DesignEditor from '@/components/admin/DesignEditor';
+import StatsEditor from '@/components/admin/StatsEditor';
 import BlocksEditor from '@/components/admin/BlocksEditor';
 import CatalogFiltersEditor from '@/components/admin/CatalogFiltersEditor';
 import PackagingEditor from '@/components/admin/PackagingEditor';
@@ -23,7 +23,7 @@ const PRODUCTS_TAB = 'Подарки в каталоге';
 const FILTERS_TAB = 'Кнопки фильтра';
 const PACKAGING_TAB = 'Виды упаковки';
 const COMPOSITION_TAB = 'Состав подарков';
-const DESIGN_TAB = 'Цвета и шрифты';
+const STATS_TAB = 'Статистика';
 
 const TAB_ICONS: Record<string, string> = {
   [LEADS_TAB]: 'Inbox',
@@ -33,7 +33,7 @@ const TAB_ICONS: Record<string, string> = {
   [FILTERS_TAB]: 'SlidersHorizontal',
   [PACKAGING_TAB]: 'Package',
   [COMPOSITION_TAB]: 'Candy',
-  [DESIGN_TAB]: 'Palette',
+  [STATS_TAB]: 'BarChart3',
 };
 const TEXTS_DRAFT_KEY = 'admin_texts_draft';
 
@@ -105,11 +105,10 @@ export default function Admin() {
       if (!textSections.includes(f.section)) textSections.push(f.section);
     });
     return [
-      { title: 'Клиенты', items: [LEADS_TAB, NOTIFY_TAB] },
+      { title: 'Клиенты', items: [STATS_TAB, LEADS_TAB, NOTIFY_TAB] },
       { title: 'Страница', items: [BLOCKS_TAB] },
       { title: 'Каталог', items: [PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB, COMPOSITION_TAB] },
       { title: 'Блоки сайта', items: textSections },
-      { title: 'Оформление', items: [DESIGN_TAB] },
     ];
   }, [fields]);
 
@@ -217,8 +216,8 @@ export default function Admin() {
           <PackagingEditor fields={settingFields} onSaved={loadFields} />
         ) : activeSection === PRODUCTS_TAB ? (
           <ProductsEditor />
-        ) : activeSection === DESIGN_TAB ? (
-          <DesignEditor fields={settingFields} kinds={['color', 'font', 'fontsize']} onSaved={loadFields} />
+        ) : activeSection === STATS_TAB ? (
+          <StatsEditor />
         ) : (
           <VisualSectionEditor
             section={activeSection}

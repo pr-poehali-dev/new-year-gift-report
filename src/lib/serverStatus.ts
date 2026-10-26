@@ -1,4 +1,5 @@
 import { toast as sonner } from 'sonner';
+import func2url from '../../backend/func2url.json';
 
 export const MAINTENANCE_MSG = 'Сервер на техническом обслуживании';
 const MAINTENANCE_DESC = 'Пожалуйста, попробуйте чуть позже';
@@ -14,7 +15,9 @@ export function showMaintenance() {
   sonner.error(MAINTENANCE_MSG, { id: 'maintenance', description: MAINTENANCE_DESC });
 }
 
-const isApi = (url: string) => url.includes('functions.poehali.dev');
+const SILENT_URLS = [(func2url as Record<string, string>).stats].filter(Boolean);
+const isApi = (url: string) =>
+  url.includes('functions.poehali.dev') && !SILENT_URLS.some(u => url.startsWith(u));
 
 export function installServerWatcher() {
   const w = window as Window & { __serverWatcher?: boolean };

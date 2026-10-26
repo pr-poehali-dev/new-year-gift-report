@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import { SiteTextsProvider } from "@/hooks/useSiteTexts";
 import EditModeBar from "@/components/EditModeBar";
+import VisitTracker from "@/components/VisitTracker";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
         <EditModeBar />
+        <VisitTracker />
         </SiteTextsProvider>
       </BrowserRouter>
     </TooltipProvider>

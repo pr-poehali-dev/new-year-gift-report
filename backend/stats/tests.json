@@ -1,0 +1,6 @@
+{
+  "tests": [
+    {"name": "Статистика без пароля закрыта", "method": "GET", "path": "/", "expectedStatus": 401},
+    {"name": "Визит без id отклоняется", "method": "POST", "path": "/", "body": {"path": "/"}, "expectedStatus": 400}
+  ]
+}
