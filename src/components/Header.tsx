@@ -43,17 +43,9 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50">
       <div className="bg-cream/95 backdrop-blur-md border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2 shrink-0 text-forest" aria-label="ЧЕБподарки">
-            <span className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl border-[2.5px] border-forest flex items-center justify-center">
-              <Icon name="Gift" size={24} className="sm:hidden" />
-              <Icon name="Gift" size={28} className="hidden sm:block" />
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-secondary" />
-            </span>
-            <span className="flex flex-col leading-none">
-              <span className="font-display font-extrabold text-[30px] sm:text-4xl tracking-tight">Чеб</span>
-              <span className="self-end -mt-0.5 text-[10px] sm:text-xs font-extrabold tracking-[0.12em] text-[#c9983a]">ПОДАРКИ</span>
-            </span>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
+          <a href="/" className="shrink-0" aria-label="ЧЕБподарки">
+            <img src="/logo-header.png" alt="ЧЕБподарки" width={267} height={140} className="h-14 sm:h-16 w-auto" />
           </a>
 
           <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-forest">
