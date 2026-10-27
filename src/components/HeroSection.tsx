@@ -133,15 +133,15 @@ export default function HeroSection() {
               </span>
               <span className="h-px w-16 sm:w-24 bg-secondary" />
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
               {advantages.map((a, i) => (
-                <div key={i} className="flex items-center lg:flex-col lg:items-start gap-4 rounded-2xl bg-white px-4 py-4 sm:px-5 sm:py-5 lg:p-6 shadow-sm">
+                <div key={i} className="flex flex-col items-center justify-center text-center gap-3 sm:gap-4 rounded-2xl bg-white px-3 py-5 sm:px-5 sm:py-6 lg:p-6 shadow-sm">
                   <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0 ${ADV_COLORS[i % ADV_COLORS.length]}`}>
                     <Icon name={a.icon} size={24} />
                   </div>
-                  <div className="min-w-0 flex-1">
+                  <div className="min-w-0">
                     <div className="font-bold text-[15px] sm:text-base lg:text-lg text-forest leading-tight">{a.title}</div>
-                    <div className="text-[13px] sm:text-sm text-muted-foreground mt-1 lg:mt-1.5 leading-snug">{a.text}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground mt-1 lg:mt-1.5 leading-snug">{a.text}</div>
                   </div>
                 </div>
               ))}
