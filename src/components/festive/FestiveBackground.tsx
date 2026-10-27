@@ -4,6 +4,8 @@ interface FestiveBackgroundProps {
   image: string;
   flakes?: number;
   overlay?: string;
+  garland?: boolean;
+  imageClassName?: string;
 }
 
 const GARLAND_COLORS = ['#ff3b5c', '#ffd23f', '#3be8ff', '#7dff6b', '#ff8a3b', '#c77dff'];
@@ -12,6 +14,8 @@ export default function FestiveBackground({
   image,
   flakes = 60,
   overlay = 'linear-gradient(90deg, rgba(12,16,48,0.88) 0%, rgba(20,18,60,0.65) 45%, rgba(20,18,60,0.25) 100%)',
+  garland = true,
+  imageClassName = '',
 }: FestiveBackgroundProps) {
   const [snow, setSnow] = useState<
     { id: number; left: number; size: number; duration: number; delay: number; dx: number; opacity: number }[]
@@ -51,10 +55,10 @@ export default function FestiveBackground({
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
-      {image && <img src={image} alt="" className="absolute inset-0 w-full h-full object-cover animate-slow-zoom" />}
+      {image && <img src={image} alt="" className={`absolute inset-0 w-full h-full object-cover animate-slow-zoom ${imageClassName}`} />}
       <div className="absolute inset-0" style={{ background: overlay }} />
 
-      <div className="absolute top-0 inset-x-0 h-10">
+      {garland && <div className="absolute top-0 inset-x-0 h-10">
         <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 10">
           <path d="M0 2 Q 3.5 7 7 2 T 14 2 T 21 2 T 28 2 T 35 2 T 42 2 T 49 2 T 56 2 T 63 2 T 70 2 T 77 2 T 84 2 T 91 2 T 98 2 T 105 2" fill="none" stroke="rgba(30,40,30,0.7)" strokeWidth="0.3" vectorEffect="non-scaling-stroke" />
         </svg>
@@ -75,7 +79,7 @@ export default function FestiveBackground({
             />
           ))}
         </div>
-      </div>
+      </div>}
 
       {snow.map(f => (
         <span

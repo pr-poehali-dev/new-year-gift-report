@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useNavigate, useLocation } from "@/lib/router-compat";
 import { useEffect, useState } from 'react';
-import { useText, useTextRaw, useSetting } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw } from '@/hooks/useSiteTexts';
 
 const navLinks = [
   { label: 'Подарки', id: 'catalog' },
@@ -15,7 +15,6 @@ const navLinks = [
 export default function Header() {
   const t = useText();
   const tr = useTextRaw();
-  const st = useSetting();
   const phone = tr('cont.phone', '+7 909 302-00-77');
   const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
   const navigate = useNavigate();
@@ -43,25 +42,18 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      <div className="bg-primary text-white text-[11px] sm:text-xs">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2 text-center font-semibold tracking-wide">
-          {t('head.slogan', '★ Коллекция к Новому 2027 году уже открыта — раннее бронирование для организаций')}
-        </div>
-      </div>
-
       <div className="bg-cream/95 backdrop-blur-md border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2.5 shrink-0">
-            <img src={st('img.logo', '/logo.png')} alt="ЧЕБподарки" className="h-11 sm:h-14 w-auto" />
-            <div className="leading-tight hidden sm:block">
-              <div className="font-display font-extrabold text-base sm:text-lg text-forest">
-                <span className="text-[#ff5a6e]" style={{ textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>ЧЕБ</span>подарки
-              </div>
-              <div className="mt-0.5 flex items-center gap-1 text-[#ff5a6e] leading-none" style={{ fontFamily: "'Marck Script', cursive", fontSize: '17px', textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>
-                {t('head.sub', 'Сладкий Новый год')}
-                <span className="text-secondary text-[13px]">❄</span>
-              </div>
-            </div>
+          <a href="/" className="flex items-center gap-2 shrink-0 text-forest" aria-label="ЧЕБподарки">
+            <span className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl border-[2.5px] border-forest flex items-center justify-center">
+              <Icon name="Gift" size={24} className="sm:hidden" />
+              <Icon name="Gift" size={28} className="hidden sm:block" />
+              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-secondary" />
+            </span>
+            <span className="flex flex-col leading-none">
+              <span className="font-display font-extrabold text-[30px] sm:text-4xl tracking-tight">Чеб</span>
+              <span className="self-end -mt-0.5 text-[10px] sm:text-xs font-extrabold tracking-[0.12em] text-[#c9983a]">ПОДАРКИ</span>
+            </span>
           </a>
 
           <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-forest">
@@ -87,10 +79,10 @@ export default function Header() {
             </a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden w-10 h-10 rounded-full bg-forest text-white flex items-center justify-center"
+              className="lg:hidden w-12 h-12 rounded-full bg-forest text-white flex items-center justify-center shadow-md"
               aria-label="Меню"
             >
-              <Icon name={menuOpen ? 'X' : 'Menu'} size={20} />
+              <Icon name={menuOpen ? 'X' : 'Menu'} size={22} />
             </button>
           </div>
         </div>

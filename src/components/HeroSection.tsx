@@ -1,24 +1,8 @@
 import { toast } from 'sonner';
-import SnowText, { SnowDefs } from '@/components/SnowText';
 import Icon from '@/components/ui/icon';
 import { heroBgImage } from '@/data/products';
 import FestiveBackground from '@/components/festive/FestiveBackground';
 import { useText, useTextRaw, useTextStyle, useSetting } from '@/hooks/useSiteTexts';
-
-const ACCENTS: [RegExp, string][] = [
-  [/(сладост\S*|конфет\S*)/i, 'lead-gold'],
-  [/(волшебн\S* упаковк\S*)/i, 'lead-red'],
-  [/(оптом и в розницу)/i, 'lead-mint'],
-  [/(по всей России)/i, 'lead-gold'],
-];
-
-function highlight(text: string) {
-  const re = new RegExp(ACCENTS.map(([r]) => r.source).join('|'), 'gi');
-  return text.split(re).filter(p => p !== undefined && p !== '').map((part, i) => {
-    const hit = ACCENTS.find(([r]) => new RegExp(`^${r.source}$`, 'i').test(part));
-    return hit ? <span key={i} className={hit[1]}>{part}</span> : <span key={i}>{part}</span>;
-  });
-}
 
 const ADV_COLORS = [
   'bg-primary/10 text-primary',
@@ -63,12 +47,6 @@ export default function HeroSection() {
     }
   };
 
-  const stats = [
-    { value: t('hero.stat1v', '12+'), label: t('hero.stat1l', 'лет радуем детей') },
-    { value: t('hero.stat2v', '700–1500 г'), label: t('hero.stat2l', 'на любой бюджет') },
-    { value: t('hero.stat3v', 'По России'), label: t('hero.stat3l', 'бережная доставка') },
-  ];
-
   const advantages = [
     { icon: 'Candy', title: t('adv.1t', 'Проверенный состав'), text: t('adv.1x', 'Сертифицированные сладости от ведущих фабрик') },
     { icon: 'Gift', title: t('adv.2t', 'Яркая упаковка'), text: t('adv.2x', 'Авторский дизайн и качественные материалы') },
@@ -78,59 +56,57 @@ export default function HeroSection() {
 
   return (
     <section id="home">
-      <div className="relative bg-[#141238] text-forest-foreground">
-        <FestiveBackground image={s('img.heroBg', heroBgImage)} overlay="linear-gradient(90deg, rgba(10,22,70,0.85) 0%, rgba(14,30,90,0.55) 45%, rgba(14,30,90,0.15) 100%)" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-8 sm:pt-16 sm:pb-14 lg:pt-24 lg:pb-20 grid gap-6 items-center">
-          <div className="max-w-2xl">
-            <div className="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5 text-xs sm:text-sm md:text-[11px] lg:text-sm font-extrabold tracking-widest md:tracking-wide lg:tracking-widest uppercase md:px-4 lg:px-5">
-              <span className="hero-badge-star">❄</span>
-              <span className="hero-badge-text" style={ts('hero.badge')}>{tr('hero.badge', '★ Новогодние подарки в Чебоксарах · коллекция 2027').replace(/^[★☆✦\s]+/, '')}</span>
-              <span className="hero-badge-star">❄</span>
+      <div className="relative bg-[#0b1840] text-white overflow-hidden">
+        <FestiveBackground
+          image={s('img.heroBg', heroBgImage)}
+          flakes={35}
+          garland={false}
+          imageClassName="object-[58%_center] sm:object-center"
+          overlay="linear-gradient(90deg, rgba(8,18,52,0.92) 0%, rgba(8,18,52,0.72) 35%, rgba(8,18,52,0.2) 62%, rgba(8,18,52,0) 100%)"
+        />
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8 pt-8 pb-8 sm:pt-16 sm:pb-16 lg:pt-24 lg:pb-24 min-h-[380px] sm:min-h-[460px] lg:min-h-[600px] flex items-center">
+          <div className="w-[62%] sm:w-[56%] lg:w-[50%] max-w-2xl">
+            <div className="text-[10px] sm:text-xs lg:text-sm font-semibold uppercase tracking-[0.25em] text-white/90 leading-relaxed" style={ts('hero.badge')}>
+              {tr('hero.badge', 'Новогодние подарки в Чебоксарах').replace(/^[★☆✦\s]+/, '').replace(/\s*·.*$/, '')}
             </div>
 
-            <h1 className="mt-5 sm:mt-6 text-4xl sm:text-5xl md:text-[44px] lg:text-6xl font-normal leading-[1.2] tracking-[0.01em]" style={{ fontFamily: "'Lobster', cursive" }}>
-              <SnowDefs />
-              <span style={ts('hero.title1')}>
-                <SnowText text={tr('hero.title1', 'Подарки, от которых')} className="snow-fill-bright" />
+            <h1 className="mt-3 sm:mt-5 text-[30px] leading-[1.05] sm:text-5xl lg:text-7xl font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <span className="block" style={ts('hero.title1')}>
+                {tr('hero.title1', 'Подарки, от которых').split(/(?<=,)\s+/).map((line, i) => (
+                  <span key={i} className="block">{line}</span>
+                ))}
               </span>
-              <span className="block mt-1 text-5xl sm:text-6xl md:text-[54px] lg:text-7xl">
-                <span style={ts('hero.title2')}>
-                  <SnowText text={tr('hero.title2', 'глаза горят')} className="snow-fill-red" />
-                </span>
+              <span
+                className="block italic mt-1 bg-gradient-to-r from-[#f7e3a6] via-[#e2b75a] to-[#c8923a] bg-clip-text text-transparent pb-1"
+                style={ts('hero.title2')}
+              >
+                {tr('hero.title2', 'глаза горят')}
               </span>
             </h1>
 
-            <p className="hero-lead mt-5 max-w-lg rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-[15px] sm:text-base lg:text-lg font-semibold leading-relaxed">
-              <span style={ts('hero.text')}>{highlight(tr('hero.text', 'Сладкие новогодние подарки в Чебоксарах — детям, близким, коллегам и партнёрам. Любимые конфеты в волшебной упаковке, сладкие подарки оптом и в розницу с доставкой по всей России.'))}</span>
+            <p className="mt-3 sm:mt-6 max-w-md text-[13px] sm:text-base lg:text-lg text-white/90 leading-snug sm:leading-relaxed" style={ts('hero.text')}>
+              {tr('hero.text', 'Сладкие новогодние подарки для детей, близких, коллег и партнёров.')}
             </p>
 
-            <div className="mt-6 lg:mt-8 flex flex-wrap gap-3">
+            <div className="mt-5 sm:mt-8 flex flex-wrap gap-3">
               <button
                 onClick={() => scrollTo('catalog')}
-                className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 sm:px-7 py-3.5 font-bold text-secondary-foreground hover:brightness-105 transition"
+                className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#f3dc9a] to-[#d9ab52] px-5 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-[#14204a] shadow-lg shadow-black/30 hover:brightness-105 transition whitespace-nowrap"
               >
                 {t('hero.btn1', 'Выбрать подарок')}
                 <Icon name="ArrowRight" size={18} />
               </button>
-              <button
-                onClick={handleCatalog}
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-6 sm:px-7 py-3.5 font-bold hover:bg-white/20 transition"
-              >
-                <Icon name="Download" size={18} />
-                {t('hero.btn2', 'Скачать каталог')}
-              </button>
-            </div>
-
-            <div className="mt-7 lg:mt-10 grid grid-cols-3 gap-2.5 sm:gap-3 lg:gap-4 max-w-lg">
-              {stats.map((s, i) => (
-                <div key={i} className={`hero-stat ${['hero-stat-0', 'hero-stat-1', 'hero-stat-2'][i % 3]}`}>
-                  <div className="hero-stat-value font-display font-black text-sm sm:text-lg lg:text-xl leading-tight whitespace-nowrap">{s.value}</div>
-                  <div className="text-[10px] sm:text-xs font-semibold text-white/90 mt-1.5 leading-tight">{s.label}</div>
-                </div>
-              ))}
+              {catalogFile && (
+                <button
+                  onClick={handleCatalog}
+                  className="hidden sm:inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/25 px-6 py-4 font-bold hover:bg-white/20 transition"
+                >
+                  <Icon name="Download" size={18} />
+                  {t('hero.btn2', 'Скачать каталог')}
+                </button>
+              )}
             </div>
           </div>
-
         </div>
       </div>
 

@@ -1,0 +1,2 @@
+UPDATE site_texts SET value = 'Сладкие новогодние подарки для детей, близких, коллег и партнёров.', updated_at = NOW() WHERE text_key = 'hero.text';
+UPDATE site_texts SET value = 'Новогодние подарки в Чебоксарах', updated_at = NOW() WHERE text_key = 'hero.badge';
