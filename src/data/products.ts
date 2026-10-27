@@ -85,5 +85,5 @@ export const products: Product[] = [
 export const heroImage = '/hero-ball.webp';
 export const compositionImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/43e6209c-5f53-429d-8e9a-947f7ca4f1df.jpg';
 export const corporateImage = '/corporate-zodiac-dance.jpg?v=4';
-export const heroBgImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/0a12ac5f-10b5-4bc5-9eab-a0f37aa4059d.jpg';
+export const heroBgImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/9f658aa5-3c93-4fe7-adaa-2610566eef2a.jpg';
 export const villageBgImage = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/c83912e3-6c1f-4afe-b3a1-0708562c88c6.jpg';
