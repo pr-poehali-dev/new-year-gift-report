@@ -62,11 +62,11 @@ export default function HeroSection() {
           flakes={35}
           garland={false}
           imageClassName="object-[58%_center] sm:object-center"
-          overlay="linear-gradient(90deg, rgba(8,18,52,0.92) 0%, rgba(8,18,52,0.72) 35%, rgba(8,18,52,0.2) 62%, rgba(8,18,52,0) 100%)"
+          overlay="linear-gradient(90deg, rgba(8,18,52,0.95) 0%, rgba(8,18,52,0.8) 40%, rgba(8,18,52,0.25) 66%, rgba(8,18,52,0) 100%)"
         />
         <div className="relative mx-auto max-w-7xl px-5 sm:px-8 pt-8 pb-8 sm:pt-16 sm:pb-16 lg:pt-24 lg:pb-24 min-h-[380px] sm:min-h-[460px] lg:min-h-[600px] flex items-center">
-          <div className="w-[62%] sm:w-[56%] lg:w-[50%] max-w-2xl">
-            <div className="text-[10px] sm:text-xs lg:text-sm font-semibold uppercase tracking-[0.25em] text-white/90 leading-relaxed" style={ts('hero.badge')}>
+          <div className="w-[58%] sm:w-[56%] lg:w-[50%] max-w-2xl [text-shadow:0_2px_12px_rgba(0,0,0,0.45)]">
+            <div className="text-[10px] sm:text-xs lg:text-sm font-semibold uppercase tracking-[0.22em] max-w-[200px] sm:max-w-none text-white/90 leading-relaxed" style={ts('hero.badge')}>
               {tr('hero.badge', 'Новогодние подарки в Чебоксарах').replace(/^[★☆✦\s]+/, '').replace(/\s*·.*$/, '')}
             </div>
 
@@ -84,7 +84,7 @@ export default function HeroSection() {
               </span>
             </h1>
 
-            <p className="mt-3 sm:mt-6 max-w-md text-[13px] sm:text-base lg:text-lg text-white/90 leading-snug sm:leading-relaxed" style={ts('hero.text')}>
+            <p className="mt-3 sm:mt-6 max-w-md text-[13px] sm:text-base lg:text-lg text-white/95 leading-snug sm:leading-relaxed" style={ts('hero.text')}>
               {tr('hero.text', 'Сладкие новогодние подарки для детей, близких, коллег и партнёров.')}
             </p>
 
@@ -112,30 +112,30 @@ export default function HeroSection() {
 
       <div className="bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-8 pb-2 sm:pt-12 sm:pb-4">
-          <div className="flex items-center gap-5 sm:gap-8">
+          <div className="flex items-center gap-4 sm:gap-8">
             <div className="shrink-0 flex items-end gap-2 sm:gap-3">
-              <h2 className="text-forest text-[32px] sm:text-5xl lg:text-6xl leading-[1.05] font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <h2 className="text-forest text-[26px] sm:text-5xl lg:text-6xl leading-[1.05] font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
                 <span className="block">{t('adv.big1', '12+ лет')}</span>
                 <span className="block">{t('adv.big2', 'радуем детей')}</span>
               </h2>
-              <Icon name="Heart" size={30} className="text-secondary mb-2 sm:mb-3 shrink-0" />
+              <Icon name="Heart" size={24} className="text-secondary mb-1.5 sm:mb-3 shrink-0" />
             </div>
             <div className="self-stretch w-px bg-forest/15" />
-            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground leading-snug max-w-md">
+            <p className="text-[13px] sm:text-base lg:text-lg text-muted-foreground leading-snug max-w-md min-w-0">
               {t('adv.lead', 'Создаем новогодние подарки, которые дарят радость, объединяют и остаются в памяти надолго.')}
             </p>
           </div>
 
-          <div className="mt-6 sm:mt-8 rounded-3xl bg-[#f6ece0] p-4 sm:p-6 lg:p-8">
+          <div className="mt-6 sm:mt-8 rounded-3xl bg-[#f6ece0] px-4 py-5 sm:p-6 lg:p-8">
             <div className="flex items-center gap-4 mb-3 sm:mb-5">
               <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.3em] text-forest">
                 {t('adv.eyebrow', 'Наши преимущества')}
               </span>
               <span className="h-px w-16 sm:w-24 bg-secondary" />
             </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-4 divide-y divide-forest/10 sm:divide-y-0">
               {advantages.map((a, i) => (
-                <div key={i} className="flex flex-col items-center justify-center text-center gap-3 sm:gap-4 rounded-2xl bg-white px-3 py-5 sm:px-5 sm:py-6 lg:p-6 shadow-sm">
+                <div key={i} className="flex items-center gap-4 py-3.5 first:pt-1 last:pb-1 sm:flex-col sm:justify-center sm:text-center sm:rounded-2xl sm:bg-white sm:px-5 sm:py-6 sm:first:pt-6 sm:last:pb-6 lg:p-6 sm:shadow-sm">
                   <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0 ${ADV_COLORS[i % ADV_COLORS.length]}`}>
                     <Icon name={a.icon} size={24} />
                   </div>

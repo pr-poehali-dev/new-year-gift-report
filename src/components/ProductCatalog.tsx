@@ -66,7 +66,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                 <button
                   key={chip.value}
                   onClick={() => setSelectedCategory(chip.value)}
-                  className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold transition ${
+                  className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 sm:px-5 sm:py-2.5 text-[13px] sm:text-sm font-medium transition ${
                     activeCategory === chip.value
                       ? 'bg-forest text-forest-foreground'
                       : 'bg-white text-forest border border-border hover:border-forest/40'
@@ -98,11 +98,11 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
             {filtered.map(product => (
               <article
                 key={product.id}
-                className={`group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-border transition-shadow flex flex-col ${
+                className={`group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-border shadow-sm transition-shadow flex flex-col ${
                   product.is_sold_out ? 'opacity-80' : 'hover:shadow-xl'
                 }`}
               >
-                <div className="relative bg-background">
+                <div className="relative bg-gradient-to-b from-[#f6ece0] to-[#fbf6ef]">
                   <button
                     onClick={() => openGallery(product.id)}
                     className="block w-full"
@@ -112,7 +112,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                       src={product.image}
                       alt={product.name}
                       loading="lazy"
-                      className={`w-full h-32 sm:h-40 lg:h-44 object-contain p-2 sm:p-3 cursor-zoom-in ${product.is_sold_out ? 'grayscale opacity-50' : ''}`}
+                      className={`w-full h-36 sm:h-48 lg:h-52 object-contain p-2.5 sm:p-4 cursor-zoom-in transition-transform duration-300 group-hover:scale-[1.03] ${product.is_sold_out ? 'grayscale opacity-50' : ''}`}
                     />
                   </button>
                   {product.is_sold_out && (
@@ -132,7 +132,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                     </button>
                   )}
                   {product.badge && !product.is_sold_out && (
-                    <span className="absolute top-2 left-2 sm:top-4 sm:left-4 rounded-full bg-primary text-white text-[10px] font-extrabold tracking-wider px-2 py-1 sm:px-3 sm:py-1.5">
+                    <span className="absolute top-2 left-2 sm:top-3 sm:left-3 rounded-full bg-primary text-white text-[10px] sm:text-xs font-semibold px-2.5 py-1 sm:px-3 sm:py-1.5 shadow-sm first-letter:uppercase lowercase">
                       {product.badge}
                     </span>
                   )}
@@ -142,29 +142,28 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                   <div className="text-[10px] font-bold tracking-wider sm:tracking-[0.16em] uppercase text-muted-foreground">
                     {product.category} • {product.weight}
                   </div>
-                  <h3 className="mt-1 sm:mt-2 text-sm sm:text-base lg:text-lg font-black text-forest leading-tight">{product.name}</h3>
-                  <p className="mt-1 sm:mt-1.5 text-[11px] sm:text-sm text-muted-foreground leading-snug sm:leading-relaxed line-clamp-2 lg:line-clamp-none">
+                  <h3 className="mt-1 sm:mt-1.5 text-[15px] sm:text-base lg:text-lg font-bold text-forest leading-tight">{product.name}</h3>
+                  <p className="mt-1 sm:mt-1.5 text-xs sm:text-sm text-muted-foreground leading-snug sm:leading-relaxed line-clamp-2">
                     {product.description}
                   </p>
 
-                  <div className="mt-auto pt-2.5 sm:pt-4 border-t border-border flex flex-col sm:flex-row sm:flex-wrap sm:items-center justify-between gap-1.5 sm:gap-2 sm:mt-4 lg:mt-5">
-                    <span className="flex items-baseline gap-1.5 whitespace-nowrap text-forest">
-                      <span className="text-xs sm:text-sm font-bold text-muted-foreground">Цена:</span>
-                      <span className="text-lg sm:text-xl lg:text-2xl font-black">{product.price.toLocaleString('ru-RU')} ₽</span>
+                  <div className="mt-auto pt-3 sm:pt-4 flex items-center justify-between gap-2">
+                    <span className="whitespace-nowrap text-forest font-bold text-base sm:text-xl lg:text-2xl">
+                      от {product.price.toLocaleString('ru-RU')} ₽
                     </span>
                     {product.is_sold_out ? (
-                      <span className="inline-flex items-center justify-center gap-1 rounded-full bg-muted text-muted-foreground py-1.5 sm:px-3 text-xs sm:text-sm font-bold whitespace-nowrap">
-                        <Icon name="PackageX" size={15} />
-                        Нет в продаже
+                      <span className="inline-flex items-center gap-1 rounded-full bg-muted text-muted-foreground px-2.5 py-1.5 text-[11px] sm:text-sm font-bold whitespace-nowrap">
+                        <Icon name="PackageX" size={14} />
+                        Нет
                       </span>
                     ) : (
                       <button
                         onClick={onRequest}
-                        className="inline-flex items-center justify-center sm:justify-start gap-1 rounded-full sm:rounded-none bg-primary sm:bg-transparent text-white sm:text-primary py-1.5 sm:py-0 text-xs sm:text-sm font-bold hover:gap-2 transition-all"
+                        className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-full bg-gradient-to-br from-[#f3dc9a] to-[#d9ab52] text-forest flex items-center justify-center shadow-md hover:brightness-105 transition"
                         aria-label={`Заказать ${product.name}`}
+                        title="Заказать"
                       >
-                        Заказать
-                        <Icon name="ArrowRight" size={15} />
+                        <Icon name="ShoppingCart" size={18} />
                       </button>
                     )}
                   </div>
