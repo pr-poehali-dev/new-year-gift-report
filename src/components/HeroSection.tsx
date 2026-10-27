@@ -1,9 +1,8 @@
 import { toast } from 'sonner';
 import SnowText, { SnowDefs } from '@/components/SnowText';
 import Icon from '@/components/ui/icon';
-import { heroImage, heroBgImage } from '@/data/products';
+import { heroBgImage } from '@/data/products';
 import FestiveBackground from '@/components/festive/FestiveBackground';
-import BlendImage from '@/components/festive/BlendImage';
 import { useText, useTextRaw, useTextStyle, useSetting } from '@/hooks/useSiteTexts';
 
 const ACCENTS: [RegExp, string][] = [
@@ -74,8 +73,8 @@ export default function HeroSection() {
     <section id="home">
       <div className="relative bg-[#141238] text-forest-foreground">
         <FestiveBackground image={s('img.heroBg', heroBgImage)} overlay="linear-gradient(90deg, rgba(10,22,70,0.85) 0%, rgba(14,30,90,0.55) 45%, rgba(14,30,90,0.15) 100%)" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-8 sm:pt-16 sm:pb-14 lg:pt-24 lg:pb-20 grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-cols-2 gap-6 md:gap-6 lg:gap-14 items-center">
-          <div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-8 sm:pt-16 sm:pb-14 lg:pt-24 lg:pb-20 grid gap-6 items-center">
+          <div className="max-w-2xl">
             <div className="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5 text-xs sm:text-sm md:text-[11px] lg:text-sm font-extrabold tracking-widest md:tracking-wide lg:tracking-widest uppercase md:px-4 lg:px-5">
               <span className="hero-badge-star">❄</span>
               <span className="hero-badge-text" style={ts('hero.badge')}>{tr('hero.badge', '★ Новогодние подарки в Чебоксарах · коллекция 2027').replace(/^[★☆✦\s]+/, '')}</span>
@@ -125,24 +124,6 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="hero-float-soft relative pt-6 sm:pt-0">
-            <BlendImage src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" highlight className="max-w-[340px] sm:max-w-[420px] md:max-w-none lg:max-w-[560px] mx-auto mt-2 mb-0 sm:-my-8 md:-mx-6 md:scale-110 lg:mx-auto lg:scale-100 lg:-my-10" />
-
-            <div className="animate-float absolute top-6 right-2 sm:-top-4 sm:right-8 md:-top-8 md:right-0 lg:-top-4 lg:right-8 w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
-              <span className="font-extrabold text-xs sm:text-sm">{t('hero.price', 'от 650 ₽')}</span>
-              <span className="text-[9px] sm:text-[10px] opacity-80">{t('hero.priceSub', 'за подарок')}</span>
-            </div>
-
-            <div className="absolute bottom-2 left-2 sm:left-6 bg-white rounded-2xl shadow-xl px-4 py-3 flex md:hidden lg:flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center shrink-0">
-                <Icon name="Check" size={18} />
-              </div>
-              <div className="leading-tight">
-                <div className="font-bold text-sm text-forest">{t('hero.cardTitle', 'Свежие сладости')}</div>
-                <div className="text-[10px] text-muted-foreground">{t('hero.cardText', 'Прямые контракты с фабриками')}</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
