@@ -1,4 +1,4 @@
-import { useText, useSetting } from '@/hooks/useSiteTexts';
+import { useText } from '@/hooks/useSiteTexts';
 
 const links = [
   { label: 'Подарки', id: 'catalog' },
@@ -9,7 +9,6 @@ const links = [
 
 export default function Footer() {
   const t = useText();
-  const s = useSetting();
   const scrollTo = (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -18,18 +17,9 @@ export default function Footer() {
   return (
     <footer className="bg-[hsl(226_70%_14%)] text-forest-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 lg:grid-cols-3 items-center">
-        <div className="flex items-center gap-2.5">
-          <img src={s('img.logoLight', '/logo-light.png')} alt="ЧЕБподарки" className="h-14 w-auto" />
-          <div className="leading-tight">
-            <div className="font-extrabold text-lg">
-              <span className="text-[#ff5a6e]" style={{ textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>ЧЕБ</span>подарки
-            </div>
-            <div className="mt-0.5 flex items-center gap-1 text-[#ff5a6e] leading-none" style={{ fontFamily: "'Marck Script', cursive", fontSize: '17px', textShadow: '0 0 10px rgba(255,90,110,0.35)' }}>
-              {t('head.sub', 'Сладкий Новый год')}
-              <span className="text-secondary text-[13px]">❄</span>
-            </div>
-          </div>
-        </div>
+        <a href="/" className="shrink-0" aria-label="ЧЕБподарки">
+          <img src="/logo-footer.png" alt="ЧЕБподарки" width={311} height={160} className="h-16 w-auto" />
+        </a>
 
         <p className="text-xs text-forest-foreground/60 lg:text-center">
           {t('foot.tagline', 'Сладкие новогодние подарки в Чебоксарах: оптом и в розницу, корпоративные заказы с доставкой по России.')}
