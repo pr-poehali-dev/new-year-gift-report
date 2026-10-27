@@ -1,25 +1,8 @@
 import { toast } from 'sonner';
-import SnowText, { SnowDefs } from '@/components/SnowText';
 import Icon from '@/components/ui/icon';
-import { heroImage, heroBgImage } from '@/data/products';
+import { heroBgImage } from '@/data/products';
 import FestiveBackground from '@/components/festive/FestiveBackground';
-import BlendImage from '@/components/festive/BlendImage';
 import { useText, useTextRaw, useTextStyle, useSetting } from '@/hooks/useSiteTexts';
-
-const ACCENTS: [RegExp, string][] = [
-  [/(сладост\S*|конфет\S*)/i, 'lead-gold'],
-  [/(волшебн\S* упаковк\S*)/i, 'lead-red'],
-  [/(оптом и в розницу)/i, 'lead-mint'],
-  [/(по всей России)/i, 'lead-gold'],
-];
-
-function highlight(text: string) {
-  const re = new RegExp(ACCENTS.map(([r]) => r.source).join('|'), 'gi');
-  return text.split(re).filter(p => p !== undefined && p !== '').map((part, i) => {
-    const hit = ACCENTS.find(([r]) => new RegExp(`^${r.source}$`, 'i').test(part));
-    return hit ? <span key={i} className={hit[1]}>{part}</span> : <span key={i}>{part}</span>;
-  });
-}
 
 export default function HeroSection() {
   const t = useText();
@@ -57,12 +40,6 @@ export default function HeroSection() {
     }
   };
 
-  const stats = [
-    { value: t('hero.stat1v', '12+'), label: t('hero.stat1l', 'лет радуем детей') },
-    { value: t('hero.stat2v', '700–1500 г'), label: t('hero.stat2l', 'на любой бюджет') },
-    { value: t('hero.stat3v', 'По России'), label: t('hero.stat3l', 'бережная доставка') },
-  ];
-
   const advantages = [
     { icon: 'ShieldCheck', title: t('adv.1t', 'Проверенный состав'), text: t('adv.1x', 'Сертифицированные сладости') },
     { icon: 'Tag', title: t('adv.2t', 'Цены от производителя'), text: t('adv.2x', 'Скидки на объём заказа') },
@@ -72,75 +49,49 @@ export default function HeroSection() {
 
   return (
     <section id="home">
-      <div className="relative bg-[#141238] text-forest-foreground">
-        <FestiveBackground image={s('img.heroBg', heroBgImage)} overlay="linear-gradient(90deg, rgba(10,22,70,0.85) 0%, rgba(14,30,90,0.55) 45%, rgba(14,30,90,0.15) 100%)" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-10 pb-8 sm:pt-16 sm:pb-14 lg:pt-24 lg:pb-20 grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-cols-2 gap-6 md:gap-6 lg:gap-14 items-center">
-          <div>
-            <div className="hero-badge inline-flex items-center gap-2 rounded-full px-4 py-2 sm:px-5 text-xs sm:text-sm md:text-[11px] lg:text-sm font-extrabold tracking-widest md:tracking-wide lg:tracking-widest uppercase md:px-4 lg:px-5">
-              <span className="hero-badge-star">❄</span>
-              <span className="hero-badge-text" style={ts('hero.badge')}>{tr('hero.badge', '★ Новогодние подарки в Чебоксарах · коллекция 2027').replace(/^[★☆✦\s]+/, '')}</span>
-              <span className="hero-badge-star">❄</span>
+      <div className="relative bg-[#0b1840] text-white overflow-hidden">
+        <FestiveBackground
+          image={s('img.heroBg', heroBgImage)}
+          flakes={40}
+          overlay="linear-gradient(90deg, rgba(8,18,52,0.92) 0%, rgba(8,18,52,0.7) 32%, rgba(8,18,52,0.15) 60%, rgba(8,18,52,0) 100%)"
+        />
+        <div className="relative mx-auto max-w-7xl px-5 sm:px-8 pt-14 pb-12 sm:pt-20 sm:pb-16 lg:pt-28 lg:pb-24 min-h-[340px] sm:min-h-[440px] lg:min-h-[600px] flex items-center">
+          <div className="w-[62%] sm:w-[55%] lg:w-[48%] max-w-xl">
+            <div className="text-[10px] sm:text-xs lg:text-sm font-semibold uppercase tracking-[0.28em] text-white/90 leading-relaxed" style={ts('hero.badge')}>
+              {tr('hero.badge', 'Новогодние подарки в Чебоксарах').replace(/^[★☆✦\s]+/, '').replace(/\s*·.*$/, '')}
             </div>
 
-            <h1 className="mt-5 sm:mt-6 text-4xl sm:text-5xl md:text-[44px] lg:text-6xl font-normal leading-[1.2] tracking-[0.01em]" style={{ fontFamily: "'Lobster', cursive" }}>
-              <SnowDefs />
-              <span style={ts('hero.title1')}>
-                <SnowText text={tr('hero.title1', 'Подарки, от которых')} className="snow-fill-bright" />
-              </span>
-              <span className="block mt-1 text-5xl sm:text-6xl md:text-[54px] lg:text-7xl">
-                <span style={ts('hero.title2')}>
-                  <SnowText text={tr('hero.title2', 'глаза горят')} className="snow-fill-red" />
-                </span>
+            <h1 className="mt-4 sm:mt-5 text-[34px] leading-[1.05] sm:text-5xl lg:text-7xl font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
+              <span className="block" style={ts('hero.title1')}>{tr('hero.title1', 'Подарки, от которых')}</span>
+              <span
+                className="block italic mt-1 bg-gradient-to-r from-[#f7e3a6] via-[#e2b75a] to-[#c8923a] bg-clip-text text-transparent"
+                style={ts('hero.title2')}
+              >
+                {tr('hero.title2', 'глаза горят')}
               </span>
             </h1>
 
-            <p className="hero-lead mt-5 max-w-lg rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-[15px] sm:text-base lg:text-lg font-semibold leading-relaxed">
-              <span style={ts('hero.text')}>{highlight(tr('hero.text', 'Сладкие новогодние подарки в Чебоксарах — детям, близким, коллегам и партнёрам. Любимые конфеты в волшебной упаковке, сладкие подарки оптом и в розницу с доставкой по всей России.'))}</span>
+            <p className="mt-4 sm:mt-6 max-w-md text-[13px] sm:text-base lg:text-lg text-white/90 leading-relaxed" style={ts('hero.text')}>
+              {tr('hero.text', 'Сладкие новогодние подарки для детей, близких, коллег и партнёров.')}
             </p>
 
-            <div className="mt-6 lg:mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 sm:mt-8 flex flex-wrap gap-3">
               <button
                 onClick={() => scrollTo('catalog')}
-                className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 sm:px-7 py-3.5 font-bold text-secondary-foreground hover:brightness-105 transition"
+                className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#f3dc9a] to-[#d9ab52] px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-[#14204a] shadow-lg shadow-black/30 hover:brightness-105 transition"
               >
                 {t('hero.btn1', 'Выбрать подарок')}
                 <Icon name="ArrowRight" size={18} />
               </button>
-              <button
-                onClick={handleCatalog}
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-6 sm:px-7 py-3.5 font-bold hover:bg-white/20 transition"
-              >
-                <Icon name="Download" size={18} />
-                {t('hero.btn2', 'Скачать каталог')}
-              </button>
-            </div>
-
-            <div className="mt-7 lg:mt-10 grid grid-cols-3 gap-2.5 sm:gap-3 lg:gap-4 max-w-lg">
-              {stats.map((s, i) => (
-                <div key={i} className={`hero-stat ${['hero-stat-0', 'hero-stat-1', 'hero-stat-2'][i % 3]}`}>
-                  <div className="hero-stat-value font-display font-black text-sm sm:text-lg lg:text-xl leading-tight whitespace-nowrap">{s.value}</div>
-                  <div className="text-[10px] sm:text-xs font-semibold text-white/90 mt-1.5 leading-tight">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="hero-float-soft relative pt-6 sm:pt-0">
-            <BlendImage src={s('img.hero', heroImage)} alt="Новогодние подарочные наборы" highlight className="max-w-[340px] sm:max-w-[420px] md:max-w-none lg:max-w-[560px] mx-auto mt-2 mb-0 sm:-my-8 md:-mx-6 md:scale-110 lg:mx-auto lg:scale-100 lg:-my-10" />
-
-            <div className="animate-float absolute top-6 right-2 sm:-top-4 sm:right-8 md:-top-8 md:right-0 lg:-top-4 lg:right-8 w-20 h-20 sm:w-24 sm:h-24 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
-              <span className="font-extrabold text-xs sm:text-sm">{t('hero.price', 'от 650 ₽')}</span>
-              <span className="text-[9px] sm:text-[10px] opacity-80">{t('hero.priceSub', 'за подарок')}</span>
-            </div>
-
-            <div className="absolute bottom-2 left-2 sm:left-6 bg-white rounded-2xl shadow-xl px-4 py-3 flex md:hidden lg:flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-forest text-white flex items-center justify-center shrink-0">
-                <Icon name="Check" size={18} />
-              </div>
-              <div className="leading-tight">
-                <div className="font-bold text-sm text-forest">{t('hero.cardTitle', 'Свежие сладости')}</div>
-                <div className="text-[10px] text-muted-foreground">{t('hero.cardText', 'Прямые контракты с фабриками')}</div>
-              </div>
+              {catalogFile && (
+                <button
+                  onClick={handleCatalog}
+                  className="hidden sm:inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/25 px-6 py-4 font-bold hover:bg-white/20 transition"
+                >
+                  <Icon name="Download" size={18} />
+                  {t('hero.btn2', 'Скачать каталог')}
+                </button>
+              )}
             </div>
           </div>
         </div>

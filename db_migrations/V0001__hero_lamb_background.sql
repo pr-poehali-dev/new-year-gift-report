@@ -1,0 +1,2 @@
+UPDATE site_settings SET value = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/files/0a12ac5f-10b5-4bc5-9eab-a0f37aa4059d.jpg', updated_at = NOW() WHERE setting_key = 'img.heroBg';
+UPDATE site_settings SET value = '', updated_at = NOW() WHERE setting_key = 'img.hero';
