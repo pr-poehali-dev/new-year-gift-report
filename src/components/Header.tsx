@@ -45,7 +45,7 @@ export default function Header() {
       <div className="bg-cream/95 backdrop-blur-md border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
           <a href="/" className="shrink-0" aria-label="ЧЕБподарки">
-            <img src="/logo-header.png" alt="ЧЕБподарки" width={254} height={140} className="h-14 sm:h-16 w-auto" />
+            <img src="/logo-header.png" alt="ЧЕБподарки" width={287} height={140} className="h-14 sm:h-16 w-auto" />
           </a>
 
           <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-forest">
