@@ -52,18 +52,11 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
     <>
       <section id="catalog" className="bg-background">
         <div className="mx-auto max-w-7xl px-3 sm:px-6 pt-8 pb-10 sm:pt-12 sm:pb-12">
-          <div className="grid lg:grid-cols-2 gap-2 sm:gap-6 lg:items-end mb-5 sm:mb-8">
-            <div>
-              <div className="eyebrow-script text-primary mb-1 sm:mb-2">
-                {t('catalog.eyebrow', 'Найдите свой подарок')}
-              </div>
-              <h2 className="text-3xl sm:text-5xl lg:text-6xl title-festive">
-                {t('catalog.title', 'Новогодние подарки на любой вкус')}
-              </h2>
-            </div>
-            <p className="text-xs sm:text-base text-muted-foreground lg:pb-2">
-              {t('catalog.text', 'Каталог сладких новогодних подарков в Чебоксарах: от ярких детских коробок до премиальных наборов. Выбирайте упаковку, вес и бюджет — для семьи или для всего коллектива.')}
-            </p>
+          <div className="flex items-center gap-4 sm:gap-6 mb-5 sm:mb-8">
+            <h2 className="text-[34px] sm:text-5xl lg:text-6xl text-forest font-medium leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>
+              {t('catalog.title', 'Каталог подарков')}
+            </h2>
+            <span className="h-px w-16 sm:w-28 bg-secondary shrink-0" />
           </div>
 
           {(chips.length > 1 || showSortSelect) && (

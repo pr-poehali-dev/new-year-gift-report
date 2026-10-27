@@ -65,6 +65,9 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
   'Преимущества': {
     icon: 'BadgeCheck',
     left: [
+      { type: 'title', keys: ['adv.big1', 'adv.big2'] },
+      { type: 'text', key: 'adv.lead' },
+      { type: 'eyebrow', key: 'adv.eyebrow' },
       {
         type: 'cards',
         pairs: [

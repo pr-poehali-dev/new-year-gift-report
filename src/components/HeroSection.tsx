@@ -20,6 +20,13 @@ function highlight(text: string) {
   });
 }
 
+const ADV_COLORS = [
+  'bg-primary/10 text-primary',
+  'bg-secondary/20 text-[#b07d1f]',
+  'bg-forest/10 text-forest',
+  'bg-emerald-600/10 text-emerald-700',
+];
+
 export default function HeroSection() {
   const t = useText();
   const tr = useTextRaw();
@@ -63,10 +70,10 @@ export default function HeroSection() {
   ];
 
   const advantages = [
-    { icon: 'ShieldCheck', title: t('adv.1t', 'Проверенный состав'), text: t('adv.1x', 'Сертифицированные сладости') },
-    { icon: 'Tag', title: t('adv.2t', 'Цены от производителя'), text: t('adv.2x', 'Скидки на объём заказа') },
-    { icon: 'Palette', title: t('adv.3t', 'Брендирование'), text: t('adv.3x', 'Ваш логотип и открытка') },
-    { icon: 'Truck', title: t('adv.4t', 'Доставка по России'), text: t('adv.4x', 'Аккуратно и точно в срок') },
+    { icon: 'Candy', title: t('adv.1t', 'Проверенный состав'), text: t('adv.1x', 'Сертифицированные сладости от ведущих фабрик') },
+    { icon: 'Gift', title: t('adv.2t', 'Яркая упаковка'), text: t('adv.2x', 'Авторский дизайн и качественные материалы') },
+    { icon: 'Truck', title: t('adv.3t', 'Доставка по всей России'), text: t('adv.3x', 'Аккуратно, бережно и точно в срок') },
+    { icon: 'Star', title: t('adv.4t', 'Индивидуальные решения'), text: t('adv.4x', 'Подарки под ваш бюджет, бренд и задачи') },
   ];
 
   return (
@@ -128,19 +135,42 @@ export default function HeroSection() {
       </div>
 
       <div className="bg-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-6 pb-2 sm:pt-8 sm:pb-4">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl sm:rounded-3xl bg-border border border-border shadow-sm overflow-hidden">
-            {advantages.map((a, i) => (
-              <div key={i} className="bg-white flex items-center gap-3 px-3 py-3.5 sm:px-5 sm:py-5">
-                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 ${i % 2 === 0 ? 'bg-primary/10 text-primary' : 'bg-forest/10 text-forest'}`}>
-                  <Icon name={a.icon} size={20} />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-8 pb-2 sm:pt-12 sm:pb-4">
+          <div className="flex items-center gap-5 sm:gap-8">
+            <div className="shrink-0 flex items-end gap-2 sm:gap-3">
+              <h2 className="text-forest text-[32px] sm:text-5xl lg:text-6xl leading-[1.05] font-medium" style={{ fontFamily: "'Playfair Display', serif" }}>
+                <span className="block">{t('adv.big1', '12+ лет')}</span>
+                <span className="block">{t('adv.big2', 'радуем детей')}</span>
+              </h2>
+              <Icon name="Heart" size={30} className="text-secondary mb-2 sm:mb-3 shrink-0" />
+            </div>
+            <div className="self-stretch w-px bg-forest/15" />
+            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground leading-snug max-w-md">
+              {t('adv.lead', 'Создаем новогодние подарки, которые дарят радость, объединяют и остаются в памяти надолго.')}
+            </p>
+          </div>
+
+          <div className="mt-6 sm:mt-8 rounded-3xl bg-[#f6ece0] p-4 sm:p-6 lg:p-8">
+            <div className="flex items-center gap-4 mb-3 sm:mb-5">
+              <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.3em] text-forest">
+                {t('adv.eyebrow', 'Наши преимущества')}
+              </span>
+              <span className="h-px w-16 sm:w-24 bg-secondary" />
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              {advantages.map((a, i) => (
+                <div key={i} className="group flex items-center gap-4 rounded-2xl bg-white/70 px-4 py-4 sm:px-5 sm:py-5 transition hover:bg-white hover:shadow-md">
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0 ${ADV_COLORS[i % ADV_COLORS.length]}`}>
+                    <Icon name={a.icon} size={24} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-[15px] sm:text-base text-forest leading-tight">{a.title}</div>
+                    <div className="text-xs sm:text-[13px] text-muted-foreground mt-1 leading-snug">{a.text}</div>
+                  </div>
+                  <Icon name="ChevronRight" size={18} className="text-forest/40 shrink-0 transition group-hover:translate-x-0.5" />
                 </div>
-                <div className="min-w-0">
-                  <div className="font-bold text-[13px] sm:text-[15px] text-forest leading-tight">{a.title}</div>
-                  <div className="text-[11px] sm:text-xs text-muted-foreground mt-0.5 leading-snug">{a.text}</div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
