@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 
 interface BlendImageProps {
   src: string;
@@ -10,8 +10,11 @@ interface BlendImageProps {
 const MASK = 'radial-gradient(ellipse 50% 50% at 50% 50%, #000 55%, rgba(0,0,0,0.6) 72%, transparent 100%)';
 
 export default function BlendImage({ src, alt, className = '', highlight = false }: BlendImageProps) {
-  const sparkles = useMemo(
-    () =>
+  const [sparkles, setSparkles] = useState<
+    { id: number; top: number; left: number; size: number; delay: number; duration: number }[]
+  >([]);
+  useEffect(() => {
+    setSparkles(
       Array.from({ length: 14 }, (_, i) => ({
         id: i,
         top: 8 + Math.random() * 84,
@@ -19,9 +22,9 @@ export default function BlendImage({ src, alt, className = '', highlight = false
         size: Math.random() * 10 + 8,
         delay: Math.random() * 3,
         duration: Math.random() * 1.5 + 1.8,
-      })),
-    []
-  );
+      }))
+    );
+  }, []);
 
   return (
     <div className={`relative ${className}`}>

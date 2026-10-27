@@ -1,1 +1,0 @@
-UPDATE reviews SET is_published = FALSE WHERE name ~ '[A-Za-z]' OR text ~ '[A-Za-z]' OR name !~ '[А-Яа-яЁё]' OR text !~ '[А-Яа-яЁё]';

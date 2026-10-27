@@ -1,4 +1,4 @@
-import { useMemo, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 
 interface FestiveBackgroundProps {
   image: string;
@@ -13,8 +13,11 @@ export default function FestiveBackground({
   flakes = 60,
   overlay = 'linear-gradient(90deg, rgba(12,16,48,0.88) 0%, rgba(20,18,60,0.65) 45%, rgba(20,18,60,0.25) 100%)',
 }: FestiveBackgroundProps) {
-  const snow = useMemo(
-    () =>
+  const [snow, setSnow] = useState<
+    { id: number; left: number; size: number; duration: number; delay: number; dx: number; opacity: number }[]
+  >([]);
+  useEffect(() => {
+    setSnow(
       Array.from({ length: flakes }, (_, i) => ({
         id: i,
         left: Math.random() * 100,
@@ -23,20 +26,28 @@ export default function FestiveBackground({
         delay: -Math.random() * 16,
         dx: (Math.random() - 0.5) * 80,
         opacity: Math.random() * 0.5 + 0.5,
-      })),
-    [flakes]
-  );
+      }))
+    );
+  }, [flakes]);
 
-  const lights = useMemo(
-    () =>
+  const [lights, setLights] = useState(() =>
+    Array.from({ length: 28 }, (_, i) => ({
+      id: i,
+      color: GARLAND_COLORS[i % GARLAND_COLORS.length],
+      delay: 0,
+      duration: 1.8,
+    }))
+  );
+  useEffect(() => {
+    setLights(
       Array.from({ length: 28 }, (_, i) => ({
         id: i,
         color: GARLAND_COLORS[i % GARLAND_COLORS.length],
         delay: Math.random() * 2,
         duration: Math.random() * 1.2 + 1.2,
-      })),
-    []
-  );
+      }))
+    );
+  }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>

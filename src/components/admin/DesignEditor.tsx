@@ -117,7 +117,7 @@ export default function DesignEditor({ fields, kinds, onSaved }: Props) {
               </div>
               <div className="flex-1">
                 <input
-                  ref={el => (fileRefs.current[f.key] = el)}
+                  ref={el => { fileRefs.current[f.key] = el; }}
                   type="file"
                   accept="image/*"
                   className="hidden"
@@ -143,7 +143,7 @@ export default function DesignEditor({ fields, kinds, onSaved }: Props) {
           {f.kind === 'file' && (
             <div className="mt-3">
               <input
-                ref={el => (fileRefs.current[f.key] = el)}
+                ref={el => { fileRefs.current[f.key] = el; }}
                 type="file"
                 accept=".pdf,.doc,.docx,.xls,.xlsx,.zip"
                 className="hidden"

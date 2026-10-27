@@ -110,12 +110,46 @@ export function applyTheme(settings: Values) {
   root.style.fontSize = scale && scale !== 100 ? `${(16 * scale) / 100}px` : '';
 }
 
-export function SiteTextsProvider({ children }: { children: ReactNode }) {
-  const [cached] = useState(readCache);
-  const [values, setValues] = useState<Values>(cached?.values || {});
-  const [settings, setSettings] = useState<Values>(cached?.settings || {});
-  const [loaded, setLoaded] = useState(!!cached);
+export async function fetchSiteTexts(): Promise<{ values: Values; settings: Values } | null> {
+  try {
+    const d = await loadWithFallback<{ values?: Values; settings?: Values }>(
+      TEXTS_URL,
+      'texts',
+      d => !!d?.values && Object.keys(d.values).length > 0,
+    );
+    return { values: d.values || {}, settings: d.settings || {} };
+  } catch {
+    return null;
+  }
+}
+
+export function SiteTextsProvider({
+  children,
+  initial,
+}: {
+  children: ReactNode;
+  initial?: { values: Values; settings: Values } | null;
+}) {
+  const [cached, setCached] = useState<{ values: Values; settings: Values } | null>(null);
+  const [values, setValues] = useState<Values>(initial?.values || {});
+  const [settings, setSettings] = useState<Values>(initial?.settings || {});
+  const [loaded, setLoaded] = useState(!!initial);
   const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    if (initial) {
+      setCached(initial);
+      return;
+    }
+    const c = readCache();
+    if (c) {
+      setValues(c.values);
+      setSettings(c.settings);
+      setLoaded(true);
+      setCached(c);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const reload = useCallback(() => {
     loadWithFallback<{ values?: Values; settings?: Values }>(

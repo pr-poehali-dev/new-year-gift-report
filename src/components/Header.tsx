@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "@/lib/router-compat";
 import { useEffect, useState } from 'react';
 import { useText, useTextRaw, useSetting } from '@/hooks/useSiteTexts';
 

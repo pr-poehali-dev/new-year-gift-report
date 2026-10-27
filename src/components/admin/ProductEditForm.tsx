@@ -45,7 +45,7 @@ export default function ProductEditForm({
           )}
         </div>
         <input
-          ref={el => (fileRefs.current[p.id] = el)}
+          ref={el => { fileRefs.current[p.id] = el; }}
           type="file"
           accept="image/*"
           className="hidden"
@@ -95,7 +95,7 @@ export default function ProductEditForm({
             </div>
           ))}
           <input
-            ref={el => (galleryRefs.current[p.id] = el)}
+            ref={el => { galleryRefs.current[p.id] = el; }}
             type="file"
             accept="image/*"
             multiple

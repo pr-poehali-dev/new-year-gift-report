@@ -1,1 +1,0 @@
-ALTER TABLE t_p8000729_new_year_gift_report.products ADD COLUMN IF NOT EXISTS is_sold_out BOOLEAN NOT NULL DEFAULT FALSE;

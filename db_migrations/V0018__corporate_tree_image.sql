@@ -1,1 +1,0 @@
-UPDATE t_p8000729_new_year_gift_report.site_settings SET value = '/corporate-tree.jpg' WHERE setting_key = 'img.corporate';

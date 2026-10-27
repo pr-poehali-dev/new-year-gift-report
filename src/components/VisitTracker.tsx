@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "@/lib/router-compat";
 import func2url from '../../backend/func2url.json';
 
 const STATS_URL = (func2url as Record<string, string>).stats;

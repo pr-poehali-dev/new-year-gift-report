@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import func2url from '../../backend/func2url.json';
 import { products as fallbackProducts } from '@/data/products';
 import { loadWithFallback } from '@/lib/resilientFetch';
@@ -20,9 +20,28 @@ export interface ApiProduct {
   is_sold_out?: boolean;
 }
 
+export const InitialProductsContext = createContext<ApiProduct[] | null>(null);
+
+export async function fetchProducts(): Promise<ApiProduct[] | null> {
+  try {
+    const d = await loadWithFallback<{ products?: ApiProduct[] }>(
+      PRODUCTS_URL,
+      'products',
+      d => Array.isArray(d?.products) && d.products.length > 0,
+    );
+    return (d.products || []).map((p: ApiProduct) => ({
+      ...p,
+      images: Array.isArray(p.images) ? p.images : [],
+    }));
+  } catch {
+    return null;
+  }
+}
+
 export function useProducts(onlyActive = true) {
-  const [items, setItems] = useState<ApiProduct[]>([]);
-  const [loading, setLoading] = useState(true);
+  const initial = useContext(InitialProductsContext);
+  const [items, setItems] = useState<ApiProduct[]>(initial || []);
+  const [loading, setLoading] = useState(!initial);
 
   const reload = () => {
     setLoading(true);
@@ -53,7 +72,11 @@ export function useProducts(onlyActive = true) {
       .finally(() => setLoading(false));
   };
 
-  useEffect(reload, []);
+  useEffect(() => {
+    if (initial) return;
+    reload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return { products: onlyActive ? items.filter(p => p.is_active) : items, loading, reload, setItems };
 }

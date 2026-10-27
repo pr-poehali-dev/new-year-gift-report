@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
-import { Link } from 'react-router-dom';
+import { Link } from "@/lib/router-compat";
 import { submitReview } from '@/hooks/useReviews';
 
 export default function Reviews() {
