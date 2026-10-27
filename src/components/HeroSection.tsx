@@ -133,17 +133,16 @@ export default function HeroSection() {
               </span>
               <span className="h-px w-16 sm:w-24 bg-secondary" />
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
               {advantages.map((a, i) => (
-                <div key={i} className="group flex items-center gap-4 rounded-2xl bg-white/70 px-4 py-4 sm:px-5 sm:py-5 transition hover:bg-white hover:shadow-md">
+                <div key={i} className="flex items-center lg:flex-col lg:items-start gap-4 rounded-2xl bg-white px-4 py-4 sm:px-5 sm:py-5 lg:p-6 shadow-sm">
                   <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0 ${ADV_COLORS[i % ADV_COLORS.length]}`}>
                     <Icon name={a.icon} size={24} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="font-bold text-[15px] sm:text-base text-forest leading-tight">{a.title}</div>
-                    <div className="text-xs sm:text-[13px] text-muted-foreground mt-1 leading-snug">{a.text}</div>
+                    <div className="font-bold text-[15px] sm:text-base lg:text-lg text-forest leading-tight">{a.title}</div>
+                    <div className="text-[13px] sm:text-sm text-muted-foreground mt-1 lg:mt-1.5 leading-snug">{a.text}</div>
                   </div>
-                  <Icon name="ChevronRight" size={18} className="text-forest/40 shrink-0 transition group-hover:translate-x-0.5" />
                 </div>
               ))}
             </div>
