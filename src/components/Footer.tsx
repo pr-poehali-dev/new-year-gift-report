@@ -21,11 +21,11 @@ export default function Footer() {
   return (
     <footer className="bg-[hsl(226_70%_14%)] text-forest-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr]">
-        <div className="flex items-start gap-5">
+        <div className="flex flex-col items-start gap-4">
           <a href="/" className="shrink-0" aria-label="ЧЕБподарки">
             <img src={s('img.logoLight', '/logo-footer.png')} alt="ЧЕБподарки" width={482} height={600} className="h-24 w-auto object-contain" />
           </a>
-          <p className="text-xs leading-relaxed text-forest-foreground/60 max-w-xs">
+          <p className="text-xs leading-relaxed text-forest-foreground/60 max-w-[260px]">
             {t('foot.tagline', 'Сладкие новогодние подарки в Чебоксарах: оптом и в розницу, корпоративные заказы с доставкой по России.')}
           </p>
         </div>
