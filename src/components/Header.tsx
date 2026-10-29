@@ -5,9 +5,12 @@ import { useEffect, useState } from 'react';
 import { useSetting, useText, useTextRaw } from '@/hooks/useSiteTexts';
 
 const navLinks = [
+  { label: 'Главная', id: 'home' },
+  { label: 'Преимущества', id: 'advantages' },
   { label: 'Подарки', id: 'catalog' },
   { label: 'Состав', id: 'composition' },
   { label: 'Организациям', id: 'corporate' },
+  { label: 'Отзывы', id: 'reviews' },
   { label: 'Контакты', id: 'contacts' },
 ];
 
@@ -34,7 +37,8 @@ export default function Header() {
     e.preventDefault();
     setMenuOpen(false);
     if (location.pathname === '/') {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      if (id === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+      else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     } else {
       navigate(`/#${id}`);
     }
@@ -48,7 +52,7 @@ export default function Header() {
             <img src={s('img.logo', '/logo-header.png')} alt="ЧЕБподарки" width={482} height={600} className="h-16 sm:h-[72px] w-auto object-contain" />
           </a>
 
-          <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-forest">
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-semibold text-forest">
             {navLinks.map(link => (
               <a
                 key={link.id}

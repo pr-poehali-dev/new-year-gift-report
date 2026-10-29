@@ -126,7 +126,7 @@ export default function HeroSection() {
             </p>
           </div>
 
-          <div className="mt-6 sm:mt-8 rounded-3xl bg-[#f6ece0] px-4 py-5 sm:p-6 lg:p-8">
+          <div id="advantages" className="scroll-mt-28 mt-6 sm:mt-8 rounded-3xl bg-[#f6ece0] px-4 py-5 sm:p-6 lg:p-8">
             <div className="flex items-center gap-4 mb-3 sm:mb-5">
               <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-[0.3em] text-forest">
                 {t('adv.eyebrow', 'Наши преимущества')}
