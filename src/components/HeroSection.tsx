@@ -88,7 +88,7 @@ export default function HeroSection() {
               {tr('hero.text', 'Сладкие новогодние подарки для детей, близких, коллег и партнёров.')}
             </p>
 
-            <div className="mt-5 sm:mt-8 flex flex-wrap gap-3">
+            <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2.5 sm:gap-3">
               <button
                 onClick={() => scrollTo('catalog')}
                 className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#f3dc9a] to-[#d9ab52] px-5 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-[#14204a] shadow-lg shadow-black/30 hover:brightness-105 transition whitespace-nowrap"
@@ -99,10 +99,15 @@ export default function HeroSection() {
               {catalogFile && (
                 <button
                   onClick={handleCatalog}
-                  className="hidden sm:inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/25 px-6 py-4 font-bold hover:bg-white/20 transition"
+                  className="group inline-flex items-center gap-2.5 sm:gap-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 pl-1.5 pr-4 sm:pl-2 sm:pr-6 py-1.5 sm:py-2 font-bold hover:bg-white/20 hover:border-white/50 transition whitespace-nowrap"
                 >
-                  <Icon name="Download" size={18} />
-                  {t('hero.btn2', 'Скачать каталог')}
+                  <span className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white text-[#14204a] flex items-center justify-center shrink-0 group-hover:translate-y-0.5 transition-transform">
+                    <Icon name="Download" size={17} />
+                  </span>
+                  <span className="text-left leading-tight [text-shadow:none]">
+                    <span className="block text-sm sm:text-base">{t('hero.btn2', 'Скачать каталог')}</span>
+                    <span className="block text-[10px] sm:text-[11px] font-semibold text-white/65 uppercase tracking-wider">PDF · все подарки и цены</span>
+                  </span>
                 </button>
               )}
             </div>
