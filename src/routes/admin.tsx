@@ -12,5 +12,6 @@ function AdminPending() {
 export const Route = createFileRoute("/admin")({
   ssr: false,
   pendingComponent: AdminPending,
+  head: () => ({ meta: [{ title: "Админка — ЧебПодарки" }, { name: "robots", content: "noindex, nofollow" }] }),
   component: Admin,
 });

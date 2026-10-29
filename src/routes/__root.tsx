@@ -13,8 +13,9 @@ import VisitTracker from "@/components/VisitTracker";
 import NotFound from "@/pages/NotFound";
 import {installServerWatcher} from "@/lib/serverStatus";
 
-const TITLE = "Сладкие новогодние подарки";
-const DESCRIPTION = "Сладкие новогодние подарки от Чебподарки";
+const TITLE = "Сладкие новогодние подарки 2027 в Чебоксарах — оптом и в розницу | ЧебПодарки";
+const DESCRIPTION =
+    "Новогодние сладкие подарки от 590 ₽ в Чебоксарах: конфеты в праздничной упаковке для детей, школ, садов и сотрудников. Корпоративные заказы с логотипом, доставка по России.";
 const OG_IMAGE =
     "https://cdn.poehali.dev/projects/***/files/ffc70d06-2ecc-4118-a570-1e0b6d74e314.jpg";
 
@@ -91,7 +92,6 @@ export const Route = createRootRoute({
         links: [
             {rel: "stylesheet", href: appCss},
             {rel: "icon", type: "image/svg+xml", href: "/favicon.svg"},
-            {rel: "canonical", href: "https://chebpodarki.ru/"},
         ],
         // IMPORTANT: DO NOT REMOVE PLATFORM SCRIPTS AND THE DEV HMR CLIENT!
         scripts: [
