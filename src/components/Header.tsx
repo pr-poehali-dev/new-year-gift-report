@@ -74,6 +74,18 @@ export default function Header() {
             <a href="/#request" onClick={e => handleAnchorClick(e, 'request')} className="hidden sm:block">
               <Button className="rounded-full font-bold px-5">{t('head.btn', 'Заказать звонок')}</Button>
             </a>
+            <a
+              href="/#request"
+              onClick={e => handleAnchorClick(e, 'request')}
+              className="sm:hidden h-12 pl-3.5 pr-4 rounded-full bg-primary text-primary-foreground flex items-center gap-2 shadow-md font-bold text-sm"
+              aria-label={tr('head.btn', 'Заказать звонок')}
+            >
+              <span className="relative flex w-5 h-5 items-center justify-center">
+                <span className="absolute inset-0 rounded-full bg-white/40 animate-ping" />
+                <Icon name="PhoneCall" size={18} className="relative" />
+              </span>
+              Звонок
+            </a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="lg:hidden w-12 h-12 rounded-full bg-forest text-white flex items-center justify-center shadow-md"
@@ -96,7 +108,22 @@ export default function Header() {
                 {tr(link.key, link.label)}
               </a>
             ))}
-            <a href={phoneHref} className="py-2.5 font-bold text-primary">{phone}</a>
+            <div className="pt-3 grid grid-cols-2 gap-2">
+              <a
+                href="/#request"
+                onClick={e => handleAnchorClick(e, 'request')}
+                className="rounded-full bg-primary text-primary-foreground py-3 text-center text-sm font-bold"
+              >
+                {t('head.btn', 'Заказать звонок')}
+              </a>
+              <a
+                href={phoneHref}
+                className="rounded-full border-2 border-forest text-forest py-3 flex items-center justify-center gap-1.5 text-sm font-bold"
+              >
+                <Icon name="Phone" size={15} />
+                Позвонить
+              </a>
+            </div>
           </div>
         )}
       </div>
