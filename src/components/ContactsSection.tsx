@@ -13,12 +13,11 @@ export default function ContactsSection() {
   const st = useSetting();
 
   const officePhone = tr('cont.phone', '+7 909 302-00-77');
-  const email = tr('cont.email', 'chebpodarki@yandex.ru');
 
-  const contacts = [
-    { icon: 'Phone', label: 'Телефон', value: officePhone, href: `tel:${officePhone.replace(/[^+\d]/g, '')}` },
-    { icon: 'Mail', label: 'Почта', value: email, href: `mailto:${email}` },
-    { icon: 'MapPin', label: 'Офис', value: tr('cont.address', 'г. Чебоксары, ул. Петрова, 6/3'), href: '' },
+  const perks = [
+    { icon: 'PhoneCall', key: 'cont.perk1', text: 'Перезвоним в течение 15 минут' },
+    { icon: 'Calculator', key: 'cont.perk2', text: 'Бесплатно рассчитаем стоимость под ваш бюджет' },
+    { icon: 'Gift', key: 'cont.perk3', text: 'Подберём состав и упаковку, нанесём логотип' },
   ];
 
   const [name, setName] = useState('');
@@ -57,39 +56,37 @@ export default function ContactsSection() {
   };
 
   return (
-    <section id="contacts" className="relative bg-[#141238] text-forest-foreground">
+    <section id="request" className="scroll-mt-20 relative bg-[#141238] text-forest-foreground">
       <FestiveBackground image={st('img.contactsBg', villageBgImage)} flakes={40} overlay="linear-gradient(90deg, rgba(12,16,48,0.9) 0%, rgba(20,18,60,0.75) 50%, rgba(20,18,60,0.45) 100%)" />
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 lg:py-20 grid md:grid-cols-2 gap-8 lg:gap-10 items-center">
         <div>
           <div className="eyebrow-script text-festive-gold mb-2">
-            {t('cont.eyebrow', 'Мы рядом')}
+            {t('cont.eyebrow', 'Оставьте заявку')}
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl title-festive-light">
             {t('cont.title', 'Давайте соберём ваш идеальный подарок')}
           </h2>
           <p className="mt-5 text-sm sm:text-base text-white/85 max-w-md leading-relaxed">
-            {t('cont.text', 'Позвоните или оставьте заявку — подберём новогодние подарки в Чебоксарах под ваш бюджет и рассчитаем стоимость сладких подарков оптом для организации.')}
+            {t('cont.text', 'Оставьте номер — подберём новогодние подарки в Чебоксарах под ваш бюджет и рассчитаем стоимость сладких подарков оптом для организации.')}
           </p>
 
-          <div className="mt-8 space-y-4">
-            {contacts.map(c => (
-              <div key={c.label} className="flex items-center gap-3">
+          <ul className="mt-8 space-y-3">
+            {perks.map(p => (
+              <li key={p.key} className="flex items-center gap-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 px-4 py-3 max-w-md">
                 <span className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center shrink-0">
-                  <Icon name={c.icon} size={18} />
+                  <Icon name={p.icon} size={18} />
                 </span>
-                <div className="leading-tight">
-                  <div className="text-[10px] uppercase tracking-wide text-forest-foreground/55">{c.label}</div>
-                  {c.href ? (
-                    <a href={c.href} className="font-bold text-sm sm:text-base hover:text-secondary transition-colors">
-                      {c.value}
-                    </a>
-                  ) : (
-                    <div className="font-bold text-sm sm:text-base">{c.value}</div>
-                  )}
-                </div>
-              </div>
+                <span className="font-semibold text-sm sm:text-base">{t(p.key, p.text)}</span>
+              </li>
             ))}
-          </div>
+          </ul>
+
+          <p className="mt-6 text-sm text-white/75">
+            Удобнее позвонить?{' '}
+            <a href={`tel:${officePhone.replace(/[^+\d]/g, '')}`} className="font-bold text-white hover:text-secondary transition-colors whitespace-nowrap">
+              {officePhone}
+            </a>
+          </p>
         </div>
 
         <div className="bg-white text-foreground rounded-3xl p-6 sm:p-8 shadow-2xl">

@@ -46,7 +46,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="sm:col-span-2 lg:col-span-1">
+        <div id="contacts" className="scroll-mt-28 sm:col-span-2 lg:col-span-1">
           <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary mb-4">Контакты</div>
           <ul className="space-y-2.5 text-sm">
             <li className="flex items-center gap-2.5">

@@ -70,7 +70,7 @@ export default function Header() {
               <div className="text-[10px] text-muted-foreground">{t('head.hours', 'Ежедневно 9:00–19:00')}</div>
               <a href={phoneHref} className="font-bold text-forest text-sm">{phone}</a>
             </div>
-            <a href="/#contacts" onClick={e => handleAnchorClick(e, 'contacts')} className="hidden sm:block">
+            <a href="/#request" onClick={e => handleAnchorClick(e, 'request')} className="hidden sm:block">
               <Button className="rounded-full font-bold px-5">{t('head.btn', 'Заказать звонок')}</Button>
             </a>
             <button

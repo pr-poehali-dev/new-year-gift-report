@@ -19,7 +19,7 @@ export default function Index() {
   const { settings } = useSiteContext();
   const blocks = parseBlocks(settings['page.blocks']);
 
-  const scrollToContacts = () => document.getElementById('contacts')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToContacts = () => document.getElementById('request')?.scrollIntoView({ behavior: 'smooth' });
 
   const render: Record<string, ReactNode> = {
     hero: <HeroSection />,
