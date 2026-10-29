@@ -1,0 +1,2 @@
+UPDATE t_p8000729_new_year_gift_report.site_settings SET value = '/logo-header.png', title = 'Логотип в шапке', hint = 'PNG с прозрачным фоном, лучше вертикальный', updated_at = NOW() WHERE setting_key = 'img.logo';
+UPDATE t_p8000729_new_year_gift_report.site_settings SET value = '/logo-footer.png', title = 'Логотип в подвале (светлый)', hint = 'Светлая версия для тёмного фона, PNG с прозрачным фоном', updated_at = NOW() WHERE setting_key = 'img.logoLight';

@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useNavigate, useLocation } from "@/lib/router-compat";
 import { useEffect, useState } from 'react';
-import { useText, useTextRaw } from '@/hooks/useSiteTexts';
+import { useSetting, useText, useTextRaw } from '@/hooks/useSiteTexts';
 
 const navLinks = [
   { label: 'Подарки', id: 'catalog' },
@@ -14,6 +14,7 @@ const navLinks = [
 
 export default function Header() {
   const t = useText();
+  const s = useSetting();
   const tr = useTextRaw();
   const phone = tr('cont.phone', '+7 909 302-00-77');
   const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
@@ -45,7 +46,7 @@ export default function Header() {
       <div className="bg-cream/95 backdrop-blur-md border-b border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-2.5 flex items-center justify-between gap-4">
           <a href="/" className="shrink-0" aria-label="ЧЕБподарки">
-            <img src="/logo-header.png" alt="ЧЕБподарки" width={311} height={160} className="h-14 sm:h-16 w-auto" />
+            <img src={s('img.logo', '/logo-header.png')} alt="ЧЕБподарки" width={482} height={600} className="h-16 sm:h-[72px] w-auto object-contain" />
           </a>
 
           <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-forest">
