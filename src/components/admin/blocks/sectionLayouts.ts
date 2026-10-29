@@ -125,17 +125,7 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
       { type: 'title', keys: ['about.title'] },
       { type: 'text', key: 'about.text' },
     ],
-    right: [
-      {
-        type: 'stats',
-        pairs: [
-          ['about.s1v', 'about.s1l'],
-          ['about.s2v', 'about.s2l'],
-          ['about.s3v', 'about.s3l'],
-          ['about.s4v', 'about.s4l'],
-        ],
-      },
-    ],
+    right: [{ type: 'image', key: 'img.corporate', label: 'Картинка блока', tall: true }],
   },
   'Организациям': {
     icon: 'Building2',

@@ -1,7 +1,7 @@
 import Icon from '@/components/ui/icon';
 import { useText, useSetting } from '@/hooks/useSiteTexts';
 
-const ABOUT_IMAGE = 'https://cdn.poehali.dev/projects/e2f97ad9-298e-4edf-8013-279637c16477/bucket/e9823c55-6762-4509-b4de-c7ee62a8ebf9.jpg';
+const ABOUT_IMAGE = '/img/about-poster.webp';
 
 interface AboutCorporateSectionProps {
   onRequest: () => void;
@@ -10,13 +10,6 @@ interface AboutCorporateSectionProps {
 export default function AboutCorporateSection({ onRequest }: AboutCorporateSectionProps) {
   const t = useText();
   const s = useSetting();
-
-  const stats = [
-    { value: t('about.s1v', '12+'), label: t('about.s1l', 'лет опыта') },
-    { value: t('about.s2v', '4'), label: t('about.s2l', 'вида упаковки') },
-    { value: t('about.s3v', '3'), label: t('about.s3l', 'варианта веса') },
-    { value: t('about.s4v', 'РФ'), label: t('about.s4l', 'география доставки') },
-  ];
 
   const benefits = [
     t('corp.b1', 'Персональная цена от объёма'),
@@ -33,7 +26,7 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
             {t('about.bignum', '12')}
           </span>
 
-          <div className="relative grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-stretch gap-6 lg:gap-8 p-4 sm:p-8 lg:p-10">
+          <div className="relative grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-center gap-8 lg:gap-12 p-4 sm:p-8 lg:p-10">
             <div className="min-w-0 flex flex-col gap-6 order-2 lg:order-1">
               <div className="px-2 sm:px-2 pt-2">
                 <div className="eyebrow-script text-primary mb-2">
@@ -83,24 +76,23 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
               </div>
             </div>
 
-            <div className="order-1 lg:order-2 flex flex-col md:flex-row lg:flex-col items-center md:items-stretch lg:items-center gap-4">
-              <div className="relative w-full max-w-[460px] md:max-w-[330px] lg:max-w-none shrink-0 rounded-3xl overflow-hidden shadow-2xl">
-                {s('img.corporate', ABOUT_IMAGE) ? <img
-                  src={s('img.corporate', ABOUT_IMAGE)}
-                  alt="О компании ЧЕБподарки"
-                  className="block w-full h-auto"
-                  loading="lazy"
-                /> : <div className="w-full aspect-[3/4]" />}
-              </div>
-              <div className="w-full max-w-[460px] md:max-w-none md:flex-1 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 lg:grid-cols-4 md:auto-rows-fr gap-2.5">
-                {stats.map((st, i) => (
-                  <div key={i} className="rounded-2xl bg-white border border-border px-3 py-3 flex flex-col justify-center">
-                    <div className="text-2xl sm:text-3xl md:text-4xl lg:text-3xl font-extrabold text-primary">{st.value}</div>
-                    <div className="mt-1 text-[10px] sm:text-xs uppercase tracking-wide text-muted-foreground">
-                      {st.label}
-                    </div>
-                  </div>
-                ))}
+            <div className="order-1 lg:order-2 flex items-center justify-center">
+              <div className="relative w-full max-w-[440px] lg:max-w-[480px]">
+                <div className="absolute -inset-3 sm:-inset-4 rounded-[2rem] bg-white/60 rotate-2" aria-hidden />
+                <div className="relative rounded-[1.75rem] overflow-hidden shadow-2xl ring-4 ring-white aspect-[3/4]">
+                  {s('img.corporate', ABOUT_IMAGE) ? (
+                    <img
+                      src={s('img.corporate', ABOUT_IMAGE)}
+                      alt="Сладкие новогодние подарки ЧЕБподарки в Чебоксарах"
+                      width={1000}
+                      height={1333}
+                      className="block w-full h-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-white/50" />
+                  )}
+                </div>
               </div>
             </div>
           </div>
