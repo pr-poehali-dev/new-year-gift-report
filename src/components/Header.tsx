@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "@/lib/router-compat";
 import { useEffect, useState } from 'react';
 import { useSetting, useText, useTextRaw } from '@/hooks/useSiteTexts';
 
-const navLinks = [
+export const navLinks = [
   { label: 'Главная', id: 'home' },
   { label: 'Преимущества', id: 'advantages' },
   { label: 'Подарки', id: 'catalog' },

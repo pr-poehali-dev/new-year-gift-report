@@ -1,18 +1,15 @@
 import { useSetting, useText } from '@/hooks/useSiteTexts';
-
-const links = [
-  { label: 'Подарки', id: 'catalog' },
-  { label: 'Состав', id: 'composition' },
-  { label: 'Организациям', id: 'corporate' },
-  { label: 'Контакты', id: 'contacts' },
-];
+import { navLinks as links } from '@/components/Header';
 
 export default function Footer() {
   const t = useText();
   const s = useSetting();
   const scrollTo = (e: React.MouseEvent, id: string) => {
+    const el = document.getElementById(id);
+    if (window.location.pathname !== '/' || !el) return;
     e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (id === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+    else el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -26,11 +23,11 @@ export default function Footer() {
           {t('foot.tagline', 'Сладкие новогодние подарки в Чебоксарах: оптом и в розницу, корпоративные заказы с доставкой по России.')}
         </p>
 
-        <nav className="flex flex-wrap gap-5 text-sm font-semibold lg:justify-end">
+        <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold lg:justify-end">
           {links.map(l => (
             <a
               key={l.id}
-              href={`#${l.id}`}
+              href={`/#${l.id}`}
               onClick={e => scrollTo(e, l.id)}
               className="hover:text-secondary transition-colors"
             >
