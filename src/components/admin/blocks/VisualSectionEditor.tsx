@@ -227,6 +227,7 @@ export default function VisualSectionEditor({
             tall={g.type === 'image' ? g.tall : false}
             value={sVal(g.key)}
             changed={sChanged(g.key)}
+            logo={g.key === 'img.logo' ? 'normal' : g.key === 'img.logoLight' ? 'light' : undefined}
             onChange={v => setSVal(g.key, v)}
           />
         );

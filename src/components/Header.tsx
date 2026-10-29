@@ -8,7 +8,6 @@ const navLinks = [
   { label: 'Подарки', id: 'catalog' },
   { label: 'Состав', id: 'composition' },
   { label: 'Организациям', id: 'corporate' },
-  { label: 'О нас', id: 'about' },
   { label: 'Контакты', id: 'contacts' },
 ];
 

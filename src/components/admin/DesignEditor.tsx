@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { TEXTS_URL, SettingField, applyTheme } from '@/hooks/useSiteTexts';
+import { removeWhiteBg } from '@/lib/removeWhiteBg';
 
 const FONTS = [
   'Manrope',
@@ -41,15 +42,16 @@ export default function DesignEditor({ fields, kinds, onSaved }: Props) {
 
   const upload = (key: string, file: File) => {
     setUploading(key);
+    const logo = key === 'img.logo' ? 'normal' : key === 'img.logoLight' ? 'light' : null;
     const reader = new FileReader();
-    reader.onload = async () => {
+    const send = async (image: string, filename: string) => {
       const res = await fetch(TEXTS_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-Admin-Password': sessionStorage.getItem('admin_pw') || '',
         },
-        body: JSON.stringify({ action: 'upload', image: reader.result, filename: file.name }),
+        body: JSON.stringify({ action: 'upload', image, filename }),
       });
       setUploading(null);
       if (res.ok) {
@@ -60,6 +62,13 @@ export default function DesignEditor({ fields, kinds, onSaved }: Props) {
         toast.error('Не удалось загрузить');
       }
     };
+    if (logo && file.type.startsWith('image/')) {
+      removeWhiteBg(file, logo)
+        .then(img => send(img, file.name.replace(/\.\w+$/, '') + '.png'))
+        .catch(() => { setUploading(null); toast.error('Не удалось обработать файл'); });
+      return;
+    }
+    reader.onload = () => send(reader.result as string, file.name);
     reader.readAsDataURL(file);
   };
 

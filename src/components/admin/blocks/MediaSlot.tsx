@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { TEXTS_URL } from '@/hooks/useSiteTexts';
 import { compressImage } from '@/lib/compressImage';
+import { removeWhiteBg, LogoVariant } from '@/lib/removeWhiteBg';
 
 interface MediaSlotProps {
   label: string;
@@ -10,6 +11,7 @@ interface MediaSlotProps {
   kind: 'image' | 'file';
   tall?: boolean;
   changed?: boolean;
+  logo?: LogoVariant;
   onChange: (url: string) => void;
 }
 
@@ -27,7 +29,7 @@ async function uploadToServer(data: string, filename: string): Promise<string | 
   return json.url || null;
 }
 
-export default function MediaSlot({ label, value, kind, tall, changed, onChange }: MediaSlotProps) {
+export default function MediaSlot({ label, value, kind, tall, changed, logo, onChange }: MediaSlotProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [showUrl, setShowUrl] = useState(false);
@@ -35,8 +37,9 @@ export default function MediaSlot({ label, value, kind, tall, changed, onChange 
   const pick = async (file: File) => {
     setBusy(true);
     try {
-      const data =
-        kind === 'image' && file.type.startsWith('image/')
+      const data = logo && file.type.startsWith('image/')
+        ? await removeWhiteBg(file, logo)
+        : kind === 'image' && file.type.startsWith('image/')
           ? await compressImage(file, 1600, 0.85)
           : await new Promise<string>((resolve, reject) => {
               const r = new FileReader();
@@ -44,10 +47,10 @@ export default function MediaSlot({ label, value, kind, tall, changed, onChange 
               r.onerror = () => reject(new Error('read'));
               r.readAsDataURL(file);
             });
-      const url = await uploadToServer(data, file.name);
+      const url = await uploadToServer(data, logo ? file.name.replace(/\.\w+$/, '') + '.png' : file.name);
       if (url) {
         onChange(url);
-        toast.success('Загружено — не забудьте сохранить');
+        toast.success(logo ? 'Фон убран — не забудьте сохранить' : 'Загружено — не забудьте сохранить');
       } else {
         toast.error('Не удалось загрузить');
       }
@@ -82,7 +85,7 @@ export default function MediaSlot({ label, value, kind, tall, changed, onChange 
           className={`group relative block w-full overflow-hidden rounded-xl bg-background ${tall ? 'h-52 sm:h-64' : 'h-24'}`}
         >
           {value ? (
-            <img src={value} alt="" className="w-full h-full object-cover" />
+            <img src={value} alt="" className={`w-full h-full ${logo ? 'object-contain p-1' : 'object-cover'}`} style={logo === 'light' ? { background: 'hsl(226 70% 14%)' } : undefined} />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-muted-foreground">
               <Icon name="ImagePlus" size={26} />
