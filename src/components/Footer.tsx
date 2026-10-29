@@ -31,7 +31,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary mb-4">Разделы</div>
+          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary mb-4">{t('foot.navTitle', 'Разделы')}</div>
           <nav className="grid grid-cols-2 grid-rows-4 grid-flow-col gap-x-6 gap-y-2.5 text-sm font-semibold max-w-xs">
             {links.map(l => (
               <a
@@ -40,14 +40,14 @@ export default function Footer() {
                 onClick={e => scrollTo(e, l.id)}
                 className="text-forest-foreground/85 hover:text-secondary transition-colors"
               >
-                {l.label}
+                {tr(l.key, l.label)}
               </a>
             ))}
           </nav>
         </div>
 
         <div id="contacts" className="scroll-mt-28 sm:col-span-2 lg:col-span-1">
-          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary mb-4">Контакты</div>
+          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary mb-4">{t('foot.contactsTitle', 'Контакты')}</div>
           <ul className="space-y-2.5 text-sm">
             <li className="flex items-center gap-2.5">
               <Icon name="Phone" size={15} className="text-secondary shrink-0" />

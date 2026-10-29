@@ -82,7 +82,7 @@ export default function ContactsSection() {
           </ul>
 
           <p className="mt-6 text-sm text-white/75">
-            Удобнее позвонить?{' '}
+            {t('cont.callText', 'Удобнее позвонить?')}{' '}
             <a href={`tel:${officePhone.replace(/[^+\d]/g, '')}`} className="font-bold text-white hover:text-secondary transition-colors whitespace-nowrap">
               {officePhone}
             </a>

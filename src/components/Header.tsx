@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 import { useSetting, useText, useTextRaw } from '@/hooks/useSiteTexts';
 
 export const navLinks = [
-  { label: 'Главная', id: 'home' },
-  { label: 'Преимущества', id: 'advantages' },
-  { label: 'Подарки', id: 'catalog' },
-  { label: 'Состав', id: 'composition' },
-  { label: 'Организациям', id: 'corporate' },
-  { label: 'Отзывы', id: 'reviews' },
-  { label: 'Контакты', id: 'contacts' },
+  { label: 'Главная', id: 'home', key: 'nav.home' },
+  { label: 'Преимущества', id: 'advantages', key: 'nav.advantages' },
+  { label: 'Подарки', id: 'catalog', key: 'nav.catalog' },
+  { label: 'Состав', id: 'composition', key: 'nav.composition' },
+  { label: 'Организациям', id: 'corporate', key: 'nav.corporate' },
+  { label: 'Отзывы', id: 'reviews', key: 'nav.reviews' },
+  { label: 'Контакты', id: 'contacts', key: 'nav.contacts' },
 ];
 
 export default function Header() {
@@ -60,7 +60,7 @@ export default function Header() {
                 onClick={e => handleAnchorClick(e, link.id)}
                 className="hover:text-primary transition-colors"
               >
-                {link.label}
+                {tr(link.key, link.label)}
               </a>
             ))}
           </nav>
@@ -92,7 +92,7 @@ export default function Header() {
                 onClick={e => handleAnchorClick(e, link.id)}
                 className="py-2.5 font-semibold text-forest border-b border-border/60 last:border-0"
               >
-                {link.label}
+                {tr(link.key, link.label)}
               </a>
             ))}
             <a href={phoneHref} className="py-2.5 font-bold text-primary">{phone}</a>

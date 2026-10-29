@@ -34,6 +34,7 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
     right: [
       { type: 'contacts', items: [{ key: 'head.hours', icon: 'Clock' }] },
       { type: 'buttons', keys: ['head.btn'] },
+      { type: 'list', title: 'Пункты меню (шапка и подвал)', keys: ['nav.home', 'nav.advantages', 'nav.catalog', 'nav.composition', 'nav.corporate', 'nav.reviews', 'nav.contacts'] },
     ],
   },
   'Первый экран': {
@@ -181,6 +182,8 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
       { type: 'eyebrow', key: 'cont.eyebrow' },
       { type: 'title', keys: ['cont.title'] },
       { type: 'text', key: 'cont.text' },
+      { type: 'list', title: 'Преимущества', keys: ['cont.perk1', 'cont.perk2', 'cont.perk3'] },
+      { type: 'note', title: 'Подпись перед телефоном', keys: ['cont.callText'] },
       {
         type: 'contacts',
         items: [
@@ -202,6 +205,7 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
     left: [
       { type: 'image', key: 'img.logoLight', label: 'Логотип в подвале' },
       { type: 'text', key: 'foot.tagline' },
+      { type: 'note', title: 'Заголовки колонок', keys: ['foot.navTitle', 'foot.contactsTitle'] },
     ],
     right: [
       { type: 'note', title: 'Реквизиты', keys: ['foot.requisites'] },

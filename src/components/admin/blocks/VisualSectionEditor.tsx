@@ -178,13 +178,16 @@ export default function VisualSectionEditor({
         );
       case 'list':
         return (
-          <div key={i} className="grid sm:grid-cols-2 gap-x-4 gap-y-1">
-            {g.keys.map(k => (
-              <div key={k} className="flex items-start gap-2">
-                <Icon name="Check" size={15} className="mt-1 text-secondary shrink-0" />
-                <div className="flex-1">{field(k, `text-sm ${dark ? 'text-white' : 'text-forest'}`)}</div>
-              </div>
-            ))}
+          <div key={i}>
+            {g.title && <div className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${muted}`}>{g.title}</div>}
+            <div className="grid sm:grid-cols-2 gap-x-4 gap-y-1">
+              {g.keys.map(k => (
+                <div key={k} className="flex items-start gap-2">
+                  <Icon name="Check" size={15} className="mt-1 text-secondary shrink-0" />
+                  <div className="flex-1">{field(k, `text-sm ${dark ? 'text-white' : 'text-forest'}`)}</div>
+                </div>
+              ))}
+            </div>
           </div>
         );
       case 'contacts':
