@@ -73,8 +73,8 @@ def handler(event: dict, context) -> dict:
     except (TypeError, ValueError):
         days = 30
 
-    tz = "(created_at AT TIME ZONE 'UTC' AT TIME ZONE 'Europe/Moscow')"
-    now_msk = "(NOW() AT TIME ZONE 'UTC' AT TIME ZONE 'Europe/Moscow')"
+    tz = "(created_at + INTERVAL '3 hours')"
+    now_msk = "(CURRENT_TIMESTAMP::timestamp + INTERVAL '3 hours')"
     period = f"{tz} >= date_trunc('day', {now_msk}) - INTERVAL '{days - 1} days'"
 
     conn = psycopg2.connect(os.environ['DATABASE_URL'])
