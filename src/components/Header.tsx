@@ -108,22 +108,6 @@ export default function Header() {
                 {tr(link.key, link.label)}
               </a>
             ))}
-            <div className="pt-3 grid grid-cols-2 gap-2">
-              <a
-                href="/#request"
-                onClick={e => handleAnchorClick(e, 'request')}
-                className="rounded-full bg-primary text-primary-foreground py-3 text-center text-sm font-bold"
-              >
-                {t('head.btn', 'Заказать звонок')}
-              </a>
-              <a
-                href={phoneHref}
-                className="rounded-full border-2 border-forest text-forest py-3 flex items-center justify-center gap-1.5 text-sm font-bold"
-              >
-                <Icon name="Phone" size={15} />
-                Позвонить
-              </a>
-            </div>
           </div>
         )}
       </div>
