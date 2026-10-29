@@ -21,24 +21,50 @@ const OG_IMAGE =
 
 const JSON_LD = {
     "@context": "https://schema.org",
-    "@type": "Store",
-    name: "ЧебПодарки",
-    url: "https://chebpodarki.ru/",
-    description:
-        "Сладкие новогодние подарки оптом и в розницу: для детей, сотрудников и партнёров. Корпоративные заказы с логотипом и доставкой.",
-    image: OG_IMAGE,
-    telephone: "+7 927 843-67-27",
-    email: "chebpodarki@yandex.ru",
-    priceRange: "от 590 ₽",
-    currenciesAccepted: "RUB",
-    address: {
-        "@type": "PostalAddress",
-        streetAddress: "ул. Петрова, 6/3",
-        addressLocality: "Чебоксары",
-        addressRegion: "Чувашская Республика",
-        addressCountry: "RU",
-    },
-    areaServed: "RU",
+    "@graph": [
+        {
+            "@type": "Store",
+            "@id": "https://chebpodarki.ru/#store",
+            name: "ЧебПодарки",
+            url: "https://chebpodarki.ru/",
+            logo: "https://chebpodarki.ru/logo-header.png",
+            image: OG_IMAGE,
+            description:
+                "Сладкие новогодние подарки оптом и в розницу в Чебоксарах: для детей, школ, детских садов, сотрудников и партнёров. Корпоративные заказы от 50 шт. с логотипом на упаковке и доставкой по России.",
+            telephone: "+7 927 843-67-27",
+            email: "chebpodarki@yandex.ru",
+            priceRange: "от 590 ₽",
+            currenciesAccepted: "RUB",
+            paymentAccepted: "Наличные, банковская карта, безналичный расчёт",
+            foundingDate: "2010",
+            address: {
+                "@type": "PostalAddress",
+                streetAddress: "ул. Петрова, 6/3",
+                addressLocality: "Чебоксары",
+                addressRegion: "Чувашская Республика",
+                addressCountry: "RU",
+            },
+            openingHoursSpecification: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+                opens: "09:00",
+                closes: "19:00",
+            },
+            areaServed: [
+                {"@type": "City", name: "Чебоксары"},
+                {"@type": "City", name: "Новочебоксарск"},
+                {"@type": "Country", name: "Россия"},
+            ],
+        },
+        {
+            "@type": "WebSite",
+            "@id": "https://chebpodarki.ru/#website",
+            url: "https://chebpodarki.ru/",
+            name: "ЧебПодарки",
+            inLanguage: "ru-RU",
+            publisher: {"@id": "https://chebpodarki.ru/#store"},
+        },
+    ],
 };
 
 const METRIKA = `(function (m, e, t, r, i, k, a) {
@@ -62,9 +88,10 @@ export const Route = createRootRoute({
             {
                 name: "keywords",
                 content:
-                    "новогодние подарки, сладкие подарки, новогодние подарки Чебоксары, сладкие подарки оптом, корпоративные новогодние подарки, подарки для детей на новый год, подарки сотрудникам, конфеты в подарочной упаковке",
+                    "новогодние подарки, сладкие подарки, новогодние подарки Чебоксары, сладкие подарки оптом, сладкие новогодние подарки 2027, корпоративные новогодние подарки, подарки для детей на новый год, подарки для детского сада, подарки для школы, подарки сотрудникам, подарки с логотипом, конфеты в подарочной упаковке",
             },
-            {name: "robots", content: "index, follow"},
+            {name: "robots", content: "index, follow, max-image-preview:large"},
+            {name: "theme-color", content: "#0b1840"},
             {property: "og:url", content: "https://chebpodarki.ru/"},
             {name: "geo.region", content: "RU-CU"},
             {name: "geo.placename", content: "Чебоксары"},
@@ -91,7 +118,9 @@ export const Route = createRootRoute({
         ],
         links: [
             {rel: "stylesheet", href: appCss},
-            {rel: "icon", type: "image/svg+xml", href: "/favicon.svg"},
+            {rel: "icon", type: "image/png", sizes: "120x120", href: "/favicon-120.png"},
+            {rel: "icon", href: "/favicon.ico", sizes: "32x32"},
+            {rel: "apple-touch-icon", href: "/apple-touch-icon.png"},
         ],
         // IMPORTANT: DO NOT REMOVE PLATFORM SCRIPTS AND THE DEV HMR CLIENT!
         scripts: [

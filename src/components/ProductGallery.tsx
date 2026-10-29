@@ -86,7 +86,7 @@ export default function ProductGallery({ photos, name, startIndex = 0, onClose }
                 i === index ? 'border-secondary' : 'border-transparent opacity-70 hover:opacity-100'
               }`}
             >
-              <img src={url} alt="" loading="lazy" className="w-full h-full object-contain p-1" />
+              <img src={url} alt={name} loading="lazy" className="w-full h-full object-contain p-1" />
             </button>
           ))}
         </div>
