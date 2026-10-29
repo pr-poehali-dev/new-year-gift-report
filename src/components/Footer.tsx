@@ -1,9 +1,11 @@
-import { useSetting, useText } from '@/hooks/useSiteTexts';
+import { useSetting, useText, useTextRaw } from '@/hooks/useSiteTexts';
+import Icon from '@/components/ui/icon';
 import { navLinks as links } from '@/components/Header';
 
 export default function Footer() {
   const t = useText();
   const s = useSetting();
+  const tr = useTextRaw();
   const scrollTo = (e: React.MouseEvent, id: string) => {
     const el = document.getElementById(id);
     if (window.location.pathname !== '/' || !el) return;
@@ -12,29 +14,59 @@ export default function Footer() {
     else el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const phone = tr('cont.phone', '+7 909 302-00-77');
+  const email = tr('cont.email', 'chebpodarki@yandex.ru');
+  const address = tr('cont.address', 'г. Чебоксары, ул. Петрова, 6/3');
+
   return (
     <footer className="bg-[hsl(226_70%_14%)] text-forest-foreground">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 grid gap-8 lg:grid-cols-3 items-center">
-        <a href="/" className="shrink-0" aria-label="ЧЕБподарки">
-          <img src={s('img.logoLight', '/logo-footer.png')} alt="ЧЕБподарки" width={482} height={600} className="h-20 w-auto object-contain" />
-        </a>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr]">
+        <div className="flex items-start gap-5">
+          <a href="/" className="shrink-0" aria-label="ЧЕБподарки">
+            <img src={s('img.logoLight', '/logo-footer.png')} alt="ЧЕБподарки" width={482} height={600} className="h-24 w-auto object-contain" />
+          </a>
+          <p className="text-xs leading-relaxed text-forest-foreground/60 max-w-xs">
+            {t('foot.tagline', 'Сладкие новогодние подарки в Чебоксарах: оптом и в розницу, корпоративные заказы с доставкой по России.')}
+          </p>
+        </div>
 
-        <p className="text-xs text-forest-foreground/60 lg:text-center">
-          {t('foot.tagline', 'Сладкие новогодние подарки в Чебоксарах: оптом и в розницу, корпоративные заказы с доставкой по России.')}
-        </p>
+        <div>
+          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary mb-4">Разделы</div>
+          <nav className="grid grid-cols-2 grid-rows-4 grid-flow-col gap-x-6 gap-y-2.5 text-sm font-semibold max-w-xs">
+            {links.map(l => (
+              <a
+                key={l.id}
+                href={`/#${l.id}`}
+                onClick={e => scrollTo(e, l.id)}
+                className="text-forest-foreground/85 hover:text-secondary transition-colors"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+        </div>
 
-        <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold lg:justify-end">
-          {links.map(l => (
-            <a
-              key={l.id}
-              href={`/#${l.id}`}
-              onClick={e => scrollTo(e, l.id)}
-              className="hover:text-secondary transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
-        </nav>
+        <div className="sm:col-span-2 lg:col-span-1">
+          <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary mb-4">Контакты</div>
+          <ul className="space-y-2.5 text-sm">
+            <li className="flex items-center gap-2.5">
+              <Icon name="Phone" size={15} className="text-secondary shrink-0" />
+              <a href={`tel:${phone.replace(/[^+\d]/g, '')}`} className="font-bold hover:text-secondary transition-colors">{phone}</a>
+            </li>
+            <li className="flex items-center gap-2.5">
+              <Icon name="Mail" size={15} className="text-secondary shrink-0" />
+              <a href={`mailto:${email}`} className="text-forest-foreground/85 hover:text-secondary transition-colors">{email}</a>
+            </li>
+            <li className="flex items-center gap-2.5">
+              <Icon name="MapPin" size={15} className="text-secondary shrink-0" />
+              <span className="text-forest-foreground/85">{address}</span>
+            </li>
+            <li className="flex items-center gap-2.5">
+              <Icon name="Clock" size={15} className="text-secondary shrink-0" />
+              <span className="text-forest-foreground/85">{t('head.hours', 'Ежедневно 9:00–19:00')}</span>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div className="border-t border-white/10">
