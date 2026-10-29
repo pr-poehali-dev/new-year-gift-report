@@ -34,7 +34,7 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
     right: [
       { type: 'contacts', items: [{ key: 'head.hours', icon: 'Clock' }] },
       { type: 'buttons', keys: ['head.btn'] },
-      { type: 'list', title: 'Пункты меню (шапка и подвал)', keys: ['nav.home', 'nav.advantages', 'nav.catalog', 'nav.composition', 'nav.corporate', 'nav.reviews', 'nav.request', 'nav.contacts'] },
+      { type: 'list', title: 'Пункты меню (шапка и подвал)', keys: ['nav.home', 'nav.advantages', 'nav.catalog', 'nav.composition', 'nav.corporate', 'nav.reviews', 'nav.contacts'] },
     ],
   },
   'Первый экран': {
