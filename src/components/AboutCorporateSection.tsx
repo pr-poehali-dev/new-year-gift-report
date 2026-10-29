@@ -1,5 +1,5 @@
 import Icon from '@/components/ui/icon';
-import { useText, useSetting } from '@/hooks/useSiteTexts';
+import { useText, useSetting, useVisible } from '@/hooks/useSiteTexts';
 
 const ABOUT_IMAGE = '/img/about-poster.webp';
 
@@ -10,13 +10,14 @@ interface AboutCorporateSectionProps {
 export default function AboutCorporateSection({ onRequest }: AboutCorporateSectionProps) {
   const t = useText();
   const s = useSetting();
+  const v = useVisible();
 
   const benefits = [
-    t('corp.b1', 'Персональная цена от объёма'),
-    t('corp.b2', 'Брендирование упаковки'),
-    t('corp.b3', 'Закрывающие документы'),
-    t('corp.b4', 'Доставка в нужный день'),
-  ];
+    v('corp.b1') && t('corp.b1', 'Персональная цена от объёма'),
+    v('corp.b2') && t('corp.b2', 'Брендирование упаковки'),
+    v('corp.b3') && t('corp.b3', 'Закрывающие документы'),
+    v('corp.b4') && t('corp.b4', 'Доставка в нужный день'),
+  ].filter(Boolean);
 
   return (
     <section id="about" className="bg-background">
@@ -45,10 +46,10 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
                   <div className="inline-block rounded-full bg-secondary text-secondary-foreground px-4 py-1.5 text-[10px] font-extrabold tracking-[0.16em] uppercase">
                     {t('corp.badge', 'Корпоративные новогодние подарки')}
                   </div>
-                  <div className="inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/10 px-3.5 py-1.5 text-xs">
+                  {(v('corp.circle') || v('corp.circleSub')) && <div className="inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/10 px-3.5 py-1.5 text-xs">
                     <span className="font-extrabold">{t('corp.circle', 'от 50 шт.')}</span>
                     <span className="text-white/80">{t('corp.circleSub', 'особые условия')}</span>
-                  </div>
+                  </div>}
                 </div>
                 <h3 className="mt-5 text-2xl sm:text-3xl font-black leading-tight">
                   {t('corp.title', 'Подарки сотрудникам, клиентам и детям')}
@@ -66,13 +67,13 @@ export default function AboutCorporateSection({ onRequest }: AboutCorporateSecti
                   ))}
                 </div>
 
-                <button
+                {v('corp.btn') && <button
                   onClick={onRequest}
                   className="mt-7 self-start inline-flex items-center gap-2 rounded-full bg-secondary text-secondary-foreground px-7 py-3.5 font-bold hover:brightness-105 transition"
                 >
                   {t('corp.btn', 'Получить оптовое предложение')}
                   <Icon name="ArrowRight" size={18} />
-                </button>
+                </button>}
               </div>
             </div>
 

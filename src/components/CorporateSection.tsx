@@ -1,14 +1,17 @@
-import { useText } from '@/hooks/useSiteTexts';
+import { useText, useVisible } from '@/hooks/useSiteTexts';
 
 export default function CorporateSection() {
   const t = useText();
+  const v = useVisible();
 
   const steps = [
     { num: '01', title: t('steps.1t', 'Оставьте заявку'), text: t('steps.1x', 'Укажите количество и примерный бюджет') },
     { num: '02', title: t('steps.2t', 'Получите подборку'), text: t('steps.2x', 'Менеджер предложит лучшие варианты') },
     { num: '03', title: t('steps.3t', 'Подтвердите заказ'), text: t('steps.3x', 'Согласуем состав, упаковку и доставку') },
     { num: '04', title: t('steps.4t', 'Встречайте подарки'), text: t('steps.4x', 'Привезём аккуратно и в оговорённый срок') },
-  ];
+  ]
+    .filter((_, i) => v(`steps.${i + 1}t`))
+    .map((st, i) => ({ ...st, num: String(i + 1).padStart(2, '0') }));
   return (
     <section className="bg-background">
       <div className="mx-auto max-w-7xl px-3 sm:px-6 pb-10 sm:pb-14">

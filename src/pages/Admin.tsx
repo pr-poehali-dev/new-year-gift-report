@@ -13,6 +13,7 @@ import PackagingEditor from '@/components/admin/PackagingEditor';
 import CompositionEditor from '@/components/admin/CompositionEditor';
 import LeadsEditor from '@/components/admin/LeadsEditor';
 import NotifySettingsEditor from '@/components/admin/NotifySettingsEditor';
+import ReviewsModeration from '@/components/admin/ReviewsModeration';
 import VisualSectionEditor from '@/components/admin/blocks/VisualSectionEditor';
 import { SECTION_LAYOUTS } from '@/components/admin/blocks/sectionLayouts';
 
@@ -24,6 +25,7 @@ const FILTERS_TAB = 'Кнопки фильтра';
 const PACKAGING_TAB = 'Виды упаковки';
 const COMPOSITION_TAB = 'Состав подарков';
 const STATS_TAB = 'Статистика';
+const REVIEWS_TAB = 'Отзывы покупателей';
 
 const TAB_ICONS: Record<string, string> = {
   [LEADS_TAB]: 'Inbox',
@@ -34,6 +36,7 @@ const TAB_ICONS: Record<string, string> = {
   [PACKAGING_TAB]: 'Package',
   [COMPOSITION_TAB]: 'Candy',
   [STATS_TAB]: 'BarChart3',
+  [REVIEWS_TAB]: 'MessageSquareHeart',
 };
 const TEXTS_DRAFT_KEY = 'admin_texts_draft';
 
@@ -105,7 +108,7 @@ export default function Admin() {
       if (!textSections.includes(f.section)) textSections.push(f.section);
     });
     return [
-      { title: 'Клиенты', items: [STATS_TAB, LEADS_TAB, NOTIFY_TAB] },
+      { title: 'Клиенты', items: [STATS_TAB, LEADS_TAB, REVIEWS_TAB, NOTIFY_TAB] },
       { title: 'Страница', items: [BLOCKS_TAB] },
       { title: 'Каталог', items: [PRODUCTS_TAB, FILTERS_TAB, PACKAGING_TAB, COMPOSITION_TAB] },
       { title: 'Блоки сайта', items: textSections },
@@ -204,6 +207,8 @@ export default function Admin() {
 
         {activeSection === LEADS_TAB ? (
           <LeadsEditor />
+        ) : activeSection === REVIEWS_TAB ? (
+          <ReviewsModeration />
         ) : activeSection === NOTIFY_TAB ? (
           <NotifySettingsEditor />
         ) : activeSection === BLOCKS_TAB ? (

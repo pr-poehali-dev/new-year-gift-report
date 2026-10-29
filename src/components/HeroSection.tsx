@@ -2,7 +2,7 @@ import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { heroBgImage } from '@/data/products';
 import FestiveBackground from '@/components/festive/FestiveBackground';
-import { useText, useTextRaw, useTextStyle, useSetting } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw, useTextStyle, useSetting, useVisible } from '@/hooks/useSiteTexts';
 
 const ADV_COLORS = [
   'bg-primary/10 text-primary',
@@ -16,6 +16,7 @@ export default function HeroSection() {
   const tr = useTextRaw();
   const ts = useTextStyle();
   const s = useSetting();
+  const v = useVisible();
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   const catalogFile = s('file.catalog', '');
@@ -52,7 +53,7 @@ export default function HeroSection() {
     { icon: 'Gift', title: t('adv.2t', 'Яркая упаковка'), text: t('adv.2x', 'Авторский дизайн и качественные материалы') },
     { icon: 'Truck', title: t('adv.3t', 'Доставка по всей России'), text: t('adv.3x', 'Аккуратно, бережно и точно в срок') },
     { icon: 'Star', title: t('adv.4t', 'Индивидуальные решения'), text: t('adv.4x', 'Подарки под ваш бюджет, бренд и задачи') },
-  ];
+  ].filter((_, i) => v(`adv.${i + 1}t`));
 
   return (
     <section id="home">
@@ -89,14 +90,14 @@ export default function HeroSection() {
             </p>
 
             <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2.5 sm:gap-3">
-              <button
+              {v('hero.btn1') && <button
                 onClick={() => scrollTo('catalog')}
                 className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#f3dc9a] to-[#d9ab52] px-5 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold text-[#14204a] shadow-lg shadow-black/30 hover:brightness-105 transition whitespace-nowrap"
               >
                 {t('hero.btn1', 'Выбрать подарок')}
                 <Icon name="ArrowRight" size={18} />
-              </button>
-              {catalogFile && (
+              </button>}
+              {catalogFile && v('hero.btn2') && (
                 <button
                   onClick={handleCatalog}
                   className="group inline-flex items-center gap-2.5 sm:gap-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 pl-1.5 pr-4 sm:pl-2 sm:pr-6 py-1.5 sm:py-2 font-bold hover:bg-white/20 hover:border-white/50 transition whitespace-nowrap"
@@ -106,7 +107,7 @@ export default function HeroSection() {
                   </span>
                   <span className="text-left leading-tight [text-shadow:none]">
                     <span className="block text-sm sm:text-base">{t('hero.btn2', 'Скачать каталог')}</span>
-                    <span className="block text-[10px] sm:text-[11px] font-semibold text-white/65 uppercase tracking-wider">PDF · все подарки и цены</span>
+                    {v('hero.btn2Sub') && <span className="block text-[10px] sm:text-[11px] font-semibold text-white/65 uppercase tracking-wider">{tr('hero.btn2Sub', 'PDF · все подарки и цены')}</span>}
                   </span>
                 </button>
               )}

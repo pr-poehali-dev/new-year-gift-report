@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Icon from '@/components/ui/icon';
-import { useSiteContext, useText } from '@/hooks/useSiteTexts';
+import { useSiteContext, useText, useTextRaw, useVisible } from '@/hooks/useSiteTexts';
 import { parseFilters, parsePackaging, PACKAGING_COLORS, SortKey } from '@/lib/siteConfig';
 
 const ALL = '__all__';
@@ -13,6 +13,8 @@ interface ProductCatalogProps {
 
 export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
   const t = useText();
+  const tr = useTextRaw();
+  const v = useVisible();
   const { settings } = useSiteContext();
   const filters = parseFilters(settings['catalog.filters']);
   const enabledSorts = filters.sorts.filter(s => s.enabled);
@@ -118,7 +120,7 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
                   {product.is_sold_out && (
                     <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                       <span className="-rotate-6 rounded-lg bg-forest/90 text-white text-[10px] sm:text-sm font-black uppercase tracking-wider px-3 py-1.5 sm:px-5 sm:py-2 shadow-lg">
-                        Распродали
+                        {tr('catalog.soldOut', 'Распродали') || 'Нет в наличии'}
                       </span>
                     </div>
                   )}
@@ -173,12 +175,12 @@ export default function ProductCatalog({ onRequest }: ProductCatalogProps) {
           </div>
 
           <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-            <button
+            {v('catalog.btn') && <button
               onClick={onRequest}
               className="rounded-full bg-primary text-white px-6 py-3 sm:px-7 sm:py-3.5 text-sm sm:text-base font-bold hover:brightness-110 transition"
             >
               {t('catalog.btn', 'Получить подборку подарков')}
-            </button>
+            </button>}
             <span className="text-xs text-muted-foreground text-center sm:text-left max-w-[220px]">
               {t('catalog.btnNote', 'Подберём 3–5 вариантов под ваш бюджет за 15 минут')}
             </span>

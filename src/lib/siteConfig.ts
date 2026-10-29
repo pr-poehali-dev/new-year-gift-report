@@ -35,8 +35,8 @@ export const BLOCKS_META: Record<string, { title: string; icon: string; section:
   hero: { title: 'Первый экран', icon: 'Sparkles', section: 'Первый экран' },
   catalog: { title: 'Каталог подарков', icon: 'Gift', section: 'Каталог подарков' },
   composition: { title: 'Состав', icon: 'Candy', section: 'Состав' },
-  about: { title: 'О компании', icon: 'Info', section: 'О компании' },
-  corporate: { title: 'Организациям', icon: 'Building2', section: 'Организациям' },
+  about: { title: 'О компании и организациям', icon: 'Info', section: 'О компании' },
+  corporate: { title: 'Как заказать — 4 шага', icon: 'ListOrdered', section: 'Как заказать' },
   reviews: { title: 'Отзывы', icon: 'MessageSquareQuote', section: 'Отзывы' },
   contacts: { title: 'Контакты', icon: 'Phone', section: 'Контакты' },
 };

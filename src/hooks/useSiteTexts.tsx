@@ -206,9 +206,28 @@ export function useSiteContext() {
   return useContext(SiteTextsContext);
 }
 
+export const HIDDEN_KEYS = 'hidden.keys';
+
+export function parseHidden(raw: string | undefined): string[] {
+  if (!raw) return [];
+  try {
+    const v = JSON.parse(raw);
+    return Array.isArray(v) ? v.filter(x => typeof x === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
+export function useVisible() {
+  const { settings } = useContext(SiteTextsContext);
+  const hidden = new Set(parseHidden(settings[HIDDEN_KEYS]));
+  return (key: string) => !hidden.has(key);
+}
+
 export function useTextRaw() {
-  const { values } = useContext(SiteTextsContext);
-  return (key: string, fallback: string) => values[key] ?? fallback;
+  const { values, settings } = useContext(SiteTextsContext);
+  const hidden = new Set(parseHidden(settings[HIDDEN_KEYS]));
+  return (key: string, fallback: string) => (hidden.has(key) ? '' : values[key] ?? fallback);
 }
 
 export function useTextStyle() {
@@ -220,7 +239,9 @@ export function useTextStyle() {
 export function useText() {
   const { values, settings, editMode } = useContext(SiteTextsContext);
   const styles = parseTextStyles(settings[TEXT_STYLES_KEY]);
+  const hidden = new Set(parseHidden(settings[HIDDEN_KEYS]));
   return (key: string, fallback: string): ReactNode => {
+    if (hidden.has(key)) return null;
     const value = values[key] ?? fallback;
     const css = styleToCss(styles[key]);
     if (editMode) return <EditableText textKey={key} value={value} style={css} />;

@@ -4,7 +4,7 @@ import FestiveBackground from '@/components/festive/FestiveBackground';
 import BlendImage from '@/components/festive/BlendImage';
 import { compositionImage, villageBgImage } from '@/data/products';
 import { parseComposition } from '@/lib/siteConfig';
-import { useText, useSetting, useSiteContext } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw, useSetting, useSiteContext, useVisible } from '@/hooks/useSiteTexts';
 
 interface CompositionSectionProps {
   onOpenComposition: (weight: string) => void;
@@ -13,6 +13,8 @@ interface CompositionSectionProps {
 export default function CompositionSection({ onOpenComposition }: CompositionSectionProps) {
   const t = useText();
   const st = useSetting();
+  const tr = useTextRaw();
+  const v = useVisible();
   const { settings } = useSiteContext();
   const sets = parseComposition(settings['composition.sets']);
   const weights = sets.map(c => c.weight);
@@ -52,7 +54,7 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
           </div>
 
           <div className="mt-6 lg:mt-7 grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-3">
-            {[activeSet?.candies, 'Сертификат качества'].filter(Boolean).map(item => (
+            {[activeSet?.candies, tr('comp.cert', 'Сертификат качества')].filter(Boolean).map(item => (
               <div key={item} className="flex items-center gap-2.5 text-sm">
                 <span className="w-5 h-5 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center shrink-0">
                   <Icon name="Check" size={12} />
@@ -62,21 +64,21 @@ export default function CompositionSection({ onOpenComposition }: CompositionSec
             ))}
           </div>
 
-          <button
+          {v('comp.btn') && <button
             onClick={() => onOpenComposition(activeWeight)}
             className="mt-8 inline-flex items-center gap-2 font-bold border-b-2 border-secondary pb-1 hover:gap-3 transition-all"
           >
             {t('comp.btn', 'Посмотреть полный состав')}
             <Icon name="ArrowRight" size={17} />
-          </button>
+          </button>}
         </div>
 
         <div className="hero-float-soft relative">
           <BlendImage src={st('img.composition', compositionImage)} alt="Состав подарка" className="max-w-[340px] sm:max-w-[420px] md:max-w-[540px] mx-auto -my-4 sm:-my-8 lg:-my-10" />
-          <div className="animate-float absolute bottom-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
+          {(v('comp.badge') || v('comp.badgeSub')) && <div className="animate-float absolute bottom-4 right-4 sm:right-8 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-secondary text-secondary-foreground flex flex-col items-center justify-center text-center shadow-xl">
             <span className="font-extrabold text-base sm:text-lg">{t('comp.badge', '100%')}</span>
             <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wide">{t('comp.badgeSub', 'контроль качества')}</span>
-          </div>
+          </div>}
         </div>
       </div>
     </section>

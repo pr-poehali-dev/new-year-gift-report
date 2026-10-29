@@ -1,38 +1,33 @@
 import { Link } from "@/lib/router-compat";
 import Icon from '@/components/ui/icon';
-import { useText } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw, useVisible } from '@/hooks/useSiteTexts';
 import { useReviews } from '@/hooks/useReviews';
 
 interface Review {
+  key?: string;
   name: string;
   role: string;
   text: string;
   rating: number;
 }
 
-const sampleReviews: Review[] = [
-  {
-    name: 'Анна М.',
-    role: 'Заказ для детского сада',
-    text: 'Заказывали 120 наборов «Снежная сказка» — привезли точно в срок, дети в восторге, состав отличный.',
-    rating: 5,
-  },
-  {
-    name: 'Дмитрий К.',
-    role: 'Заказ для семьи',
-    text: 'Брали жестяную упаковку в подарок родителям. Выглядит дорого, конфеты свежие. Будем заказывать ещё.',
-    rating: 5,
-  },
-  {
-    name: 'Елена В.',
-    role: 'HR, производственная компания',
-    text: 'Сделали брендирование с нашим логотипом и закрывающие документы. Всё оперативно и без нервов.',
-    rating: 5,
-  },
+const SAMPLES = [
+  { n: 'Анна М.', r: 'Заказ для детского сада', x: 'Заказывали 120 наборов «Снежная сказка» — привезли точно в срок, дети в восторге, состав отличный.' },
+  { n: 'Дмитрий К.', r: 'Заказ для семьи', x: 'Брали жестяную упаковку в подарок родителям. Выглядит дорого, конфеты свежие. Будем заказывать ещё.' },
+  { n: 'Елена В.', r: 'HR, производственная компания', x: 'Сделали брендирование с нашим логотипом и закрывающие документы. Всё оперативно и без нервов.' },
 ];
 
 export default function ReviewsSection() {
   const t = useText();
+  const tr = useTextRaw();
+  const v = useVisible();
+  const sampleReviews: Review[] = SAMPLES.map((r, i) => ({
+    key: `rev.s${i + 1}x`,
+    name: tr(`rev.s${i + 1}n`, r.n),
+    role: tr(`rev.s${i + 1}r`, r.r),
+    text: tr(`rev.s${i + 1}x`, r.x),
+    rating: 5,
+  })).filter(r => v(r.key) && r.text);
   const { reviews: userReviews } = useReviews();
   const reviews: Review[] = [
     ...userReviews.map((r) => ({ name: r.name, role: 'Покупатель', text: r.text, rating: r.rating })),
@@ -51,20 +46,20 @@ export default function ReviewsSection() {
           </h2>
 
           <div className="flex flex-wrap gap-3">
-            <Link
+            {v('rev.btn') && <Link
               to="/reviews"
               className="inline-flex items-center gap-2 rounded-full bg-primary text-white px-6 py-3 font-bold hover:brightness-110 transition"
             >
               <Icon name="PenLine" size={17} />
               {t('rev.btn', 'Оставить отзыв')}
-            </Link>
-            <Link
+            </Link>}
+            {v('rev.btnAll') && <Link
               to="/all-reviews"
               className="inline-flex items-center gap-2 rounded-full bg-white border border-border text-forest px-6 py-3 font-bold hover:border-forest/40 transition"
             >
               {t('rev.btnAll', 'Все отзывы')}
               <Icon name="ArrowRight" size={17} />
-            </Link>
+            </Link>}
           </div>
         </div>
 

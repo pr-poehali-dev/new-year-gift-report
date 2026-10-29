@@ -12,7 +12,9 @@ export type Group =
   | { type: 'note'; title: string; keys: string[] }
   | { type: 'image'; key: string; label: string; tall?: boolean }
   | { type: 'file'; key: string; label: string }
-  | { type: 'bignum'; key: string };
+  | { type: 'bignum'; key: string }
+  | { type: 'form'; items: [string, string][] }
+  | { type: 'reviews'; items: [string, string, string][] };
 
 export interface SectionLayout {
   icon: string;
@@ -21,19 +23,18 @@ export interface SectionLayout {
   links?: { tab: string; label: string; icon: string }[];
   left: Group[];
   right?: Group[];
+  bottom?: Group[];
 }
 
 export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
   'Шапка сайта': {
     icon: 'PanelTop',
     left: [
-      { type: 'note', title: 'Бегущая строка', keys: ['head.slogan'] },
       { type: 'image', key: 'img.logo', label: 'Логотип в шапке' },
-      { type: 'text', key: 'head.sub' },
     ],
     right: [
       { type: 'contacts', items: [{ key: 'head.hours', icon: 'Clock' }] },
-      { type: 'buttons', keys: ['head.btn'] },
+      { type: 'buttons', keys: ['head.btn', 'head.btnShort'] },
       { type: 'list', title: 'Пункты меню (шапка и подвал)', keys: ['nav.home', 'nav.advantages', 'nav.catalog', 'nav.composition', 'nav.corporate', 'nav.reviews', 'nav.contacts'] },
     ],
   },
@@ -46,20 +47,10 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
       { type: 'title', keys: ['hero.title1'], accentKeys: ['hero.title2'] },
       { type: 'text', key: 'hero.text' },
       { type: 'buttons', keys: ['hero.btn1', 'hero.btn2'] },
-      {
-        type: 'stats',
-        pairs: [
-          ['hero.stat1v', 'hero.stat1l'],
-          ['hero.stat2v', 'hero.stat2l'],
-          ['hero.stat3v', 'hero.stat3l'],
-        ],
-      },
+      { type: 'note', title: 'Подпись под кнопкой каталога', keys: ['hero.btn2Sub'] },
     ],
     right: [
-      { type: 'image', key: 'img.hero', label: 'Главное фото', tall: true },
-      { type: 'circle', value: 'hero.price', sub: 'hero.priceSub' },
-      { type: 'note', title: 'Плашка на фото', keys: ['hero.cardTitle', 'hero.cardText'] },
-      { type: 'image', key: 'img.heroBg', label: 'Праздничный фон блока' },
+      { type: 'image', key: 'img.heroBg', label: 'Праздничный фон блока', tall: true },
       { type: 'file', key: 'file.catalog', label: 'Каталог для скачивания' },
     ],
   },
@@ -86,11 +77,12 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
       { tab: 'Подарки в каталоге', label: 'Подарки в каталоге', icon: 'Gift' },
       { tab: 'Кнопки фильтра', label: 'Кнопки фильтра', icon: 'SlidersHorizontal' },
     ],
-    left: [
-      { type: 'eyebrow', key: 'catalog.eyebrow' },
-      { type: 'title', keys: ['catalog.title'] },
+    left: [{ type: 'title', keys: ['catalog.title'] }],
+    right: [
+      { type: 'buttons', keys: ['catalog.btn'] },
+      { type: 'text', key: 'catalog.btnNote' },
+      { type: 'note', title: 'Метка на распроданном подарке', keys: ['catalog.soldOut'] },
     ],
-    right: [{ type: 'text', key: 'catalog.text' }, { type: 'buttons', keys: ['catalog.btn'] }, { type: 'text', key: 'catalog.btnNote' }],
   },
   'Упаковка': {
     icon: 'Package',
@@ -108,6 +100,7 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
       { type: 'eyebrow', key: 'comp.eyebrow' },
       { type: 'title', keys: ['comp.title'] },
       { type: 'text', key: 'comp.text' },
+      { type: 'list', title: 'Пункт под весом', keys: ['comp.cert'] },
       { type: 'buttons', keys: ['comp.btn'] },
     ],
     right: [
@@ -125,7 +118,7 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
       { type: 'title', keys: ['about.title'] },
       { type: 'text', key: 'about.text' },
     ],
-    right: [{ type: 'image', key: 'img.corporate', label: 'Картинка блока', tall: true }],
+    right: [{ type: 'image', key: 'img.corporate', label: 'Картинка блока (общая с «Организациям»)', tall: true }],
   },
   'Организациям': {
     icon: 'Building2',
@@ -136,10 +129,7 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
       { type: 'list', keys: ['corp.b1', 'corp.b2', 'corp.b3', 'corp.b4'] },
       { type: 'buttons', keys: ['corp.btn'] },
     ],
-    right: [
-      { type: 'image', key: 'img.corporate', label: 'Картинка блока', tall: true },
-      { type: 'circle', value: 'corp.circle', sub: 'corp.circleSub' },
-    ],
+    right: [{ type: 'note', title: 'Плашка рядом с заголовком', keys: ['corp.circle', 'corp.circleSub'] }],
   },
   'Как заказать': {
     icon: 'ListOrdered',
@@ -159,11 +149,22 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
   },
   'Отзывы': {
     icon: 'MessageSquareQuote',
+    links: [{ tab: 'Отзывы покупателей', label: 'Отзывы покупателей', icon: 'MessageSquareHeart' }],
     left: [
       { type: 'eyebrow', key: 'rev.eyebrow' },
       { type: 'title', keys: ['rev.title'] },
     ],
     right: [{ type: 'buttons', keys: ['rev.btn', 'rev.btnAll'] }],
+    bottom: [
+      {
+        type: 'reviews',
+        items: [
+          ['rev.s1n', 'rev.s1r', 'rev.s1x'],
+          ['rev.s2n', 'rev.s2r', 'rev.s2x'],
+          ['rev.s3n', 'rev.s3r', 'rev.s3x'],
+        ],
+      },
+    ],
   },
   'Контакты': {
     icon: 'Phone',
@@ -185,7 +186,9 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
     ],
     right: [
       { type: 'note', title: 'Форма заявки', keys: ['cont.formTitle', 'cont.formText'] },
+      { type: 'form', items: [['cont.fName', 'cont.fNamePh'], ['cont.fPhone', ''], ['cont.fAmount', 'cont.fAmountPh']] },
       { type: 'buttons', keys: ['cont.formBtn'] },
+      { type: 'text', key: 'cont.consent' },
       { type: 'image', key: 'img.contactsBg', label: 'Праздничный фон блока' },
     ],
   },
@@ -224,6 +227,10 @@ export function groupKeys(g: Group): string[] {
       return g.items.map(i => i.key);
     case 'circle':
       return [g.value, g.sub];
+    case 'form':
+      return g.items.flat().filter(Boolean);
+    case 'reviews':
+      return g.items.flat();
     default:
       return [];
   }

@@ -4,7 +4,7 @@ import { villageBgImage } from '@/data/products';
 import FestiveBackground from '@/components/festive/FestiveBackground';
 import { toast } from 'sonner';
 
-import { useText, useTextRaw, useSetting } from '@/hooks/useSiteTexts';
+import { useText, useTextRaw, useSetting, useVisible } from '@/hooks/useSiteTexts';
 import func2url from '../../backend/func2url.json';
 
 export default function ContactsSection() {
@@ -14,11 +14,12 @@ export default function ContactsSection() {
 
   const officePhone = tr('cont.phone', '+7 909 302-00-77');
 
+  const v = useVisible();
   const perks = [
     { icon: 'PhoneCall', key: 'cont.perk1', text: 'Перезвоним в течение 15 минут' },
     { icon: 'Calculator', key: 'cont.perk2', text: 'Бесплатно рассчитаем стоимость под ваш бюджет' },
     { icon: 'Gift', key: 'cont.perk3', text: 'Подберём состав и упаковку, нанесём логотип' },
-  ];
+  ].filter(p => v(p.key));
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -70,7 +71,7 @@ export default function ContactsSection() {
             {t('cont.text', 'Оставьте номер — подберём новогодние подарки в Чебоксарах под ваш бюджет и рассчитаем стоимость сладких подарков оптом для организации.')}
           </p>
 
-          <ul className="mt-8 space-y-3">
+          {perks.length > 0 && <ul className="mt-8 space-y-3">
             {perks.map(p => (
               <li key={p.key} className="flex items-center gap-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/15 px-4 py-3 max-w-md">
                 <span className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center shrink-0">
@@ -79,14 +80,14 @@ export default function ContactsSection() {
                 <span className="font-semibold text-sm sm:text-base">{t(p.key, p.text)}</span>
               </li>
             ))}
-          </ul>
+          </ul>}
 
-          <p className="mt-6 text-sm text-white/75">
+          {officePhone && <p className="mt-6 text-sm text-white/75">
             {t('cont.callText', 'Удобнее позвонить?')}{' '}
             <a href={`tel:${officePhone.replace(/[^+\d]/g, '')}`} className="font-bold text-white hover:text-secondary transition-colors whitespace-nowrap">
               {officePhone}
             </a>
-          </p>
+          </p>}
         </div>
 
         <div className="bg-white text-foreground rounded-3xl p-6 sm:p-8 shadow-2xl">
@@ -97,16 +98,16 @@ export default function ContactsSection() {
 
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <div>
-              <label className="block text-xs font-semibold mb-1.5">Ваше имя</label>
+              <label className="block text-xs font-semibold mb-1.5">{t('cont.fName', 'Ваше имя')}</label>
               <input
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Георгий"
+                placeholder={tr('cont.fNamePh', 'Георгий')}
                 className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-forest transition"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold mb-1.5">Номер телефона</label>
+              <label className="block text-xs font-semibold mb-1.5">{t('cont.fPhone', 'Номер телефона')}</label>
               <input
                 value={phone}
                 onChange={e => setPhone(e.target.value)}
@@ -114,20 +115,20 @@ export default function ContactsSection() {
                 className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-forest transition"
               />
             </div>
-            <div>
-              <label className="block text-xs font-semibold mb-1.5">Количество подарков</label>
+            {v('cont.fAmount') && <div>
+              <label className="block text-xs font-semibold mb-1.5">{t('cont.fAmount', 'Количество подарков')}</label>
               <select
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
                 className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none focus:border-forest transition"
               >
-                <option value="">Выберите количество</option>
+                <option value="">{tr('cont.fAmountPh', 'Выберите количество')}</option>
                 <option value="1-10">1–10 шт.</option>
                 <option value="10-50">10–50 шт.</option>
                 <option value="50-200">50–200 шт.</option>
                 <option value="200+">Более 200 шт.</option>
               </select>
-            </div>
+            </div>}
 
             <button
               type="submit"
@@ -138,9 +139,11 @@ export default function ContactsSection() {
               <Icon name="ArrowRight" size={18} />
             </button>
 
-            <p className="text-[10px] text-muted-foreground text-center">
-              Нажимая кнопку, вы соглашаетесь на обработку персональных данных
-            </p>
+            {v('cont.consent') && (
+              <p className="text-[10px] text-muted-foreground text-center">
+                {t('cont.consent', 'Нажимая кнопку, вы соглашаетесь на обработку персональных данных')}
+              </p>
+            )}
           </form>
         </div>
       </div>

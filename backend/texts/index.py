@@ -92,11 +92,11 @@ def handler(event: dict, context) -> dict:
         conn = get_conn()
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute(
-            f'SELECT text_key, section, title, value, multiline, sort_order FROM {table} ORDER BY id'
+            f"SELECT text_key, section, title, value, multiline, sort_order FROM {table} WHERE section <> '_archive' ORDER BY id"
         )
         rows = cur.fetchall()
         cur.execute(
-            f'SELECT setting_key, kind, title, hint, value, sort_order FROM {settings_table} ORDER BY sort_order, id'
+            f"SELECT setting_key, kind, title, hint, value, sort_order FROM {settings_table} WHERE kind <> '_archive' ORDER BY sort_order, id"
         )
         setting_rows = cur.fetchall()
         cur.close()

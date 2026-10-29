@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
-import { TEXTS_URL, TextField, SettingField } from '@/hooks/useSiteTexts';
+import { TEXTS_URL, TextField, SettingField, HIDDEN_KEYS, parseHidden } from '@/hooks/useSiteTexts';
 import InlineField from '@/components/admin/blocks/InlineField';
 import MediaSlot from '@/components/admin/blocks/MediaSlot';
 import { Group, SECTION_LAYOUTS, groupKeys } from '@/components/admin/blocks/sectionLayouts';
@@ -54,12 +54,25 @@ export default function VisualSectionEditor({
     loadStyleFonts(next);
     setSetDraft({ ...setDraft, [TEXT_STYLES_KEY]: JSON.stringify(next) });
   };
+  const savedHidden = parseHidden(settingByKey[HIDDEN_KEYS]?.value);
+  const hiddenList = setDraft[HIDDEN_KEYS] !== undefined ? parseHidden(setDraft[HIDDEN_KEYS]) : savedHidden;
+  const isHidden = (k: string) => hiddenList.includes(k);
+  const hiddenChanged = (k: string) => isHidden(k) !== savedHidden.includes(k);
+  const toggleHidden = (k: string) => {
+    const next = isHidden(k) ? hiddenList.filter(x => x !== k) : [...hiddenList, k];
+    setSetDraft({ ...setDraft, [HIDDEN_KEYS]: JSON.stringify(next) });
+  };
   const styleChanged = (k: string) => JSON.stringify(styles[k] || {}) !== JSON.stringify(savedStyles[k] || {});
 
   const changedTexts = fields.filter(f => isChanged(f.key));
   const changedSettings = Object.keys(setDraft).filter(sChanged);
   const changedStyleCount = sectionFields.filter(f => styleChanged(f.key)).length;
-  const totalChanged = changedTexts.length + changedSettings.filter(k => k !== TEXT_STYLES_KEY).length + changedStyleCount;
+  const changedHiddenCount = sectionFields.filter(f => hiddenChanged(f.key)).length;
+  const totalChanged =
+    changedTexts.length +
+    changedSettings.filter(k => k !== TEXT_STYLES_KEY && k !== HIDDEN_KEYS).length +
+    changedStyleCount +
+    changedHiddenCount;
 
   const save = async () => {
     if (!totalChanged) return;
@@ -102,17 +115,32 @@ export default function VisualSectionEditor({
 
   const field = (k: string, cls = '') =>
     byKey[k] ? (
-      <InlineField
-        key={k}
-        value={val(k)}
-        onChange={v => setVal(k, v)}
-        hint={hint(k)}
-        changed={isChanged(k) || styleChanged(k)}
-        active={selected === k}
-        onFocus={() => setSelected(k)}
-        style={styleToCss(styles[k])}
-        className={cls}
-      />
+      <div key={k} className="group/f relative">
+        <div className={isHidden(k) ? 'opacity-35 line-through decoration-2' : ''}>
+          <InlineField
+            value={val(k)}
+            onChange={v => setVal(k, v)}
+            hint={hint(k)}
+            changed={isChanged(k) || styleChanged(k) || hiddenChanged(k)}
+            active={selected === k}
+            onFocus={() => setSelected(k)}
+            style={styleToCss(styles[k])}
+            className={cls}
+          />
+        </div>
+        <button
+          type="button"
+          onClick={() => toggleHidden(k)}
+          title={isHidden(k) ? 'Вернуть на сайт' : 'Убрать с сайта'}
+          className={`absolute -top-2.5 -right-2.5 z-10 w-6 h-6 rounded-full shadow-md flex items-center justify-center transition ${
+            isHidden(k)
+              ? 'bg-forest text-white opacity-100'
+              : 'bg-white text-red-600 border border-border opacity-0 group-hover/f:opacity-100 focus:opacity-100'
+          }`}
+        >
+          <Icon name={isHidden(k) ? 'Eye' : 'EyeOff'} size={13} />
+        </button>
+      </div>
     ) : null;
 
   const renderGroup = (g: Group, i: number) => {
@@ -219,6 +247,44 @@ export default function VisualSectionEditor({
             {g.keys.map((k, j) => field(k, j === 0 && g.keys.length > 1 ? 'font-extrabold text-sm' : 'text-xs text-muted-foreground'))}
           </div>
         );
+      case 'form':
+        return (
+          <div key={i} className="rounded-2xl bg-white text-forest border border-border shadow-sm p-3 space-y-2.5">
+            <div className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Поля формы</div>
+            {g.items.map(([label, ph]) => (
+              <div key={label}>
+                {field(label, 'text-xs font-semibold')}
+                <div className="mt-1 rounded-lg border border-border bg-background px-2.5 py-1.5">
+                  {ph ? field(ph, 'text-xs text-muted-foreground') : <span className="text-xs text-muted-foreground/60">+7 (___) ___-__-__</span>}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      case 'reviews':
+        return (
+          <div key={i}>
+            <div className={`text-[10px] font-bold uppercase tracking-wider mb-2 ${muted}`}>
+              Отзывы-примеры (показываются, пока настоящих отзывов меньше трёх)
+            </div>
+            <div className="grid sm:grid-cols-3 gap-3">
+              {g.items.map(([n, ro, x]) => (
+                <div key={x} className="rounded-2xl bg-white border border-border p-4 text-forest shadow-sm space-y-1">
+                  <div className="flex gap-0.5 text-secondary">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Icon key={j} name="Star" size={12} className="fill-secondary" />
+                    ))}
+                  </div>
+                  {field(x, 'text-xs leading-relaxed')}
+                  <div className="pt-2 border-t border-border">
+                    {field(n, 'font-bold text-sm')}
+                    {field(ro, 'text-[11px] text-muted-foreground')}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
       case 'image':
       case 'file':
         if (!settingByKey[g.key]) return null;
@@ -239,7 +305,7 @@ export default function VisualSectionEditor({
     }
   };
 
-  const covered = new Set([...(layout?.left || []), ...(layout?.right || [])].flatMap(groupKeys));
+  const covered = new Set([...(layout?.left || []), ...(layout?.right || []), ...(layout?.bottom || [])].flatMap(groupKeys));
   const rest = sectionFields.filter(f => !covered.has(f.key));
 
   useEffect(() => {
@@ -268,7 +334,7 @@ export default function VisualSectionEditor({
           <div className="min-w-0">
             <div className="font-extrabold text-forest truncate">{section}</div>
             <div className="text-[11px] text-muted-foreground">
-              {totalChanged ? `Изменено: ${totalChanged}` : 'Нажмите на текст — справа откроется панель оформления'}
+              {totalChanged ? `Изменено: ${totalChanged}` : 'Нажмите на текст, чтобы изменить. Значок с глазом — убрать надпись с сайта'}
             </div>
           </div>
         </div>
@@ -319,6 +385,7 @@ export default function VisualSectionEditor({
         <div className={`relative p-5 sm:p-8 grid gap-6 ${layout?.right ? 'lg:grid-cols-[1.2fr_1fr]' : ''}`}>
           <div className="space-y-4 min-w-0">{(layout?.left || []).map(renderGroup)}</div>
           {layout?.right && <div className="space-y-3 min-w-0">{layout.right.map(renderGroup)}</div>}
+          {layout?.bottom && <div className="space-y-3 min-w-0 lg:col-span-2">{layout.bottom.map(renderGroup)}</div>}
         </div>
       </div>
 

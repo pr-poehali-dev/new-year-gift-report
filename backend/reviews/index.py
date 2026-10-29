@@ -7,7 +7,7 @@ import psycopg2.extras
 CORS = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Password',
     'Access-Control-Max-Age': '86400',
     'Content-Type': 'application/json',
 }
@@ -31,7 +31,7 @@ def esc(v) -> str:
 
 
 def handler(event: dict, context) -> dict:
-    """Отзывы покупателей: GET — список опубликованных, POST — добавить новый отзыв"""
+    """Отзывы покупателей: GET — список опубликованных, POST — добавить отзыв; с паролем администратора — список всех, скрыть/показать, удалить"""
     method = event.get('httpMethod', 'GET')
     if method == 'OPTIONS':
         return {'statusCode': 200, 'headers': CORS, 'body': ''}
@@ -40,6 +40,32 @@ def handler(event: dict, context) -> dict:
 
     if method == 'POST':
         body = json.loads(event.get('body') or '{}')
+        action = body.get('action')
+        if action in ('admin_list', 'set_published', 'delete'):
+            headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
+            admin_password = os.environ.get('ADMIN_PASSWORD', '')
+            if not admin_password or headers.get('x-admin-password', '') != admin_password:
+                return resp(401, {'error': 'Неверный пароль'})
+            conn = psycopg2.connect(os.environ['DATABASE_URL'])
+            cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+            if action == 'admin_list':
+                cur.execute(
+                    f"SELECT id, name, email, rating, text, is_published, created_at FROM {schema}.reviews "
+                    f"ORDER BY created_at DESC LIMIT 500"
+                )
+                rows = cur.fetchall()
+                conn.close()
+                return resp(200, {'reviews': rows})
+            review_id = int(body.get('id') or 0)
+            if action == 'set_published':
+                flag = 'TRUE' if body.get('published') else 'FALSE'
+                cur.execute(f"UPDATE {schema}.reviews SET is_published = {flag} WHERE id = {review_id}")
+            else:
+                cur.execute(f"DELETE FROM {schema}.reviews WHERE id = {review_id}")
+            conn.commit()
+            conn.close()
+            return resp(200, {'ok': True})
+
         name = str(body.get('name', '')).strip()[:100]
         email = str(body.get('email', '')).strip()[:200]
         text = str(body.get('text', '')).strip()[:3000]

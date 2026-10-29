@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { useNavigate, useLocation } from "@/lib/router-compat";
 import { useEffect, useState } from 'react';
-import { useSetting, useText, useTextRaw } from '@/hooks/useSiteTexts';
+import { useSetting, useText, useTextRaw, useVisible } from '@/hooks/useSiteTexts';
 
 export const navLinks = [
   { label: 'Главная', id: 'home', key: 'nav.home' },
@@ -18,6 +18,8 @@ export default function Header() {
   const t = useText();
   const s = useSetting();
   const tr = useTextRaw();
+  const v = useVisible();
+  const links = navLinks.filter(l => v(l.key));
   const phone = tr('cont.phone', '+7 909 302-00-77');
   const phoneHref = `tel:${phone.replace(/[^+\d]/g, '')}`;
   const navigate = useNavigate();
@@ -54,7 +56,7 @@ export default function Header() {
           </a>
 
           <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-semibold text-forest">
-            {navLinks.map(link => (
+            {links.map(link => (
               <a
                 key={link.id}
                 href={`/#${link.id}`}
@@ -69,12 +71,14 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <div className="hidden xl:block text-right leading-tight">
               <div className="text-[10px] text-muted-foreground">{t('head.hours', 'Ежедневно 9:00–19:00')}</div>
-              <a href={phoneHref} className="font-bold text-forest text-sm">{phone}</a>
+              {phone && <a href={phoneHref} className="font-bold text-forest text-sm">{phone}</a>}
             </div>
-            <a href="/#request" onClick={e => handleAnchorClick(e, 'request')} className="hidden sm:block">
-              <Button className="rounded-full font-bold px-5">{t('head.btn', 'Заказать звонок')}</Button>
-            </a>
-            <a
+            {v('head.btn') && (
+              <a href="/#request" onClick={e => handleAnchorClick(e, 'request')} className="hidden sm:block">
+                <Button className="rounded-full font-bold px-5">{t('head.btn', 'Заказать звонок')}</Button>
+              </a>
+            )}
+            {v('head.btnShort') && <a
               href="/#request"
               onClick={e => handleAnchorClick(e, 'request')}
               className="sm:hidden h-12 pl-3.5 pr-4 rounded-full bg-primary text-primary-foreground flex items-center gap-2 shadow-md font-bold text-sm"
@@ -84,8 +88,8 @@ export default function Header() {
                 <span className="absolute inset-0 rounded-full bg-white/40 animate-ping" />
                 <Icon name="PhoneCall" size={18} className="relative" />
               </span>
-              Звонок
-            </a>
+              {tr('head.btnShort', 'Звонок')}
+            </a>}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="lg:hidden w-12 h-12 rounded-full bg-forest text-white flex items-center justify-center shadow-md"
@@ -98,7 +102,7 @@ export default function Header() {
 
         {menuOpen && (
           <div className="lg:hidden border-t border-border bg-cream px-4 py-3 flex flex-col gap-1">
-            {navLinks.map(link => (
+            {links.map(link => (
               <a
                 key={link.id}
                 href={`/#${link.id}`}

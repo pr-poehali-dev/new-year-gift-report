@@ -1,11 +1,13 @@
-import { useSetting, useText, useTextRaw } from '@/hooks/useSiteTexts';
+import { useSetting, useText, useTextRaw, useVisible } from '@/hooks/useSiteTexts';
 import Icon from '@/components/ui/icon';
-import { navLinks as links } from '@/components/Header';
+import { navLinks } from '@/components/Header';
 
 export default function Footer() {
   const t = useText();
   const s = useSetting();
   const tr = useTextRaw();
+  const v = useVisible();
+  const links = navLinks.filter(l => v(l.key));
   const scrollTo = (e: React.MouseEvent, id: string) => {
     const el = document.getElementById(id);
     if (window.location.pathname !== '/' || !el) return;
@@ -49,22 +51,22 @@ export default function Footer() {
         <div id="contacts" className="scroll-mt-28">
           <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary mb-4">{t('foot.contactsTitle', 'Контакты')}</div>
           <ul className="space-y-3 lg:space-y-2.5 text-sm rounded-2xl lg:rounded-none bg-white/[0.06] lg:bg-transparent border border-white/10 lg:border-0 p-4 lg:p-0">
-            <li className="flex items-center gap-2.5">
+            {phone && <li className="flex items-center gap-2.5">
               <Icon name="Phone" size={15} className="text-secondary shrink-0" />
               <a href={`tel:${phone.replace(/[^+\d]/g, '')}`} className="font-bold hover:text-secondary transition-colors">{phone}</a>
-            </li>
-            <li className="flex items-center gap-2.5">
+            </li>}
+            {email && <li className="flex items-center gap-2.5">
               <Icon name="Mail" size={15} className="text-secondary shrink-0" />
               <a href={`mailto:${email}`} className="text-forest-foreground/85 hover:text-secondary transition-colors">{email}</a>
-            </li>
-            <li className="flex items-center gap-2.5">
+            </li>}
+            {address && <li className="flex items-center gap-2.5">
               <Icon name="MapPin" size={15} className="text-secondary shrink-0" />
               <span className="text-forest-foreground/85">{address}</span>
-            </li>
-            <li className="flex items-center gap-2.5">
+            </li>}
+            {v('head.hours') && <li className="flex items-center gap-2.5">
               <Icon name="Clock" size={15} className="text-secondary shrink-0" />
               <span className="text-forest-foreground/85">{t('head.hours', 'Ежедневно 9:00–19:00')}</span>
-            </li>
+            </li>}
           </ul>
         </div>
       </div>
