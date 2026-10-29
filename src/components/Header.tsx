@@ -11,6 +11,7 @@ export const navLinks = [
   { label: 'Состав', id: 'composition', key: 'nav.composition' },
   { label: 'Организациям', id: 'corporate', key: 'nav.corporate' },
   { label: 'Отзывы', id: 'reviews', key: 'nav.reviews' },
+  { label: 'Заявка', id: 'request', key: 'nav.request' },
   { label: 'Контакты', id: 'contacts', key: 'nav.contacts' },
 ];
 
@@ -52,7 +53,7 @@ export default function Header() {
             <img src={s('img.logo', '/logo-header.png')} alt="ЧЕБподарки" width={482} height={600} className="h-16 sm:h-[72px] w-auto object-contain" />
           </a>
 
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-semibold text-forest">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm font-semibold text-forest">
             {navLinks.map(link => (
               <a
                 key={link.id}
