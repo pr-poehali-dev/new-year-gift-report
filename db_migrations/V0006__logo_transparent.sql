@@ -1,0 +1,2 @@
+UPDATE t_p8000729_new_year_gift_report.site_settings SET value = '/logo-header.png', updated_at = NOW() WHERE setting_key = 'img.logo';
+UPDATE t_p8000729_new_year_gift_report.site_settings SET value = '/logo-footer.png', updated_at = NOW() WHERE setting_key = 'img.logoLight';
