@@ -7,6 +7,7 @@ export const REVIEWS_URL = (func2url as Record<string, string>).reviews;
 export interface UserReview {
   id: number;
   name: string;
+  role?: string;
   rating: number;
   text: string;
   created_at: string;

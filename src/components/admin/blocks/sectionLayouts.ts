@@ -155,16 +155,6 @@ export const SECTION_LAYOUTS: Record<string, SectionLayout> = {
       { type: 'title', keys: ['rev.title'] },
     ],
     right: [{ type: 'buttons', keys: ['rev.btn', 'rev.btnAll'] }],
-    bottom: [
-      {
-        type: 'reviews',
-        items: [
-          ['rev.s1n', 'rev.s1r', 'rev.s1x'],
-          ['rev.s2n', 'rev.s2r', 'rev.s2x'],
-          ['rev.s3n', 'rev.s3r', 'rev.s3x'],
-        ],
-      },
-    ],
   },
   'Контакты': {
     icon: 'Phone',

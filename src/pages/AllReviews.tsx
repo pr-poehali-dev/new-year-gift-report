@@ -14,24 +14,11 @@ interface Review {
   date: string;
 }
 
-const sampleReviews: Review[] = [
-  { name: 'Анна М.', text: 'Заказывала набор ёлочных игрушек — пришли идеально упакованными! Очень довольна качеством.', rating: 5, avatar: '👩', date: '15 декабря 2024' },
-  { name: 'Дмитрий К.', text: 'Отличный магазин! Быстрая доставка, подарки понравились всей семье. Буду заказывать ещё!', rating: 5, avatar: '👨', date: '12 декабря 2024' },
-  { name: 'Елена В.', text: 'Шоколад просто божественный! Коллеги были в восторге. Спасибо за качество и сервис!', rating: 5, avatar: '👩‍💼', date: '10 декабря 2024' },
-  { name: 'Сергей Л.', text: 'Заказал новогодний набор для всей семьи. Упаковка праздничная, всё на высшем уровне!', rating: 5, avatar: '👨‍💼', date: '8 декабря 2024' },
-  { name: 'Мария П.', text: 'Прекрасные подарки для друзей! Качество отменное, доставка быстрая. Рекомендую!', rating: 4, avatar: '👩‍🦰', date: '5 декабря 2024' },
-  { name: 'Алексей Н.', text: 'Купил несколько подарков для коллег. Все остались довольны, особенно понравился шоколад!', rating: 5, avatar: '🧑', date: '3 декабря 2024' },
-  { name: 'Ольга С.', text: 'Замечательный магазин! Большой выбор, доступные цены, отличное качество. Спасибо!', rating: 4, avatar: '👩‍🦳', date: '1 декабря 2024' },
-  { name: 'Иван Р.', text: 'Заказывал подарки для партнёров. Всё пришло в срок, упаковка супер! Буду заказывать ещё.', rating: 5, avatar: '👨‍🦱', date: '28 ноября 2024' },
-  { name: 'Наталья Б.', text: 'Очень понравился сервис! Быстро, качественно, красиво. Подарки получились отличные!', rating: 4, avatar: '👩‍🦱', date: '25 ноября 2024' },
-  { name: 'Павел Т.', text: 'Хороший магазин, но доставка задержалась на пару дней. В остальном всё нормально.', rating: 3, avatar: '👨‍🦲', date: '20 ноября 2024' },
-];
 
 export default function AllReviews() {
   const { reviews: userReviews } = useReviews();
   const allReviews: Review[] = [
     ...userReviews.map((r) => ({ name: r.name, text: r.text, rating: r.rating, avatar: '🙂', date: formatReviewDate(r.created_at) })),
-    ...sampleReviews,
   ];
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
@@ -87,12 +74,12 @@ export default function AllReviews() {
     return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
   });
 
-  const averageRating = allReviews.reduce((sum, review) => sum + review.rating, 0) / allReviews.length;
+  const averageRating = allReviews.reduce((sum, review) => sum + review.rating, 0) / (allReviews.length || 1);
   const ratingPercentage = (averageRating / 5) * 100;
 
   const ratingDistribution = [5, 4, 3, 2, 1].map(rating => {
     const count = allReviews.filter(r => r.rating === rating).length;
-    const percentage = (count / allReviews.length) * 100;
+    const percentage = (count / (allReviews.length || 1)) * 100;
     return { rating, count, percentage };
   });
 

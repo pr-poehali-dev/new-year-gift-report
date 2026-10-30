@@ -1,37 +1,22 @@
 import { Link } from "@/lib/router-compat";
 import Icon from '@/components/ui/icon';
-import { useText, useTextRaw, useVisible } from '@/hooks/useSiteTexts';
+import { useText, useVisible } from '@/hooks/useSiteTexts';
 import { useReviews } from '@/hooks/useReviews';
 
 interface Review {
-  key?: string;
   name: string;
   role: string;
   text: string;
   rating: number;
 }
 
-const SAMPLES = [
-  { n: 'Анна М.', r: 'Заказ для детского сада', x: 'Заказывали 120 наборов «Снежная сказка» — привезли точно в срок, дети в восторге, состав отличный.' },
-  { n: 'Дмитрий К.', r: 'Заказ для семьи', x: 'Брали жестяную упаковку в подарок родителям. Выглядит дорого, конфеты свежие. Будем заказывать ещё.' },
-  { n: 'Елена В.', r: 'HR, производственная компания', x: 'Сделали брендирование с нашим логотипом и закрывающие документы. Всё оперативно и без нервов.' },
-];
 
 export default function ReviewsSection() {
   const t = useText();
-  const tr = useTextRaw();
   const v = useVisible();
-  const sampleReviews: Review[] = SAMPLES.map((r, i) => ({
-    key: `rev.s${i + 1}x`,
-    name: tr(`rev.s${i + 1}n`, r.n),
-    role: tr(`rev.s${i + 1}r`, r.r),
-    text: tr(`rev.s${i + 1}x`, r.x),
-    rating: 5,
-  })).filter(r => v(r.key) && r.text);
   const { reviews: userReviews } = useReviews();
   const reviews: Review[] = [
-    ...userReviews.map((r) => ({ name: r.name, role: 'Покупатель', text: r.text, rating: r.rating })),
-    ...sampleReviews,
+    ...userReviews.map((r) => ({ name: r.name, role: r.role || 'Покупатель', text: r.text, rating: r.rating })),
   ].slice(0, 3);
 
   return (
